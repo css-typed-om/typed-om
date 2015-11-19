@@ -29,16 +29,16 @@ StyleValue.prototype = {
 
 function NumberValue(value) {
   this.cssString = '' + value;
-	if (typeof value == 'number') {
-	  this.value = value;
-	} else if (typeof value == 'string') {
-	  nValue = Number.parseFloat(value);
-	  if (nValue !== NaN) {
-	    this.value = nValue;
-	  }
-	} else {
-	  throw('not a number');
-	}
+  if (typeof value == 'number') {
+    this.value = value;
+  } else if (typeof value == 'string') {
+    nValue = Number.parseFloat(value);
+    if (nValue !== NaN) {
+      this.value = nValue;
+    }
+  } else {
+    throw('not a number');
+  }
 }
 
 NumberValue.prototype = StyleValue.prototype;
