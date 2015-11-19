@@ -23,8 +23,8 @@ StyleValue.prototype = {
         return new NumberValue(nValue);
       }
     }
-		throw('not a number');
-	}
+    throw('not a number');
+  }
 }
 
 function NumberValue(value) {
