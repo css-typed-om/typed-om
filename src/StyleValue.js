@@ -21,8 +21,8 @@ StyleValue.prototype = {
       nValue = Number.parseFloat(value);
       if (nValue !== NaN) {
         return new NumberValue(nValue);
-       }
-		}
+      }
+    }
 		throw('not a number');
 	}
 }
@@ -34,8 +34,8 @@ function NumberValue(value) {
 	} else if (typeof value == 'string') {
 	  nValue = Number.parseFloat(value);
 	  if (nValue !== NaN) {
-		  this.value = nValue;
-		}
+	    this.value = nValue;
+	  }
 	} else {
 	  throw('not a number');
 	}
