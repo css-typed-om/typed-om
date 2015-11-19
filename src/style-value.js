@@ -1,4 +1,3 @@
-//
 // Copyright 2015 Google Inc. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,6 +12,24 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-typedOM = {};
-baseClasses = {};
+(function(shared) {
+
+  function StyleValue() {
+  }
+
+  StyleValue.prototype = {
+    parse: function(property, value) {
+      if (typeof value == 'string') {
+        nValue = Number.parseFloat(value);
+        if (nValue !== NaN) {
+          return new NumberValue(nValue);
+        }
+      }
+      return null;
+    }
+  }
+
+  shared.StyleValue = StyleValue;
+
+})(baseClasses);
 
