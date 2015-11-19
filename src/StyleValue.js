@@ -43,5 +43,5 @@ function NumberValue(value) {
 	}
 }
 
-NumberValue.prototype = Object.create(StyleValue.prototype);
+NumberValue.prototype = StyleValue.prototype;
 
