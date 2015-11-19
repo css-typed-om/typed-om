@@ -20,10 +20,10 @@ StyleValue.prototype = {
     if (typeof value == 'string') {
       nValue = Number.parseFloat(value);
       if (nValue !== NaN) {
-			  return new NumberValue(nValue);
-			}
-		  throw('not a number');
+        return new NumberValue(nValue);
+       }
 		}
+		throw('not a number');
 	}
 }
 
