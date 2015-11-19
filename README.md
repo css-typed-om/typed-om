@@ -1,1 +1,1 @@
-[Draft specification](https://github.com/css-typed-om/typed-om)
+[Draft specification](http://www.w3.org/TR/cssom/)
