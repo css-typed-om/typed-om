@@ -23,7 +23,7 @@ StyleValue.prototype = {
         return new NumberValue(nValue);
       }
     }
-    throw('not a number');
+    return null;
   }
 }
 
@@ -33,11 +33,13 @@ function NumberValue(value) {
     this.value = value;
   } else if (typeof value == 'string') {
     nValue = Number.parseFloat(value);
-    if (nValue !== NaN) {
+    if (!isNaN(nValue)) {
       this.value = nValue;
+    } else {
+      throw(new TypeError('Value of NumberValue must be a number or a numeric string.'));
     }
   } else {
-    throw('not a number');
+    throw(new TypeError('Value of NumberValue must be a number or a numeric string.'));
   }
 }
 
