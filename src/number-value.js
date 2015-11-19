@@ -12,36 +12,27 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-function StyleValue() {
-}
+(function(shared, scope) {
 
-StyleValue.prototype = {
-  parse: function(property, value) {
-    if (typeof value == 'string') {
+  function NumberValue(value) {
+    this.cssString = '' + value;
+    if (typeof value == 'number') {
+      this.value = value;
+    } else if (typeof value == 'string') {
       nValue = Number.parseFloat(value);
-      if (nValue !== NaN) {
-        return new NumberValue(nValue);
+      if (!isNaN(nValue)) {
+        this.value = nValue;
+      } else {
+        throw(new TypeError('Value of NumberValue must be a number or a numeric string.'));
       }
-    }
-    return null;
-  }
-}
-
-function NumberValue(value) {
-  this.cssString = '' + value;
-  if (typeof value == 'number') {
-    this.value = value;
-  } else if (typeof value == 'string') {
-    nValue = Number.parseFloat(value);
-    if (!isNaN(nValue)) {
-      this.value = nValue;
     } else {
       throw(new TypeError('Value of NumberValue must be a number or a numeric string.'));
     }
-  } else {
-    throw(new TypeError('Value of NumberValue must be a number or a numeric string.'));
   }
-}
 
-NumberValue.prototype = StyleValue.prototype;
+  NumberValue.prototype = shared.StyleValue.prototype;
+  
+  scope.NumberValue = NumberValue;
+
+})(baseClasses, window);
 
