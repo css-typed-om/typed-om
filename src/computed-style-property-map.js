@@ -25,6 +25,10 @@ ComputedStylePropertyMap.prototype.append = function(property, value) {
   throw new TypeError('ComputedStylePropertyMap is immutable');
 };
 
+ComputedStylePropertyMap.prototype.delete = function(property) {
+  throw new TypeError('ComputedStylePropertyMap is immutable');
+};
+
 ComputedStylePropertyMap.prototype.get = function(property) {
   if (typeof property != 'string') {
     throw new TypeError('parameter 1 is not of type \'string\'');
@@ -64,6 +68,46 @@ ComputedStylePropertyMap.prototype.get = function(property) {
     default:
       throw new TypeError('Not implemented yet');
   }
+};
+
+ComputedStylePropertyMap.prototype.getAll = function(property) {
+  if (typeof property != 'string') {
+    throw new TypeError('parameter 1 is not of type \'string\'');
+  }
+
+  switch (property) {
+    // These properties always return a single value.
+    case 'z-index':
+    case 'opacity':
+    case 'pitch-range':
+    case 'richness':
+    case 'stress':
+    case 'line-height':
+    case 'speech-rate':
+    case 'volume':
+      var value = this.get(property)
+      return value ? [value] : [];
+
+    // TODO: Stuff that takes shorthands will need to be handled separately.
+
+    default:
+      throw new TypeError('Not implemented yet');
+  }
+
+};
+
+ComputedStylePropertyMap.prototype.set = function(property, value) {
+  throw new TypeError('ComputedStylePropertyMap is immutable');
+};
+
+ComputedStylePropertyMap.prototype.getProperties = function() {
+  var computedStyles = window.getComputedStyle(this._element);
+  var output = [];
+  for (var i = 0, l = computedStyles.length; i < l; ++i) {
+    var property = computedStyles[i];
+    // TODO: Construct the objects for each type of thing and add them to the output array.
+  }
+  return output;
 };
 
 function getComputedStyleMap(element) {
