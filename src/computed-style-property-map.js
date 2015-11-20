@@ -39,6 +39,5 @@ function getComputedStyleMap(element) {
 
 scope.getComputedStyleMap = getComputedStyleMap;
 scope.ComputedStylePropertyMap = ComputedStylePropertyMap;
-baseClasses.StylePropertyMap = StylePropertyMap;
 
-}
+})(window, baseClasses)
