@@ -13,7 +13,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(scope, shared) {
+(function(shared, scope) {
 
 function ComputedStylePropertyMap(element) {
   this._element = element;
@@ -40,4 +40,4 @@ function getComputedStyleMap(element) {
 scope.getComputedStyleMap = getComputedStyleMap;
 scope.ComputedStylePropertyMap = ComputedStylePropertyMap;
 
-})(window, baseClasses)
+})(baseClasses, window)
