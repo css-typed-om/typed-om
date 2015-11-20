@@ -29,8 +29,41 @@ ComputedStylePropertyMap.prototype.get = function(property) {
   if (typeof property != 'string') {
     throw new TypeError('parameter 1 is not of type \'string\'');
   }
-  // TODO: define types
-  throw new TypeError('Not implemented yet');
+
+  var value = window.getComputedStyle(this._element)[property];
+  if (!value) {
+    return null;
+  }
+  if (value == 'inherit') {
+    // TODO: Other keywords
+    throw new TypeError('Not implemented yet');
+  }
+
+  // TODO: The rest of the properties once the rest of the StyleValues are defined.
+  switch (property) {
+    // These properties always take numbers or a keyword handled above.
+    case "z-index":
+    case "opacity":
+    case "pitch-range":
+    case "richness":
+    case "stress":
+      return new scope.NumberValue(value);
+
+    case "line-height":
+      // normal | <number> | <length> | <percentage> | inherit
+      throw new TypeError('Not implemented yet');
+    
+    case "speech-rate":
+      // <number> | x-slow | slow | medium | fast | x-fast | faster | slower | inherit
+      throw new TypeError('Not implemented yet');
+
+    case "volume":
+      // <number> | <percentage> | silent | x-soft | soft | medium | loud | x-loud | inherit
+      throw new TypeError('Not implemented yet');
+
+    default:
+      throw new TypeError('Not implemented yet');
+  }
 };
 
 function getComputedStyleMap(element) {
