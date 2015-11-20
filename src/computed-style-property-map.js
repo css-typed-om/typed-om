@@ -87,6 +87,7 @@ ComputedStylePropertyMap.prototype.getAll = function(property) {
     case 'speech-rate':
     case 'stress':
     case 'volume':
+    case 'widows':
     case 'z-index':
       var value = this.get(property)
       return value ? [value] : [];
