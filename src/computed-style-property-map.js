@@ -46,22 +46,24 @@ ComputedStylePropertyMap.prototype.get = function(property) {
   // TODO: The rest of the properties once the rest of the StyleValues are defined.
   switch (property) {
     // These properties always take numbers or a keyword handled above.
-    case "z-index":
-    case "opacity":
-    case "pitch-range":
-    case "richness":
-    case "stress":
+    case 'opacity':
+    case 'orphans':
+    case 'pitch-range':
+    case 'richness':
+    case 'stress':
+    case 'widows':
+    case 'z-index':
       return new scope.NumberValue(value);
 
-    case "line-height":
+    case 'line-height':
       // normal | <number> | <length> | <percentage> | inherit
       throw new TypeError('Not implemented yet');
     
-    case "speech-rate":
+    case 'speech-rate':
       // <number> | x-slow | slow | medium | fast | x-fast | faster | slower | inherit
       throw new TypeError('Not implemented yet');
 
-    case "volume":
+    case 'volume':
       // <number> | <percentage> | silent | x-soft | soft | medium | loud | x-loud | inherit
       throw new TypeError('Not implemented yet');
 
@@ -77,14 +79,15 @@ ComputedStylePropertyMap.prototype.getAll = function(property) {
 
   switch (property) {
     // These properties always return a single value.
-    case 'z-index':
+    case 'line-height':
     case 'opacity':
+    case 'orphans':
     case 'pitch-range':
     case 'richness':
-    case 'stress':
-    case 'line-height':
     case 'speech-rate':
+    case 'stress':
     case 'volume':
+    case 'z-index':
       var value = this.get(property)
       return value ? [value] : [];
 
