@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(shared) {
+(function(shared, testing) {
 
   function StyleValue() {
   }
@@ -30,6 +30,8 @@
   }
 
   shared.StyleValue = StyleValue;
+  if (TYPED_OM_TESTING) {
+    testing.StyleValue = StyleValue;
+  }
 
-})(baseClasses);
-
+})(baseClasses, typedOMTesting);
