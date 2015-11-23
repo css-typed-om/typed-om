@@ -7,3 +7,9 @@ npm install -g mocha
 npm install -g chai
 ```
 Then open typed-om/test/runner.html in a web browser.
+
+To use the code, put
+```
+<script src='typed-om/typed-om.js'></script>
+```
+in your HTML file.
