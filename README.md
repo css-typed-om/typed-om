@@ -1,6 +1,6 @@
 This is a prototype for the proposed [Typed CSSOM API](https://drafts.css-houdini.org/css-typed-om-1/).
 
-The tests use the [Mocha framework](https://mochajs.org/) with [Chai asserts](http://chaijs.com/api/assert/). Other chai tools can be pulled in if needed.
+The tests use the [Mocha framework](https://mochajs.org/) with [Chai asserts](http://chaijs.com/api/assert/). Other Chai tools can be pulled in if needed.
 
 To run the tests do
 ```
