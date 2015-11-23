@@ -26,7 +26,7 @@
   ];
 
   var typedOMTest = [
-      'test/number-value.js'
+      'test/js/number-value.js'
   ];
 
   // This object specifies the source and test files for different build targets.
