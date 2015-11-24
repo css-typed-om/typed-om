@@ -18,7 +18,7 @@
     this.cssString = '' + value;
     if (typeof value == 'number') {
       this.value = value;
-    } else if (typeof value == 'string') {
+    } else if (typeof value == 'string') { // Nick and Nat: This constructor handles cssString values, but your constructors don't need to.
       nValue = Number.parseFloat(value);
       if (!isNaN(nValue)) {
         this.value = nValue;
