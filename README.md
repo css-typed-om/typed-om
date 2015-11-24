@@ -4,7 +4,7 @@ The tests use the [Mocha framework](https://mochajs.org/) with [Chai asserts](ht
 
 To run the tests do
 ```
-sudo apt-get install node
+sudo apt-get install npm
 sudo npm install mocha
 sudo npm install chai
 ```
