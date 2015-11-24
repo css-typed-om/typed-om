@@ -17,6 +17,7 @@
 
 function StylePropertyMap() {}
 
+	// Nick and Nat: You will need to decide which of these methods you want to implement.
 	StylePropertyMap.prototype = {
 	  append: function(property, value) {},
 	  delete: function(property) {},
