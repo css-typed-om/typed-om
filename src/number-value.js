@@ -31,7 +31,7 @@
   }
 
   NumberValue.prototype = shared.StyleValue.prototype;
-  
+
   scope.NumberValue = NumberValue;
 
 })(baseClasses, window);

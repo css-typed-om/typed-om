@@ -12,26 +12,10 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(shared, testing) {
-
-  function StyleValue() {
-  }
-
-  StyleValue.prototype = {
-    parse: function(property, value) {
-      if (typeof value == 'string') {
-        nValue = Number.parseFloat(value);
-        if (nValue !== NaN) {
-          return new NumberValue(nValue);
-        }
-      }
-      return null;
-    }
-  }
-
-  shared.StyleValue = StyleValue;
-  if (TYPED_OM_TESTING) {
-    testing.StyleValue = StyleValue;
-  }
-
-})(baseClasses, typedOMTesting);
+var TYPED_OM_TESTING = false;
+(function() {
+  var scripts = document.getElementsByTagName('script');
+  var location = scripts[scripts.length - 1].src.replace(/[^\/]+$/, '');
+  document.write('<script src="' + location + 'target-config.js"></script>');
+  document.write('<script src="' + location + 'target-loader.js"></script>');
+})();
