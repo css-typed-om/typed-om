@@ -119,8 +119,7 @@ function getComputedStyleMap(element) {
 }
 
 scope.getComputedStyleMap = getComputedStyleMap;
-if (TYPED_OM_TESTING) {
+if (TYPED_OM_TESTING)
   testing.ComputedStylePropertyMap = ComputedStylePropertyMap;
-}
 
 })(baseClasses, window, typedOMTesting)

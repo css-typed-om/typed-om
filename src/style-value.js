@@ -30,8 +30,7 @@
   }
 
   shared.StyleValue = StyleValue;
-  if (TYPED_OM_TESTING) {
+  if (TYPED_OM_TESTING)
     testing.StyleValue = StyleValue;
-  }
 
 })(baseClasses, typedOMTesting);

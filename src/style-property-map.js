@@ -28,6 +28,7 @@ function StylePropertyMap() {}
 	}
 
 	shared.StylePropertyMap = StylePropertyMap;
-	testing.StylePropertyMap = StylePropertyMap;
+	if (TYPED_OM_TESTING)
+		testing.StylePropertyMap = StylePropertyMap;
 
 })(baseClasses, window, typedOMTesting)
