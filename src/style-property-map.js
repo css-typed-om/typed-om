@@ -13,20 +13,22 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(scope, shared) {
+(function(shared, scope, testing) {
 
 function StylePropertyMap() {}
 
-StylePropertyMap.prototype = {
-  append: function(property, value) {},
-  delete: function(property) {},
-  get: function(property) {},
-  getAll: function(property) {},
-  has: function(property) {},
-  set: function(property, value) {},
-  getProperties: function() {}
-}
+	StylePropertyMap.prototype = {
+	  append: function(property, value) {},
+	  delete: function(property) {},
+	  get: function(property) {},
+	  getAll: function(property) {},
+	  has: function(property) {},
+	  set: function(property, value) {},
+	  getProperties: function() {}
+	}
 
-shared.StylePropertyMap = StylePropertyMap;
+	shared.StylePropertyMap = StylePropertyMap;
+	if (TYPED_OM_TESTING)
+		testing.StylePropertyMap = StylePropertyMap;
 
-})(window, baseClasses)
+})(baseClasses, window, typedOMTesting)

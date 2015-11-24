@@ -26,7 +26,8 @@
   ];
 
   var typedOMTest = [
-      'test/js/number-value.js'
+      'test/js/number-value.js',
+      'test/js/computed-style-property-map.js'
   ];
 
   // This object specifies the source and test files for different build targets.

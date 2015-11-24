@@ -13,7 +13,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(shared, scope) {
+(function(shared, scope, testing) {
 
 function ComputedStylePropertyMap(element) {
   this._element = element;
@@ -119,6 +119,7 @@ function getComputedStyleMap(element) {
 }
 
 scope.getComputedStyleMap = getComputedStyleMap;
-scope.ComputedStylePropertyMap = ComputedStylePropertyMap;
+if (TYPED_OM_TESTING)
+  testing.ComputedStylePropertyMap = ComputedStylePropertyMap;
 
-})(baseClasses, window)
+})(baseClasses, window, typedOMTesting)
