@@ -10,7 +10,7 @@ suite('NumberValue', function() {
     assert.throws(function() {new NumberValue({})});
   });
 
-  test('NumberValue constructor works correctly for number and numeric string', function() {
+  test('NumberValue constructor works correctly for numbers and numeric strings', function() {
     var numberValFromString;
     assert.doesNotThrow(function() {numberValFromString = new NumberValue('9.2')});
     assert.strictEqual(numberValFromString.cssString, '9.2');
