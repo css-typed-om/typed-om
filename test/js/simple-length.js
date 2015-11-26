@@ -25,4 +25,11 @@ suite('SimpleLength', function() {
     assert.strictEqual(valueFromNumber.type, 'px');
     assert.strictEqual(valueFromNumber.value, 10);
   });
+
+  test('Multiplication of a simple length produses a new simple length object', function() {
+    var simpleLen = new SimpleLength(3, 'px');
+    simpleLen.multiply(3);
+    assert.strictEqual(simpleLen.type, 'px');
+    assert.strictEqual(simpleLen.value, 9);
+  });
 });
