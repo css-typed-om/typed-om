@@ -17,8 +17,6 @@
   /**
    * SimpleLength(value, type)
    * TODO: SimpleLength(simpleLength), SimpleLength(cssString)
-   *
-   * @constructor
    */
   function SimpleLength(value, type) {
     if (arguments.length == 2 && typeof type == 'string' &&

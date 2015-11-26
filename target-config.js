@@ -23,13 +23,16 @@
       'src/number-value.js',
       'src/length-value.js',
       'src/simple-length.js',
+      'src/calc-length.js',
       'src/style-property-map.js',
       'src/computed-style-property-map.js'
   ];
 
   var typedOMTest = [
       'test/js/number-value.js',
+      'test/js/length-value.js',
       'test/js/simple-length.js',
+      'test/js/calc-length.js',
       'test/js/computed-style-property-map.js'
   ];
 
