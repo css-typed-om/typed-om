@@ -67,8 +67,37 @@
     return new SimpleLength(value, type);
   };
 
+  /**
+   * Creates a LengthValue from a CalcDictionary.
+   * Note if the dictionary contains:
+   *  - 0 valid lengths, an error is thrown
+   *  - 1 valid length, a SimpleLength object is created
+   *  - >1 valid lengths, a CalcLength object is created
+   */
   LengthValue.prototype.fromDictionary = function(dictionary) {
-    return new CalcLength(dictionary);
+    if (typeof dictionary != 'object')
+      throw new TypeError('fromDictionary must be passed a CalcDictionary object.');
+
+    var firstValidType = null;
+    for (var type in LengthValue.LengthType) {
+      var value = dictionary[type];
+      if (typeof value == 'number') {
+        if (firstValidType) {
+          return new CalcLength(dictionary);
+        } else {
+          firstValidType = type;
+        }
+      } else if (value != null && value != undefined) {
+        throw new TypeError('Value of each length must be null or a number.');
+      }
+    }
+
+    if (firstValidType != null) {
+      return new SimpleLength(dictionary[firstValidType], firstValidType);
+    } else {
+      throw new TypeError('A CalcDictionary must have at least one valid length.');
+    }
+
   };
 
   shared.LengthValue = LengthValue;

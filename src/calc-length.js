@@ -20,27 +20,26 @@
    */
   function CalcLength(dictionary) {
     if (typeof dictionary != 'object') {
-      throw(new TypeError('CalcLength must be passed a dictionary object'));
+      throw new TypeError('CalcLength must be passed a CalcDictionary object.');
     }
+
+    var hasValidLength = false;
 
     // NOTE: Does not check dictionary for invalid fields.
     for (var type in LengthValue.LengthType) {
       var value = dictionary[type];
       if (typeof value == 'number') {
         this[type] = value;
-      } else if (typeof value == 'string') {
-        var nValue = Number.parseFloat(value);
-        if (!isNaN(nValue)) {
-          this[type] = nValue;
-        } else {
-          throw(new TypeError('Value of each field must be null, a number or a numeric string.'));
-        }
+        hasValidLength = true;
       } else if (value == undefined || value == null) {
         this[type] = null;
       } else {
-        throw(new TypeError('Value of each field must be null, a number or a numeric string.'));
+        throw new TypeError('Value of each length must be null or a number.');
       }
     }
+
+    if (!hasValidLength)
+      throw new TypeError('A CalcDictionary must have at least one valid length.');
   }
 
   CalcLength.prototype = shared.LengthValue.prototype;
