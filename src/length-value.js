@@ -79,23 +79,27 @@
       throw new TypeError('fromDictionary must be passed a CalcDictionary object.');
 
     var firstValidType = null;
+    var numLengthsFound = 0;
     for (var type in LengthValue.LengthType) {
       var value = dictionary[type];
       if (typeof value == 'number') {
-        if (firstValidType) {
-          return new CalcLength(dictionary);
-        } else {
-          firstValidType = type;
+        numLengthsFound++;
+        if (numLengthsFound > 1) {
+          break; // Found more than one valid length.
         }
+        // Otherwise, it is the first valid length found.
+        firstValidType = type;
       } else if (value != null && value != undefined) {
         throw new TypeError('Value of each length must be null or a number.');
       }
     }
 
-    if (firstValidType != null) {
+    if (numLengthsFound < 1) {
+      throw new TypeError('A CalcDictionary must have at least one valid length.');
+    } else if (numLengthsFound < 2) {
       return new SimpleLength(dictionary[firstValidType], firstValidType);
     } else {
-      throw new TypeError('A CalcDictionary must have at least one valid length.');
+      return new CalcLength(dictionary);
     }
 
   };
