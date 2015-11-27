@@ -20,29 +20,28 @@
    */
   function CalcLength(dictionary) {
     if (typeof dictionary != 'object') {
-      throw new TypeError('CalcLength must be passed a CalcDictionary object.');
+      throw new TypeError('CalcLength must be passed a dictionary object');
     }
 
-    var hasValidLength = false;
-
-    // NOTE: Does not check dictionary for invalid fields.
+    var isEmpty = true;
     for (var type in LengthValue.LengthType) {
       var value = dictionary[type];
       if (typeof value == 'number') {
         this[type] = value;
-        hasValidLength = true;
+        isEmpty = false;
       } else if (value == undefined || value == null) {
         this[type] = null;
       } else {
-        throw new TypeError('Value of each length must be null or a number.');
+        throw new TypeError('Value of each field must be null, a number or a numeric string.');
       }
     }
 
-    if (!hasValidLength)
+    if (isEmpty) {
       throw new TypeError('A CalcDictionary must have at least one valid length.');
+    }
   }
 
-  CalcLength.prototype = shared.LengthValue.prototype;
+  CalcLength.prototype = Object.create(shared.LengthValue.prototype);
 
   scope.CalcLength = CalcLength;
   if (TYPED_OM_TESTING)

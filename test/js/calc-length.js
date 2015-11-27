@@ -12,20 +12,21 @@ suite('CalcLength', function() {
     assert.throws(function() {new CalcLength({})});
   });
 
-  test('CalcLength constructor initializes other fields to null', function() {
-    var singleValDict;
-    assert.doesNotThrow(function() {singleValDict = new CalcLength({PX: 10})});
+  test('CalcLength empty constructor initializes other fields to null', function() {
+    var lenFromEmptyDict;
+    assert.doesNotThrow(function() {lenFromEmptyDict = new CalcLength({PX: 10})});
     for (var type in LengthValue.LengthType) {
-      if (type != 'PX')
-        assert.isNull(singleValDict[type], 'Each undeclared field in CalcLength is null');
+      if (type != 'PX') {
+        assert.isNull(lenFromEmptyDict[type], 'Each field in an empty instantiated CalcLength is null');
+      }
     }
   });
 
   // Possible constructor: CalcLength(dictionary)
   test('CalcLength constructor works correctly for numbers and numeric strings', function() {
-    var singleValue;
-    assert.doesNotThrow(function() {singleValue = new CalcLength({PX: 10})});
-    assert.strictEqual(singleValue.PX, 10);
+    var valueFromNumber;
+    assert.doesNotThrow(function() {valueFromNumber = new CalcLength({PX: 10})});
+    assert.strictEqual(valueFromNumber.PX, 10);
 
     var multiValue;
     assert.doesNotThrow(function() {multiValue = new CalcLength({PX: 10, EM: 3.2})});
