@@ -37,6 +37,14 @@
 
   SimpleLength.prototype = Object.create(shared.LengthValue.prototype);
 
+  SimpleLength.prototype.multiply = function(multiplier) {
+    return new SimpleLength((this.value * multiplier), this.type);
+  };
+
+  SimpleLength.prototype.divide = function(divider) {
+    return new SimpleLength((this.value / divider), this.type);
+  };
+
   scope.SimpleLength = SimpleLength;
   if (TYPED_OM_TESTING)
     testing.SimpleLength = SimpleLength;

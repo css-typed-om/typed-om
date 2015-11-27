@@ -48,11 +48,11 @@
     throw new TypeError('Not implemented yet');
   };
 
-  LengthValue.prototype.multiply = function(value) {
+  LengthValue.prototype.multiply = function(multiplier) {
     throw new TypeError('Not implemented yet');
   };
 
-  LengthValue.prototype.divide = function(value) {
+  LengthValue.prototype.divide = function(divider) {
     throw new TypeError('Not implemented yet');
   };
 
