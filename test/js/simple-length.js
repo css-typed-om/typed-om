@@ -17,12 +17,26 @@ suite('SimpleLength', function() {
   test('SimpleLength constructor works correctly for numbers and numeric strings', function() {
     var valueFromString;
     assert.doesNotThrow(function() {valueFromString = new SimpleLength('9.2', 'px')});
-    assert.strictEqual(valueFromString.type, 'px');
+    assert.strictEqual(valueFromString.type, 'PX');
     assert.strictEqual(valueFromString.value, 9.2);
 
     var valueFromNumber;
     assert.doesNotThrow(function() {valueFromNumber = new SimpleLength(10, 'px')});
-    assert.strictEqual(valueFromNumber.type, 'px');
+    assert.strictEqual(valueFromNumber.type, 'PX');
     assert.strictEqual(valueFromNumber.value, 10);
+  });
+
+  test('SimpleLength cssStrings correctly generated', function() {
+    var valueFromString;
+    assert.doesNotThrow(function() {valueFromString = new SimpleLength('9.2', 'px')});
+    assert.strictEqual(valueFromString.cssString, '9.2px');
+
+    var valueFromNumber;
+    assert.doesNotThrow(function() {valueFromNumber = new SimpleLength(10, 'px')});
+    assert.strictEqual(valueFromNumber.cssString, '10px');
+
+    var percentValue;
+    assert.doesNotThrow(function() {percentValue = new SimpleLength(50, 'percent')});
+    assert.strictEqual(percentValue.cssString, '50%');
   });
 });
