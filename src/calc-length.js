@@ -24,7 +24,8 @@
     }
 
     var isEmpty = true;
-    for (var type in LengthValue.LengthType) {
+    for (var index in shared.LengthValue.LengthType) {
+      var type = shared.LengthValue.LengthType[index];
       var value = dictionary[type];
       if (typeof value == 'number') {
         this[type] = value;

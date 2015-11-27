@@ -17,28 +17,12 @@
   function LengthValue() {
   }
 
-  /**
-   * The different possible length types.
-   * NOTE: Must use uppercase as 'in' is a reserved word.
-   */
-  LengthValue.LengthType = {
-    PX: 'px',
-    PERCENT: 'percent',
-    EM: 'em',
-    EX: 'ex',
-    CH: 'ch',
-    REM: 'rem',
-    VW: 'vw',
-    VH: 'vh',
-    VMIN: 'vmin',
-    VMAX: 'vmax',
-    CM: 'cm',
-    MM: 'mm',
-    Q: 'q',
-    IN: 'in',
-    PC: 'pc',
-    PT: 'pt'
-  };
+  // The different possible length types.
+  LengthValue.LengthType = [
+    'px', 'percent', 'em', 'ex', 'ch',
+    'rem', 'vw', 'vh', 'vmin', 'vmax',
+    'cm', 'mm', 'q', 'in', 'pc', 'pt'
+  ];
 
   LengthValue.prototype = Object.create(shared.StyleValue.prototype);
 
