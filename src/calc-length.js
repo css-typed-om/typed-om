@@ -32,7 +32,7 @@
       } else if (value == undefined || value == null) {
         this[type] = null;
       } else {
-        throw new TypeError('Value of each field must be null, a number or a numeric string.');
+        throw new TypeError('Value of each field must be null or a number.');
       }
     }
 
