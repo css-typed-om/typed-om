@@ -23,7 +23,7 @@
   function SimpleLength(value, type) {
     if (arguments.length == 2 && typeof type == 'string' &&
       type.toUpperCase() in LengthValue.LengthType) {
-      this.type = LengthValue.LengthType[type.toUpperCase()];
+      this.type = type.toUpperCase();
       if (typeof value == 'number') {
         this.value = value;
       } else if (typeof value == 'string') {
@@ -34,11 +34,13 @@
       }
     }
     if (this.value == undefined) {
-      throw(new TypeError('Value of SimpleLength must be a number or a numeric string.'));
+      throw new TypeError('Value of SimpleLength must be a number or a numeric string.');
     }
+
+    this.cssString = this.value + LengthValue.LengthType[this.type];
   }
 
-  SimpleLength.prototype = shared.LengthValue.prototype;
+  SimpleLength.prototype = Object.create(shared.LengthValue.prototype);
 
   scope.SimpleLength = SimpleLength;
   if (TYPED_OM_TESTING)

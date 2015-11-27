@@ -24,7 +24,7 @@
    */
   LengthValue.LengthType = {
     PX: 'px',
-    PERCENT: 'percent',
+    PERCENT: '%',
     EM: 'em',
     EX: 'ex',
     CH: 'ch',
