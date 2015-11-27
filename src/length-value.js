@@ -20,7 +20,6 @@
   /**
    * The different possible length types.
    * NOTE: Must use uppercase as 'in' is a reserved word.
-   * @enum {string}
    */
   LengthValue.LengthType = {
     PX: 'px',
@@ -65,11 +64,11 @@
   };
 
   LengthValue.prototype.fromValue = function(value, type) {
-    throw new TypeError('Not implemented yet');
+    return new SimpleLength(value, type);
   };
 
   LengthValue.prototype.fromDictionary = function(dictionary) {
-    throw new TypeError('Not implemented yet');
+    return new CalcLength(dictionary);
   };
 
   shared.LengthValue = LengthValue;
