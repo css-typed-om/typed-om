@@ -23,12 +23,20 @@
       throw new TypeError('CalcLength must be passed a dictionary object');
     }
 
+    this.cssString = 'calc(';
     var isEmpty = true;
+
     for (var index in shared.LengthValue.LengthType) {
       var type = shared.LengthValue.LengthType[index];
       var value = dictionary[type];
       if (typeof value == 'number') {
         this[type] = value;
+        // Add a "+" in the cssString if needed
+        // (i.e before non-negative numbers, not including the first number)
+        if (!isEmpty && value >= 0) {
+          this.cssString += '+';
+        }
+        this.cssString += value + shared.LengthValue.cssStringTypeRepresentation(type);
         isEmpty = false;
       } else if (value == undefined || value == null) {
         this[type] = null;
@@ -36,6 +44,8 @@
         throw new TypeError('Value of each field must be null or a number.');
       }
     }
+
+    this.cssString += ")";
 
     if (isEmpty) {
       throw new TypeError('A CalcDictionary must have at least one valid length.');
