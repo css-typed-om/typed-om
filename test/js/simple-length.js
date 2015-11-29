@@ -32,4 +32,44 @@ suite('SimpleLength', function() {
     assert.strictEqual(simpleLen.type, 'px');
     assert.strictEqual(simpleLen.value, 9);
   });
+
+  test('Multiplication of a simple length that contains decimals produses correct output value', function() {
+    var simpleLen = new SimpleLength(5.3, 'px');
+    var calcOutput = simpleLen.multiply(3);
+    assert.strictEqual(simpleLen.type, 'px');
+    assert.strictEqual((5.3 * 3), calcOutput.value);
+  });
+ 
+  test('Division of a simple length produses a new simple length object', function() {
+    var simpleLen = new SimpleLength(27, 'px');
+    var calcOutput = simpleLen.divide(3);
+    assert.strictEqual(simpleLen.type, 'px');
+    assert.strictEqual(9, calcOutput.value);
+  });
+
+  test('Division of a simple length that contains decimals produses correct output value', function() {
+    var simpleLen = new SimpleLength(33.2, 'px');
+    var calcOutput = simpleLen.divide(5);
+    assert.strictEqual(simpleLen.type, 'px');
+    assert.strictEqual((33.2 / 5), calcOutput.value);
+  });
+
+  test('Adding two simple lengths of the same kind returns a new simple length of the same kind', function() {
+    var length_1 = new SimpleLength(10, 'em');
+    var length_2 = new SimpleLength(5, 'em');
+    var lengthAddition = length_1.add(length_2);
+    assert.instanceOf(lengthAddition, SimpleLength, 'two added simple legths of same type should be an instance of SimpleLength');
+    assert.strictEqual(lengthAddition.type, 'em');
+    assert.strictEqual(lengthAddition.value, 15);
+  });
+
+  test('subtracting two simple lengths of the same kind returns a new simple length of the same kind', function() {
+    var length_1 = new SimpleLength(10, 'em');
+    var length_2 = new SimpleLength(5, 'em');
+    var lengthAddition = length_1.subtract(length_2);
+    assert.instanceOf(lengthAddition, SimpleLength, 'two subtracted simple legths of same type should be an instance of SimpleLength');
+    assert.strictEqual(lengthAddition.type, 'em');
+    assert.strictEqual(lengthAddition.value, 5);
+  });
+
 });
