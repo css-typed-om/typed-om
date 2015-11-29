@@ -40,12 +40,20 @@
   LengthValue.prototype = Object.create(shared.StyleValue.prototype);
 
   // Length Calculation Methods
-  LengthValue.prototype.add = function(value) {
-    throw new TypeError('Not implemented yet');
+  LengthValue.prototype.add = function(addedLength) {
+    if(this instanceof SimpleLength && addedLength instanceof SimpleLength && this.type === addedLength.type){
+      return this.addSimpleLengths(addedLength);
+    } else {
+      throw new TypeError('Not implemented yet');
+    }
   };
 
-  LengthValue.prototype.subtract = function(value) {
-    throw new TypeError('Not implemented yet');
+  LengthValue.prototype.subtract = function(subtractedLength) {
+    if(this instanceof SimpleLength && subtractedLength instanceof SimpleLength && this.type === subtractedLength.type){
+      return this.subtractSimpleLengths(subtractedLength);
+    } else {
+      throw new TypeError('Not implemented yet');
+    }
   };
 
   LengthValue.prototype.multiply = function(multiplier) {
