@@ -23,20 +23,12 @@
       throw new TypeError('CalcLength must be passed a dictionary object');
     }
 
-    this.cssString = 'calc(';
     var isEmpty = true;
-
     for (var index in shared.LengthValue.LengthType) {
       var type = shared.LengthValue.LengthType[index];
       var value = dictionary[type];
       if (typeof value == 'number') {
         this[type] = value;
-        // Add a "+" in the cssString if needed
-        // (i.e before non-negative numbers, not including the first number)
-        if (!isEmpty && value >= 0) {
-          this.cssString += '+';
-        }
-        this.cssString += value + shared.LengthValue.cssStringTypeRepresentation(type);
         isEmpty = false;
       } else if (value == undefined || value == null) {
         this[type] = null;
@@ -45,11 +37,29 @@
       }
     }
 
-    this.cssString += ")";
-
     if (isEmpty) {
       throw new TypeError('A CalcDictionary must have at least one valid length.');
     }
+
+    function createCssString(calcLen) {
+      calcLen.cssString = 'calc(';
+      var isFirst = true;
+      for (var index in shared.LengthValue.LengthType) {
+        var type = shared.LengthValue.LengthType[index];
+        var value = calcLen[type];
+        if (value != null) {
+          // Add a "+" in the cssString if needed
+          // (i.e before non-negative numbers, not including the first number)
+          if (!isFirst && value >= 0) {
+            calcLen.cssString += '+';
+          }
+          calcLen.cssString += value + shared.LengthValue.cssStringTypeRepresentation(type);
+          isFirst = false;
+        }
+      }
+      calcLen.cssString += ")";
+    }
+    createCssString(this);
   }
 
   CalcLength.prototype = Object.create(shared.LengthValue.prototype);
