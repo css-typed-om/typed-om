@@ -33,6 +33,8 @@
     if (this.value == undefined) {
       throw new TypeError('Value of SimpleLength must be a number or a numeric string.');
     }
+
+    this.cssString = this.value + shared.LengthValue.cssStringTypeRepresentation(this.type);
   }
 
   SimpleLength.prototype = Object.create(shared.LengthValue.prototype);
