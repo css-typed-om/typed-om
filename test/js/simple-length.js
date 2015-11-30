@@ -26,28 +26,28 @@ suite('SimpleLength', function() {
     assert.strictEqual(valueFromNumber.value, 10);
   });
 
-  test('Multiplication of a simple length produses a new simple length object', function() {
+  test('Multiplication of a simple length produces a new simple length object', function() {
     var simpleLen = new SimpleLength(3, 'px');
     var calcOutput = simpleLen.multiply(3);
     assert.strictEqual(calcOutput.type, 'px');
     assert.strictEqual(calcOutput.value, 9);
   });
 
-  test('Multiplication of a simple length that contains decimals produses correct output value', function() {
+  test('Multiplication of a simple length that contains decimals produces correct output value', function() {
     var simpleLen = new SimpleLength(5.3, 'px');
     var calcOutput = simpleLen.multiply(3);
     assert.strictEqual(calcOutput.type, 'px');
     assert.strictEqual(calcOutput.value, (5.3 * 3));
   });
  
-  test('Division of a simple length produses a new simple length object', function() {
+  test('Division of a simple length produces a new simple length object', function() {
     var simpleLen = new SimpleLength(27, 'px');
     var calcOutput = simpleLen.divide(3);
     assert.strictEqual(calcOutput.type, 'px');
     assert.strictEqual(calcOutput.value, 9);
   });
 
-  test('Division of a simple length that contains decimals produses correct output value', function() {
+  test('Division of a simple length that contains decimals produces correct output value', function() {
     var simpleLen = new SimpleLength(33.2, 'px');
     var calcOutput = simpleLen.divide(5);
     assert.strictEqual(calcOutput.type, 'px');
