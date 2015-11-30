@@ -24,6 +24,19 @@
     'cm', 'mm', 'q', 'in', 'pc', 'pt'
   ];
 
+  LengthValue.cssStringTypeRepresentation = function(type) {
+    if (LengthValue.LengthType.indexOf(type) < 0) {
+      throw new TypeError('Invalid LengthType.');
+    }
+
+    switch (type) {
+      case 'percent':
+        return '%';
+      default:
+        return type;
+    }
+  }
+
   LengthValue.prototype = Object.create(shared.StyleValue.prototype);
 
   // Length Calculation Methods
