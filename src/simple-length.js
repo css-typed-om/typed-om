@@ -45,9 +45,9 @@
     return new SimpleLength((this.value / divider), this.type);
   };
 
-  SimpleLength.prototype._addSimpleLengths = function(addedLength){
-    if(!(this instanceof SimpleLength && addedLength instanceof SimpleLength && this.type === addedLength.type)){
-       if(!(this instanceof SimpleLength && addedLength instanceof SimpleLength)){
+  SimpleLength.prototype._addSimpleLengths = function(addedLength) {
+    if (!(this instanceof SimpleLength && addedLength instanceof SimpleLength && this.type === addedLength.type)) {
+       if (!(this instanceof SimpleLength && addedLength instanceof SimpleLength)) {
         throw new TypeError('Objects not of type simple length');
       } else {
         throw new TypeError('SimpleLength units are not the same');
@@ -56,9 +56,9 @@
     return new SimpleLength((this.value + addedLength.value), this.type);
   };
 
-  SimpleLength.prototype._subtractSimpleLengths = function(subtractedLength){
-    if(!(this instanceof SimpleLength && subtractedLength instanceof SimpleLength && this.type === subtractedLength.type)){
-     if(!(this instanceof SimpleLength && subtractedLength instanceof SimpleLength)){
+  SimpleLength.prototype._subtractSimpleLengths = function(subtractedLength) {
+    if (!(this instanceof SimpleLength && subtractedLength instanceof SimpleLength && this.type === subtractedLength.type)) {
+     if (!(this instanceof SimpleLength && subtractedLength instanceof SimpleLength)) {
         throw new TypeError('Objects not of type simple length');
       } else {
         throw new TypeError('SimpleLength units are not the same');
