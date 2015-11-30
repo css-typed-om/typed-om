@@ -36,10 +36,10 @@ suite('CalcLength', function() {
   });
 
   test('CalcLength cssString is correct for single and multi value strings', function() {
-    var valueFromNumber;
-    assert.doesNotThrow(function() {valueFromNumber = new CalcLength({px: 10})});
-    assert.strictEqual(valueFromNumber.px, 10);
-    assert.strictEqual(valueFromNumber.cssString, 'calc(10px)');
+    var singleValue;
+    assert.doesNotThrow(function() {singleValue = new CalcLength({px: 10})});
+    assert.strictEqual(singleValue.px, 10);
+    assert.strictEqual(singleValue.cssString, 'calc(10px)');
 
     var multiValue;
     assert.doesNotThrow(function() {multiValue = new CalcLength({px: 10, em: 3.2})});
@@ -55,8 +55,8 @@ suite('CalcLength', function() {
     assert.strictEqual(negativeValues.cssString, 'calc(-10px-3.2em+0pt)');
 
     var percentValue;
-    assert.doesNotThrow(function() {valueFromNumber = new CalcLength({percent: 10})});
-    assert.strictEqual(valueFromNumber.percent, 10);
-    assert.strictEqual(valueFromNumber.cssString, 'calc(10%)');
+    assert.doesNotThrow(function() {percentValue = new CalcLength({percent: 10})});
+    assert.strictEqual(percentValue.percent, 10);
+    assert.strictEqual(percentValue.cssString, 'calc(10%)');
   });
 });
