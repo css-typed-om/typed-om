@@ -41,19 +41,17 @@
 
   // Length Calculation Methods
   LengthValue.prototype.add = function(addedLength) {
-    if(this instanceof SimpleLength && addedLength instanceof SimpleLength && this.type === addedLength.type){
-      return this._addSimpleLengths(addedLength);
-    } else {
+    if(!(this instanceof SimpleLength && addedLength instanceof SimpleLength && this.type === addedLength.type)){
       throw new TypeError('Not implemented yet');
-    }
+    } 
+    return this._addSimpleLengths(addedLength);
   };
 
   LengthValue.prototype.subtract = function(subtractedLength) {
-    if(this instanceof SimpleLength && subtractedLength instanceof SimpleLength && this.type === subtractedLength.type){
-      return this._subtractSimpleLengths(subtractedLength);
-    } else {
+    if(!(this instanceof SimpleLength && subtractedLength instanceof SimpleLength && this.type === subtractedLength.type)){
       throw new TypeError('Not implemented yet');
     }
+    return this._subtractSimpleLengths(subtractedLength);
   };
 
   LengthValue.prototype.multiply = function(multiplier) {
