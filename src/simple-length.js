@@ -45,6 +45,30 @@
     return new SimpleLength((this.value / divider), this.type);
   };
 
+  SimpleLength.prototype._addSimpleLengths = function(addedLength){
+    if(this instanceof SimpleLength && addedLength instanceof SimpleLength && this.type === addedLength.type){
+      return new SimpleLength((this.value + addedLength.value), this.type);
+    } else {
+      if(!(this instanceof SimpleLength && addedLength instanceof SimpleLength)){
+        throw new TypeError('Objects not of type simple length');
+      } else {
+        throw new TypeError('SimpleLength units are not the same');
+      }
+    } 
+  };
+
+  SimpleLength.prototype._subtractSimpleLengths = function(subtractedLength){
+    if(this instanceof SimpleLength && subtractedLength instanceof SimpleLength && this.type === subtractedLength.type){
+      return new SimpleLength((this.value - subtractedLength.value), this.type);
+    } else {
+      if(!(this instanceof SimpleLength && subtractedLength instanceof SimpleLength)){
+        throw new TypeError('Objects not of type simple length');
+      } else {
+        throw new TypeError('SimpleLength units are not the same');
+      }
+    } 
+  };
+
   scope.SimpleLength = SimpleLength;
   if (TYPED_OM_TESTING)
     testing.SimpleLength = SimpleLength;
