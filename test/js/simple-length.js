@@ -28,9 +28,9 @@ suite('SimpleLength', function() {
 
   test('Multiplication of a simple length produses a new simple length object', function() {
     var simpleLen = new SimpleLength(3, 'px');
-    simpleLen.multiply(3);
+    var calcOutput = simpleLen.multiply(3);
     assert.strictEqual(simpleLen.type, 'px');
-    assert.strictEqual(simpleLen.value, 9);
+    assert.strictEqual(9, calcOutput.value);
   });
 
   test('Multiplication of a simple length that contains decimals produses correct output value', function() {
