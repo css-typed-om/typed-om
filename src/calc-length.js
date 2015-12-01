@@ -90,6 +90,28 @@
     return new CalcLength(calcDictionary);
   };
 
+  CalcLength.prototype._addCalcLengths = function(addedLength) {
+    if (!(addedLength instanceof CalcLength)) {
+      throw new TypeError('Objects not of type Calclength');
+    } 
+    
+    var calcDictionary = {};
+
+    //Iterate through all posible length types and add there values
+    for(var i = 0; i < shared.LengthValue.LengthType.length; i++){
+      var type = shared.LengthValue.LengthType[i];
+      if (this[type] == null){
+        calcDictionary[type] = addedLength[type];
+      } else if (addedLength[type] == null) {
+        calcDictionary[type] = this[type];
+      } else {
+        calcDictionary[type] = this[type] + addedLength[type];
+      }
+    }
+
+    return new CalcLength(calcDictionary);
+  };
+
   LengthValue.prototype._convertToCalcLength = function() {
     return this;
   };
@@ -106,7 +128,7 @@
         return false;
       }
     }
-    
+
     return true;
   };
 

@@ -50,6 +50,13 @@
   LengthValue.prototype.add = function(addedLength) {
     if (this instanceof SimpleLength && addedLength instanceof SimpleLength && this.type == addedLength.type) {
       return this._addSimpleLengths(addedLength);
+
+    } else {
+      //ensure both lengths are of type CalcLength before adding
+      var lengthToAdd_1 = this._convertToCalcLength();
+      var lengthToAdd_2 = addedLength._convertToCalcLength();
+
+      return lengthToAdd_1._addCalcLengths(lengthToAdd_2);
     }
     throw new TypeError('Not implemented yet');
   };
