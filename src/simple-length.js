@@ -64,6 +64,14 @@
     return new SimpleLength((this.value - subtractedLength.value), this.type);
   };
 
+  SimpleLength.prototype._convertToCalcLength = function() {
+    var calcDictionary = {};
+
+    //Set calcDictionary field to the one inside the SimpleLength object that called the function
+    calcDictionary[this.type] = this.value;
+
+    return new CalcLength(calcDictionary);
+  }
   scope.SimpleLength = SimpleLength;
   if (TYPED_OM_TESTING)
     testing.SimpleLength = SimpleLength;
