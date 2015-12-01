@@ -79,6 +79,11 @@
     return new CalcLength(calcDictionary);
   };
 
+  CalcLength.prototype.divide = function(divider) {
+    var calcDictionary = new Object;
+    return new CalcLength(calcDictionary);
+  };
+
   scope.CalcLength = CalcLength;
   if (TYPED_OM_TESTING)
     testing.CalcLength = CalcLength;
