@@ -21,6 +21,7 @@
   var typedOMSrc = [
       'src/style-value.js',
       'src/number-value.js',
+      'src/keyword-value.js',
       'src/length-value.js',
       'src/simple-length.js',
       'src/calc-length.js',
@@ -30,6 +31,7 @@
 
   var typedOMTest = [
       'test/js/number-value.js',
+      'test/js/keyword-value.js',
       'test/js/length-value.js',
       'test/js/simple-length.js',
       'test/js/calc-length.js',
