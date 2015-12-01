@@ -73,6 +73,9 @@
     throw new TypeError('Not implemented yet');
   };
 
+  LengthValue.prototype._convertToCalcLength = function() {
+  };
+
   shared.LengthValue = LengthValue;
   if (TYPED_OM_TESTING)
     testing.LengthValue = LengthValue;
