@@ -59,4 +59,10 @@ suite('CalcLength', function() {
     assert.strictEqual(percentValue.percent, 10);
     assert.strictEqual(percentValue.cssString, 'calc(10%)');
   });
+
+test('Multiplication of a calc-length length produces a new calc-length object', function() {
+    var cLength = new CalcLength({px: 10, em: 3.2})
+    var multipliedCLenght = cLength.multiply(4);
+    assert.strictEqual(multipliedCLenght.cssString, 'calc(40px+12.8em)');
+  });
 });
