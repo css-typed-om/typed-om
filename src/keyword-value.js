@@ -22,7 +22,7 @@
     this.cssString = value;
   }
 
-  KeywordValue.StyleValueKeyword = ['initial', 'inherit', 'revert', 'unset'];
+  KeywordValue.StyleValueKeyword = ['auto', 'initial', 'inherit', 'revert', 'unset'];
 
   KeywordValue.isKeywordValue = function(cssString) {
     return KeywordValue.StyleValueKeyword.indexOf(cssString) >= 0;

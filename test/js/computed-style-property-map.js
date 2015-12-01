@@ -34,15 +34,14 @@ suite('ComputedStylePropertyMap', function() {
     assert.equal(opacity.cssString, '0.5');
   });
 
-  // NOTE: window.getComputedStyle(element)[property] in
-  // ComputedStylePropertyMap.get is the resolved style,
-  // so tests need to be written accordingly.
-  test.skip('ComputedStylePropertyMap.get works for KeywordValues', function() {
+  test('ComputedStylePropertyMap.get works for KeywordValues', function() {
     var computedStyleMap = new ComputedStylePropertyMap(this.element);
     var right = computedStyleMap.get('right');
     assert.instanceOf(right, KeywordValue);
     assert.instanceOf(right, StyleValue);
-    // TODO: check what inherit resolves to.
+    // 'inherit' resolves to 'auto' in this case.
+    assert.equal(right.keywordValue, 'auto');
+    assert.equal(right.cssString, 'auto');
   });
 
   test.skip('ComputedStylePropertyMap.get works for properties that can only be LengthValues', function() {
