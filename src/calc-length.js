@@ -80,11 +80,11 @@
   };
 
   CalcLength.prototype.divide = function(divider) {
-    var calcDictionary = new Object;
+    var calcDictionary = {};
 
-    //iterate through all length types and multiply all non null lengths 
-    for(var index in shared.LengthValue.LengthType){
-      var type = shared.LengthValue.LengthType[index];
+     //iterate through all length types and divide all non null lengths 
+    for(var i = 0; i < shared.LengthValue.LengthType.length; i++){
+      var type = shared.LengthValue.LengthType[i];
       if(this[type] != null){
         calcDictionary[type] = this[type] / divider;
       }
