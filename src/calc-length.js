@@ -66,7 +66,7 @@
 
   // Length Calculation Methods
   CalcLength.prototype.multiply = function(multiplier) {
-    var calcDictionary = new Object;
+    var calcDictionary = {};
 
     //iterate through all length types and multiply all non null lengths 
     for(var i = 0; i < shared.LengthValue.LengthType.length; i++){
