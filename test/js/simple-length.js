@@ -94,7 +94,7 @@ suite('SimpleLength', function() {
     var sLength = new SimpleLength(10, 'em');
     var convertedCalcLength = sLength._convertToCalcLength();
     var testCalcLength = new CalcLength({em: 10})
-    assert.strictEqual(convertedCalcLength, testCalcLength);
+    assert.isTrue(convertedCalcLength.equals(testCalcLength));
   });
 
   test('Test equals method of Simple length such that it will return true if two simple lengths are the same', function() {
