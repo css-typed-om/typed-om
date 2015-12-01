@@ -103,4 +103,11 @@ suite('SimpleLength', function() {
   
   assert.isTrue(sLength_1.equals(sLength_2));
   });
+
+  test('Equals method should return false if a CalcLength is compared to a simple length even if they have the same value', function() {
+  var sLength_1 = new SimpleLength(10, 'em');
+  var sLength_2 = new CalcLength({em: 10});
+  
+  assert.isFalse(sLength_1.equals(sLength_2));
+  });
 });

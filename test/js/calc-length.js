@@ -106,4 +106,19 @@ suite('CalcLength', function() {
   
   assert.isTrue(cLength_1.equals(cLength_2));
   });
+
+  test('Equals method should return false when one calc length has additinal length types with non null values'
+      +'even if all other types are equivilent', function() {
+  var cLength_1 = new CalcLength({px: 25, em: 3.2, percent: 5})
+  var cLength_2 = new CalcLength({px: 25, em: 3.2})
+  
+  assert.isFalse(cLength_1.equals(cLength_2));
+  });
+
+  test('Equals method should return true when one calc length has additinal length types with null values', function() {
+  var cLength_1 = new CalcLength({px: 25, em: 3.2, percent: null})
+  var cLength_2 = new CalcLength({px: 25, em: 3.2})
+  
+  assert.isTrue(cLength_1.equals(cLength_2));
+  });
 });
