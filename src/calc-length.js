@@ -94,6 +94,22 @@
     return this;
   };
 
+  CalcLength.prototype.equals = function(lengthValue) {
+    if (!(lengthValue instanceof CalcLength)){
+      return false;
+    }
+
+    //iterate through all length types and check that both objects contain the same values
+    for(var index in shared.LengthValue.LengthType){
+      var type = shared.LengthValue.LengthType[index];
+      if(this[type] != lengthValue[type]){
+        return false;
+      }
+    }
+    
+    return true;
+  };
+
   scope.CalcLength = CalcLength;
   if (TYPED_OM_TESTING)
     testing.CalcLength = CalcLength;

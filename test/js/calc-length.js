@@ -89,4 +89,11 @@ suite('CalcLength', function() {
     var convertedCalcLength = cLength._convertToCalcLength();
     assert.strictEqual(cLength, convertedCalcLength);
   });
+
+  test('Test equals method of Calclength such that it will return true if two Calclength\'s are the same', function() {
+  var cLength_1 = new CalcLength({px: 25, em: 3.2})
+  var cLength_2 = new CalcLength({px: 25, em: 3.2})
+  
+  assert.isTrue(cLength_1.equals(cLength_2));
+  });
 });
