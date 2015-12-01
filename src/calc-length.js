@@ -64,6 +64,21 @@
 
   CalcLength.prototype = Object.create(shared.LengthValue.prototype);
 
+  // Length Calculation Methods
+  CalcLength.prototype.multiply = function(multiplier) {
+    var calcDictionary = {};
+
+    //iterate through all length types and multiply all non null lengths 
+    for(var i = 0; i < shared.LengthValue.LengthType.length; i++){
+      var type = shared.LengthValue.LengthType[i];
+      if(this[type] != null){
+        calcDictionary[type] = this[type] * multiplier;
+      }
+    }
+
+    return new CalcLength(calcDictionary);
+  };
+
   scope.CalcLength = CalcLength;
   if (TYPED_OM_TESTING)
     testing.CalcLength = CalcLength;
