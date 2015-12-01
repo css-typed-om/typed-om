@@ -83,4 +83,10 @@ suite('CalcLength', function() {
     var dividedCalcLength = calcLength.divide(2.5);
     assert.strictEqual(dividedCalcLength.cssString, 'calc(10px+1.28em)');
   });
+
+  test('convertToCalcLength method returns the object that called it if it is of type CalcLength', function() {
+    var cLength = new CalcLength({px: 25, em: 3.2})
+    var convertedCalcLength = cLength._convertToCalcLength();
+    assert.strictEqual(cLength, convertedCalcLength);
+  });
 });

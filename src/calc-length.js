@@ -90,6 +90,10 @@
     return new CalcLength(calcDictionary);
   };
 
+  LengthValue.prototype._convertToCalcLength = function() {
+    return this;
+  };
+
   scope.CalcLength = CalcLength;
   if (TYPED_OM_TESTING)
     testing.CalcLength = CalcLength;
