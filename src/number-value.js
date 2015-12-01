@@ -12,27 +12,29 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(shared, scope) {
+(function(shared, scope, testing) {
 
   function NumberValue(value) {
     this.cssString = '' + value;
     if (typeof value == 'number') {
       this.value = value;
-    } else if (typeof value == 'string') { // Nick and Nat: This constructor handles cssString values, but your constructors don't need to.
-      nValue = Number.parseFloat(value);
+    } else if (typeof value == 'string') {
+      var nValue = Number.parseFloat(value);
       if (!isNaN(nValue)) {
         this.value = nValue;
       } else {
-        throw(new TypeError('Value of NumberValue must be a number or a numeric string.'));
+        throw new TypeError('Value of NumberValue must be a number or a numeric string.');
       }
     } else {
-      throw(new TypeError('Value of NumberValue must be a number or a numeric string.'));
+      throw new TypeError('Value of NumberValue must be a number or a numeric string.');
     }
   }
 
-  NumberValue.prototype = shared.StyleValue.prototype;
+  NumberValue.prototype = Object.create(shared.StyleValue.prototype);
 
   scope.NumberValue = NumberValue;
+  if (TYPED_OM_TESTING)
+    testing.NumberValue = NumberValue;
 
-})(baseClasses, window);
+})(baseClasses, window, typedOMTesting);
 
