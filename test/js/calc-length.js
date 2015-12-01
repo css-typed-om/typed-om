@@ -83,6 +83,4 @@ suite('CalcLength', function() {
     var DividedCLenght = cLength.divide(2.5);
     assert.strictEqual(DividedCLenght.cssString, 'calc(10px+1.28em)');
   });
-
-
 });
