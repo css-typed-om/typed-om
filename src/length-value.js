@@ -76,6 +76,9 @@
   LengthValue.prototype._convertToCalcLength = function() {
   };
 
+  LengthValue.prototype.equals = function(lengthValue) {
+  };
+
   shared.LengthValue = LengthValue;
   if (TYPED_OM_TESTING)
     testing.LengthValue = LengthValue;

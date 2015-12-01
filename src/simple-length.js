@@ -72,6 +72,17 @@
 
     return new CalcLength(calcDictionary);
   }
+
+  SimpleLength.prototype.equals = function(lengthValue) {
+    if (!(lengthValue instanceof SimpleLength)){
+      return false;
+    }
+    if (!(this.type == lengthValue.type && this.value == lengthValue.value)){
+      return false;
+    }
+      return true; 
+  };
+
   scope.SimpleLength = SimpleLength;
   if (TYPED_OM_TESTING)
     testing.SimpleLength = SimpleLength;
