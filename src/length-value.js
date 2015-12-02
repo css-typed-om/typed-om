@@ -64,6 +64,12 @@
   LengthValue.prototype.subtract = function(subtractedLength) {
     if (this instanceof SimpleLength && subtractedLength instanceof SimpleLength && this.type == subtractedLength.type) {
       return this._subtractSimpleLengths(subtractedLength);
+    } else {
+      //ensure both lengths are of type CalcLength before adding
+      var lengthToAdd_1 = this._convertToCalcLength();
+      var lengthToAdd_2 = subtractedLength._convertToCalcLength();
+
+      return lengthToAdd_1._subtractCalcLengths(lengthToAdd_2);
     }
     throw new TypeError('Not implemented yet');
   };

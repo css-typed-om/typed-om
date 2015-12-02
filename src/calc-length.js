@@ -112,6 +112,30 @@
     return new CalcLength(calcDictionary);
   };
 
+  CalcLength.prototype._subtractCalcLengths = function(subtractedLength) {
+    if (!(subtractedLength instanceof CalcLength)) {
+      throw new TypeError('Objects not of type Calclength');
+    } 
+    
+    var calcDictionary = {};
+
+    //Iterate through all posible length types and add there values
+    for(var i = 0; i < shared.LengthValue.LengthType.length; i++){
+      var type = shared.LengthValue.LengthType[i];
+      if (this[type] == null && subtractedLength[type] == null) {
+        calcDictionary[type] = null;
+      } else if (this[type] == null){
+        calcDictionary[type] = -subtractedLength[type];
+      } else if (subtractedLength[type] == null) {
+        calcDictionary[type] = -this[type];
+      } else {
+        calcDictionary[type] = this[type] - subtractedLength[type];
+      }
+    }
+
+    return new CalcLength(calcDictionary);
+  };
+
   LengthValue.prototype._convertToCalcLength = function() {
     return this;
   };
