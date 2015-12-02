@@ -60,7 +60,7 @@ suite('CalcLength', function() {
     assert.strictEqual(percentValue.cssString, 'calc(10%)');
   });
 
-  test('Multiplication of a calc-length length produces a new calc-length object', function() {
+  test('Multiplication of a CalcLength length produces a new CalcLength object', function() {
     var calcLength = new CalcLength({px: 10, em: 3.2})
     var multipliedCalcLength = calcLength.multiply(4);
     assert.strictEqual(multipliedCalcLength.cssString, 'calc(40px+12.8em)');
@@ -72,7 +72,7 @@ suite('CalcLength', function() {
     assert.strictEqual(multipliedCalcLength.cssString, 'calc(5px+1.6em)');
   });
 
-  test('Division of a calc-length length produces a new calc-length object', function() {
+  test('Division of a CalcLength length produces a new CalcLength object', function() {
     var calcLength = new CalcLength({px: 10, em: 4.0})
     var dividedCalcLenght = calcLength.divide(4);
     assert.strictEqual(dividedCalcLenght.cssString, 'calc(2.5px+1em)');
