@@ -108,22 +108,22 @@ suite('CalcLength', function() {
   test('Subtracting two Claclengths returns a new Calclength with expected values in each value type', function() {
     var cLength_1 = new CalcLength({px: 15, em: 6})
     var cLength_2 = new CalcLength({px: 10, em: 3})
-    var lengthAddition = cLength_1.subtract(cLength_2);
-    var expectedlengthAddition = new CalcLength({px: 5, em: 3})
+    var lengthSubtraction = cLength_1.subtract(cLength_2);
+    var expectedlengthSubtraction = new CalcLength({px: 5, em: 3})
 
-    assert.instanceOf(lengthAddition, CalcLength, 'two added Calclegths of same type should be an instance of CalcLength');
-    assert.isTrue(expectedlengthAddition.equals(lengthAddition));
+    assert.instanceOf(lengthSubtraction, CalcLength, 'two added Calclegths of same type should be an instance of CalcLength');
+    assert.isTrue(expectedlengthSubtraction.equals(lengthSubtraction));
   });
 
     test('Calclegths do not have to have the same value types in order to be subtracted from each other and all value types '
         +'seen in both CalcLengths with be in the outputted calc length', function() {
     var cLength_1 = new CalcLength({px: 15, em: 6, percent: 5})
     var cLength_2 = new CalcLength({px: 10, em: 3, ex: 6})
-    var lengthAddition = cLength_1.subtract(cLength_2);
-    var expectedlengthAddition = new CalcLength({px: 5, em: 3, percent: -5, ex: -6});
+    var lengthSubtraction = cLength_1.subtract(cLength_2);
+    var expectedlengthSubtraction = new CalcLength({px: 5, em: 3, percent: -5, ex: -6});
 
-    assert.instanceOf(lengthAddition, CalcLength, 'two added Calclegths of same type should be an instance of CalcLength');
-    assert.isTrue(expectedlengthAddition.equals(lengthAddition));
+    assert.instanceOf(lengthSubtraction, CalcLength, 'two added Calclegths of same type should be an instance of CalcLength');
+    assert.isTrue(expectedlengthSubtraction.equals(lengthSubtraction));
   });
 
   test('convertToCalcLength method returns the object that called it if it is of type CalcLength', function() {
