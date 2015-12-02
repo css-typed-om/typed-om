@@ -1,9 +1,9 @@
 suite('SimpleLength', function() {
   test('SimpleLength is a SimpleLength, LengthValue and StyleValue', function() {
-    var simpleLen = new SimpleLength(3, 'px');
-    assert.instanceOf(simpleLen, SimpleLength, 'A new SimpleLength should be an instance of SimpleLength');
-    assert.instanceOf(simpleLen, LengthValue, 'A new SimpleLength should be an instance of LengthValue');
-    assert.instanceOf(simpleLen, StyleValue, 'A new SimpleLength should be an instance of StyleValue');
+    var simpleLength = new SimpleLength(3, 'px');
+    assert.instanceOf(simpleLength, SimpleLength, 'A new SimpleLength should be an instance of SimpleLength');
+    assert.instanceOf(simpleLength, LengthValue, 'A new SimpleLength should be an instance of LengthValue');
+    assert.instanceOf(simpleLength, StyleValue, 'A new SimpleLength should be an instance of StyleValue');
   });
 
   test('SimpleLength constructor throws exception for invalid types', function() {
@@ -45,29 +45,29 @@ suite('SimpleLength', function() {
   });
 
   test('Multiplication of a simple length produces a new simple length object', function() {
-    var simpleLen = new SimpleLength(3, 'px');
-    var calcOutput = simpleLen.multiply(3);
+    var simpleLength = new SimpleLength(3, 'px');
+    var calcOutput = simpleLength.multiply(3);
     assert.strictEqual(calcOutput.type, 'px');
     assert.strictEqual(calcOutput.value, 9);
   });
 
   test('Multiplication of a simple length that contains decimals produces correct output value', function() {
-    var simpleLen = new SimpleLength(5.3, 'px');
-    var calcOutput = simpleLen.multiply(3);
+    var simpleLength = new SimpleLength(5.3, 'px');
+    var calcOutput = simpleLength.multiply(3);
     assert.strictEqual(calcOutput.type, 'px');
     assert.strictEqual(calcOutput.value, (5.3 * 3));
   });
  
   test('Division of a simple length produces a new simple length object', function() {
-    var simpleLen = new SimpleLength(27, 'px');
-    var calcOutput = simpleLen.divide(3);
+    var simpleLength = new SimpleLength(27, 'px');
+    var calcOutput = simpleLength.divide(3);
     assert.strictEqual(calcOutput.type, 'px');
     assert.strictEqual(calcOutput.value, 9);
   });
 
   test('Division of a simple length that contains decimals produces correct output value', function() {
-    var simpleLen = new SimpleLength(33.2, 'px');
-    var calcOutput = simpleLen.divide(5);
+    var simpleLength = new SimpleLength(33.2, 'px');
+    var calcOutput = simpleLength.divide(5);
     assert.strictEqual(calcOutput.type, 'px');
     assert.strictEqual(calcOutput.value, (33.2 / 5));
   });

@@ -1,9 +1,9 @@
 suite('CalcLength', function() {
   test('CalcLength is a CalcLength, LengthValue and StyleValue', function() {
-    var calcLen = new CalcLength({px: 10});
-    assert.instanceOf(calcLen, CalcLength, 'A new CalcLength should be an instance of CalcLength');
-    assert.instanceOf(calcLen, LengthValue, 'A new CalcLength should be an instance of LengthValue');
-    assert.instanceOf(calcLen, StyleValue, 'A new CalcLength should be an instance of StyleValue');
+    var calcLenght = new CalcLength({px: 10});
+    assert.instanceOf(calcLenght, CalcLength, 'A new CalcLength should be an instance of CalcLength');
+    assert.instanceOf(calcLenght, LengthValue, 'A new CalcLength should be an instance of LengthValue');
+    assert.instanceOf(calcLenght, StyleValue, 'A new CalcLength should be an instance of StyleValue');
   });
 
   test('CalcLength constructor throws exception for invalid types', function() {
@@ -13,12 +13,12 @@ suite('CalcLength', function() {
   });
 
   test('CalcLength empty constructor initializes other fields to null', function() {
-    var lenFromEmptyDict;
-    assert.doesNotThrow(function() {lenFromEmptyDict = new CalcLength({px: 10})});
+    var lengthFromEmptyDictionary;
+    assert.doesNotThrow(function() {lengthFromEmptyDictionary = new CalcLength({px: 10})});
     for (var index in LengthValue.LengthType) {
       var type = LengthValue.LengthType[index];
       if (type != 'px') {
-        assert.isNull(lenFromEmptyDict[type], 'Each field in an empty instantiated CalcLength is null');
+        assert.isNull(lengthFromEmptyDictionary[type], 'Each field in an empty instantiated CalcLength is null');
       }
     }
   });
@@ -61,26 +61,26 @@ suite('CalcLength', function() {
   });
 
   test('Multiplication of a calc-length length produces a new calc-length object', function() {
-    var cLength = new CalcLength({px: 10, em: 3.2})
-    var multipliedCLenght = cLength.multiply(4);
+    var calcLength = new CalcLength({px: 10, em: 3.2})
+    var multipliedCLenght = calcLength.multiply(4);
     assert.strictEqual(multipliedCLenght.cssString, 'calc(40px+12.8em)');
   });
 
   test('Multiplication of a decimal number produses expected result', function() {
-    var cLength = new CalcLength({px: 10, em: 3.2})
-    var multipliedCLenght = cLength.multiply(0.5);
+    var calcLength = new CalcLength({px: 10, em: 3.2})
+    var multipliedCLenght = calcLength.multiply(0.5);
     assert.strictEqual(multipliedCLenght.cssString, 'calc(5px+1.6em)');
   });
 
   test('Division of a calc-length length produces a new calc-length object', function() {
-    var cLength = new CalcLength({px: 10, em: 4.0})
-    var dividedCLenght = cLength.divide(4);
+    var calcLength = new CalcLength({px: 10, em: 4.0})
+    var dividedCLenght = calcLength.divide(4);
     assert.strictEqual(dividedCLenght.cssString, 'calc(2.5px+1em)');
   });
 
   test('Division of a decimal number produses expected result', function() {
-    var cLength = new CalcLength({px: 25, em: 3.2})
-    var dividedCLenght = cLength.divide(2.5);
+    var calcLength = new CalcLength({px: 25, em: 3.2})
+    var dividedCLenght = calcLength.divide(2.5);
     assert.strictEqual(dividedCLenght.cssString, 'calc(10px+1.28em)');
   });
 });
