@@ -91,23 +91,23 @@ suite('SimpleLength', function() {
   });
 
   test('convertToCalcLength method returns a CalcLength object with a single legnth value type when called from a SimpleLength object', function() {
-    var sLength = new SimpleLength(10, 'em');
-    var convertedCalcLength = sLength._convertToCalcLength();
+    var simpleLength = new SimpleLength(10, 'em');
+    var convertedCalcLength = simpleLength._convertToCalcLength();
     var testCalcLength = new CalcLength({em: 10})
     assert.isTrue(convertedCalcLength.equals(testCalcLength));
   });
 
   test('Test equals method of Simple length such that it will return true if two simple lengths are the same', function() {
-  var sLength_1 = new SimpleLength(10, 'em');
-  var sLength_2 = new SimpleLength(10, 'em');
+  var simpleLength_1 = new SimpleLength(10, 'em');
+  var simpleLength_2 = new SimpleLength(10, 'em');
   
-  assert.isTrue(sLength_1.equals(sLength_2));
+  assert.isTrue(simpleLength_1.equals(simpleLength_2));
   });
 
   test('Equals method should return false if a CalcLength is compared to a simple length even if they have the same value', function() {
-  var sLength_1 = new SimpleLength(10, 'em');
-  var sLength_2 = new CalcLength({em: 10});
+  var simpleLength_1 = new SimpleLength(10, 'em');
+  var simpleLength_2 = new CalcLength({em: 10});
   
-  assert.isFalse(sLength_1.equals(sLength_2));
+  assert.isFalse(simpleLength_1.equals(simpleLength_2));
   });
 });
