@@ -66,7 +66,7 @@ suite('CalcLength', function() {
     assert.strictEqual(multipliedCLenght.cssString, 'calc(40px+12.8em)');
   });
 
-  test('Multiplication by a decimal number produses expected result', function() {
+  test('Multiplication of a decimal number produses expected result', function() {
     var cLength = new CalcLength({px: 10, em: 3.2})
     var multipliedCLenght = cLength.multiply(0.5);
     assert.strictEqual(multipliedCLenght.cssString, 'calc(5px+1.6em)');
@@ -78,7 +78,7 @@ suite('CalcLength', function() {
     assert.strictEqual(dividedCLenght.cssString, 'calc(2.5px+1em)');
   });
 
-  test('Division by a decimal number produses expected result', function() {
+  test('Division of a decimal number produses expected result', function() {
     var cLength = new CalcLength({px: 25, em: 3.2})
     var dividedCLenght = cLength.divide(2.5);
     assert.strictEqual(dividedCLenght.cssString, 'calc(10px+1.28em)');
