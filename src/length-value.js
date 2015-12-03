@@ -90,7 +90,7 @@
   LengthValue.prototype._asCalcLength = function() {
   };
 
-  LengthValue.prototype.equals = function(lengthValue) {
+  LengthValue.prototype.equals = function(other) {
   };
 
   shared.LengthValue = LengthValue;

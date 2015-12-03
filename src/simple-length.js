@@ -73,11 +73,11 @@
     return new CalcLength(calcDictionary);
   }
 
-  SimpleLength.prototype.equals = function(lengthValue) {
-    if (!(lengthValue instanceof SimpleLength)) {
+  SimpleLength.prototype.equals = function(other) {
+    if (!(other instanceof SimpleLength)) {
       return false;
     }
-    if (!(this.type == lengthValue.type && this.value == lengthValue.value)) {
+    if (!(this.type == other.type && this.value == other.value)) {
       return false;
     }
     return true; 

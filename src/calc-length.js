@@ -138,15 +138,15 @@
     return this;
   };
 
-  CalcLength.prototype.equals = function(lengthValue) {
-    if (!(lengthValue instanceof CalcLength)){
+  CalcLength.prototype.equals = function(other) {
+    if (!(other instanceof CalcLength)){
       return false;
     }
 
     // Iterate through all length types and check that both objects contain the same values
     for (var index in shared.LengthValue.LengthType){
       var type = shared.LengthValue.LengthType[index];
-      if (this[type] != lengthValue[type]){
+      if (this[type] != other[type]){
         return false;
       }
     }
