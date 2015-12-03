@@ -18,12 +18,26 @@
    * PositionValue(xPos, yPos)
    */
   function PositionValue(xPos, yPos) {
-    // Construct length values with x and y offsets
+    //Check that method parameters are of type LengthValue
+    if(!(xPos instanceof LengthValue)){
+      throw new TypeError('xPos is not of type: LengthValue');
+    }
 
-    this.cssString = "";
+    if(!(yPos instanceof LengthValue)){
+      throw new TypeError('yPos is not of type: LengthValue');
+    }
+
+    this.x = xPos;
+    this.y = yPos;
+
+    this._createCssString();
   }
 
   PositionValue.prototype = Object.create(shared.StyleValue.prototype)
+
+  PositionValue.prototype._createCssString = function(){
+    this.cssString = xPos.cssString + " " + yPos.cssString;
+  }
 
    scope.PositionValue = PositionValue;
   if (TYPED_OM_TESTING)
