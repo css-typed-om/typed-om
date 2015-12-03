@@ -43,7 +43,7 @@
   LengthValue.prototype.add = function(addedLength) {
     if (this instanceof SimpleLength && addedLength instanceof SimpleLength && this.type == addedLength.type) {
       return this._addSimpleLengths(addedLength);
-    } 
+    }
     throw new TypeError('Not implemented yet');
   };
 
@@ -62,15 +62,16 @@
     throw new TypeError('Not implemented yet');
   };
 
-  LengthValue.prototype.parse = function(cssString) {
+  // LengthValue static methods
+  LengthValue.parse = function(cssString) {
     throw new TypeError('Not implemented yet');
   };
 
-  LengthValue.prototype.fromValue = function(value, type) {
+  LengthValue.fromValue = function(value, type) {
     return new SimpleLength(value, type);
   };
 
-  LengthValue.prototype.fromDictionary = function(dictionary) {
+  LengthValue.fromDictionary = function(dictionary) {
     return new CalcLength(dictionary);
   };
 
