@@ -85,9 +85,9 @@ suite('CalcLength', function() {
   });
 
   test('Adding two CalcLengths returns a new CalcLength with expected values in each value type', function() {
-    var cLength_1 = new CalcLength({px: 15, em: 6})
-    var cLength_2 = new CalcLength({px: 10, em: 3})
-    var lengthAddition = cLength_1.add(cLength_2);
+    var calcLength1 = new CalcLength({px: 15, em: 6})
+    var calcLength2 = new CalcLength({px: 10, em: 3})
+    var lengthAddition = calcLength1.add(calcLength2);
     var expectedlengthAddition = new CalcLength({px: 25, em: 9})
 
     assert.instanceOf(lengthAddition, CalcLength, 'two added CalcLength of same type should be an instance of CalcLength');
@@ -96,9 +96,9 @@ suite('CalcLength', function() {
 
     test('CalcLength do not have to have the same value types in order to be added and all value types seen in both'
         +'CalcLengths with be in the outputted CalcLength', function() {
-    var cLength_1 = new CalcLength({px: 15, em: 6, percent: 5})
-    var cLength_2 = new CalcLength({px: 10, em: 3, ex: 6})
-    var lengthAddition = cLength_1.add(cLength_2);
+    var calcLength1 = new CalcLength({px: 15, em: 6, percent: 5})
+    var calcLength2 = new CalcLength({px: 10, em: 3, ex: 6})
+    var lengthAddition = calcLength1.add(calcLength2);
     var expectedlengthAddition = new CalcLength({px: 25, em: 9, percent: 5, ex: 6});
 
     assert.instanceOf(lengthAddition, CalcLength, 'two added CalcLength of same type should be an instance of CalcLength');
@@ -106,9 +106,9 @@ suite('CalcLength', function() {
   });
 
   test('Subtracting two CalcLengths returns a new CalcLength with expected values in each value type', function() {
-    var cLength_1 = new CalcLength({px: 15, em: 6})
-    var cLength_2 = new CalcLength({px: 10, em: 3})
-    var lengthSubtraction = cLength_1.subtract(cLength_2);
+    var calcLength1 = new CalcLength({px: 15, em: 6})
+    var calcLength2 = new CalcLength({px: 10, em: 3})
+    var lengthSubtraction = calcLength1.subtract(calcLength2);
     var expectedlengthSubtraction = new CalcLength({px: 5, em: 3})
 
     assert.instanceOf(lengthSubtraction, CalcLength, 'two added CalcLength of same type should be an instance of CalcLength');
@@ -117,9 +117,9 @@ suite('CalcLength', function() {
 
     test('CalcLength do not have to have the same value types in order to be subtracted from each other and all value types '
         +'seen in both CalcLengths with be in the outputted CalcLength', function() {
-    var cLength_1 = new CalcLength({px: 15, em: 6, percent: 5})
-    var cLength_2 = new CalcLength({px: 10, em: 3, ex: 6})
-    var lengthSubtraction = cLength_1.subtract(cLength_2);
+    var calcLength1 = new CalcLength({px: 15, em: 6, percent: 5})
+    var calcLength2 = new CalcLength({px: 10, em: 3, ex: 6})
+    var lengthSubtraction = calcLength1.subtract(calcLength2);
     var expectedlengthSubtraction = new CalcLength({px: 5, em: 3, percent: 5, ex: -6});
 
     assert.instanceOf(lengthSubtraction, CalcLength, 'two added CalcLength of same type should be an instance of CalcLength');
@@ -127,30 +127,30 @@ suite('CalcLength', function() {
   });
 
   test('convertToCalcLength method returns the object that called it if it is of type CalcLength', function() {
-    var cLength = new CalcLength({px: 25, em: 3.2})
-    var convertedCalcLength = cLength._asCalcLength();
-    assert.strictEqual(cLength, convertedCalcLength);
+    var calcLength = new CalcLength({px: 25, em: 3.2})
+    var convertedCalcLength = calcLength._asCalcLength();
+    assert.strictEqual(calcLength, convertedCalcLength);
   });
 
   test('Test equals method of CalcLength such that it will return true if two CalcLength\'s are the same', function() {
-  var cLength_1 = new CalcLength({px: 25, em: 3.2})
-  var cLength_2 = new CalcLength({px: 25, em: 3.2})
+  var calcLength1 = new CalcLength({px: 25, em: 3.2})
+  var calcLength2 = new CalcLength({px: 25, em: 3.2})
   
-  assert.isTrue(cLength_1.equals(cLength_2));
+  assert.isTrue(calcLength1.equals(calcLength2));
   });
 
   test('Equals method should return false when one CalcLength has additional length types with non null values'
       +'even if all other types are equivalent', function() {
-  var cLength_1 = new CalcLength({px: 25, em: 3.2, percent: 5})
-  var cLength_2 = new CalcLength({px: 25, em: 3.2})
+  var calcLength1 = new CalcLength({px: 25, em: 3.2, percent: 5})
+  var calcLength2 = new CalcLength({px: 25, em: 3.2})
   
-  assert.isFalse(cLength_1.equals(cLength_2));
+  assert.isFalse(calcLength1.equals(calcLength2));
   });
 
   test('Equals method should return true when one CalcLength has additional length types with null values', function() {
-  var cLength_1 = new CalcLength({px: 25, em: 3.2, percent: null})
-  var cLength_2 = new CalcLength({px: 25, em: 3.2})
+  var calcLength1 = new CalcLength({px: 25, em: 3.2, percent: null})
+  var calcLength2 = new CalcLength({px: 25, em: 3.2})
   
-  assert.isTrue(cLength_1.equals(cLength_2));
+  assert.isTrue(calcLength1.equals(calcLength2));
   });
 });

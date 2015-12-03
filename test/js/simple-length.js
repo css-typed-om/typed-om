@@ -73,18 +73,18 @@ suite('SimpleLength', function() {
   });
 
   test('Adding two SimpleLength of the same kind returns a new SimpleLength of the same kind', function() {
-    var length1 = new SimpleLength(10, 'em');
-    var length2 = new SimpleLength(5, 'em');
-    var lengthAddition = length1.add(length2);
+    var simpleLength1 = new SimpleLength(10, 'em');
+    var simpleLength2 = new SimpleLength(5, 'em');
+    var lengthAddition = simpleLength1.add(simpleLength2);
     assert.instanceOf(lengthAddition, SimpleLength, 'two added SimpleLength of same type should be an instance of SimpleLength');
     assert.strictEqual(lengthAddition.type, 'em');
     assert.strictEqual(lengthAddition.value, 15);
   });
 
   test('subtracting two SimpleLength of the same kind returns a new SimpleLength of the same kind', function() {
-    var length1 = new SimpleLength(10, 'em');
-    var length2 = new SimpleLength(5, 'em');
-    var lengthAddition = length1.subtract(length2);
+    var simpleLength1 = new SimpleLength(10, 'em');
+    var simpleLength2 = new SimpleLength(5, 'em');
+    var lengthAddition = simpleLength1.subtract(simpleLength2);
     assert.instanceOf(lengthAddition, SimpleLength, 'two subtracted SimpleLength of same type should be an instance of SimpleLength');
     assert.strictEqual(lengthAddition.type, 'em');
     assert.strictEqual(lengthAddition.value, 5);
@@ -98,16 +98,14 @@ suite('SimpleLength', function() {
   });
 
   test('Test equals method of Simple length such that it will return true if two simple lengths are the same', function() {
-  var simpleLength_1 = new SimpleLength(10, 'em');
-  var simpleLength_2 = new SimpleLength(10, 'em');
-  
-  assert.isTrue(simpleLength_1.equals(simpleLength_2));
+  var simpleLength1 = new SimpleLength(10, 'em');
+  var simpleLength2 = new SimpleLength(10, 'em');
+  assert.isTrue(simpleLength1.equals(simpleLength2));
   });
 
   test('Equals method should return false if a CalcLength is compared to a simple length even if they have the same value', function() {
-  var simpleLength_1 = new SimpleLength(10, 'em');
-  var simpleLength_2 = new CalcLength({em: 10});
-  
-  assert.isFalse(simpleLength_1.equals(simpleLength_2));
+  var simpleLength1 = new SimpleLength(10, 'em');
+  var simpleLength2 = new CalcLength({em: 10});
+  assert.isFalse(simpleLength1.equals(simpleLength2));
   });
 });
