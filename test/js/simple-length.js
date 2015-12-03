@@ -92,7 +92,7 @@ suite('SimpleLength', function() {
 
   test('convertToCalcLength method returns a CalcLength object with a single length value type when called from a SimpleLength object', function() {
     var simpleLength = new SimpleLength(10, 'em');
-    var convertedCalcLength = simpleLength._convertToCalcLength();
+    var convertedCalcLength = simpleLength._asCalcLength();
     var testCalcLength = new CalcLength({em: 10})
     assert.isTrue(convertedCalcLength.equals(testCalcLength));
   });

@@ -128,7 +128,7 @@ suite('CalcLength', function() {
 
   test('convertToCalcLength method returns the object that called it if it is of type CalcLength', function() {
     var cLength = new CalcLength({px: 25, em: 3.2})
-    var convertedCalcLength = cLength._convertToCalcLength();
+    var convertedCalcLength = cLength._asCalcLength();
     assert.strictEqual(cLength, convertedCalcLength);
   });
 

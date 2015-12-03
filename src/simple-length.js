@@ -64,7 +64,7 @@
     return new SimpleLength((this.value - subtractedLength.value), this.type);
   };
 
-  SimpleLength.prototype._convertToCalcLength = function() {
+  SimpleLength.prototype._asCalcLength = function() {
     var calcDictionary = {};
 
     //Set calcDictionary field to the Length type inside the SimpleLength object that called the function

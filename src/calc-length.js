@@ -134,7 +134,7 @@
     return new CalcLength(calcDictionary);
   };
 
-  LengthValue.prototype._convertToCalcLength = function() {
+  LengthValue.prototype._asCalcLength = function() {
     return this;
   };
 

@@ -52,8 +52,8 @@
       return this._addSimpleLengths(addedLength);
     } else if (addedLength instanceof LengthValue) {
       //ensure both lengths are of type CalcLength before adding
-      var lengthToAdd_1 = this._convertToCalcLength();
-      var lengthToAdd_2 = addedLength._convertToCalcLength();
+      var lengthToAdd_1 = this._asCalcLength();
+      var lengthToAdd_2 = addedLength._asCalcLength();
 
       return lengthToAdd_1._addCalcLengths(lengthToAdd_2);
     } else {
@@ -66,8 +66,8 @@
       return this._subtractSimpleLengths(subtractedLength);
     } else if (subtractedLength instanceof LengthValue) {
       //ensure both lengths are of type CalcLength before adding
-      var lengthToAdd_1 = this._convertToCalcLength();
-      var lengthToAdd_2 = subtractedLength._convertToCalcLength();
+      var lengthToAdd_1 = this._asCalcLength();
+      var lengthToAdd_2 = subtractedLength._asCalcLength();
 
       return lengthToAdd_1._subtractCalcLengths(lengthToAdd_2);
     } else {
@@ -87,7 +87,7 @@
     throw new TypeError('Not implemented yet');
   };
 
-  LengthValue.prototype._convertToCalcLength = function() {
+  LengthValue.prototype._asCalcLength = function() {
   };
 
   LengthValue.prototype.equals = function(lengthValue) {
