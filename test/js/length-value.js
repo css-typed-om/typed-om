@@ -1,6 +1,6 @@
 suite('LengthValue', function() {
   test('fromDictionary returns instanceof a LengthValue and StyleValue', function() {
-    var fromDictionary = (new LengthValue()).fromDictionary(9.2, 'px');
+    var fromDictionary = (new LengthValue()).fromValue(9.2, 'px');
     assert.instanceOf(fromDictionary, SimpleLength, 'A new fromDictionary should be an instance of SimpleLength');
     assert.instanceOf(fromDictionary, LengthValue, 'A new fromDictionary should be an instance of LengthValue');
     assert.instanceOf(fromDictionary, StyleValue, 'A new fromDictionary should be an instance of StyleValue');
