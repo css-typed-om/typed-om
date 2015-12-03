@@ -17,18 +17,15 @@
   function StyleValue() {
   }
 
-  StyleValue.prototype = {
-    // Nick and Nat: Do NOT worry about fleshing this out as you add StyleValue types. We can add
-    // more parsing logic when we start working on StylePropertyMap.
-    parse: function(property, value) {
-      if (typeof value == 'string') {
-        nValue = Number.parseFloat(value);
-        if (nValue !== NaN) {
-          return new NumberValue(nValue);
-        }
+  // TODO: Include parsing logic here.
+  StyleValue.parse = function(property, value) {
+    if (typeof value == 'string') {
+      numberValue = Number.parseFloat(value);
+      if (numberValue !== NaN) {
+        return new NumberValue(numberValue);
       }
-      return null;
     }
+    return null;
   }
 
   shared.StyleValue = StyleValue;

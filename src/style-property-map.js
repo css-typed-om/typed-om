@@ -16,19 +16,18 @@
 
 function StylePropertyMap() {}
 
-	// Nick and Nat: You will need to decide which of these methods you want to implement.
-	StylePropertyMap.prototype = {
-	  append: function(property, value) {},
-	  delete: function(property) {},
-	  get: function(property) {},
-	  getAll: function(property) {},
-	  has: function(property) {},
-	  set: function(property, value) {},
-	  getProperties: function() {}
-	}
+  StylePropertyMap.prototype = {
+    append: function(property, value) {},
+    delete: function(property) {},
+    get: function(property) {},
+    getAll: function(property) {},
+    has: function(property) {},
+    set: function(property, value) {},
+    getProperties: function() {}
+  }
 
-	shared.StylePropertyMap = StylePropertyMap;
-	if (TYPED_OM_TESTING)
-		testing.StylePropertyMap = StylePropertyMap;
+  shared.StylePropertyMap = StylePropertyMap;
+  if (TYPED_OM_TESTING)
+    testing.StylePropertyMap = StylePropertyMap;
 
 })(baseClasses, window, typedOMTesting)
