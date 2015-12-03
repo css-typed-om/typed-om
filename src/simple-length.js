@@ -67,7 +67,7 @@
   SimpleLength.prototype._convertToCalcLength = function() {
     var calcDictionary = {};
 
-    //Set calcDictionary field to the one inside the SimpleLength object that called the function
+    //Set calcDictionary field to the Length type inside the SimpleLength object that called the function
     calcDictionary[this.type] = this.value;
 
     return new CalcLength(calcDictionary);
