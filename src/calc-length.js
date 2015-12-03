@@ -65,10 +65,10 @@
   CalcLength.prototype.multiply = function(multiplier) {
     var calcDictionary = {};
 
-    // Iterate through all length types and multiply all non null lengths
-    for(var i = 0; i < shared.LengthValue.LengthType.length; i++){
+    // Iterate through all length types and multiply all non null lengths 
+    for (var i = 0; i < shared.LengthValue.LengthType.length; i++){
       var type = shared.LengthValue.LengthType[i];
-      if(this[type] != null){
+      if (this[type] != null){
         calcDictionary[type] = this[type] * multiplier;
       }
     }
@@ -79,10 +79,10 @@
   CalcLength.prototype.divide = function(divider) {
     var calcDictionary = {};
 
-    // Iterate through all length types and divide all non null lengths
-    for(var i = 0; i < shared.LengthValue.LengthType.length; i++){
+    // Iterate through all length types and divide all non null lengths 
+    for (var i = 0; i < shared.LengthValue.LengthType.length; i++){
       var type = shared.LengthValue.LengthType[i];
-      if(this[type] != null){
+      if (this[type] != null){
         calcDictionary[type] = this[type] / divider;
       }
     }
@@ -97,8 +97,8 @@
     
     var calcDictionary = {};
 
-    //Iterate through all possible length types and add there values
-    for(var i = 0; i < shared.LengthValue.LengthType.length; i++){
+    // Iterate through all possible length types and add their values
+    for (var i = 0; i < shared.LengthValue.LengthType.length; i++){
       var type = shared.LengthValue.LengthType[i];
       if (this[type] == null){
         calcDictionary[type] = addedLength[type];
@@ -119,8 +119,8 @@
     
     var calcDictionary = {};
 
-    //Iterate through all possible length types and add there values
-    for(var i = 0; i < shared.LengthValue.LengthType.length; i++){
+    // Iterate through all possible length types and add their values
+    for (var i = 0; i < shared.LengthValue.LengthType.length; i++){
       var type = shared.LengthValue.LengthType[i];
       if (this[type] == null && subtractedLength[type] == null) {
         calcDictionary[type] = null;
@@ -145,10 +145,10 @@
       return false;
     }
 
-    //iterate through all length types and check that both objects contain the same values
-    for(var index in shared.LengthValue.LengthType){
+    // Iterate through all length types and check that both objects contain the same values
+    for (var index in shared.LengthValue.LengthType){
       var type = shared.LengthValue.LengthType[index];
-      if(this[type] != lengthValue[type]){
+      if (this[type] != lengthValue[type]){
         return false;
       }
     }
