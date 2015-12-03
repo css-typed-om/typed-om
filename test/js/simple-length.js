@@ -90,7 +90,7 @@ suite('SimpleLength', function() {
     assert.strictEqual(lengthAddition.value, 5);
   });
 
-  test('convertToCalcLength method returns a CalcLength object with a single length value type when called from a SimpleLength object', function() {
+  test('asCalcLength method returns a CalcLength with single value', function() {
     var simpleLength = new SimpleLength(10, 'em');
     var convertedCalcLength = simpleLength._asCalcLength();
     var testCalcLength = new CalcLength({em: 10})
@@ -103,7 +103,7 @@ suite('SimpleLength', function() {
   assert.isTrue(simpleLength1.equals(simpleLength2));
   });
 
-  test('Equals method should return false if a CalcLength is compared to a simple length even if they have the same value', function() {
+  test('Equals method should return true for equal SimpleLengths', function() {
   var simpleLength1 = new SimpleLength(10, 'em');
   var simpleLength2 = new CalcLength({em: 10});
   assert.isFalse(simpleLength1.equals(simpleLength2));

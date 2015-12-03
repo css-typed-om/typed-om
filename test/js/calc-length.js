@@ -114,7 +114,7 @@ suite('CalcLength', function() {
     assert.isTrue(expectedlengthSubtraction.equals(lengthSubtraction));
   });
 
-    test('All values in subtracted CalcLengths appear in the output', function() {
+  test('All values in subtracted CalcLengths appear in the output', function() {
     var calcLength1 = new CalcLength({px: 15, em: 6, percent: 5})
     var calcLength2 = new CalcLength({px: 10, em: 3, ex: 6})
     var lengthSubtraction = calcLength1.subtract(calcLength2);
