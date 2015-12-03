@@ -94,8 +94,7 @@ suite('CalcLength', function() {
     assert.isTrue(expectedlengthAddition.equals(lengthAddition));
   });
 
-    test('CalcLength do not have to have the same value types in order to be added and all value types seen in both'
-        +'CalcLengths with be in the outputted CalcLength', function() {
+    test('All values in added CalcLengths appear in the output', function() {
     var calcLength1 = new CalcLength({px: 15, em: 6, percent: 5})
     var calcLength2 = new CalcLength({px: 10, em: 3, ex: 6})
     var lengthAddition = calcLength1.add(calcLength2);
@@ -115,8 +114,7 @@ suite('CalcLength', function() {
     assert.isTrue(expectedlengthSubtraction.equals(lengthSubtraction));
   });
 
-    test('CalcLength do not have to have the same value types in order to be subtracted from each other and all value types '
-        +'seen in both CalcLengths with be in the outputted CalcLength', function() {
+    test('All values in subtracted CalcLengths appear in the output', function() {
     var calcLength1 = new CalcLength({px: 15, em: 6, percent: 5})
     var calcLength2 = new CalcLength({px: 10, em: 3, ex: 6})
     var lengthSubtraction = calcLength1.subtract(calcLength2);
