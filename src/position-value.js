@@ -36,7 +36,7 @@
   PositionValue.prototype = Object.create(shared.StyleValue.prototype)
 
   PositionValue.prototype._createCssString = function(){
-    this.cssString = xPos.cssString + " " + yPos.cssString;
+    this.cssString = this.x.cssString + " " + this.y.cssString;
   }
 
    scope.PositionValue = PositionValue;
