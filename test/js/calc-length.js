@@ -120,7 +120,7 @@ suite('CalcLength', function() {
     var cLength_1 = new CalcLength({px: 15, em: 6, percent: 5})
     var cLength_2 = new CalcLength({px: 10, em: 3, ex: 6})
     var lengthSubtraction = cLength_1.subtract(cLength_2);
-    var expectedlengthSubtraction = new CalcLength({px: 5, em: 3, percent: -5, ex: -6});
+    var expectedlengthSubtraction = new CalcLength({px: 5, em: 3, percent: 5, ex: -6});
 
     assert.instanceOf(lengthSubtraction, CalcLength, 'two added CalcLength of same type should be an instance of CalcLength');
     assert.isTrue(expectedlengthSubtraction.equals(lengthSubtraction));
