@@ -38,9 +38,9 @@
     if (!value) {
       return null;
     }
-    if (value == 'inherit') {
-      // TODO: Other keywords
-      throw new TypeError('Not implemented yet');
+
+    if (scope.KeywordValue.isKeywordValue(value)) {
+      return new scope.KeywordValue(value);
     }
 
     // TODO: The rest of the properties once the rest of the StyleValues are
@@ -55,6 +55,31 @@
       case 'widows':
       case 'z-index':
         return new scope.NumberValue(value);
+
+      // These properties take only a length value (length and percentage),
+      // or a keyword handled above.
+      case 'bottom':
+      case 'height':
+      case 'left':
+      case 'max-height':
+      case 'max-width':
+      case 'min-height':
+      case 'min-width':
+      case 'right':
+      case 'text-indent':
+      case 'top':
+      case 'width':
+        // TODO: ensure that LengthValue.parse is being implemented,
+        // or update to other appropriate function.
+        return new scope.LengthValue.parse(value);
+
+      // These properties only take a length value, but do not take percentage.
+      // TODO: Validation and implementation of this case.
+      case 'letter-spacing':
+      case 'word-spacing':
+        throw new TypeError('Not implemented yet');
+
+      // These properties take a number or SimpleLength
 
       case 'line-height':
         // normal | <number> | <length> | <percentage> | inherit
@@ -82,15 +107,28 @@
 
     switch (property) {
       // These properties always return a single value.
+      case 'bottom':
+      case 'height':
+      case 'left':
+      case 'letter-spacing':
       case 'line-height':
+      case 'max-height':
+      case 'max-width':
+      case 'min-height':
+      case 'min-width':
       case 'opacity':
       case 'orphans':
       case 'pitch-range':
       case 'richness':
+      case 'right':
       case 'speech-rate':
       case 'stress':
+      case 'text-indent':
+      case 'top':
       case 'volume':
       case 'widows':
+      case 'width':
+      case 'word-spacing':
       case 'z-index':
         var value = this.get(property);
         return value ? [value] : [];
