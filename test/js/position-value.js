@@ -1,13 +1,9 @@
 suite('PositionValue', function() {
   test('Constructor for Position value will throw a type error if either xPos or yPos is not an instance'
       +'of the LengthValue class', function() {
-    assert.throws(function () {
-      new PositionValue(2, 3)
-      }, 'xPos is not of type: LengthValue');
+    assert.throws(function () { new PositionValue(2, 3) }, 'xPos is not of type: LengthValue');
 
-    assert.throws(function () {
-      new PositionValue(new SimpleLength(3, 'px'), 3)
-      }, 'yPos is not of type: LengthValue');
+    assert.throws(function () { new PositionValue(new SimpleLength(3, 'px'), 3) }, 'yPos is not of type: LengthValue');
   });
 
   test('CssStrings created by an instance of the PositionValue class should be the xPos cssString followed '
