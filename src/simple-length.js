@@ -74,13 +74,13 @@
   }
 
   SimpleLength.prototype.equals = function(lengthValue) {
-    if (!(lengthValue instanceof SimpleLength)){
+    if (!(lengthValue instanceof SimpleLength)) {
       return false;
     }
-    if (!(this.type == lengthValue.type && this.value == lengthValue.value)){
+    if (!(this.type == lengthValue.type && this.value == lengthValue.value)) {
       return false;
     }
-      return true; 
+    return true; 
   };
 
   scope.SimpleLength = SimpleLength;
