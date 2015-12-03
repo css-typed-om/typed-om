@@ -39,7 +39,14 @@
 
   LengthValue.prototype = Object.create(shared.StyleValue.prototype);
 
-  // Length Calculation Methods
+  LengthValue.fromValue = function(value, type) {
+    return new SimpleLength(value, type);
+  };
+
+  LengthValue.fromDictionary = function(dictionary) {
+    return new CalcLength(dictionary);
+  };
+
   LengthValue.prototype.add = function(addedLength) {
     if (this instanceof SimpleLength && addedLength instanceof SimpleLength && this.type == addedLength.type) {
       return this._addSimpleLengths(addedLength);
@@ -64,14 +71,6 @@
 
   LengthValue.prototype.parse = function(cssString) {
     throw new TypeError('Not implemented yet');
-  };
-
-  LengthValue.prototype.fromValue = function(value, type) {
-    return new SimpleLength(value, type);
-  };
-
-  LengthValue.prototype.fromDictionary = function(dictionary) {
-    return new CalcLength(dictionary);
   };
 
   shared.LengthValue = LengthValue;
