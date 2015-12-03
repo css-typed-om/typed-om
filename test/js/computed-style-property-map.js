@@ -23,8 +23,8 @@ suite('ComputedStylePropertyMap', function() {
     var computedStyleMap = new ComputedStylePropertyMap(this.element);
     var opacity = computedStyleMap.get('opacity');
     assert.instanceOf(opacity, NumberValue);
-    assert.equal(opacity.value, 0.5);
-    assert.equal(opacity.cssString, '0.5');
+    assert.strictEqual(opacity.value, 0.5);
+    assert.strictEqual(opacity.cssString, '0.5');
   });
 
   test('window.getComputedStyleMap works', function() {
@@ -32,19 +32,18 @@ suite('ComputedStylePropertyMap', function() {
     assert.instanceOf(computedStyleMap, typedOMTesting.StylePropertyMap);
     var opacity = computedStyleMap.get('opacity');
     assert.instanceOf(opacity, NumberValue);
-    assert.equal(opacity.value, 0.5);
-    assert.equal(opacity.cssString, '0.5');
+    assert.strictEqual(opacity.value, 0.5);
+    assert.strictEqual(opacity.cssString, '0.5');
   });
 
-  // NOTE: window.getComputedStyle(element)[property] in
-  // ComputedStylePropertyMap.get is the resolved style,
-  // so tests need to be written accordingly.
-  test.skip('ComputedStylePropertyMap.get works for KeywordValues', function() {
+  test('ComputedStylePropertyMap.get works for KeywordValues', function() {
     var computedStyleMap = new ComputedStylePropertyMap(this.element);
     var right = computedStyleMap.get('right');
     assert.instanceOf(right, KeywordValue);
     assert.instanceOf(right, StyleValue);
-    // TODO: check what inherit resolves to.
+    // 'inherit' resolves to 'auto' in this case
+    assert.strictEqual(right.keywordValue, 'auto');
+    assert.strictEqual(right.cssString, 'auto');
   });
 
   test.skip('ComputedStylePropertyMap.get works for properties that can only be LengthValues', function() {
@@ -52,9 +51,9 @@ suite('ComputedStylePropertyMap', function() {
     var height = computedStyleMap.get('height');
     assert.instanceOf(height, LengthValue);
     assert.instanceOf(height, SimpleLength);
-    assert.equal(height.value, 100);
-    assert.equal(height.type, 'px');
-    assert.equal(height.cssString, '100px');
+    assert.strictEqual(height.value, 100);
+    assert.strictEqual(height.type, 'px');
+    assert.strictEqual(height.cssString, '100px');
   });
 
   test.skip('ComputedStylePropertyMap.get works for properties with CalcLengths', function() {
@@ -62,8 +61,8 @@ suite('ComputedStylePropertyMap', function() {
     var width = computedStyleMap.get('width');
     assert.instanceOf(width, LengthValue);
     assert.instanceOf(width, CalcLength);
-    assert.equal(width.px, 50);
-    assert.equal(width.em, 10);
-    assert.equal(width.cssString, 'calc(50px+10em)');
+    assert.strictEqual(width.px, 50);
+    assert.strictEqual(width.em, 10);
+    assert.strictEqual(width.cssString, 'calc(50px+10em)');
   });
 });
