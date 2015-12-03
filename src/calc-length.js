@@ -92,12 +92,12 @@
 
   CalcLength.prototype._addCalcLengths = function(addedLength) {
     if (!(addedLength instanceof CalcLength)) {
-      throw new TypeError('Objects not of type Calclength');
+      throw new TypeError('Objects not of type CalcLength');
     } 
     
     var calcDictionary = {};
 
-    //Iterate through all posible length types and add there values
+    //Iterate through all possible length types and add there values
     for(var i = 0; i < shared.LengthValue.LengthType.length; i++){
       var type = shared.LengthValue.LengthType[i];
       if (this[type] == null){
@@ -114,12 +114,12 @@
 
   CalcLength.prototype._subtractCalcLengths = function(subtractedLength) {
     if (!(subtractedLength instanceof CalcLength)) {
-      throw new TypeError('Objects not of type Calclength');
+      throw new TypeError('Objects not of type CalcLength');
     } 
     
     var calcDictionary = {};
 
-    //Iterate through all posible length types and add there values
+    //Iterate through all possible length types and add there values
     for(var i = 0; i < shared.LengthValue.LengthType.length; i++){
       var type = shared.LengthValue.LengthType[i];
       if (this[type] == null && subtractedLength[type] == null) {
