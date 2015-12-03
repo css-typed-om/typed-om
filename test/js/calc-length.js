@@ -74,13 +74,13 @@ suite('CalcLength', function() {
 
   test('Division of a CalcLength length produces a new CalcLength object', function() {
     var calcLength = new CalcLength({px: 10, em: 4.0})
-    var dividedCalcLenght = calcLength.divide(4);
-    assert.strictEqual(dividedCalcLenght.cssString, 'calc(2.5px+1em)');
+    var dividedCalcLength = calcLength.divide(4);
+    assert.strictEqual(dividedCalcLength.cssString, 'calc(2.5px+1em)');
   });
 
   test('Division of a decimal number produces expected result', function() {
     var calcLength = new CalcLength({px: 25, em: 3.2})
-    var dividedCalcLenght = calcLength.divide(2.5);
-    assert.strictEqual(dividedCalcLenght.cssString, 'calc(10px+1.28em)');
+    var dividedCalcLength = calcLength.divide(2.5);
+    assert.strictEqual(dividedCalcLength.cssString, 'calc(10px+1.28em)');
   });
 });
