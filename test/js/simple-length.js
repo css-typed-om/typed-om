@@ -57,7 +57,7 @@ suite('SimpleLength', function() {
     assert.strictEqual(calcOutput.type, 'px');
     assert.strictEqual(calcOutput.value, (5.3 * 3));
   });
- 
+
   test('Division of a SimpleLength produces a new SimpleLength object', function() {
     var simpleLength = new SimpleLength(27, 'px');
     var calcOutput = simpleLength.divide(3);
@@ -73,18 +73,18 @@ suite('SimpleLength', function() {
   });
 
   test('Adding two SimpleLength of the same kind returns a new SimpleLength of the same kind', function() {
-    var length_1 = new SimpleLength(10, 'em');
-    var length_2 = new SimpleLength(5, 'em');
-    var lengthAddition = length_1.add(length_2);
+    var length1 = new SimpleLength(10, 'em');
+    var length2 = new SimpleLength(5, 'em');
+    var lengthAddition = length1.add(length2);
     assert.instanceOf(lengthAddition, SimpleLength, 'two added SimpleLength of same type should be an instance of SimpleLength');
     assert.strictEqual(lengthAddition.type, 'em');
     assert.strictEqual(lengthAddition.value, 15);
   });
 
   test('subtracting two SimpleLength of the same kind returns a new SimpleLength of the same kind', function() {
-    var length_1 = new SimpleLength(10, 'em');
-    var length_2 = new SimpleLength(5, 'em');
-    var lengthAddition = length_1.subtract(length_2);
+    var length1 = new SimpleLength(10, 'em');
+    var length2 = new SimpleLength(5, 'em');
+    var lengthAddition = length1.subtract(length2);
     assert.instanceOf(lengthAddition, SimpleLength, 'two subtracted SimpleLength of same type should be an instance of SimpleLength');
     assert.strictEqual(lengthAddition.type, 'em');
     assert.strictEqual(lengthAddition.value, 5);
