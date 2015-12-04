@@ -18,7 +18,8 @@
     this._element = element;
   }
 
-  ComputedStylePropertyMap.prototype = Object.create(shared.StylePropertyMap.prototype);
+  ComputedStylePropertyMap.prototype =
+    Object.create(shared.StylePropertyMap.prototype);
 
   ComputedStylePropertyMap.prototype.append = function(property, value) {
     throw new TypeError('ComputedStylePropertyMap is immutable');
@@ -42,7 +43,8 @@
       throw new TypeError('Not implemented yet');
     }
 
-    // TODO: The rest of the properties once the rest of the StyleValues are defined.
+    // TODO: The rest of the properties once the rest of the StyleValues are
+    // defined.
     switch (property) {
       // These properties always take numbers or a keyword handled above.
       case 'opacity':
@@ -59,11 +61,13 @@
         throw new TypeError('Not implemented yet');
 
       case 'speech-rate':
-        // <number> | x-slow | slow | medium | fast | x-fast | faster | slower | inherit
+        // <number> | x-slow | slow | medium | fast | x-fast | faster | slower |
+        // inherit
         throw new TypeError('Not implemented yet');
 
       case 'volume':
-        // <number> | <percentage> | silent | x-soft | soft | medium | loud | x-loud | inherit
+        // <number> | <percentage> | silent | x-soft | soft | medium | loud |
+        // x-loud | inherit
         throw new TypeError('Not implemented yet');
 
       default:
@@ -88,7 +92,7 @@
       case 'volume':
       case 'widows':
       case 'z-index':
-        var value = this.get(property)
+        var value = this.get(property);
         return value ? [value] : [];
 
       // TODO: Stuff that takes shorthands will need to be handled separately.
@@ -108,7 +112,8 @@
     var output = [];
     for (var i = 0, l = computedStyles.length; i < l; ++i) {
       var property = computedStyles[i];
-      // TODO: Construct the objects for each type of thing and add them to the output array.
+      // TODO: Construct the objects for each type of thing and add them to the
+      // output array.
     }
     return output;
   };
@@ -121,4 +126,4 @@
   if (TYPED_OM_TESTING)
     testing.ComputedStylePropertyMap = ComputedStylePropertyMap;
 
-})(baseClasses, window, typedOMTesting)
+})(baseClasses, window, typedOMTesting);
