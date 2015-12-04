@@ -57,7 +57,7 @@ suite('SimpleLength', function() {
     assert.strictEqual(calcOutput.type, 'px');
     assert.strictEqual(calcOutput.value, (5.3 * 3));
   });
- 
+
   test('Division of a SimpleLength produces a new SimpleLength object', function() {
     var simpleLength = new SimpleLength(27, 'px');
     var calcOutput = simpleLength.divide(3);

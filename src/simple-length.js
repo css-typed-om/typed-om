@@ -14,10 +14,7 @@
 
 (function(shared, scope, testing) {
 
-  /**
-   * SimpleLength(value, type)
-   * TODO: SimpleLength(simpleLength), SimpleLength(cssString)
-   */
+  // TODO: SimpleLength(simpleLength), SimpleLength(cssString)
   function SimpleLength(value, type) {
     if (arguments.length == 2 && shared.LengthValue.LengthType.indexOf(type) >= 0) {
       this.type = type;
@@ -50,7 +47,7 @@
   SimpleLength.prototype._addSimpleLengths = function(addedLength) {
     if (!(addedLength instanceof SimpleLength)) {
       throw new TypeError('Objects not of type simple length');
-    } 
+    }
     if (this.type != addedLength.type) {
       throw new TypeError('SimpleLength units are not the same');
     }
@@ -60,7 +57,7 @@
   SimpleLength.prototype._subtractSimpleLengths = function(subtractedLength) {
     if (!(subtractedLength instanceof SimpleLength)) {
       throw new TypeError('Objects not of type simple length');
-    } 
+    }
     if (this.type != subtractedLength.type) {
       throw new TypeError('SimpleLength units are not the same');
     }
