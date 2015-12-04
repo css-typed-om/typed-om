@@ -15,6 +15,6 @@
 typedOM = {};
 baseClasses = {};
 if (TYPED_OM_TESTING)
-	var typedOMTesting = window;
+  var typedOMTesting = window;
 else
-	var typedOMTesting = null;
+  var typedOMTesting = null;
