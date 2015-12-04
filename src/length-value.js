@@ -52,10 +52,7 @@
       return this._addSimpleLengths(addedLength);
     } else if (addedLength instanceof LengthValue) {
       //ensure both lengths are of type CalcLength before adding
-      var lengthToAdd_1 = this._asCalcLength();
-      var lengthToAdd_2 = addedLength._asCalcLength();
-
-      return lengthToAdd_1._addCalcLengths(lengthToAdd_2);
+      return this._asCalcLength()._addCalcLengths(addedLength._asCalcLength());
     } else {
       throw new TypeError('The object you are adding is not of type LengthValue');
     }
@@ -66,10 +63,7 @@
       return this._subtractSimpleLengths(subtractedLength);
     } else if (subtractedLength instanceof LengthValue) {
       //ensure both lengths are of type CalcLength before adding
-      var lengthToAdd_1 = this._asCalcLength();
-      var lengthToAdd_2 = subtractedLength._asCalcLength();
-
-      return lengthToAdd_1._subtractCalcLengths(lengthToAdd_2);
+      return this._asCalcLength()._subtractCalcLengths(subtractedLength._asCalcLength());
     } else {
       throw new TypeError('The object you are trying to subtract from this length is not of type LengthValue');
     }
