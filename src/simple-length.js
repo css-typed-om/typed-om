@@ -71,7 +71,7 @@
     calcDictionary[this.type] = this.value;
 
     return new CalcLength(calcDictionary);
-  }
+  };
 
   SimpleLength.prototype.equals = function(other) {
     if (!(other instanceof SimpleLength)) {
@@ -80,7 +80,7 @@
     if (!(this.type == other.type && this.value == other.value)) {
       return false;
     }
-    return true; 
+    return true;
   };
 
   scope.SimpleLength = SimpleLength;
