@@ -92,7 +92,7 @@
 
   CalcLength.prototype._addCalcLengths = function(addedLength) {
     if (!(addedLength instanceof CalcLength)) {
-      throw new TypeError('Objects not of type CalcLength');
+      throw new TypeError('Argument must be a CalcLength');
     }
 
     var calcDictionary = {};
@@ -114,7 +114,7 @@
 
   CalcLength.prototype._subtractCalcLengths = function(subtractedLength) {
     if (!(subtractedLength instanceof CalcLength)) {
-      throw new TypeError('Objects not of type CalcLength');
+      throw new TypeError('Argument must be a CalcLength');
     }
 
     var calcDictionary = {};
