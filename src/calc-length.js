@@ -65,10 +65,10 @@
   CalcLength.prototype.multiply = function(multiplier) {
     var calcDictionary = {};
 
-    // Iterate through all length types and multiply all non null lengths 
-    for (var i = 0; i < shared.LengthValue.LengthType.length; i++){
+    // Iterate through all length types and multiply all non null lengths
+    for (var i = 0; i < shared.LengthValue.LengthType.length; i++) {
       var type = shared.LengthValue.LengthType[i];
-      if (this[type] != null){
+      if (this[type] != null) {
         calcDictionary[type] = this[type] * multiplier;
       }
     }
@@ -79,10 +79,10 @@
   CalcLength.prototype.divide = function(divider) {
     var calcDictionary = {};
 
-    // Iterate through all length types and divide all non null lengths 
-    for (var i = 0; i < shared.LengthValue.LengthType.length; i++){
+    // Iterate through all length types and divide all non null lengths
+    for (var i = 0; i < shared.LengthValue.LengthType.length; i++) {
       var type = shared.LengthValue.LengthType[i];
-      if (this[type] != null){
+      if (this[type] != null) {
         calcDictionary[type] = this[type] / divider;
       }
     }
@@ -93,14 +93,14 @@
   CalcLength.prototype._addCalcLengths = function(addedLength) {
     if (!(addedLength instanceof CalcLength)) {
       throw new TypeError('Objects not of type CalcLength');
-    } 
-    
+    }
+
     var calcDictionary = {};
 
     // Iterate through all possible length types and add their values
-    for (var i = 0; i < shared.LengthValue.LengthType.length; i++){
+    for (var i = 0; i < shared.LengthValue.LengthType.length; i++) {
       var type = shared.LengthValue.LengthType[i];
-      if (this[type] == null){
+      if (this[type] == null) {
         calcDictionary[type] = addedLength[type];
       } else if (addedLength[type] == null) {
         calcDictionary[type] = this[type];
@@ -115,16 +115,16 @@
   CalcLength.prototype._subtractCalcLengths = function(subtractedLength) {
     if (!(subtractedLength instanceof CalcLength)) {
       throw new TypeError('Objects not of type CalcLength');
-    } 
-    
+    }
+
     var calcDictionary = {};
 
     // Iterate through all possible length types and add their values
-    for (var i = 0; i < shared.LengthValue.LengthType.length; i++){
+    for (var i = 0; i < shared.LengthValue.LengthType.length; i++) {
       var type = shared.LengthValue.LengthType[i];
       if (subtractedLength[type] == null) {
         calcDictionary[type] = this[type];
-      } else if (this[type] == null){
+      } else if (this[type] == null) {
         calcDictionary[type] = -subtractedLength[type];
       } else {
         calcDictionary[type] = this[type] - subtractedLength[type];
@@ -139,14 +139,14 @@
   };
 
   CalcLength.prototype.equals = function(other) {
-    if (!(other instanceof CalcLength)){
+    if (!(other instanceof CalcLength)) {
       return false;
     }
 
     // Iterate through all length types and check that both objects contain the same values
-    for (var index in shared.LengthValue.LengthType){
+    for (var index in shared.LengthValue.LengthType) {
       var type = shared.LengthValue.LengthType[index];
-      if (this[type] != other[type]){
+      if (this[type] != other[type]) {
         return false;
       }
     }

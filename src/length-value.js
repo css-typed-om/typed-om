@@ -35,7 +35,7 @@
       default:
         return type;
     }
-  }
+  };
 
   LengthValue.prototype = Object.create(shared.StyleValue.prototype);
 
