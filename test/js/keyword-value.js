@@ -1,11 +1,14 @@
 suite('KeywordValue', function() {
   test('KeywordValue is a KeywordValue and a StyleValue', function() {
     var keywordValue = new KeywordValue('initial');
-    assert.instanceOf(keywordValue, KeywordValue, 'A new KeywordValue should be an instance of KeywordValue');
-    assert.instanceOf(keywordValue, StyleValue, 'A new KeywordValue should be an instance of StyleValue');
+    assert.instanceOf(keywordValue, KeywordValue,
+      'A new KeywordValue should be an instance of KeywordValue');
+    assert.instanceOf(keywordValue, StyleValue,
+      'A new KeywordValue should be an instance of StyleValue');
   });
 
-  test('KeywordValue constructor throws exception for invalid values', function() {
+  test('KeywordValue constructor throws exception for invalid values',
+      function() {
     assert.throws(function() {new KeywordValue('a')});
     assert.throws(function() {new KeywordValue('')});
     assert.throws(function() {new KeywordValue(null)});
@@ -30,7 +33,8 @@ suite('KeywordValue', function() {
     assert.isFalse(KeywordValue.isKeywordValue({}));
   });
 
-  test('KeywordValue.cssString and KeywordValue.keywordValue are correctly initialized', function() {
+  test('KeywordValue.cssString and KeywordValue.keywordValue are correctly ' +
+      'initialized', function() {
     var initial;
     var cssString = 'initial';
     assert.doesNotThrow(function() {initial = new KeywordValue(cssString)});

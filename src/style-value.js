@@ -26,7 +26,7 @@
       }
     }
     return null;
-  }
+  };
 
   shared.StyleValue = StyleValue;
   if (TYPED_OM_TESTING)

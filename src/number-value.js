@@ -23,10 +23,12 @@
       if (!isNaN(nValue)) {
         this.value = nValue;
       } else {
-        throw new TypeError('Value of NumberValue must be a number or a numeric string.');
+        throw new TypeError(
+          'Value of NumberValue must be a number or a numeric string.');
       }
     } else {
-      throw new TypeError('Value of NumberValue must be a number or a numeric string.');
+      throw new TypeError(
+        'Value of NumberValue must be a number or a numeric string.');
     }
   }
 

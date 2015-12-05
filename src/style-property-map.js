@@ -24,10 +24,10 @@ function StylePropertyMap() {}
     has: function(property) {},
     set: function(property, value) {},
     getProperties: function() {}
-  }
+  };
 
   shared.StylePropertyMap = StylePropertyMap;
   if (TYPED_OM_TESTING)
     testing.StylePropertyMap = StylePropertyMap;
 
-})(baseClasses, window, typedOMTesting)
+})(baseClasses, window, typedOMTesting);
