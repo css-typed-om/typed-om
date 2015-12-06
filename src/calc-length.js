@@ -100,7 +100,9 @@
     // Iterate through all possible length types and add their values
     for (var i = 0; i < shared.LengthValue.LengthType.length; i++) {
       var type = shared.LengthValue.LengthType[i];
-      if (this[type] == null) {
+      if (this[type] == null && addedLength[type] == null) {
+        calcDictionary[type] = null;
+      } else if (this[type] == null) {
         calcDictionary[type] = addedLength[type];
       } else if (addedLength[type] == null) {
         calcDictionary[type] = this[type];
@@ -122,7 +124,9 @@
     // Iterate through all possible length types and add their values
     for (var i = 0; i < shared.LengthValue.LengthType.length; i++) {
       var type = shared.LengthValue.LengthType[i];
-      if (subtractedLength[type] == null) {
+      if (this[type] == null && subtractedLength[type] == null) {
+        calcDictionary[type] = null;
+      } else if (subtractedLength[type] == null) {
         calcDictionary[type] = this[type];
       } else if (this[type] == null) {
         calcDictionary[type] = -subtractedLength[type];
