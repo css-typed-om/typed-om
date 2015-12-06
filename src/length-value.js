@@ -51,7 +51,7 @@
     if (this instanceof SimpleLength && addedLength instanceof SimpleLength && this.type == addedLength.type) {
       return this._addSimpleLengths(addedLength);
     } else if (addedLength instanceof LengthValue) {
-      //ensure both lengths are of type CalcLength before adding
+      // Ensure both lengths are of type CalcLength before adding
       return this._asCalcLength()._addCalcLengths(addedLength._asCalcLength());
     } else {
       throw new TypeError('The object you are adding is not of type LengthValue');
@@ -62,7 +62,7 @@
     if (this instanceof SimpleLength && subtractedLength instanceof SimpleLength && this.type == subtractedLength.type) {
       return this._subtractSimpleLengths(subtractedLength);
     } else if (subtractedLength instanceof LengthValue) {
-      //ensure both lengths are of type CalcLength before adding
+      // Ensure both lengths are of type CalcLength before adding
       return this._asCalcLength()._subtractCalcLengths(subtractedLength._asCalcLength());
     } else {
       throw new TypeError('The object you are trying to subtract from this length is not of type LengthValue');
@@ -70,15 +70,13 @@
   };
 
   LengthValue.prototype.multiply = function(multiplier) {
-    throw new TypeError('Not implemented yet');
   };
 
   LengthValue.prototype.divide = function(divider) {
-    throw new TypeError('Not implemented yet');
   };
 
   LengthValue.prototype.parse = function(cssString) {
-    throw new TypeError('Not implemented yet');
+    throw new TypeError('Should not be reached');
   };
 
   LengthValue.prototype._asCalcLength = function() {
