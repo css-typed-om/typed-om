@@ -72,25 +72,43 @@ suite('SimpleLength', function() {
     assert.strictEqual(result.value, (33.2 / 5));
   });
 
-  test('Adding two SimpleLength of the same kind returns a new SimpleLength of the same kind', function() {
+  test('Adding two SimpleLengths of the same type returns a new SimpleLength of the same kind', function() {
     var simpleLength1 = new SimpleLength(10, 'em');
     var simpleLength2 = new SimpleLength(5, 'em');
     var result = simpleLength1.add(simpleLength2);
-    assert.instanceOf(result, SimpleLength, 'two added SimpleLengths of same type should be an instance of SimpleLength');
+    assert.instanceOf(result, SimpleLength, 'Two added SimpleLengths of same type should return an instance of SimpleLength');
     assert.strictEqual(result.type, 'em');
     assert.strictEqual(result.value, 15);
   });
 
-  test('subtracting two SimpleLength of the same kind returns a new SimpleLength of the same kind', function() {
+  test('Adding two SimpleLengths of different types returns a new CalcLength', function() {
+    var simpleLength1 = new SimpleLength(10, 'em');
+    var simpleLength2 = new SimpleLength(5, 'px');
+    var result = simpleLength1.add(simpleLength2);
+    var expectedResult = new CalcLength({em: 10, px: 5});
+    assert.instanceOf(result, CalcLength, 'Two added SimpleLengths of different types should return an instance of CalcLength');
+    assert.isTrue(expectedResult.equals(result));
+  });
+
+  test('Subtracting two SimpleLengths of the same type returns a new SimpleLength of the same kind', function() {
     var simpleLength1 = new SimpleLength(10, 'em');
     var simpleLength2 = new SimpleLength(5, 'em');
     var result = simpleLength1.subtract(simpleLength2);
-    assert.instanceOf(result, SimpleLength, 'two subtracted SimpleLengths of same type should be an instance of SimpleLength');
+    assert.instanceOf(result, SimpleLength, 'Two subtracted SimpleLengths of same type should return an instance of SimpleLength');
     assert.strictEqual(result.type, 'em');
     assert.strictEqual(result.value, 5);
   });
 
-  test('asCalcLength method returns a CalcLength with single value', function() {
+  test('Subtracting two SimpleLengths of different types returns a new CalcLength', function() {
+    var simpleLength1 = new SimpleLength(10, 'em');
+    var simpleLength2 = new SimpleLength(5, 'px');
+    var result = simpleLength1.subtract(simpleLength2);
+    var expectedResult = new CalcLength({em: 10, px: -5});
+    assert.instanceOf(result, CalcLength, 'Two subtracted SimpleLengths of different types should return an instance of CalcLength');
+    assert.isTrue(expectedResult.equals(result));
+  });
+
+  test('AsCalcLength method returns a CalcLength with single value', function() {
     var simpleLength = new SimpleLength(10, 'em');
     var result = simpleLength._asCalcLength();
     var expectedResult = new CalcLength({em: 10});
