@@ -76,7 +76,7 @@ suite('SimpleLength', function() {
     var simpleLength1 = new SimpleLength(10, 'em');
     var simpleLength2 = new SimpleLength(5, 'em');
     var result = simpleLength1.add(simpleLength2);
-    assert.instanceOf(result, SimpleLength, 'two added SimpleLength of same type should be an instance of SimpleLength');
+    assert.instanceOf(result, SimpleLength, 'two added SimpleLengths of same type should be an instance of SimpleLength');
     assert.strictEqual(result.type, 'em');
     assert.strictEqual(result.value, 15);
   });
@@ -85,7 +85,7 @@ suite('SimpleLength', function() {
     var simpleLength1 = new SimpleLength(10, 'em');
     var simpleLength2 = new SimpleLength(5, 'em');
     var result = simpleLength1.subtract(simpleLength2);
-    assert.instanceOf(result, SimpleLength, 'two subtracted SimpleLength of same type should be an instance of SimpleLength');
+    assert.instanceOf(result, SimpleLength, 'two subtracted SimpleLengths of same type should be an instance of SimpleLength');
     assert.strictEqual(result.type, 'em');
     assert.strictEqual(result.value, 5);
   });
