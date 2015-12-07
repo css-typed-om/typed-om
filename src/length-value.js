@@ -62,7 +62,7 @@
     if (this instanceof SimpleLength && subtractedLength instanceof SimpleLength && this.type == subtractedLength.type) {
       return this._subtractSimpleLengths(subtractedLength);
     } else if (subtractedLength instanceof LengthValue) {
-      // Ensure both lengths are of type CalcLength before adding
+      // Ensure both lengths are of type CalcLength before subtracting
       return this._asCalcLength()._subtractCalcLengths(subtractedLength._asCalcLength());
     } else {
       throw new TypeError('Argument must be a LengthValue');

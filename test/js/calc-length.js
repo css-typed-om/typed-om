@@ -63,24 +63,28 @@ suite('CalcLength', function() {
   test('Multiplication of a CalcLength length produces a new CalcLength object', function() {
     var calcLength = new CalcLength({px: 10, em: 3.2});
     var result = calcLength.multiply(4);
+    
     assert.strictEqual(result.cssString, 'calc(40px+12.8em)');
   });
 
   test('Multiplication of a decimal number produces expected result', function() {
     var calcLength = new CalcLength({px: 10, em: 3.2});
     var result = calcLength.multiply(0.5);
+
     assert.strictEqual(result.cssString, 'calc(5px+1.6em)');
   });
 
   test('Division of a CalcLength length produces a new CalcLength object', function() {
     var calcLength = new CalcLength({px: 10, em: 4.0});
     var result = calcLength.divide(4);
+
     assert.strictEqual(result.cssString, 'calc(2.5px+1em)');
   });
 
   test('Division of a decimal number produces expected result', function() {
     var calcLength = new CalcLength({px: 25, em: 3.2});
     var result = calcLength.divide(2.5);
+
     assert.strictEqual(result.cssString, 'calc(10px+1.28em)');
   });
 
@@ -90,7 +94,6 @@ suite('CalcLength', function() {
     var result = calcLength1.add(calcLength2);
     var expectedResult = new CalcLength({px: 25, em: 9});
 
-    assert.instanceOf(result, CalcLength, 'two added CalcLength of same type should be an instance of CalcLength');
     assert.isTrue(expectedResult.equals(result));
   });
 
@@ -100,17 +103,15 @@ suite('CalcLength', function() {
     var result = calcLength1.add(calcLength2);
     var expectedResult = new CalcLength({px: 25, em: 9, percent: 5, ex: 6});
 
-    assert.instanceOf(result, CalcLength, 'two added CalcLength of same type should be an instance of CalcLength');
     assert.isTrue(expectedResult.equals(result));
   });
 
-  test('length values in CalcLengths set to null add to null not zero', function() {
+  test('Null length values in CalcLengths add to null, not zero', function() {
     var calcLength1 = new CalcLength({px: 15, em: null, percent: 5});
     var calcLength2 = new CalcLength({px: 10, em: null, ex: 6});
     var result = calcLength1.add(calcLength2);
     var expectedResult = new CalcLength({px: 25, em: null, percent: 5, ex: 6});
 
-    assert.instanceOf(result, CalcLength, 'two added CalcLength of same type should be an instance of CalcLength');
     assert.isTrue(expectedResult.equals(result));
   });
 
@@ -120,7 +121,6 @@ suite('CalcLength', function() {
     var result = calcLength1.subtract(calcLength2);
     var expectedResult = new CalcLength({px: 5, em: 3});
 
-    assert.instanceOf(result, CalcLength, 'two added CalcLength of same type should be an instance of CalcLength');
     assert.isTrue(expectedResult.equals(result));
   });
 
@@ -130,45 +130,44 @@ suite('CalcLength', function() {
     var result = calcLength1.subtract(calcLength2);
     var expectedResult = new CalcLength({px: 5, em: 3, percent: 5, ex: -6});
 
-    assert.instanceOf(result, CalcLength, 'two added CalcLength of same type should be an instance of CalcLength');
     assert.isTrue(expectedResult.equals(result));
   });
 
-  test('length values in CalcLengths set to null when subtracted will equal null not zero', function() {
+  test('Subtracting null length values in CalcLengths results in null, not zero', function() {
     var calcLength1 = new CalcLength({px: 15, em: null, percent: 5});
     var calcLength2 = new CalcLength({px: 10, em: null, ex: 6});
     var result = calcLength1.subtract(calcLength2);
     var expectedResult = new CalcLength({px: 5, em: null, percent: 5, ex: -6});
 
-    assert.instanceOf(result, CalcLength, 'two added CalcLength of same type should be an instance of CalcLength');
     assert.isTrue(expectedResult.equals(result));
   });
 
   test('convertToCalcLength method returns the object that called it if it is of type CalcLength', function() {
     var calcLength = new CalcLength({px: 25, em: 3.2});
     var result = calcLength._asCalcLength();
+
     assert.strictEqual(calcLength, result);
   });
 
-  test('Test equals method of CalcLength such that it will return true if two CalcLength\'s are the same', function() {
-  var calcLength1 = new CalcLength({px: 25, em: 3.2});
-  var calcLength2 = new CalcLength({px: 25, em: 3.2});
+  test('CalcLength.equals returns true if the compared CalcLengths are the same', function() {
+    var calcLength1 = new CalcLength({px: 25, em: 3.2});
+    var calcLength2 = new CalcLength({px: 25, em: 3.2});
 
-  assert.isTrue(calcLength1.equals(calcLength2));
+    assert.isTrue(calcLength1.equals(calcLength2));
   });
 
-  test('Equals method should return false when one CalcLength has additional length types with non null values'
-    + 'even if all other types are equivalent', function() {
-  var calcLength1 = new CalcLength({px: 25, em: 3.2, percent: 5});
-  var calcLength2 = new CalcLength({px: 25, em: 3.2});
+  test('Equals method should return false when one CalcLength has additional length types with non null values' + 
+      'even if all other types are equivalent', function() {
+    var calcLength1 = new CalcLength({px: 25, em: 3.2, percent: 5});
+    var calcLength2 = new CalcLength({px: 25, em: 3.2});
 
-  assert.isFalse(calcLength1.equals(calcLength2));
+    assert.isFalse(calcLength1.equals(calcLength2));
   });
 
   test('Equals method should return true when one CalcLength has additional length types with null values', function() {
-  var calcLength1 = new CalcLength({px: 25, em: 3.2, percent: null});
-  var calcLength2 = new CalcLength({px: 25, em: 3.2});
+    var calcLength1 = new CalcLength({px: 25, em: 3.2, percent: null});
+    var calcLength2 = new CalcLength({px: 25, em: 3.2});
 
-  assert.isTrue(calcLength1.equals(calcLength2));
+    assert.isTrue(calcLength1.equals(calcLength2));
   });
 });
