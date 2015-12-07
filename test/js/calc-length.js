@@ -142,7 +142,7 @@ suite('CalcLength', function() {
     assert.isTrue(expectedResult.equals(result));
   });
 
-  test('ConvertToCalcLength method returns the object that called it if it is of type CalcLength', function() {
+  test('_asCalcLength method returns the object that called it if it is of type CalcLength', function() {
     var calcLength = new CalcLength({px: 25, em: 3.2});
     var result = calcLength._asCalcLength();
 
@@ -156,7 +156,7 @@ suite('CalcLength', function() {
     assert.isTrue(calcLength1.equals(calcLength2));
   });
 
-  test('Equals method should return false when one CalcLength has additional length types with non null values' + 
+  test('equals method should return false when one CalcLength has additional length types with non null values' + 
       'even if all other types are equivalent', function() {
     var calcLength1 = new CalcLength({px: 25, em: 3.2, percent: 5});
     var calcLength2 = new CalcLength({px: 25, em: 3.2});
@@ -164,7 +164,7 @@ suite('CalcLength', function() {
     assert.isFalse(calcLength1.equals(calcLength2));
   });
 
-  test('Equals method should return true when one CalcLength has additional length types with null values', function() {
+  test('equals method should return true when one CalcLength has additional length types with null values', function() {
     var calcLength1 = new CalcLength({px: 25, em: 3.2, percent: null});
     var calcLength2 = new CalcLength({px: 25, em: 3.2});
 
