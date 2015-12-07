@@ -148,8 +148,8 @@
     }
 
     // Iterate through all length types and check that both objects contain the same values
-    for (var index in shared.LengthValue.LengthType) {
-      var type = shared.LengthValue.LengthType[index];
+    for (var i = 0; i < shared.LengthValue.LengthType.length; i++) {
+      var type = shared.LengthValue.LengthType[i];
       if (this[type] != other[type]) {
         return false;
       }

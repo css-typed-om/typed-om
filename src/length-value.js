@@ -54,7 +54,7 @@
       // Ensure both lengths are of type CalcLength before adding
       return this._asCalcLength()._addCalcLengths(addedLength._asCalcLength());
     } else {
-      throw new TypeError('The object you are adding is not of type LengthValue');
+      throw new TypeError('Argument must be a LengthValue');
     }
   };
 
@@ -65,14 +65,16 @@
       // Ensure both lengths are of type CalcLength before adding
       return this._asCalcLength()._subtractCalcLengths(subtractedLength._asCalcLength());
     } else {
-      throw new TypeError('The object you are trying to subtract from this length is not of type LengthValue');
+      throw new TypeError('Argument must be a LengthValue');
     }
   };
 
   LengthValue.prototype.multiply = function(multiplier) {
+    throw new TypeError('Should not be reached');
   };
 
   LengthValue.prototype.divide = function(divider) {
+    throw new TypeError('Should not be reached');
   };
 
   LengthValue.prototype.parse = function(cssString) {
@@ -80,9 +82,11 @@
   };
 
   LengthValue.prototype._asCalcLength = function() {
+    throw new TypeError('Should not be reached');
   };
 
   LengthValue.prototype.equals = function(other) {
+    throw new TypeError('Should not be reached');
   };
 
   shared.LengthValue = LengthValue;
