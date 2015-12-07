@@ -16,21 +16,14 @@
 
   // TODO: SimpleLength(simpleLength), SimpleLength(cssString)
   function SimpleLength(value, type) {
-    if (arguments.length == 2 && shared.LengthValue.LengthType.indexOf(type) >= 0) {
-      this.type = type;
-      if (typeof value == 'number') {
-        this.value = value;
-      } else if (typeof value == 'string') {
-        var nValue = Number.parseFloat(value);
-        if (!isNaN(nValue)) {
-          this.value = nValue;
-        }
-      }
+    if (typeof value != 'number') {
+      throw new TypeError('Value of SimpleLength must be a number.');
     }
-    if (this.value == undefined) {
-      throw new TypeError('Value of SimpleLength must be a number or a numeric string.');
+    if (shared.LengthValue.LengthType.indexOf(type) < 0) {
+      throw new TypeError('\'' + type + '\' is not a valid type for a SimpleLength.');
     }
-
+    this.type = type;
+    this.value = value;
     this.cssString = this.value + shared.LengthValue.cssStringTypeRepresentation(this.type);
   }
 
