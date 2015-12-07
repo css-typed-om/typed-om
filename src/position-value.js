@@ -20,16 +20,15 @@
   function PositionValue(xPos, yPos) {
     //Check that method parameters are of type LengthValue
     if(!(xPos instanceof LengthValue)){
-      throw new TypeError('xPos is not of type: LengthValue');
+      throw new TypeError('xPos is not a LengthValue object');
     }
 
     if(!(yPos instanceof LengthValue)){
-      throw new TypeError('yPos is not of type: LengthValue');
+      throw new TypeError('yPos is not a LengthValue object');
     }
 
     this.x = xPos;
     this.y = yPos;
-
     this._createCssString();
   }
 
