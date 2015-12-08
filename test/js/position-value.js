@@ -7,9 +7,8 @@ suite('PositionValue', function() {
   test('CssStrings created by a PositionValue object should be the x and y css strings separated by a space', function() {
     var lengthValue_1 = new CalcLength({px: 10, em: 3.2});
     var lengthValue_2 = new SimpleLength(3, 'px');
-
     var positionValue = new PositionValue(lengthValue_1, lengthValue_2);
-    console.log(lengthValue_1.cssString + ' ' + lengthValue_2.cssString);
+
     assert.strictEqual(positionValue.cssString, lengthValue_1.cssString + ' ' + lengthValue_2.cssString);
   });
 });
