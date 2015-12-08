@@ -66,9 +66,9 @@
     var calcDictionary = {};
 
     // Iterate through all length types and multiply all non null lengths
-    for(var i = 0; i < shared.LengthValue.LengthType.length; i++){
+    for (var i = 0; i < shared.LengthValue.LengthType.length; i++) {
       var type = shared.LengthValue.LengthType[i];
-      if(this[type] != null){
+      if (this[type] != null) {
         calcDictionary[type] = this[type] * multiplier;
       }
     }
@@ -80,14 +80,82 @@
     var calcDictionary = {};
 
     // Iterate through all length types and divide all non null lengths
-    for(var i = 0; i < shared.LengthValue.LengthType.length; i++){
+    for (var i = 0; i < shared.LengthValue.LengthType.length; i++) {
       var type = shared.LengthValue.LengthType[i];
-      if(this[type] != null){
+      if (this[type] != null) {
         calcDictionary[type] = this[type] / divider;
       }
     }
 
     return new CalcLength(calcDictionary);
+  };
+
+  CalcLength.prototype._addCalcLengths = function(addedLength) {
+    if (!(addedLength instanceof CalcLength)) {
+      throw new TypeError('Argument must be a CalcLength');
+    }
+
+    var calcDictionary = {};
+
+    // Iterate through all possible length types and add their values
+    for (var i = 0; i < shared.LengthValue.LengthType.length; i++) {
+      var type = shared.LengthValue.LengthType[i];
+      if (this[type] == null && addedLength[type] == null) {
+        calcDictionary[type] = null;
+      } else if (this[type] == null) {
+        calcDictionary[type] = addedLength[type];
+      } else if (addedLength[type] == null) {
+        calcDictionary[type] = this[type];
+      } else {
+        calcDictionary[type] = this[type] + addedLength[type];
+      }
+    }
+
+    return new CalcLength(calcDictionary);
+  };
+
+  CalcLength.prototype._subtractCalcLengths = function(subtractedLength) {
+    if (!(subtractedLength instanceof CalcLength)) {
+      throw new TypeError('Argument must be a CalcLength');
+    }
+
+    var calcDictionary = {};
+
+    // Iterate through all possible length types and add their values
+    for (var i = 0; i < shared.LengthValue.LengthType.length; i++) {
+      var type = shared.LengthValue.LengthType[i];
+      if (this[type] == null && subtractedLength[type] == null) {
+        calcDictionary[type] = null;
+      } else if (subtractedLength[type] == null) {
+        calcDictionary[type] = this[type];
+      } else if (this[type] == null) {
+        calcDictionary[type] = -subtractedLength[type];
+      } else {
+        calcDictionary[type] = this[type] - subtractedLength[type];
+      }
+    }
+
+    return new CalcLength(calcDictionary);
+  };
+
+  CalcLength.prototype._asCalcLength = function() {
+    return this;
+  };
+
+  CalcLength.prototype.equals = function(other) {
+    if (!(other instanceof CalcLength)) {
+      return false;
+    }
+
+    // Iterate through all length types and check that both objects contain the same values
+    for (var i = 0; i < shared.LengthValue.LengthType.length; i++) {
+      var type = shared.LengthValue.LengthType[i];
+      if (this[type] != other[type]) {
+        return false;
+      }
+    }
+
+    return true;
   };
 
   scope.CalcLength = CalcLength;

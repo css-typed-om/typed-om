@@ -46,7 +46,7 @@
 
   SimpleLength.prototype._addSimpleLengths = function(addedLength) {
     if (!(addedLength instanceof SimpleLength)) {
-      throw new TypeError('Objects not of type simple length');
+      throw new TypeError('Argument must be a SimpleLength');
     }
     if (this.type != addedLength.type) {
       throw new TypeError('SimpleLength units are not the same');
@@ -56,12 +56,28 @@
 
   SimpleLength.prototype._subtractSimpleLengths = function(subtractedLength) {
     if (!(subtractedLength instanceof SimpleLength)) {
-      throw new TypeError('Objects not of type simple length');
+      throw new TypeError('Argument must be a SimpleLength');
     }
     if (this.type != subtractedLength.type) {
       throw new TypeError('SimpleLength units are not the same');
     }
     return new SimpleLength((this.value - subtractedLength.value), this.type);
+  };
+
+  SimpleLength.prototype._asCalcLength = function() {
+    var calcDictionary = {};
+    calcDictionary[this.type] = this.value;
+    return new CalcLength(calcDictionary);
+  };
+
+  SimpleLength.prototype.equals = function(other) {
+    if (!(other instanceof SimpleLength)) {
+      return false;
+    }
+    if (!(this.type == other.type && this.value == other.value)) {
+      return false;
+    }
+    return true;
   };
 
   scope.SimpleLength = SimpleLength;

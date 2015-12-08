@@ -35,7 +35,7 @@
       default:
         return type;
     }
-  }
+  };
 
   LengthValue.prototype = Object.create(shared.StyleValue.prototype);
 
@@ -50,27 +50,43 @@
   LengthValue.prototype.add = function(addedLength) {
     if (this instanceof SimpleLength && addedLength instanceof SimpleLength && this.type == addedLength.type) {
       return this._addSimpleLengths(addedLength);
+    } else if (addedLength instanceof LengthValue) {
+      // Ensure both lengths are of type CalcLength before adding
+      return this._asCalcLength()._addCalcLengths(addedLength._asCalcLength());
+    } else {
+      throw new TypeError('Argument must be a LengthValue');
     }
-    throw new TypeError('Not implemented yet');
   };
 
   LengthValue.prototype.subtract = function(subtractedLength) {
     if (this instanceof SimpleLength && subtractedLength instanceof SimpleLength && this.type == subtractedLength.type) {
       return this._subtractSimpleLengths(subtractedLength);
+    } else if (subtractedLength instanceof LengthValue) {
+      // Ensure both lengths are of type CalcLength before subtracting
+      return this._asCalcLength()._subtractCalcLengths(subtractedLength._asCalcLength());
+    } else {
+      throw new TypeError('Argument must be a LengthValue');
     }
-    throw new TypeError('Not implemented yet');
   };
 
   LengthValue.prototype.multiply = function(multiplier) {
-    throw new TypeError('Not implemented yet');
+    throw new TypeError('Should not be reached');
   };
 
   LengthValue.prototype.divide = function(divider) {
-    throw new TypeError('Not implemented yet');
+    throw new TypeError('Should not be reached');
   };
 
   LengthValue.prototype.parse = function(cssString) {
-    throw new TypeError('Not implemented yet');
+    throw new TypeError('Should not be reached');
+  };
+
+  LengthValue.prototype._asCalcLength = function() {
+    throw new TypeError('Should not be reached');
+  };
+
+  LengthValue.prototype.equals = function(other) {
+    throw new TypeError('Should not be reached');
   };
 
   shared.LengthValue = LengthValue;
