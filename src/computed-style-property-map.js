@@ -38,9 +38,9 @@
     if (!value) {
       return null;
     }
-    if (value == 'inherit') {
-      // TODO: Other keywords
-      throw new TypeError('Not implemented yet');
+
+    if (scope.KeywordValue.isKeywordValue(value)) {
+      return new scope.KeywordValue(value);
     }
 
     // TODO: The rest of the properties once the rest of the StyleValues are
@@ -55,6 +55,31 @@
       case 'widows':
       case 'z-index':
         return new scope.NumberValue(value);
+
+      // These properties take only a length value (length and percentage),
+      // or a keyword handled above.
+      case 'bottom':
+      case 'height':
+      case 'left':
+      case 'max-height':
+      case 'max-width':
+      case 'min-height':
+      case 'min-width':
+      case 'right':
+      case 'text-indent':
+      case 'top':
+      case 'width':
+        // TODO: ensure that LengthValue.parse is being implemented,
+        // or update to other appropriate function.
+        return new scope.LengthValue.parse(value);
+
+      // These properties only take a length value, but do not take percentage.
+      // TODO: Validation and implementation of this case.
+      case 'letter-spacing':
+      case 'word-spacing':
+        throw new TypeError('Not implemented yet');
+
+      // These properties take a number or SimpleLength
 
       case 'line-height':
         // normal | <number> | <length> | <percentage> | inherit
@@ -80,27 +105,13 @@
       throw new TypeError('parameter 1 is not of type \'string\'');
     }
 
-    switch (property) {
-      // These properties always return a single value.
-      case 'line-height':
-      case 'opacity':
-      case 'orphans':
-      case 'pitch-range':
-      case 'richness':
-      case 'speech-rate':
-      case 'stress':
-      case 'volume':
-      case 'widows':
-      case 'z-index':
-        var value = this.get(property);
-        return value ? [value] : [];
-
-      // TODO: Stuff that takes shorthands will need to be handled separately.
-
-      default:
-        throw new TypeError('Not implemented yet');
+    var value = this.get(property);
+    if (Array.isArray(value)) {
+      // TODO: Handle shorthands
+      throw new TypeError('Not implemented yet');
+    } else {
+      return value ? [value] : [];
     }
-
   };
 
   ComputedStylePropertyMap.prototype.set = function(property, value) {

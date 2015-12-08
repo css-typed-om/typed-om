@@ -18,6 +18,7 @@ suite('KeywordValue', function() {
   });
 
   test('KeywordValue.isKeywordValue is true for valid values', function() {
+    assert.isTrue(KeywordValue.isKeywordValue('auto'));
     assert.isTrue(KeywordValue.isKeywordValue('initial'));
     assert.isTrue(KeywordValue.isKeywordValue('inherit'));
     assert.isTrue(KeywordValue.isKeywordValue('revert'));
