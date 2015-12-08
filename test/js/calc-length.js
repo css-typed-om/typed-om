@@ -110,9 +110,8 @@ suite('CalcLength', function() {
     var calcLength1 = new CalcLength({px: 15, em: null, percent: 5});
     var calcLength2 = new CalcLength({px: 10, em: null, ex: 6});
     var result = calcLength1.add(calcLength2);
-    var expectedResult = new CalcLength({px: 25, em: null, percent: 5, ex: 6});
 
-    assert.isTrue(expectedResult.equals(result));
+    assert.strictEqual(null, result.em);
   });
 
   test('Subtracting two CalcLengths returns a new CalcLength with expected values in each value type', function() {
@@ -137,9 +136,8 @@ suite('CalcLength', function() {
     var calcLength1 = new CalcLength({px: 15, em: null, percent: 5});
     var calcLength2 = new CalcLength({px: 10, em: null, ex: 6});
     var result = calcLength1.subtract(calcLength2);
-    var expectedResult = new CalcLength({px: 5, em: null, percent: 5, ex: -6});
 
-    assert.isTrue(expectedResult.equals(result));
+    assert.strictEqual(null, result.em)
   });
 
   test('_asCalcLength method returns the object that called it if it is of type CalcLength', function() {
