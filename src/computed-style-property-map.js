@@ -105,40 +105,13 @@
       throw new TypeError('parameter 1 is not of type \'string\'');
     }
 
-    switch (property) {
-      // These properties always return a single value.
-      case 'bottom':
-      case 'height':
-      case 'left':
-      case 'letter-spacing':
-      case 'line-height':
-      case 'max-height':
-      case 'max-width':
-      case 'min-height':
-      case 'min-width':
-      case 'opacity':
-      case 'orphans':
-      case 'pitch-range':
-      case 'richness':
-      case 'right':
-      case 'speech-rate':
-      case 'stress':
-      case 'text-indent':
-      case 'top':
-      case 'volume':
-      case 'widows':
-      case 'width':
-      case 'word-spacing':
-      case 'z-index':
-        var value = this.get(property);
-        return value ? [value] : [];
-
-      // TODO: Stuff that takes shorthands will need to be handled separately.
-
-      default:
-        throw new TypeError('Not implemented yet');
+    var value = this.get(property);
+    if (Array.isArray(value)) {
+      // TODO: Handle shorthands
+      throw new TypeError('Not implemented yet');
+    } else {
+      return value ? [value] : [];
     }
-
   };
 
   ComputedStylePropertyMap.prototype.set = function(property, value) {
