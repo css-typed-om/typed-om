@@ -18,7 +18,6 @@
    * PositionValue(xPos, yPos)
    */
   function PositionValue(xPos, yPos) {
-    //Check that method parameters are of type LengthValue
     if (!(xPos instanceof LengthValue)) {
       throw new TypeError('xPos is not a LengthValue object');
     }
@@ -38,7 +37,7 @@
     this.cssString = this.x.cssString + ' ' + this.y.cssString;
   };
 
-   scope.PositionValue = PositionValue;
+  scope.PositionValue = PositionValue;
   if (TYPED_OM_TESTING)
     testing.PositionValue = PositionValue;
 
