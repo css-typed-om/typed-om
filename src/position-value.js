@@ -19,11 +19,11 @@
    */
   function PositionValue(xPos, yPos) {
     //Check that method parameters are of type LengthValue
-    if(!(xPos instanceof LengthValue)){
+    if (!(xPos instanceof LengthValue)) {
       throw new TypeError('xPos is not a LengthValue object');
     }
 
-    if(!(yPos instanceof LengthValue)){
+    if (!(yPos instanceof LengthValue)) {
       throw new TypeError('yPos is not a LengthValue object');
     }
 
@@ -32,11 +32,11 @@
     this._createCssString();
   }
 
-  PositionValue.prototype = Object.create(shared.StyleValue.prototype)
+  PositionValue.prototype = Object.create(shared.StyleValue.prototype);
 
-  PositionValue.prototype._createCssString = function(){
-    this.cssString = this.x.cssString + " " + this.y.cssString;
-  }
+  PositionValue.prototype._createCssString = function() {
+    this.cssString = this.x.cssString + ' ' + this.y.cssString;
+  };
 
    scope.PositionValue = PositionValue;
   if (TYPED_OM_TESTING)

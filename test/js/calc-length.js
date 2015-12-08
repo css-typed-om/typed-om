@@ -137,7 +137,7 @@ suite('CalcLength', function() {
     var calcLength2 = new CalcLength({px: 10, em: null, ex: 6});
     var result = calcLength1.subtract(calcLength2);
 
-    assert.strictEqual(null, result.em)
+    assert.strictEqual(null, result.em);
   });
 
   test('_asCalcLength method returns the object that called it if it is of type CalcLength', function() {
