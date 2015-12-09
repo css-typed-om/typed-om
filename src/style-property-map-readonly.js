@@ -126,7 +126,7 @@
 
   scope.getComputedStyleMap = function(element) {
     return new StylePropertyMapReadOnly(getComputedStyle(element));
-  }
+  };
 
   if (TYPED_OM_TESTING)
     testing.StylePropertyMapReadOnly = StylePropertyMapReadOnly;
