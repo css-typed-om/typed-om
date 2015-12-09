@@ -26,9 +26,8 @@
       'src/simple-length.js',
       'src/calc-length.js',
       'src/position-value.js',
-      'src/style-property-map.js',
-      'src/computed-style-property-map.js',
-      'src/inline-style-property-map.js'
+      'src/style-property-map-readonly.js',
+      'src/style-property-map.js'
   ];
 
   var typedOMTest = [
