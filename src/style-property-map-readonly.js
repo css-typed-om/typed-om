@@ -14,27 +14,34 @@
 
 (function(shared, scope, testing) {
 
-  function ComputedStylePropertyMap(element) {
-    this._element = element;
+  function StylePropertyMapReadOnly(styleObject) {
+    this._styleObject = styleObject;
   }
 
-  ComputedStylePropertyMap.prototype =
-    Object.create(shared.StylePropertyMap.prototype);
-
-  ComputedStylePropertyMap.prototype.append = function(property, value) {
-    throw new TypeError('ComputedStylePropertyMap is immutable');
+  StylePropertyMapReadOnly.prototype = {
+    append: function(property, value) {},
+    delete: function(property) {},
+    get: function(property) {},
+    getAll: function(property) {},
+    has: function(property) {},
+    set: function(property, value) {},
+    getProperties: function() {}
   };
 
-  ComputedStylePropertyMap.prototype.delete = function(property) {
-    throw new TypeError('ComputedStylePropertyMap is immutable');
+  StylePropertyMapReadOnly.prototype.append = function(property, value) {
+    throw new TypeError('StylePropertyMapReadOnly is immutable');
   };
 
-  ComputedStylePropertyMap.prototype.get = function(property) {
+  StylePropertyMapReadOnly.prototype.delete = function(property) {
+    throw new TypeError('StylePropertyMapReadOnly is immutable');
+  };
+
+  StylePropertyMapReadOnly.prototype.get = function(property) {
     if (typeof property != 'string') {
       throw new TypeError('parameter 1 is not of type \'string\'');
     }
 
-    var value = window.getComputedStyle(this._element)[property];
+    var value = this._styleObject[property];
     if (!value) {
       return null;
     }
@@ -75,7 +82,7 @@
     }
   };
 
-  ComputedStylePropertyMap.prototype.getAll = function(property) {
+  StylePropertyMapReadOnly.prototype.getAll = function(property) {
     if (typeof property != 'string') {
       throw new TypeError('parameter 1 is not of type \'string\'');
     }
@@ -103,27 +110,25 @@
 
   };
 
-  ComputedStylePropertyMap.prototype.set = function(property, value) {
-    throw new TypeError('ComputedStylePropertyMap is immutable');
+  StylePropertyMapReadOnly.prototype.set = function(property, value) {
+    throw new TypeError('StylePropertyMapReadOnly is immutable');
   };
 
-  ComputedStylePropertyMap.prototype.getProperties = function() {
-    var computedStyles = window.getComputedStyle(this._element);
+  StylePropertyMapReadOnly.prototype.getProperties = function() {
     var output = [];
-    for (var i = 0, l = computedStyles.length; i < l; ++i) {
-      var property = computedStyles[i];
+    for (var i = 0, l = this._styleObject.length; i < l; ++i) {
+      var property = this._styleObject[i];
       // TODO: Construct the objects for each type of thing and add them to the
       // output array.
     }
     return output;
   };
 
-  function getComputedStyleMap(element) {
-    return new ComputedStylePropertyMap(element);
+  scope.getComputedStyleMap = function(element) {
+    return new StylePropertyMapReadOnly(getComputedStyle(element));
   }
 
-  scope.getComputedStyleMap = getComputedStyleMap;
   if (TYPED_OM_TESTING)
-    testing.ComputedStylePropertyMap = ComputedStylePropertyMap;
+    testing.StylePropertyMapReadOnly = StylePropertyMapReadOnly;
 
 })(baseClasses, window, typedOMTesting);

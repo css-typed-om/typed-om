@@ -14,21 +14,18 @@
 
 (function(shared, scope, testing) {
 
-function StylePropertyMap() {}
+function StylePropertyMap(styleObject) {
+  this._styleObject = styleObject;
+}
 
-  StylePropertyMap.prototype = {
-    append: function(property, value) {},
-    delete: function(property) {},
-    get: function(property) {},
-    getAll: function(property) {},
-    has: function(property) {},
-    set: function(property, value) {},
-    getProperties: function() {}
+  StylePropertyMap.prototype.prototype = StylePropertyMapReadOnly.prototype;
+
+  StylePropertyMap.prototype.set = function(property, value) {
+    throw new TypeError('Function not implemented yet');
   };
 
-  //Temporarily adding declaration of InlineStyleValue constructor method 
-  window.Element.prototype.styleMap = function() {
-    return new InlineStylePropertyMap(this);
+  scope.Element.prototype.styleMap = function() {
+    return new StylePropertyMap(this.style);
   };
 
   shared.StylePropertyMap = StylePropertyMap;
