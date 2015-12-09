@@ -27,7 +27,7 @@
       'src/calc-length.js',
       'src/position-value.js',
       'src/style-property-map.js',
-      'src/computed-style-property-map.js'
+      'src/computed-style-property-map.js',
       'src/inline-style-property-map.js'
   ];
 
@@ -38,7 +38,7 @@
       'test/js/simple-length.js',
       'test/js/position-value.js',
       'test/js/calc-length.js',
-      'test/js/computed-style-property-map.js'
+      'test/js/computed-style-property-map.js',
       'test/js/inline-style-property-map.js'
   ];
 
