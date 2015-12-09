@@ -26,6 +26,11 @@ function StylePropertyMap() {}
     getProperties: function() {}
   };
 
+  //Temporarily adding declaration of InlineStyleValue constructor method 
+  window.Element.prototype.styleMap = function() {
+    return new InlineStylePropertyMap(this);
+  };
+
   shared.StylePropertyMap = StylePropertyMap;
   if (TYPED_OM_TESTING)
     testing.StylePropertyMap = StylePropertyMap;

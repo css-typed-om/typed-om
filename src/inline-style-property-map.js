@@ -14,8 +14,8 @@
 
 (function(shared, scope, testing) {
 
-  function InlineStylePropertyMap() {
-
+  function InlineStylePropertyMap(element) {
+      this._element = this;
   }
 
   InlineStylePropertyMap.prototype =
