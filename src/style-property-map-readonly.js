@@ -28,14 +28,6 @@
     getProperties: function() {}
   };
 
-  StylePropertyMapReadOnly.prototype.append = function(property, value) {
-    throw new TypeError('StylePropertyMapReadOnly is immutable');
-  };
-
-  StylePropertyMapReadOnly.prototype.delete = function(property) {
-    throw new TypeError('StylePropertyMapReadOnly is immutable');
-  };
-
   StylePropertyMapReadOnly.prototype.get = function(property) {
     if (typeof property != 'string') {
       throw new TypeError('parameter 1 is not of type \'string\'');
