@@ -39,7 +39,7 @@
       return null;
     }
     if (value == 'inherit') {
-      // TODO: Other keywords
+      // TODO: Properly detect when it's a keyword.
       throw new TypeError('Not implemented yet');
     }
 
