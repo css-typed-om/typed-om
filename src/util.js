@@ -12,20 +12,13 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, scope, testing) {
+(function(internal) {
 
-  function NumberValue(value) {
-    if (typeof value != 'number') {
-      throw new TypeError('Value of NumberValue must be a number.');
-    }
-    this.value = value;
-    this.cssString = '' + value;
+  function inherit(childCtor, parentCtor) {
+    childCtor.prototype = Object.create(parentCtor.prototype);
+    childCtor.prototype.constructor = childCtor;
   }
-  internal.inherit(NumberValue, internal.StyleValue);
 
-  scope.NumberValue = NumberValue;
-  if (TYPED_OM_TESTING)
-    testing.NumberValue = NumberValue;
+  internal.inherit = inherit;
 
-})(typedOM.internal, window, typedOMTesting);
-
+})(typedOM.internal)

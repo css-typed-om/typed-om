@@ -12,22 +12,21 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(shared, scope, testing) {
+(function(internal, scope, testing) {
 
   // TODO: SimpleLength(simpleLength), SimpleLength(cssString)
   function SimpleLength(value, type) {
     if (typeof value != 'number') {
       throw new TypeError('Value of SimpleLength must be a number.');
     }
-    if (shared.LengthValue.LengthType.indexOf(type) < 0) {
+    if (internal.LengthValue.LengthType.indexOf(type) < 0) {
       throw new TypeError('\'' + type + '\' is not a valid type for a SimpleLength.');
     }
     this.type = type;
     this.value = value;
-    this.cssString = this.value + shared.LengthValue.cssStringTypeRepresentation(this.type);
+    this.cssString = this.value + internal.LengthValue.cssStringTypeRepresentation(this.type);
   }
-
-  SimpleLength.prototype = Object.create(shared.LengthValue.prototype);
+  internal.inherit(SimpleLength, internal.LengthValue);
 
   SimpleLength.prototype.multiply = function(multiplier) {
     return new SimpleLength((this.value * multiplier), this.type);
@@ -77,4 +76,4 @@
   if (TYPED_OM_TESTING)
     testing.SimpleLength = SimpleLength;
 
-})(baseClasses, window, typedOMTesting);
+})(typedOM.internal, window, typedOMTesting);

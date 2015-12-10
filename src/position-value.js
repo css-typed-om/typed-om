@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(shared, scope, testing) {
+(function(internal, scope, testing) {
 
   /**
    * PositionValue(xPos, yPos)
@@ -30,8 +30,7 @@
     this.y = yPos;
     this._createCssString();
   }
-
-  PositionValue.prototype = Object.create(shared.StyleValue.prototype);
+  internal.inherit(PositionValue, internal.StyleValue);
 
   PositionValue.prototype._createCssString = function() {
     this.cssString = this.x.cssString + ' ' + this.y.cssString;
@@ -41,4 +40,4 @@
   if (TYPED_OM_TESTING)
     testing.PositionValue = PositionValue;
 
-})(baseClasses, window, typedOMTesting);
+})(typedOM.internal, window, typedOMTesting);

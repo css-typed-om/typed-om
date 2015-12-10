@@ -12,14 +12,14 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(shared, scope, testing) {
+(function(internal, scope, testing) {
 
   function ComputedStylePropertyMap(element) {
     this._element = element;
   }
 
   ComputedStylePropertyMap.prototype =
-    Object.create(shared.StylePropertyMap.prototype);
+    Object.create(internal.StylePropertyMap.prototype);
 
   ComputedStylePropertyMap.prototype.append = function(property, value) {
     throw new TypeError('ComputedStylePropertyMap is immutable');
@@ -126,4 +126,4 @@
   if (TYPED_OM_TESTING)
     testing.ComputedStylePropertyMap = ComputedStylePropertyMap;
 
-})(baseClasses, window, typedOMTesting);
+})(typedOM.internal, window, typedOMTesting);
