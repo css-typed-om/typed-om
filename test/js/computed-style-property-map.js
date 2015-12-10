@@ -10,7 +10,7 @@ suite('Computed StylePropertyMap', function() {
 
   test('Computed StylePropertyMap.get works for properties that can only be ' +
       'NumberValues', function() {
-    var computedStyleMap = new StylePropertyMapReadOnly(getComputedStyle(this.element));
+    var computedStyleMap = getComputedStyleMap(this.element);
     var opacity = computedStyleMap.get('opacity');
     assert.instanceOf(opacity, NumberValue);
     assert.equal(opacity.value, 0.5);

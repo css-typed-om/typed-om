@@ -12,23 +12,12 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(shared, scope, testing) {
+(function(internal, scope, testing) {
 
   function StylePropertyMap(styleObject) {
     this._styleObject = styleObject;
   }
-
-  StylePropertyMap.prototype = {
-    append: function(property, value) {},
-    delete: function(property) {},
-    get: function(property) {},
-    getAll: function(property) {},
-    has: function(property) {},
-    set: function(property, value) {},
-    getProperties: function() {}
-  };
-
-  StylePropertyMap.prototype.prototype = StylePropertyMapReadOnly.prototype;
+  internal.inherit(StylePropertyMap, internal.StylePropertyMapReadOnly);
 
   StylePropertyMap.prototype.set = function(property, value) {
     throw new TypeError('Function not implemented yet');
@@ -50,4 +39,4 @@
   if (TYPED_OM_TESTING)
     testing.StylePropertyMap = StylePropertyMap;
 
-})(baseClasses, window, typedOMTesting);
+})(typedOM.internal, window, typedOMTesting);
