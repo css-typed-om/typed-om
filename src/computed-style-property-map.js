@@ -54,7 +54,7 @@
       case 'stress':
       case 'widows':
       case 'z-index':
-        return new scope.NumberValue(value);
+        return new scope.NumberValue(Number(value));
 
       case 'line-height':
         // normal | <number> | <length> | <percentage> | inherit

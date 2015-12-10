@@ -13,27 +13,18 @@ suite('SimpleLength', function() {
   });
 
   // Possible constructors: SimpleLength(SimpleLength),
-  // SimpleLength(number, type), SimpleLength(numeric string, type)
-  test('SimpleLength constructor works correctly for numbers and numeric strings', function() {
-    var valueFromString;
-    assert.doesNotThrow(function() {valueFromString = new SimpleLength('9.2', 'px')});
-    assert.strictEqual(valueFromString.type, 'px');
-    assert.strictEqual(valueFromString.value, 9.2);
-
-    var valueFromNumber;
-    assert.doesNotThrow(function() {valueFromNumber = new SimpleLength(10, 'px')});
-    assert.strictEqual(valueFromNumber.type, 'px');
-    assert.strictEqual(valueFromNumber.value, 10);
+  // SimpleLength(number, type)
+  test('SimpleLength constructor works correctly for numbers', function() {
+    var result;
+    assert.doesNotThrow(function() {result = new SimpleLength(10, 'px')});
+    assert.strictEqual(result.type, 'px');
+    assert.strictEqual(result.value, 10);
   });
 
   test('SimpleLength cssString is correctly defined for different values and types', function() {
-    var valueFromString;
-    assert.doesNotThrow(function() {valueFromString = new SimpleLength('9.2', 'px')});
-    assert.strictEqual(valueFromString.cssString, '9.2px');
-
-    var valueFromNumber;
-    assert.doesNotThrow(function() {valueFromNumber = new SimpleLength(10, 'px')});
-    assert.strictEqual(valueFromNumber.cssString, '10px');
+    var pixValue;
+    assert.doesNotThrow(function() {pixValue = new SimpleLength(10, 'px')});
+    assert.strictEqual(pixValue.cssString, '10px');
 
     var percentValue;
     assert.doesNotThrow(function() {percentValue = new SimpleLength(10, 'percent')});
