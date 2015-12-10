@@ -15,21 +15,11 @@
 (function(shared, scope, testing) {
 
   function NumberValue(value) {
-    this.cssString = '' + value;
-    if (typeof value == 'number') {
-      this.value = value;
-    } else if (typeof value == 'string') {
-      var nValue = Number.parseFloat(value);
-      if (!isNaN(nValue)) {
-        this.value = nValue;
-      } else {
-        throw new TypeError(
-          'Value of NumberValue must be a number or a numeric string.');
-      }
-    } else {
-      throw new TypeError(
-        'Value of NumberValue must be a number or a numeric string.');
+    if (typeof value != 'number') {
+      throw new TypeError('Value of NumberValue must be a number.');
     }
+    this.value = value;
+    this.cssString = '' + value;
   }
 
   NumberValue.prototype = Object.create(shared.StyleValue.prototype);
