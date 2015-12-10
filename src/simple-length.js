@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(shared, scope, testing) {
+(function(shared, util, scope, testing) {
 
   // TODO: SimpleLength(simpleLength), SimpleLength(cssString)
   function SimpleLength(value, type) {
@@ -33,8 +33,7 @@
 
     this.cssString = this.value + shared.LengthValue.cssStringTypeRepresentation(this.type);
   }
-
-  SimpleLength.prototype = Object.create(shared.LengthValue.prototype);
+  util.inherit(SimpleLength, shared.LengthValue);
 
   SimpleLength.prototype.multiply = function(multiplier) {
     return new SimpleLength((this.value * multiplier), this.type);
@@ -84,4 +83,4 @@
   if (TYPED_OM_TESTING)
     testing.SimpleLength = SimpleLength;
 
-})(baseClasses, window, typedOMTesting);
+})(baseClasses, util, window, typedOMTesting);

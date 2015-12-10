@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(shared, scope, testing) {
+(function(shared, util, scope, testing) {
 
   // TODO: CalcLength(cssString)
   function CalcLength(dictionary) {
@@ -58,8 +58,7 @@
     }
     createCssString(this);
   }
-
-  CalcLength.prototype = Object.create(shared.LengthValue.prototype);
+  util.inherit(CalcLength, shared.LengthValue);
 
   // Length Calculation Methods
   CalcLength.prototype.multiply = function(multiplier) {
@@ -162,4 +161,4 @@
   if (TYPED_OM_TESTING)
     testing.CalcLength = CalcLength;
 
-})(baseClasses, window, typedOMTesting);
+})(baseClasses, util, window, typedOMTesting);

@@ -12,17 +12,16 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(shared, testing) {
+(function(shared, scope, testing) {
 
-  function StyleValue() {
-  }
+  function StyleValue() {}
 
   // TODO: Include parsing logic here.
   StyleValue.parse = function(property, value) {
     if (typeof value == 'string') {
       numberValue = Number.parseFloat(value);
       if (numberValue !== NaN) {
-        return new NumberValue(numberValue);
+        return new scope.NumberValue(numberValue);
       }
     }
     return null;
@@ -32,4 +31,4 @@
   if (TYPED_OM_TESTING)
     testing.StyleValue = StyleValue;
 
-})(baseClasses, typedOMTesting);
+})(baseClasses, window, typedOMTesting);

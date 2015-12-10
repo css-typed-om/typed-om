@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(shared, scope, testing) {
+(function(shared, util, scope, testing) {
 
   function NumberValue(value) {
     this.cssString = '' + value;
@@ -31,12 +31,11 @@
         'Value of NumberValue must be a number or a numeric string.');
     }
   }
-
-  NumberValue.prototype = Object.create(shared.StyleValue.prototype);
+  util.inherit(NumberValue, shared.StyleValue);
 
   scope.NumberValue = NumberValue;
   if (TYPED_OM_TESTING)
     testing.NumberValue = NumberValue;
 
-})(baseClasses, window, typedOMTesting);
+})(baseClasses, util, window, typedOMTesting);
 
