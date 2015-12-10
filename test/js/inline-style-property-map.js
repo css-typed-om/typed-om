@@ -9,7 +9,7 @@ suite('Inline StylePropertyMap', function() {
   });
 
   test('Test that a new InlineStylePropertyMap is created when a HTML element referance calls the styleMap method', function() {
-	  var inlineStyleMap = this.element.styleMap();
-	  assert.instanceOf(inlineStyleMap, StylePropertyMap, 'The styleMap method should return an instance of InlineStylePropertyMap');
+    var inlineStyleMap = this.element.styleMap();
+    assert.instanceOf(inlineStyleMap, StylePropertyMap, 'The styleMap method should return an instance of InlineStylePropertyMap');
   });
 });
