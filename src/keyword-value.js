@@ -15,19 +15,12 @@
 (function(shared, scope, testing) {
 
   function KeywordValue(value) {
-    if (!KeywordValue.isKeywordValue(value)) {
-      throw new TypeError('Value must be a valid style value keyword.');
+    if (!value || typeof value != 'string') {
+      throw new TypeError('Keyword value must be a non-empty string.');
     }
     this.keywordValue = value;
     this.cssString = value;
   }
-
-  KeywordValue.StyleValueKeyword = ['initial', 'inherit', 'revert', 'unset'];
-
-  KeywordValue.isKeywordValue = function(cssString) {
-    return KeywordValue.StyleValueKeyword.indexOf(cssString) >= 0;
-  };
-
   KeywordValue.prototype = Object.create(shared.StyleValue.prototype);
 
   scope.KeywordValue = KeywordValue;
