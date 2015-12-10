@@ -40,4 +40,4 @@
   if (TYPED_OM_TESTING)
     testing.PositionValue = PositionValue;
 
-})(baseClasses, util, window, typedOMTesting);
+})(typedOM.baseClasses, typedOM.util, window, typedOMTesting);

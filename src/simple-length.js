@@ -83,4 +83,4 @@
   if (TYPED_OM_TESTING)
     testing.SimpleLength = SimpleLength;
 
-})(baseClasses, util, window, typedOMTesting);
+})(typedOM.baseClasses, typedOM.util, window, typedOMTesting);

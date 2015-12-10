@@ -31,4 +31,4 @@
   if (TYPED_OM_TESTING)
     testing.StyleValue = StyleValue;
 
-})(baseClasses, window, typedOMTesting);
+})(typedOM.baseClasses, window, typedOMTesting);

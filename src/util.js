@@ -21,4 +21,4 @@
 
   scope.inherit = inherit;
 
-})(util)
+})(typedOM.util)

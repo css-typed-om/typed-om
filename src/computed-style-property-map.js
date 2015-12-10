@@ -126,4 +126,4 @@
   if (TYPED_OM_TESTING)
     testing.ComputedStylePropertyMap = ComputedStylePropertyMap;
 
-})(baseClasses, window, typedOMTesting);
+})(typedOM.baseClasses, window, typedOMTesting);

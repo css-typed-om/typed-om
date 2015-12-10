@@ -33,4 +33,4 @@
   if (TYPED_OM_TESTING)
     testing.KeywordValue = KeywordValue;
 
-})(baseClasses, util, window, typedOMTesting);
+})(typedOM.baseClasses, typedOM.util, window, typedOMTesting);

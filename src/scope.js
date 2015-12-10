@@ -13,8 +13,8 @@
 // limitations under the License.
 
 typedOM = {};
-baseClasses = {};
-util = {};
+typedOM.util = {};
+typedOM.baseClasses = {};
 if (TYPED_OM_TESTING)
   var typedOMTesting = window;
 else

@@ -161,4 +161,4 @@
   if (TYPED_OM_TESTING)
     testing.CalcLength = CalcLength;
 
-})(baseClasses, util, window, typedOMTesting);
+})(typedOM.baseClasses, typedOM.util, window, typedOMTesting);

@@ -91,4 +91,4 @@
   if (TYPED_OM_TESTING)
     testing.LengthValue = LengthValue;
 
-})(baseClasses, util, typedOMTesting);
+})(typedOM.baseClasses, typedOM.util, typedOMTesting);

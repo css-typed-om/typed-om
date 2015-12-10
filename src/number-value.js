@@ -37,5 +37,5 @@
   if (TYPED_OM_TESTING)
     testing.NumberValue = NumberValue;
 
-})(baseClasses, util, window, typedOMTesting);
+})(typedOM.baseClasses, typedOM.util, window, typedOMTesting);
 
