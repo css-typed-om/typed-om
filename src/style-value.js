@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(shared, scope, testing) {
+(function(internal, scope, testing) {
 
   function StyleValue() {}
 
@@ -27,8 +27,8 @@
     return null;
   };
 
-  shared.StyleValue = StyleValue;
+  internal.StyleValue = StyleValue;
   if (TYPED_OM_TESTING)
     testing.StyleValue = StyleValue;
 
-})(typedOM.baseClasses, window, typedOMTesting);
+})(typedOM.internal, window, typedOMTesting);

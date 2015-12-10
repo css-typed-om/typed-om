@@ -12,13 +12,13 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(scope) {
+(function(internal) {
 
   function inherit(childCtor, parentCtor) {
     childCtor.prototype = Object.create(parentCtor.prototype);
     childCtor.prototype.constructor = childCtor;
   }
 
-  scope.inherit = inherit;
+  internal.inherit = inherit;
 
-})(typedOM.util)
+})(typedOM.internal)

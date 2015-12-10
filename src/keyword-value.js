@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(shared, util, scope, testing) {
+(function(internal, scope, testing) {
 
   function KeywordValue(value) {
     if (!KeywordValue.isKeywordValue(value)) {
@@ -21,7 +21,7 @@
     this.keywordValue = value;
     this.cssString = value;
   }
-  util.inherit(KeywordValue, shared.StyleValue);
+  internal.inherit(KeywordValue, internal.StyleValue);
 
   KeywordValue.StyleValueKeyword = ['initial', 'inherit', 'revert', 'unset'];
 
@@ -33,4 +33,4 @@
   if (TYPED_OM_TESTING)
     testing.KeywordValue = KeywordValue;
 
-})(typedOM.baseClasses, typedOM.util, window, typedOMTesting);
+})(typedOM.internal, window, typedOMTesting);

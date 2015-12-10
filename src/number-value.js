@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(shared, util, scope, testing) {
+(function(internal, scope, testing) {
 
   function NumberValue(value) {
     if (typeof value != 'number') {
@@ -21,11 +21,11 @@
     this.value = value;
     this.cssString = '' + value;
   }
-  util.inherit(NumberValue, shared.StyleValue);
+  internal.inherit(NumberValue, internal.StyleValue);
 
   scope.NumberValue = NumberValue;
   if (TYPED_OM_TESTING)
     testing.NumberValue = NumberValue;
 
-})(typedOM.baseClasses, typedOM.util, window, typedOMTesting);
+})(typedOM.internal, window, typedOMTesting);
 

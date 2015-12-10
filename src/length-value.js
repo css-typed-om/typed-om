@@ -12,10 +12,10 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(shared, util, testing) {
+(function(internal, testing) {
 
   function LengthValue() {}
-  util.inherit(LengthValue, shared.StyleValue);
+  internal.inherit(LengthValue, internal.StyleValue);
 
   // The different possible length types.
   LengthValue.LengthType = [
@@ -87,8 +87,8 @@
     throw new TypeError('Should not be reached');
   };
 
-  shared.LengthValue = LengthValue;
+  internal.LengthValue = LengthValue;
   if (TYPED_OM_TESTING)
     testing.LengthValue = LengthValue;
 
-})(typedOM.baseClasses, typedOM.util, typedOMTesting);
+})(typedOM.internal, typedOMTesting);

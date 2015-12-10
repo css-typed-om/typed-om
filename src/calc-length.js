@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(shared, util, scope, testing) {
+(function(internal, scope, testing) {
 
   // TODO: CalcLength(cssString)
   function CalcLength(dictionary) {
@@ -21,8 +21,8 @@
     }
 
     var isEmpty = true;
-    for (var index in shared.LengthValue.LengthType) {
-      var type = shared.LengthValue.LengthType[index];
+    for (var index in internal.LengthValue.LengthType) {
+      var type = internal.LengthValue.LengthType[index];
       var value = dictionary[type];
       if (typeof value == 'number') {
         this[type] = value;
@@ -41,8 +41,8 @@
     function createCssString(calcLength) {
       calcLength.cssString = 'calc(';
       var isFirst = true;
-      for (var index in shared.LengthValue.LengthType) {
-        var type = shared.LengthValue.LengthType[index];
+      for (var index in internal.LengthValue.LengthType) {
+        var type = internal.LengthValue.LengthType[index];
         var value = calcLength[type];
         if (value != null) {
           // Add a "+" in the cssString if needed
@@ -50,7 +50,7 @@
           if (!isFirst && value >= 0) {
             calcLength.cssString += '+';
           }
-          calcLength.cssString += value + shared.LengthValue.cssStringTypeRepresentation(type);
+          calcLength.cssString += value + internal.LengthValue.cssStringTypeRepresentation(type);
           isFirst = false;
         }
       }
@@ -58,15 +58,15 @@
     }
     createCssString(this);
   }
-  util.inherit(CalcLength, shared.LengthValue);
+  internal.inherit(CalcLength, internal.LengthValue);
 
   // Length Calculation Methods
   CalcLength.prototype.multiply = function(multiplier) {
     var calcDictionary = {};
 
     // Iterate through all length types and multiply all non null lengths
-    for (var i = 0; i < shared.LengthValue.LengthType.length; i++) {
-      var type = shared.LengthValue.LengthType[i];
+    for (var i = 0; i < internal.LengthValue.LengthType.length; i++) {
+      var type = internal.LengthValue.LengthType[i];
       if (this[type] != null) {
         calcDictionary[type] = this[type] * multiplier;
       }
@@ -79,8 +79,8 @@
     var calcDictionary = {};
 
     // Iterate through all length types and divide all non null lengths
-    for (var i = 0; i < shared.LengthValue.LengthType.length; i++) {
-      var type = shared.LengthValue.LengthType[i];
+    for (var i = 0; i < internal.LengthValue.LengthType.length; i++) {
+      var type = internal.LengthValue.LengthType[i];
       if (this[type] != null) {
         calcDictionary[type] = this[type] / divider;
       }
@@ -97,8 +97,8 @@
     var calcDictionary = {};
 
     // Iterate through all possible length types and add their values
-    for (var i = 0; i < shared.LengthValue.LengthType.length; i++) {
-      var type = shared.LengthValue.LengthType[i];
+    for (var i = 0; i < internal.LengthValue.LengthType.length; i++) {
+      var type = internal.LengthValue.LengthType[i];
       if (this[type] == null && addedLength[type] == null) {
         calcDictionary[type] = null;
       } else if (this[type] == null) {
@@ -121,8 +121,8 @@
     var calcDictionary = {};
 
     // Iterate through all possible length types and add their values
-    for (var i = 0; i < shared.LengthValue.LengthType.length; i++) {
-      var type = shared.LengthValue.LengthType[i];
+    for (var i = 0; i < internal.LengthValue.LengthType.length; i++) {
+      var type = internal.LengthValue.LengthType[i];
       if (this[type] == null && subtractedLength[type] == null) {
         calcDictionary[type] = null;
       } else if (subtractedLength[type] == null) {
@@ -147,8 +147,8 @@
     }
 
     // Iterate through all length types and check that both objects contain the same values
-    for (var i = 0; i < shared.LengthValue.LengthType.length; i++) {
-      var type = shared.LengthValue.LengthType[i];
+    for (var i = 0; i < internal.LengthValue.LengthType.length; i++) {
+      var type = internal.LengthValue.LengthType[i];
       if (this[type] != other[type]) {
         return false;
       }
@@ -161,4 +161,4 @@
   if (TYPED_OM_TESTING)
     testing.CalcLength = CalcLength;
 
-})(typedOM.baseClasses, typedOM.util, window, typedOMTesting);
+})(typedOM.internal, window, typedOMTesting);
