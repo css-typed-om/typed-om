@@ -12,10 +12,10 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(shared, testing) {
+(function(internal, testing) {
 
-  function LengthValue() {
-  }
+  function LengthValue() {}
+  internal.inherit(LengthValue, internal.StyleValue);
 
   // The different possible length types.
   LengthValue.LengthType = [
@@ -36,8 +36,6 @@
         return type;
     }
   };
-
-  LengthValue.prototype = Object.create(shared.StyleValue.prototype);
 
   LengthValue.fromValue = function(value, type) {
     return new SimpleLength(value, type);
@@ -89,8 +87,8 @@
     throw new TypeError('Should not be reached');
   };
 
-  shared.LengthValue = LengthValue;
+  internal.LengthValue = LengthValue;
   if (TYPED_OM_TESTING)
     testing.LengthValue = LengthValue;
 
-})(baseClasses, typedOMTesting);
+})(typedOM.internal, typedOMTesting);

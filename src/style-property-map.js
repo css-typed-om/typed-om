@@ -35,7 +35,7 @@
     return new StylePropertyMap(this.style);
   };
 
-  shared.StylePropertyMap = StylePropertyMap;
+  internal.StylePropertyMap = StylePropertyMap;
   if (TYPED_OM_TESTING)
     testing.StylePropertyMap = StylePropertyMap;
 

@@ -12,20 +12,21 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(shared, scope, testing) {
+(function(internal, scope, testing) {
 
   function StylePropertyMapReadOnly(styleObject) {
     this._styleObject = styleObject;
   }
 
-  StylePropertyMapReadOnly.prototype = {
-    append: function(property, value) {},
-    delete: function(property) {},
-    get: function(property) {},
-    getAll: function(property) {},
-    has: function(property) {},
-    set: function(property, value) {},
-    getProperties: function() {}
+  ComputedStylePropertyMap.prototype =
+    Object.create(internal.StylePropertyMap.prototype);
+
+  ComputedStylePropertyMap.prototype.append = function(property, value) {
+    throw new TypeError('ComputedStylePropertyMap is immutable');
+  };
+
+  ComputedStylePropertyMap.prototype.delete = function(property) {
+    throw new TypeError('ComputedStylePropertyMap is immutable');
   };
 
   StylePropertyMapReadOnly.prototype.get = function(property) {
@@ -53,7 +54,7 @@
       case 'stress':
       case 'widows':
       case 'z-index':
-        return new scope.NumberValue(value);
+        return new scope.NumberValue(Number(value));
 
       case 'line-height':
         // normal | <number> | <length> | <percentage> | inherit
@@ -123,4 +124,4 @@
   if (TYPED_OM_TESTING)
     testing.StylePropertyMapReadOnly = StylePropertyMapReadOnly;
 
-})(baseClasses, window, typedOMTesting);
+})(typedOM.internal, window, typedOMTesting);

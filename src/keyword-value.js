@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(shared, scope, testing) {
+(function(internal, scope, testing) {
 
   function KeywordValue(value) {
     if (!KeywordValue.isKeywordValue(value)) {
@@ -21,6 +21,7 @@
     this.keywordValue = value;
     this.cssString = value;
   }
+  internal.inherit(KeywordValue, internal.StyleValue);
 
   KeywordValue.StyleValueKeyword = ['initial', 'inherit', 'revert', 'unset'];
 
@@ -28,10 +29,8 @@
     return KeywordValue.StyleValueKeyword.indexOf(cssString) >= 0;
   };
 
-  KeywordValue.prototype = Object.create(shared.StyleValue.prototype);
-
   scope.KeywordValue = KeywordValue;
   if (TYPED_OM_TESTING)
     testing.KeywordValue = KeywordValue;
 
-})(baseClasses, window, typedOMTesting);
+})(typedOM.internal, window, typedOMTesting);
