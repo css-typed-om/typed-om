@@ -18,17 +18,6 @@
     this._styleObject = styleObject;
   }
 
-  ComputedStylePropertyMap.prototype =
-    Object.create(internal.StylePropertyMap.prototype);
-
-  ComputedStylePropertyMap.prototype.append = function(property, value) {
-    throw new TypeError('ComputedStylePropertyMap is immutable');
-  };
-
-  ComputedStylePropertyMap.prototype.delete = function(property) {
-    throw new TypeError('ComputedStylePropertyMap is immutable');
-  };
-
   StylePropertyMapReadOnly.prototype.get = function(property) {
     if (typeof property != 'string') {
       throw new TypeError('parameter 1 is not of type \'string\'');
@@ -121,6 +110,7 @@
     return new StylePropertyMapReadOnly(getComputedStyle(element));
   };
 
+  internal.StylePropertyMapReadOnly = StylePropertyMapReadOnly;
   if (TYPED_OM_TESTING)
     testing.StylePropertyMapReadOnly = StylePropertyMapReadOnly;
 
