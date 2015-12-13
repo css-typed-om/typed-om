@@ -92,10 +92,6 @@
 
   };
 
-  StylePropertyMapReadOnly.prototype.set = function(property, value) {
-    throw new TypeError('StylePropertyMapReadOnly is immutable');
-  };
-
   StylePropertyMapReadOnly.prototype.getProperties = function() {
     var output = [];
     for (var i = 0, l = this._styleObject.length; i < l; ++i) {
