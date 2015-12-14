@@ -14,16 +14,25 @@
 
 (function(internal, scope, testing) {
 
-function StylePropertyMap() {}
+  function StylePropertyMap(styleObject) {
+    this._styleObject = styleObject;
+  }
+  internal.inherit(StylePropertyMap, internal.StylePropertyMapReadOnly);
 
-  StylePropertyMap.prototype = {
-    append: function(property, value) {},
-    delete: function(property) {},
-    get: function(property) {},
-    getAll: function(property) {},
-    has: function(property) {},
-    set: function(property, value) {},
-    getProperties: function() {}
+  StylePropertyMap.prototype.set = function(property, value) {
+    throw new TypeError('Function not implemented yet');
+  };
+
+  StylePropertyMap.prototype.append = function(property, value) {
+    throw new TypeError('Function not implemented yet');
+  };
+
+  StylePropertyMap.prototype.delete = function(property) {
+    throw new TypeError('Function not implemented yet');
+  };
+
+  Element.prototype.styleMap = function() {
+    return new StylePropertyMap(this.style);
   };
 
   internal.StylePropertyMap = StylePropertyMap;
