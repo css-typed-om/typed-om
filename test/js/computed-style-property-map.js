@@ -16,7 +16,7 @@ suite('Computed StylePropertyMap', function() {
     assert.equal(opacity.cssString, '0.5');
   });
 
-  test('window.getComputedStyleMap method functions correctly', function() {
+  test('window.getComputedStyleMap works', function() {
     var computedStyleMap = getComputedStyleMap(this.element);
     assert.instanceOf(computedStyleMap, typedOMTesting.StylePropertyMapReadOnly);
     var opacity = computedStyleMap.get('opacity');
