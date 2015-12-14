@@ -28,7 +28,8 @@
   };
 
   internal.TransformComponent = TransformComponent;
-  if (TYPED_OM_TESTING)
+  if (TYPED_OM_TESTING) {
     testing.TransformComponent = TransformComponent;
+  }
 
 })(typedOM.internal, typedOMTesting);

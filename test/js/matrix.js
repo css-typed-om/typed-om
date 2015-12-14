@@ -117,8 +117,7 @@ suite('Matrix', function() {
     assert.deepEqual(multiply3DAnd2D, identity3D);
   });
 
-  test('Matrix multiply works between 2D random matrices',
-      function() {
+  test('Matrix multiply works between 2D random matrices', function() {
     var random1 = new Matrix(10, 20, -0.5, 0.5, 4, 2);
     var random2 = new Matrix(-2, 0, 49, 3, 7, 0.8);
     var expectedResult = new Matrix(-20, -40, 488.5, 981.5, 73.6, 142.4);

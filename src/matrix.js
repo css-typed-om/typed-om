@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, scope, testing) {
+(function(internal, scope) {
 
   // Note: A Matrix is stored and referenced in column-major order.
   // TODO: Update the names of parameters (a, b, ... , p) once they are changed
@@ -33,8 +33,7 @@
 
     this._generateCssString();
   }
-
-  Matrix.prototype = Object.create(internal.TransformComponent.prototype);
+  internal.inherit(Matrix, internal.TransformComponent);
 
   Matrix._multiply2DMatrices = function(left, right) {
     var result = [];
@@ -42,8 +41,9 @@
       for (var j = 0; j < 2; j++) {
         var value = left._matrix[j]*right._matrix[2*i] +
             left._matrix[j + 2]*right._matrix[2*i + 1];
-        if (i == 2)
+        if (i == 2) {
           value += left._matrix[2*i + j];
+        }
         result[j + 2*i] = value;
       }
     }
@@ -116,8 +116,6 @@
     this.cssString += '('+ this._matrix.join(', ') + ')';
   };
 
-  internal.Matrix = Matrix;
-  if (TYPED_OM_TESTING)
-    testing.Matrix = Matrix;
+  scope.Matrix = Matrix;
 
-})(typedOM.internal, window, typedOMTesting);
+})(typedOM.internal, window);
