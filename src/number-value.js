@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, scope, testing) {
+(function(internal, scope) {
 
   function NumberValue(value) {
     if (typeof value != 'number') {
@@ -24,8 +24,6 @@
   internal.inherit(NumberValue, internal.StyleValue);
 
   scope.NumberValue = NumberValue;
-  if (TYPED_OM_TESTING)
-    testing.NumberValue = NumberValue;
 
-})(typedOM.internal, window, typedOMTesting);
+})(typedOM.internal, window);
 

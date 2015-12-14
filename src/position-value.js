@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, scope, testing) {
+(function(internal, scope) {
 
   /**
    * PositionValue(xPos, yPos)
@@ -37,7 +37,5 @@
   };
 
   scope.PositionValue = PositionValue;
-  if (TYPED_OM_TESTING)
-    testing.PositionValue = PositionValue;
 
-})(typedOM.internal, window, typedOMTesting);
+})(typedOM.internal, window);

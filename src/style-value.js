@@ -28,7 +28,8 @@
   };
 
   internal.StyleValue = StyleValue;
-  if (TYPED_OM_TESTING)
+  if (TYPED_OM_TESTING) {
     testing.StyleValue = StyleValue;
+  }
 
 })(typedOM.internal, window, typedOMTesting);

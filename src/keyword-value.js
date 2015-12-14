@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, scope, testing) {
+(function(internal, scope) {
 
   function KeywordValue(value) {
     if (!KeywordValue.isKeywordValue(value)) {
@@ -30,7 +30,5 @@
   };
 
   scope.KeywordValue = KeywordValue;
-  if (TYPED_OM_TESTING)
-    testing.KeywordValue = KeywordValue;
 
-})(typedOM.internal, window, typedOMTesting);
+})(typedOM.internal, window);

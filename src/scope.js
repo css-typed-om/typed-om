@@ -14,7 +14,8 @@
 
 typedOM = {};
 typedOM.internal = {};
-if (TYPED_OM_TESTING)
+if (TYPED_OM_TESTING) {
   var typedOMTesting = window;
-else
+} else {
   var typedOMTesting = null;
+}
