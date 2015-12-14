@@ -27,8 +27,8 @@
       'src/simple-length.js',
       'src/calc-length.js',
       'src/position-value.js',
-      'src/style-property-map.js',
-      'src/computed-style-property-map.js'
+      'src/style-property-map-readonly.js',
+      'src/style-property-map.js'
   ];
 
   var typedOMTest = [
@@ -38,7 +38,8 @@
       'test/js/simple-length.js',
       'test/js/position-value.js',
       'test/js/calc-length.js',
-      'test/js/computed-style-property-map.js'
+      'test/js/computed-style-property-map.js',
+      'test/js/inline-style-property-map.js'
   ];
 
   // This object specifies the source and test files for different build targets.

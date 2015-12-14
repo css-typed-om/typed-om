@@ -1,4 +1,4 @@
-suite('ComputedStylePropertyMap', function() {
+suite('Computed StylePropertyMap', function() {
   setup(function() {
     this.element = document.createElement('div');
     document.documentElement.appendChild(this.element);
@@ -8,16 +8,8 @@ suite('ComputedStylePropertyMap', function() {
     document.documentElement.removeChild(this.element);
   });
 
-  test('ComputedStylePropertyMap is a ComputedStylePropertyMap and a ' +
-      'StylePropertyMap', function() {
-    var computedStyleMap = new ComputedStylePropertyMap(this.element);
-    assert.instanceOf(computedStyleMap, ComputedStylePropertyMap);
-    assert.instanceOf(computedStyleMap, typedOMTesting.StylePropertyMap);
-  });
-
-  test('ComputedStylePropertyMap.get works for properties that can only be ' +
-      'NumberValues', function() {
-    var computedStyleMap = new ComputedStylePropertyMap(this.element);
+  test('Computed StylePropertyMapReadOnly.get works for properties that can be NumberValues', function() {
+    var computedStyleMap = getComputedStyleMap(this.element);
     var opacity = computedStyleMap.get('opacity');
     assert.instanceOf(opacity, NumberValue);
     assert.equal(opacity.value, 0.5);
@@ -26,7 +18,7 @@ suite('ComputedStylePropertyMap', function() {
 
   test('window.getComputedStyleMap works', function() {
     var computedStyleMap = getComputedStyleMap(this.element);
-    assert.instanceOf(computedStyleMap, typedOMTesting.StylePropertyMap);
+    assert.instanceOf(computedStyleMap, typedOMTesting.StylePropertyMapReadOnly);
     var opacity = computedStyleMap.get('opacity');
     assert.instanceOf(opacity, NumberValue);
     assert.equal(opacity.value, 0.5);
