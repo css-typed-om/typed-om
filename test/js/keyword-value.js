@@ -33,8 +33,7 @@ suite('KeywordValue', function() {
     assert.isFalse(KeywordValue.isKeywordValue({}));
   });
 
-  test('KeywordValue.cssString and KeywordValue.keywordValue are correctly ' +
-      'initialized', function() {
+  test('KeywordValue.cssString and KeywordValue.keywordValue are correctly initialized', function() {
     var initial;
     var cssString = 'initial';
     assert.doesNotThrow(function() {initial = new KeywordValue(cssString)});

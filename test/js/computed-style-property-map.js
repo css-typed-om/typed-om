@@ -8,7 +8,7 @@ suite('Computed StylePropertyMap', function() {
     document.documentElement.removeChild(this.element);
   });
 
-  test('Computed StylePropertyMap.get works for properties that can be NumberValues', function() {
+  test('Computed StylePropertyMapReadOnly.get works for properties that can be NumberValues', function() {
     var computedStyleMap = getComputedStyleMap(this.element);
     var opacity = computedStyleMap.get('opacity');
     assert.instanceOf(opacity, NumberValue);
