@@ -102,12 +102,14 @@
     return output;
   };
 
-  scope.getComputedStyleMap = function(element) {
+  getComputedStyleMap = function(element) {
     return new StylePropertyMapReadOnly(getComputedStyle(element));
   };
 
   internal.StylePropertyMapReadOnly = StylePropertyMapReadOnly;
-  if (TYPED_OM_TESTING)
+  scope.getComputedStyleMap = getComputedStyleMap;
+  if (TYPED_OM_TESTING) {
     testing.StylePropertyMapReadOnly = StylePropertyMapReadOnly;
+  }
 
 })(typedOM.internal, window, typedOMTesting);

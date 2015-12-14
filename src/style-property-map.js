@@ -31,7 +31,7 @@
     throw new TypeError('Function not implemented yet');
   };
 
-  scope.Element.prototype.styleMap = function() {
+  Element.prototype.styleMap = function() {
     return new StylePropertyMap(this.style);
   };
 
