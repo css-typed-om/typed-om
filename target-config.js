@@ -19,6 +19,7 @@
   ];
 
   var typedOMSrc = [
+      'src/util.js',
       'src/style-value.js',
       'src/number-value.js',
       'src/keyword-value.js',

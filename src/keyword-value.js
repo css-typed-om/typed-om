@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(shared, scope, testing) {
+(function(internal, scope, testing) {
 
   function KeywordValue(value) {
     if (!value || typeof value != 'string') {
@@ -21,10 +21,10 @@
     this.keywordValue = value;
     this.cssString = value;
   }
-  KeywordValue.prototype = Object.create(shared.StyleValue.prototype);
+  internal.inherit(KeywordValue, internal.StyleValue);
 
   scope.KeywordValue = KeywordValue;
   if (TYPED_OM_TESTING)
     testing.KeywordValue = KeywordValue;
 
-})(baseClasses, window, typedOMTesting);
+})(typedOM.internal, window, typedOMTesting);
