@@ -15,12 +15,12 @@ suite('CalcLength', function() {
   test('CalcLength empty constructor initializes other fields to null', function() {
     var calcLength;
     assert.doesNotThrow(function() {calcLength = new CalcLength({px: 10})});
-    for (var index in LengthValue.LengthType) {
-      var type = LengthValue.LengthType[index];
+
+    objects.foreach(LengthValue.LengthType, function(type) {
       if (type != 'px') {
         assert.isNull(calcLength[type], 'Each field in an empty instantiated CalcLength is null');
       }
-    }
+    });
   });
 
   // Possible constructor: CalcLength(dictionary)

@@ -12,13 +12,40 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal) {
+(function(internal, testing) {
 
   function inherit(childCtor, parentCtor) {
     childCtor.prototype = Object.create(parentCtor.prototype);
     childCtor.prototype.constructor = childCtor;
   }
 
+  function foreach(obj, callback, opt_this) {
+    var keys = Object.keys(obj);
+    for (var i = 0; i < keys.length; i++) {
+      var key = keys[i];
+      callback.call(opt_this, obj[key], key, obj);
+    }
+  }
+
+  function any(obj, callback, opt_this) {
+    var keys = Object.keys(obj);
+    for (var i = 0; i < keys.length; i++) {
+      var key = keys[i];
+      if (callback.call(opt_this, obj[key], key, obj)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  internal.objects = {};
+  internal.objects.foreach = foreach;
+  internal.objects.any = any;
+
   internal.inherit = inherit;
 
-})(typedOM.internal)
+  if (TYPED_OM_TESTING) {
+    testing.objects = internal.objects;
+  }
+
+})(typedOM.internal, typedOMTesting)

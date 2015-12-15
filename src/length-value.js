@@ -18,15 +18,34 @@
   internal.inherit(LengthValue, internal.StyleValue);
 
   // The different possible length types.
-  LengthValue.LengthType = [
-    'px', 'percent', 'em', 'ex', 'ch',
-    'rem', 'vw', 'vh', 'vmin', 'vmax',
-    'cm', 'mm', 'q', 'in', 'pc', 'pt'
-  ];
+  LengthValue.LengthType = {
+    PX: 'px',
+    PERCENT: 'percent',
+    EM: 'em',
+    EX: 'ex',
+    CH: 'ch',
+    REM: 'rem',
+    VW: 'vw',
+    VH: 'vh',
+    VMIN: 'vmin',
+    VMAX: 'vmax',
+    CM: 'cm',
+    MM: 'mm',
+    Q: 'q',
+    IN: 'in',
+    PC: 'pc',
+    PT: 'pt'
+  };
+
+  LengthValue.isValidLengthType = function(str) {
+    return internal.objects.any(LengthValue.LengthType, function(type) {
+      return str == type;
+    });
+  };
 
   LengthValue.cssStringTypeRepresentation = function(type) {
-    if (LengthValue.LengthType.indexOf(type) < 0) {
-      throw new TypeError('Invalid LengthType.');
+    if (!LengthValue.isValidLengthType(type)) {
+      throw new TypeError('Invalid Length Type.');
     }
 
     switch (type) {
