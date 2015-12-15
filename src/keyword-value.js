@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, scope, testing) {
+(function(internal, scope) {
 
   function KeywordValue(value) {
     if (!value || typeof value != 'string') {
@@ -24,7 +24,5 @@
   internal.inherit(KeywordValue, internal.StyleValue);
 
   scope.KeywordValue = KeywordValue;
-  if (TYPED_OM_TESTING)
-    testing.KeywordValue = KeywordValue;
 
-})(typedOM.internal, window, typedOMTesting);
+})(typedOM.internal, window);

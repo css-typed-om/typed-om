@@ -88,7 +88,8 @@
   };
 
   internal.LengthValue = LengthValue;
-  if (TYPED_OM_TESTING)
+  if (TYPED_OM_TESTING) {
     testing.LengthValue = LengthValue;
+  }
 
 })(typedOM.internal, typedOMTesting);

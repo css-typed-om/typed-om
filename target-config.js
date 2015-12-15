@@ -52,8 +52,9 @@
     },
   };
 
-  if (typeof module != 'undefined')
+  if (typeof module != 'undefined') {
     module.exports = targetConfig;
-  else
+  } else {
     window.typedOMTargetConfig = targetConfig;
+  }
 })();
