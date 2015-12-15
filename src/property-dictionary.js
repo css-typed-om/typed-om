@@ -49,16 +49,20 @@
     return (lengthValue.type == 'percent');
   };
 
+  PropertyDictionary.prototype._isValidKeyword = function(property, styleValueString) {
+    return this.propertyKeywords[property].indexOf(styleValueString) > -1;
+  };
+
   PropertyDictionary.prototype.isValidInput = function(property, styleValue) {
     if (!this.isSupportedProperty(property)) {
       return false;
     }
 
     if (styleValue instanceof KeywordValue) {
-      if (!(this.propertyKeywords.hasOwnProperty(property))) {
-        return false;
+      if (this.propertyKeywords.hasOwnProperty(property)) {
+        return this._isValidKeyword(property, styleValue.keywordValue);
       }
-      return (this.propertyKeywords[property].indexOf(styleValue.keywordValue) > -1);
+      return false;
     }
 
     for (var i = 0; i < this.propertyMap[property].length; i++) {
@@ -76,20 +80,15 @@
     return false;
   };
 
-  var createInstance = function() {
-    var object = new PropertyDictionary();
-    return object;
-  };
-
-  var getInstance = function() {
+  var propertyDictionary = function() {
     if (!instance) {
-     instance = createInstance();
+      instance = new PropertyDictionary();
     }
     return instance;
   };
 
-  shared.getInstance = getInstance;
+  shared.propertyDictionary = propertyDictionary;
   if (TYPED_OM_TESTING)
-    testing.getInstance = getInstance;
+    testing.propertyDictionary = propertyDictionary;
 
 })(typedOM.internal, window, typedOMTesting);
