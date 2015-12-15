@@ -33,13 +33,13 @@
   }
   var instance;
 
-  PropertyDictionary.prototype.isProperty = function(property) {
+  PropertyDictionary.prototype.isSupportedProperty = function(property) {
     return (this.propertyMap.hasOwnProperty(property));
   };
 
   PropertyDictionary.prototype._lengthValueHasPercentage = function(lengthValue) {
     if (!(lengthValue instanceof LengthValue)) {
-      return false;
+      throw new TypeError('The input to this method must be an object of type LengthValue');
     }
 
     if (lengthValue instanceof CalcLength) {
@@ -50,7 +50,7 @@
   };
 
   PropertyDictionary.prototype.isValidInput = function(property, styleValue) {
-    if (this.isProperty(property) == false) {
+    if (this.isSupportedProperty(property) == false) {
       return false;
     }
 
@@ -66,10 +66,10 @@
       if (!(styleValue instanceof styleValueType)) {
         continue;
       }
-      if (!(styleValue instanceof LengthValue || this._lengthValueHasPercentage(styleValue))) {
+      if (!(styleValue instanceof LengthValue)) {
         return true;
       }
-      if (this.allowsPercentage.hasOwnProperty(property)) {
+      if (!this._lengthValueHasPercentage(styleValue) || this.allowsPercentage.hasOwnProperty(property)) {
         return true;
       }
     }

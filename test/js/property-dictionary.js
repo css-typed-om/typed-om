@@ -3,12 +3,12 @@ suite('PropertyDictionary', function() {
     propertyDictionary = getInstance();
   });
 
-  test('The isProperty method should return true if the input is a valid CSS property', function() {
-    assert.isTrue(propertyDictionary.isProperty('height'));
+  test('The isSupportedProperty method should return true if the input is a valid CSS property', function() {
+    assert.isTrue(propertyDictionary.isSupportedProperty('height'));
   });
 
-  test('The isProperty method should return false if the input is not a valid CSS property', function() {
-    assert.isFalse(propertyDictionary.isProperty('lemons'));
+  test('The isSupportedProperty method should return false if the input is not a valid CSS property', function() {
+    assert.isFalse(propertyDictionary.isSupportedProperty('lemons'));
   });
 
   test('The _lengthValueHasPercentage method should return true if a CalcLength object has a' +
