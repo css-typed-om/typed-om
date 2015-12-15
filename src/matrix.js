@@ -69,7 +69,7 @@
     return new Matrix(result[0], result[1], result[2], result[3], result[4],
         result[5], result[6], result[7], result[8], result[9], result[10],
         result[11], result[12], result[13], result[14], result[15]);
-  }
+  };
 
   Matrix.prototype.asMatrix = function() {
     return this;
@@ -91,7 +91,7 @@
     var leftMatrix = this.to3DComponent();
     var rightMatrix = rightMatrix.to3DComponent();
     return Matrix._multiply3DMatrices(leftMatrix, rightMatrix);
-  }
+  };
 
   Matrix.prototype.to3DComponent = function() {
     if (!this.is2DComponent()) {
@@ -109,7 +109,7 @@
                       c, d, 0, 0,
                       0, 0, 1, 0,
                       e, f, 0, 1);
-  }
+  };
 
   Matrix.prototype._generateCssString = function() {
     this.cssString = this.is2DComponent() ? 'matrix' : 'matrix3d';

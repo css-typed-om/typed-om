@@ -17,14 +17,12 @@
   function TransformComponent() {
   }
 
-  TransformComponent.prototype = {
-    asMatrix: function() {
-      throw new TypeError('Should not be reached.');
-    },
+  TransformComponent.prototype.asMatrix = function() {
+    throw new TypeError('Should not be reached.');
+  };
 
-    is2DComponent: function() {
-      return this.asMatrix().is2DComponent();
-    }
+  TransformComponent.prototype.is2DComponent = function() {
+    return this.asMatrix().is2DComponent();
   };
 
   internal.TransformComponent = TransformComponent;
