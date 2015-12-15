@@ -27,6 +27,9 @@
       'src/simple-length.js',
       'src/calc-length.js',
       'src/position-value.js',
+      'src/transform-component.js',
+      'src/matrix.js',
+      'src/scale.js',
       'src/style-property-map-readonly.js',
       'src/style-property-map.js'
   ];
@@ -38,6 +41,9 @@
       'test/js/simple-length.js',
       'test/js/position-value.js',
       'test/js/calc-length.js',
+      'test/js/transform-component.js',
+      'test/js/matrix.js',
+      'test/js/scale.js',
       'test/js/computed-style-property-map.js',
       'test/js/inline-style-property-map.js'
   ];
