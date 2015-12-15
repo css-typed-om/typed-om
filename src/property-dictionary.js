@@ -15,26 +15,26 @@
 (function(shared, scope, testing) {
 
   function PropertyDictionary() {
-    this.propertyMap = {
+    this._validProperties = {
      'height': [LengthValue],
      'pitch-range': [NumberValue],
      'border-top-width': [LengthValue]
     };
 
-    this.propertyKeywords = {
+    this._validKeywords = {
       'height': ['auto', 'inherit'],
       'pitch-range': ['inherit'],
       'border-top-width': ['inherit']
     };
 
-    this.allowsPercentage = {
+    this._allowsPercentage = {
       'height': true
     };
   }
   var instance;
 
   PropertyDictionary.prototype.isSupportedProperty = function(property) {
-    return (this.propertyMap.hasOwnProperty(property));
+    return (this._validProperties.hasOwnProperty(property));
   };
 
   PropertyDictionary.prototype._lengthValueHasPercentage = function(lengthValue) {
@@ -50,7 +50,7 @@
   };
 
   PropertyDictionary.prototype._isValidKeyword = function(property, styleValueString) {
-    return this.propertyKeywords[property].indexOf(styleValueString) > -1;
+    return this._validKeywords[property].indexOf(styleValueString) > -1;
   };
 
   PropertyDictionary.prototype.isValidInput = function(property, styleValue) {
@@ -59,21 +59,21 @@
     }
 
     if (styleValue instanceof KeywordValue) {
-      if (this.propertyKeywords.hasOwnProperty(property)) {
+      if (this._validKeywords.hasOwnProperty(property)) {
         return this._isValidKeyword(property, styleValue.keywordValue);
       }
       return false;
     }
 
-    for (var i = 0; i < this.propertyMap[property].length; i++) {
-      var styleValueType = this.propertyMap[property][i];
+    for (var i = 0; i < this._validProperties[property].length; i++) {
+      var styleValueType = this._validProperties[property][i];
       if (!(styleValue instanceof styleValueType)) {
         continue;
       }
       if (!(styleValue instanceof LengthValue)) {
         return true;
       }
-      if (!this._lengthValueHasPercentage(styleValue) || this.allowsPercentage.hasOwnProperty(property)) {
+      if (!this._lengthValueHasPercentage(styleValue) || this._allowsPercentage.hasOwnProperty(property)) {
         return true;
       }
     }
