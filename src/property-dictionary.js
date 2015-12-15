@@ -39,7 +39,7 @@
 
   PropertyDictionary.prototype._lengthValueHasPercentage = function(lengthValue) {
     if (!(lengthValue instanceof LengthValue)) {
-      throw new TypeError('The input to this method must be an object of type LengthValue');
+      throw new TypeError('The input to _lengthValueHasPercentage must be an object of type LengthValue');
     }
 
     if (lengthValue instanceof CalcLength) {
@@ -67,14 +67,11 @@
 
     for (var i = 0; i < this._validProperties[property].length; i++) {
       var styleValueType = this._validProperties[property][i];
-      if (!(styleValue instanceof styleValueType)) {
-        continue;
-      }
-      if (!(styleValue instanceof LengthValue)) {
-        return true;
-      }
-      if (!this._lengthValueHasPercentage(styleValue) || this._allowsPercentage.hasOwnProperty(property)) {
-        return true;
+      if (styleValue instanceof styleValueType) {
+        if (styleValueType != LengthValue) {
+          return true;
+        }
+        return (!this._lengthValueHasPercentage(styleValue) || this._allowsPercentage.hasOwnProperty(property));
       }
     }
     return false;
