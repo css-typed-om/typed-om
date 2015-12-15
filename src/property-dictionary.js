@@ -50,7 +50,7 @@
   };
 
   PropertyDictionary.prototype.isValidInput = function(property, styleValue) {
-    if (this.isSupportedProperty(property) == false) {
+    if (!this.isSupportedProperty(property)) {
       return false;
     }
 
