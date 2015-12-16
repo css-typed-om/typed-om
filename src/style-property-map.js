@@ -20,7 +20,30 @@
   internal.inherit(StylePropertyMap, internal.StylePropertyMapReadOnly);
 
   StylePropertyMap.prototype.set = function(property, value) {
-    throw new TypeError('Function not implemented yet');
+    var cssPropertyDictionary = propertyDictionary();
+    if (!cssPropertyDictionary.isSupportedProperty(property)) {
+      throw new TypeError(property + 'is not a supported CSS property');
+    }
+
+    if (value instanceof Array) {
+      throw new TypeError(
+        'Setting a sequence of StyleValues is not implemented yet');
+    }
+
+    if (!value instanceof StyleValue) {
+      throw new TypeError(
+        'The value must be a StyleValue or sequence of StyleValues');
+    }
+
+    if (!cssPropertyDictionary.isValidInput(property, value)) {
+      if (value instanceof KeywordValue) {
+        throw new TypeError(property +
+          ' does not take the keyword ' + value.cssString);
+      }
+      throw new TypeError(property +
+        ' does not take values of type ' + value.constructor.name);
+    }
+    this._styleObject[property] = value.cssString;
   };
 
   StylePropertyMap.prototype.append = function(property, value) {
