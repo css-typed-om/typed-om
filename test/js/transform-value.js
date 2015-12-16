@@ -35,7 +35,7 @@ suite('TransformValue', function() {
     assert.doesNotThrow(function() {transform = new TransformValue(values)});
     assert.isTrue(transform.is2D());
     assert.strictEqual(transform.cssString,
-        values[0].cssString + ' ' + values[1].cssString);
+        scale.cssString + ' ' + scale.cssString);
 
     var expectedMatrix = scale.asMatrix().multiply(scale.asMatrix());
     var transformMatrix = transform.asMatrix();
