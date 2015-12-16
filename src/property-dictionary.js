@@ -39,7 +39,8 @@
 
   PropertyDictionary.prototype._lengthValueHasPercentage = function(lengthValue) {
     if (!(lengthValue instanceof LengthValue)) {
-      throw new TypeError('The input to _lengthValueHasPercentage must be an object of type LengthValue');
+      throw new TypeError(
+        'The input to _lengthValueHasPercentage must be an object of type LengthValue');
     }
 
     if (lengthValue instanceof CalcLength) {
@@ -71,7 +72,8 @@
         if (styleValueType != LengthValue) {
           return true;
         }
-        return (!this._lengthValueHasPercentage(styleValue) || this._allowsPercentage.hasOwnProperty(property));
+        return (!this._lengthValueHasPercentage(styleValue) ||
+          this._allowsPercentage.hasOwnProperty(property));
       }
     }
     return false;
@@ -85,7 +87,8 @@
   };
 
   shared.propertyDictionary = propertyDictionary;
-  if (TYPED_OM_TESTING)
+  if (TYPED_OM_TESTING) {
     testing.propertyDictionary = propertyDictionary;
+  }
 
 })(typedOM.internal, window, typedOMTesting);
