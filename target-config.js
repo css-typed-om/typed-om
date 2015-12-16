@@ -32,7 +32,8 @@
       'src/scale.js',
       'src/skew.js',
       'src/style-property-map-readonly.js',
-      'src/style-property-map.js'
+      'src/style-property-map.js',
+      'src/property-dictionary.js'
   ];
 
   var typedOMTest = [
@@ -47,7 +48,8 @@
       'test/js/scale.js',
       'test/js/skew.js',
       'test/js/computed-style-property-map.js',
-      'test/js/inline-style-property-map.js'
+      'test/js/inline-style-property-map.js',
+      'test/js/property-dictionary.js'
   ];
 
   // This object specifies the source and test files for different build targets.
