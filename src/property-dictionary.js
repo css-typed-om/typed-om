@@ -18,13 +18,15 @@
     this._validProperties = {
      'height': [LengthValue],
      'pitch-range': [NumberValue],
-     'border-top-width': [LengthValue]
+     'border-top-width': [LengthValue],
+     'opacity': [NumberValue]
     };
 
     this._validKeywords = {
       'height': ['auto', 'inherit'],
       'pitch-range': ['inherit'],
-      'border-top-width': ['inherit']
+      'border-top-width': ['inherit'],
+      'opacity': ['initial', 'inherit']
     };
 
     this._allowsPercentage = {

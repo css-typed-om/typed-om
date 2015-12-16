@@ -22,7 +22,7 @@
   StylePropertyMap.prototype.set = function(property, value) {
     var cssPropertyDictionary = propertyDictionary();
     if (!cssPropertyDictionary.isSupportedProperty(property)) {
-      throw new TypeError(property + 'is not a supported CSS property');
+      throw new TypeError(property + ' is not a supported CSS property');
     }
 
     if (value instanceof Array) {
@@ -51,7 +51,24 @@
   };
 
   StylePropertyMap.prototype.delete = function(property) {
-    throw new TypeError('Function not implemented yet');
+    var cssPropertyDictionary = propertyDictionary();
+    if (!cssPropertyDictionary.isSupportedProperty(property)) {
+      throw new TypeError(property + ' is not a supported CSS property');
+    }
+
+    this._styleObject[property] = "";
+  };
+
+  StylePropertyMap.prototype.has = function(property) {
+    var cssPropertyDictionary = propertyDictionary();
+    if (!cssPropertyDictionary.isSupportedProperty(property)) {
+      throw new TypeError(property + ' is not a supported CSS property');
+    }
+
+    if(!this._styleObject[property] == ""){
+      return true;
+    }
+    return false;
   };
 
   Element.prototype.styleMap = function() {
