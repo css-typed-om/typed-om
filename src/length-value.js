@@ -21,7 +21,7 @@
   LengthValue.LengthType = [
     'px', 'percent', 'em', 'ex', 'ch',
     'rem', 'vw', 'vh', 'vmin', 'vmax',
-    'cm', 'mm', 'q', 'in', 'pc', 'pt'
+    'cm', 'mm', 'in', 'pc', 'pt'
   ];
 
   LengthValue.cssStringTypeRepresentation = function(type) {
