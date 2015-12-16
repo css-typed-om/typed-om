@@ -1,0 +1,70 @@
+// Copyright 2015 Google Inc. All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+//     You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//     See the License for the specific language governing permissions and
+// limitations under the License.
+
+(function(internal, scope) {
+
+  function Translation(x, y, z) {
+    if (arguments.length != 2 && arguments.length != 3) {
+      throw new TypeError('Translation takes 2 or 3 arguments.');
+    }
+
+    for (var i = 0; i < arguments.length; i++) {
+      if (!(arguments[i] instanceof LengthValue)) {
+        throw new TypeError('Translation arguments must be instances of ' +
+            'LengthValue.');
+      } else if (!(arguments[i] instanceof SimpleLength) ||
+          arguments[i].type != 'px') {
+        throw new TypeError('Unsupported LengthValue for Translation. ' +
+            'Only SimpleLength instances with type \'px\' are supported.');
+      }
+    }
+
+    this.x = x;
+    this.y = y;
+    this.z = (z instanceof LengthValue) ? z: null;
+
+    this._computeMatrix();
+    this._generateCssString();
+  }
+  internal.inherit(Translation, internal.TransformComponent);
+
+  Translation.prototype.asMatrix = function() {
+    return this._matrix;
+  };
+
+  Translation.prototype._computeMatrix = function() {
+    // Translation represented by the identity matrix with the translation
+    // values down the last column.
+    // See documentation https://drafts.csswg.org/css-transforms-1/.
+    if (this.z == null) {
+      this._matrix = new Matrix(1, 0, 0, 1, this.x.value, this.y.value);
+    } else {
+      this._matrix = new Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0,
+          this.x.value, this.y.value, this.z.value, 1);
+    }
+  };
+
+  Translation.prototype._generateCssString = function() {
+    if (this.z == null) {
+      this.cssString = 'translate(' + this.x.cssString + ', ' +
+          this.y.cssString + ')';
+    } else {
+      this.cssString = 'translate3d(' + this.x.cssString + ', ' +
+          this.y.cssString + ', ' + this.z.cssString + ')';
+    }
+  };
+
+  scope.Translation = Translation;
+
+})(typedOM.internal, window);
