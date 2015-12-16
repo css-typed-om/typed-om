@@ -20,13 +20,11 @@
     }
 
     for (var i = 0; i < arguments.length; i++) {
-      if (!(arguments[i] instanceof LengthValue)) {
-        throw new TypeError('Translation arguments must be instances of ' +
-            'LengthValue.');
-      } else if (!(arguments[i] instanceof SimpleLength) ||
+      // TODO: Change check of 'px' when LengthValue.LengthType enum is updated.
+      if (!(arguments[i] instanceof SimpleLength) ||
           arguments[i].type != 'px') {
-        throw new TypeError('Unsupported LengthValue for Translation. ' +
-            'Only SimpleLength instances with type \'px\' are supported.');
+        throw new TypeError('Unsupported argument for Translation. Only ' +
+            'SimpleLength instances with type \'px\' are supported.');
       }
     }
 

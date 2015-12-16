@@ -25,7 +25,9 @@ suite('Translation', function() {
     assert.throws(function() {new Translation(emSimpleLength, emSimpleLength)});
     assert.throws(function() {new Translation(validLength, pxCalcLength)});
     assert.throws(function() {new Translation(pxCalcLength, pxCalcLength)});
+    // Check that it can only take 2 or 3 arguments, not 1.
     assert.throws(function() {new Translation(validLength)});
+    // Check that it doesn't simply make a 2D translation with z as null.
     assert.throws(function() {new Translation(validLength, validLength, null)});
   });
 
