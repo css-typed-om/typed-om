@@ -22,37 +22,37 @@
   /*
    * Calls the callback for each value in the object.
    *
-   * Arguments:
-   *   object: The object to iterate over.
-   *   callback: A function to be called for each value in the object. It
-   *      should be specified as function(value, key, inputObject). Its return
-   *      value is ignored.
-   *   opt_this: The value that will appear as 'this' within the callback.
+   * @param {!Object} object: The object to iterate over.
+   * @param {Function} callback: A function to be called for each value in the
+   *   object. It should be specified as function(value, key, inputObject).
+   *   Its return value is ignored.
+   * @param {Object} opt_this: The value that will appear as 'this' within the
+   *   callback.
    */
-  function foreach(obj, callback, opt_this) {
-    var keys = Object.keys(obj);
+  function foreach(object, callback, opt_this) {
+    var keys = Object.keys(object);
     for (var i = 0; i < keys.length; i++) {
       var key = keys[i];
-      callback.call(opt_this, obj[key], key, obj);
+      callback.call(opt_this, object[key], key, object);
     }
   }
 
   /*
    * Calls the callback on each value in object until a callback returns true.
    *
-   * Arguments:
-   *   object: The object to iterate over.
-   *   callback: A function to be called for each value in the object. It
-   *      should be specified as function(value, key, inputObject). If any
-   *      callback returns true, this function will exit early without calling
-   *      the callback on the rest of the values.
-   *   opt_this: The value that will appear as 'this' within the callback.
+   * @param {!Object} object: The object to iterate over.
+   * @param {Function} callback: A function to be called for each value in the
+   *   object. It should be specified as function(value, key, inputObject). If
+   *   any callback returns true, this function will exit early without calling
+   *   the callback on the rest of the values.
+   * @param {Object} opt_this: The value that will appear as 'this' within the
+   *   callback.
    */
-  function any(obj, callback, opt_this) {
-    var keys = Object.keys(obj);
+  function any(object, callback, opt_this) {
+    var keys = Object.keys(object);
     for (var i = 0; i < keys.length; i++) {
       var key = keys[i];
-      if (callback.call(opt_this, obj[key], key, obj)) {
+      if (callback.call(opt_this, object[key], key, object)) {
         return true;
       }
     }
