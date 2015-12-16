@@ -31,7 +31,6 @@
       'height': true
     };
   }
-  var instance;
 
   PropertyDictionary.prototype.isSupportedProperty = function(property) {
     return (this._validProperties.hasOwnProperty(property));
@@ -81,6 +80,7 @@
     return false;
   };
 
+  var instance;
   var propertyDictionary = function() {
     if (!instance) {
       instance = new PropertyDictionary();
