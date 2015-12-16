@@ -36,7 +36,8 @@
     }, this);
 
     if (isEmpty) {
-      throw new TypeError('A CalcDictionary must have at least one valid length.');
+      throw new TypeError(
+          'A CalcDictionary must have at least one valid length.');
     }
 
     this.cssString = this.createCssString();
@@ -96,7 +97,7 @@
 
     var calcDictionary = {};
 
-    // Iterate through all possible length types and add their values
+    // Iterate through all possible length types and add their values.
     internal.objects.foreach(internal.LengthValue.LengthType, function(type) {
       if (this[type] == null && addedLength[type] == null) {
         calcDictionary[type] = null;
@@ -119,7 +120,7 @@
 
     var calcDictionary = {};
 
-    // Iterate through all possible length types and add their values
+    // Iterate through all possible length types and subtract their values.
     internal.objects.foreach(internal.LengthValue.LengthType, function(type) {
       if (this[type] == null && subtractedLength[type] == null) {
         calcDictionary[type] = null;
@@ -144,7 +145,8 @@
       return false;
     }
 
-    // Iterate through all length types and check that both objects contain the same values
+    // Iterate through all length types and check that both objects contain the
+    // same values.
     return !internal.objects.any(LengthValue.LengthType, function(type) {
       return this[type] != other[type];
     }, this);

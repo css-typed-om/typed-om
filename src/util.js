@@ -19,6 +19,16 @@
     childCtor.prototype.constructor = childCtor;
   }
 
+  /*
+   * Calls the callback for each value in the object.
+   *
+   * Arguments:
+   *   object: The object to iterate over.
+   *   callback: A function to be called for each value in the object. It
+   *      should be specified as function(value, key, inputObject). Its return
+   *      value is ignored.
+   *   opt_this: The value that will appear as 'this' within the callback.
+   */
   function foreach(obj, callback, opt_this) {
     var keys = Object.keys(obj);
     for (var i = 0; i < keys.length; i++) {
@@ -27,6 +37,17 @@
     }
   }
 
+  /*
+   * Calls the callback on each value in object until a callback returns true.
+   *
+   * Arguments:
+   *   object: The object to iterate over.
+   *   callback: A function to be called for each value in the object. It
+   *      should be specified as function(value, key, inputObject). If any
+   *      callback returns true, this function will exit early without calling
+   *      the callback on the rest of the values.
+   *   opt_this: The value that will appear as 'this' within the callback.
+   */
   function any(obj, callback, opt_this) {
     var keys = Object.keys(obj);
     for (var i = 0; i < keys.length; i++) {
@@ -38,7 +59,6 @@
     return false;
   }
 
-  internal.objects = {};
   internal.objects.foreach = foreach;
   internal.objects.any = any;
 

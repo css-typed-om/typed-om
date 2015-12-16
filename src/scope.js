@@ -13,7 +13,11 @@
 // limitations under the License.
 
 typedOM = {};
+/* Non-exposed subclasses and helper methods. */
 typedOM.internal = {};
+/* Helper methods for manipulating objects. */
+typedOM.internal.objects = {};
+
 if (TYPED_OM_TESTING) {
   var typedOMTesting = window;
 } else {
