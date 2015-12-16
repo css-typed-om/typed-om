@@ -21,7 +21,7 @@ suite('Inline StylePropertyMap', function() {
     assert.strictEqual(this.element.style['height'], simpleLength.cssString);
   });
 
-  test('The set method should throw a TypeError if a StyleValue unsupported by the CSS style property is set', function() {
+  test('The set method should throw a TypeError if a non KeywordValue StyleValue unsupported by the CSS style property is set', function() {
     var inlineStyleMap = this.element.styleMap();
     var numberValue = new NumberValue(42);
 
