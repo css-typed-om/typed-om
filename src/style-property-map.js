@@ -34,12 +34,14 @@
       throw new TypeError(
         'The value must be a StyleValue or sequence of StyleValues');
     }
-      
+
     if (!cssPropertyDictionary.isValidInput(property, value)) {
-      if(value instanceof KeywordValue) {
-        throw new TypeError(property + ' does not take the keyword ' + value.cssString);
+      if (value instanceof KeywordValue) {
+        throw new TypeError(property +
+          ' does not take the keyword ' + value.cssString);
       }
-      throw new TypeError(property + ' does not take values of type ' + value.constructor.name);
+      throw new TypeError(property +
+        ' does not take values of type ' + value.constructor.name);
     }
     this._styleObject[property] = value.cssString;
   };
