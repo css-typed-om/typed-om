@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, scope, testing) {
+(function(internal, scope) {
 
   // TODO: SimpleLength(simpleLength), SimpleLength(cssString)
   function SimpleLength(value, type) {
@@ -73,7 +73,5 @@
   };
 
   scope.SimpleLength = SimpleLength;
-  if (TYPED_OM_TESTING)
-    testing.SimpleLength = SimpleLength;
 
-})(typedOM.internal, window, typedOMTesting);
+})(typedOM.internal, window);

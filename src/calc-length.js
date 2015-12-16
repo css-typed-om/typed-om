@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, scope, testing) {
+(function(internal, scope) {
 
   // TODO: CalcLength(cssString)
   function CalcLength(dictionary) {
@@ -158,7 +158,5 @@
   };
 
   scope.CalcLength = CalcLength;
-  if (TYPED_OM_TESTING)
-    testing.CalcLength = CalcLength;
 
-})(typedOM.internal, window, typedOMTesting);
+})(typedOM.internal, window);

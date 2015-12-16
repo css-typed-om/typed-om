@@ -14,30 +14,20 @@
 
 (function(internal, testing) {
 
-  function StylePropertyMap(styleObject) {
-    this._styleObject = styleObject;
+  function TransformComponent() {
   }
-  internal.inherit(StylePropertyMap, internal.StylePropertyMapReadOnly);
 
-  StylePropertyMap.prototype.set = function(property, value) {
-    throw new TypeError('Function not implemented yet');
+  TransformComponent.prototype.asMatrix = function() {
+    throw new TypeError('Should not be reached.');
   };
 
-  StylePropertyMap.prototype.append = function(property, value) {
-    throw new TypeError('Function not implemented yet');
+  TransformComponent.prototype.is2DComponent = function() {
+    return this.asMatrix().is2DComponent();
   };
 
-  StylePropertyMap.prototype.delete = function(property) {
-    throw new TypeError('Function not implemented yet');
-  };
-
-  Element.prototype.styleMap = function() {
-    return new StylePropertyMap(this.style);
-  };
-
-  internal.StylePropertyMap = StylePropertyMap;
+  internal.TransformComponent = TransformComponent;
   if (TYPED_OM_TESTING) {
-    testing.StylePropertyMap = StylePropertyMap;
+    testing.TransformComponent = TransformComponent;
   }
 
 })(typedOM.internal, typedOMTesting);

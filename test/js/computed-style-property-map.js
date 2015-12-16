@@ -1,11 +1,11 @@
 suite('Computed StylePropertyMap', function() {
   setup(function() {
     this.element = document.createElement('div');
-    document.documentElement.appendChild(this.element);
+    document.body.appendChild(this.element);
     this.element.style.opacity = 0.5;
   });
   teardown(function() {
-    document.documentElement.removeChild(this.element);
+    document.body.removeChild(this.element);
   });
 
   test('Computed StylePropertyMapReadOnly.get works for properties that can be NumberValues', function() {
