@@ -55,7 +55,6 @@
     if (!cssPropertyDictionary.isSupportedProperty(property)) {
       throw new TypeError(property + ' is not a supported CSS property');
     }
-
     this._styleObject[property] = '';
   };
 
@@ -64,11 +63,7 @@
     if (!cssPropertyDictionary.isSupportedProperty(property)) {
       throw new TypeError(property + ' is not a supported CSS property');
     }
-
-    if (!this._styleObject[property] == '') {
-      return true;
-    }
-    return false;
+    return !(this._styleObject[property] == '');
   };
 
   Element.prototype.styleMap = function() {
