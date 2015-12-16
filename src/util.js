@@ -68,4 +68,4 @@
     testing.objects = internal.objects;
   }
 
-})(typedOM.internal, typedOMTesting)
+})(typedOM.internal, typedOMTesting);
