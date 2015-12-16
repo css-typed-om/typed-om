@@ -40,4 +40,10 @@ suite('Inline StylePropertyMap', function() {
 
     assert.throw(function() {inlineStyleMap.set('height', 4)}, TypeError);
   });
+
+  test('The set method should throw a TypeError if an unsupported property is inputed into the function', function() {
+    var inlineStyleMap = this.element.styleMap();
+
+    assert.throw(function() {inlineStyleMap.set('lemons', new SimpleLength(3, 'px'))}, TypeError);
+  });
 });
