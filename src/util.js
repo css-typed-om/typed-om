@@ -21,7 +21,6 @@
 
   /*
    * Calls the callback for each value in the object.
-   *
    * @param {!Object} object: The object to iterate over.
    * @param {Function} callback: A function to be called for each value in the
    *   object. It should be specified as function(value, key, inputObject).
@@ -39,7 +38,6 @@
 
   /*
    * Calls the callback on each value in object until a callback returns true.
-   *
    * @param {!Object} object: The object to iterate over.
    * @param {Function} callback: A function to be called for each value in the
    *   object. It should be specified as function(value, key, inputObject). If
