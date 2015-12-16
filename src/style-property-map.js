@@ -22,24 +22,26 @@
   StylePropertyMap.prototype.set = function(property, value) {
     var cssPropertyDictionary = propertyDictionary();
     if (!cssPropertyDictionary.isSupportedProperty(property)) {
-      throw new TypeError(property + 'Is not a Supported CSS property');
-    }
-
-    if (value instanceof StyleValue) {
-      if (!cssPropertyDictionary.isValidInput(property, value)) {
-        throw new TypeError(
-          'This StyleValue type cannot be set to this property');
-      }
-      this._styleObject[property] = value.cssString;
-      return;
+      throw new TypeError(property + 'is not a supported CSS property');
     }
 
     if (value instanceof Array) {
       throw new TypeError(
         'Setting a sequence of StyleValues is not implemented yet');
     }
-    throw new TypeError(
-      'The value you are setting must be a StyleValue object');
+
+    if (!value instanceof StyleValue) {
+      throw new TypeError(
+        'The value must be a StyleValue or sequence of StyleValues');
+    }
+      
+    if (!cssPropertyDictionary.isValidInput(property, value)) {
+      if(value instanceof KeywordValue) {
+        throw new TypeError(property + ' does not take the keyword ' + value.cssString);
+      }
+      throw new TypeError(property + ' does not take values of type ' + value.constructor.name);
+    }
+    this._styleObject[property] = value.cssString;
   };
 
   StylePropertyMap.prototype.append = function(property, value) {

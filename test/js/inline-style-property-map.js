@@ -8,25 +8,17 @@ suite('Inline StylePropertyMap', function() {
     document.body.removeChild(this.element);
   });
 
-  test('the Element.styleMap method returns a StylePropertyMap object for that element', function() {
+  test('The Element.styleMap method returns a StylePropertyMap object for that element', function() {
     var inlineStyleMap = this.element.styleMap();
     assert.instanceOf(inlineStyleMap, StylePropertyMap);
   });
 
-  test('The set method should correctly set a supported StyleValue to a CSS style property of an HTML element', function() {
+  test('The set method successfully sets the CSS string of the StyleValue on an element', function() {
     var inlineStyleMap = this.element.styleMap();
     var simpleLength = new SimpleLength(9.2, 'percent');
     inlineStyleMap.set('height', simpleLength);
 
     assert.strictEqual(this.element.style['height'], simpleLength.cssString);
-  });
-
-  test('The set method should correctly set a supported KeywordValue to a CSS style property of an HTML element', function() {
-    var inlineStyleMap = this.element.styleMap();
-    var keyword = new KeywordValue('auto');
-    inlineStyleMap.set('height', keyword);
-
-    assert.strictEqual(this.element.style['height'], keyword.cssString);
   });
 
   test('The set method should throw a TypeError if a StyleValue unsupported by the CSS style property is set', function() {
@@ -40,7 +32,7 @@ suite('Inline StylePropertyMap', function() {
     var inlineStyleMap = this.element.styleMap();
     var keyword = new KeywordValue('lemon');
 
-    assert.throw(function() {inlineStyleMap.set('height', keyword)}, TypeError);
+    assert.throw(function() {inlineStyleMap.set('height', keyword)}, 'height does not take the keyword lemon');
   });
 
   test('The set method should throw a TypeError if a non StyleValue is inputed into the function', function() {
