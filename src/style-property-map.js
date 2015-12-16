@@ -56,7 +56,7 @@
       throw new TypeError(property + ' is not a supported CSS property');
     }
 
-    this._styleObject[property] = "";
+    this._styleObject[property] = '';
   };
 
   StylePropertyMap.prototype.has = function(property) {
@@ -65,7 +65,7 @@
       throw new TypeError(property + ' is not a supported CSS property');
     }
 
-    if(!this._styleObject[property] == ""){
+    if (!this._styleObject[property] == '') {
       return true;
     }
     return false;
