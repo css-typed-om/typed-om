@@ -17,7 +17,7 @@ suite('CalcLength', function() {
     assert.doesNotThrow(function() {calcLength = new CalcLength({px: 10})});
 
     objects.foreach(LengthValue.LengthType, function(type) {
-      if (type != 'px') {
+      if (type != LengthValue.LengthType.PX) {
         assert.isNull(calcLength[type], 'Each field in an empty instantiated CalcLength is null');
       }
     });
