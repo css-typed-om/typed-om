@@ -28,12 +28,12 @@
 
     this.x = xPos;
     this.y = yPos;
-    this._createCssString();
+    this.cssString = this._generateCssString();
   }
   internal.inherit(PositionValue, internal.StyleValue);
 
-  PositionValue.prototype._createCssString = function() {
-    this.cssString = this.x.cssString + ' ' + this.y.cssString;
+  PositionValue.prototype._generateCssString = function() {
+    return this.x.cssString + ' ' + this.y.cssString;
   };
 
   scope.PositionValue = PositionValue;

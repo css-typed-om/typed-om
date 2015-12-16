@@ -29,8 +29,8 @@
     this.y = y;
     this.z = (typeof z == 'number') ? z : null;
 
-    this._computeMatrix();
-    this._generateCssString();
+    this._matrix = this._computeMatrix();
+    this.cssString = this._generateCssString();
   }
   internal.inherit(Scale, internal.TransformComponent);
 
@@ -39,21 +39,24 @@
   };
 
   Scale.prototype._computeMatrix = function() {
+    var matrix;
     if (this.z == null) {
-      this._matrix = new Matrix(this.x, 0, 0, this.y, 0, 0);
+      matrix = new Matrix(this.x, 0, 0, this.y, 0, 0);
     } else {
-      this._matrix = new Matrix(this.x, 0, 0, 0, 0, this.y, 0, 0, 0, 0, this.z,
-          0, 0, 0, 0, 1);
+      matrix = new Matrix(this.x, 0, 0, 0, 0, this.y, 0, 0, 0, 0, this.z, 0, 0,
+          0, 0, 1);
     }
+    return matrix;
   };
 
   Scale.prototype._generateCssString = function() {
-    if (this.z == null) {
-      this.cssString = 'scale(' + this.x + ', ' + this.y + ')';
+    var cssString;
+    if (this.is2DComponent()) {
+      cssString = 'scale(' + this.x + ', ' + this.y + ')';
     } else {
-      this.cssString = 'scale3d(' + this.x + ', ' + this.y + ', ' + this.z +
-          ')';
+      cssString = 'scale3d(' + this.x + ', ' + this.y + ', ' + this.z + ')';
     }
+    return cssString;
   };
 
   scope.Scale = Scale;

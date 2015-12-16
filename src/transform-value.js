@@ -32,8 +32,8 @@
       this.transformComponents.push(values[i]);
     }
 
-    this._computeMatrix();
-    this._generateCssString();
+    this._matrix = this._computeMatrix();
+    this.cssString = this._generateCssString();
   }
   internal.inherit(TransformValue, internal.StyleValue);
 
@@ -47,18 +47,18 @@
   };
 
   TransformValue.prototype._computeMatrix = function() {
-    var result = this.transformComponents[0].asMatrix();
+    var matrix = this.transformComponents[0].asMatrix();
     for (var i = 1; i < this.transformComponents.length; ++i) {
-      result = result.multiply(this.transformComponents[i].asMatrix());
+      matrix = matrix.multiply(this.transformComponents[i].asMatrix());
     }
-    this._matrix = result;
+    return matrix;
   };
 
   TransformValue.prototype._generateCssString = function() {
     function getCssString(value) {
       return value.cssString;
     }
-    this.cssString = this.transformComponents.map(getCssString).join(' ');
+    return this.transformComponents.map(getCssString).join(' ');
   };
 
   scope.TransformValue = TransformValue;

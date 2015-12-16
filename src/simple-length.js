@@ -24,7 +24,7 @@
     }
     this.type = type;
     this.value = value;
-    this.cssString = this.value + internal.LengthValue.cssStringTypeRepresentation(this.type);
+    this.cssString = this._generateCssString();
   }
   internal.inherit(SimpleLength, internal.LengthValue);
 
@@ -70,6 +70,12 @@
       return false;
     }
     return true;
+  };
+
+  SimpleLength.prototype._generateCssString = function() {
+    var cssString = this.value +
+        internal.LengthValue.cssStringTypeRepresentation(this.type);
+    return cssString;
   };
 
   scope.SimpleLength = SimpleLength;
