@@ -31,6 +31,7 @@
       'src/matrix.js',
       'src/scale.js',
       'src/skew.js',
+      'src/transform-value.js',
       'src/style-property-map-readonly.js',
       'src/style-property-map.js',
       'src/property-dictionary.js'
@@ -47,6 +48,7 @@
       'test/js/matrix.js',
       'test/js/scale.js',
       'test/js/skew.js',
+      'test/js/transform-value.js',
       'test/js/computed-style-property-map.js',
       'test/js/inline-style-property-map.js',
       'test/js/property-dictionary.js'
