@@ -32,8 +32,8 @@
     this.y = y;
     this.z = (z instanceof LengthValue) ? z: null;
 
-    this._computeMatrix();
-    this._generateCssString();
+    this._matrix = this._computeMatrix();
+    this.cssString = this._generateCssString();
   }
   internal.inherit(Translation, internal.TransformComponent);
 
@@ -45,22 +45,26 @@
     // Translation represented by the identity matrix with the translation
     // values down the last column.
     // See documentation https://drafts.csswg.org/css-transforms-1/.
+    var matrix;
     if (this.z == null) {
-      this._matrix = new Matrix(1, 0, 0, 1, this.x.value, this.y.value);
+      matrix = new Matrix(1, 0, 0, 1, this.x.value, this.y.value);
     } else {
-      this._matrix = new Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0,
-          this.x.value, this.y.value, this.z.value, 1);
+      matrix = new Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, this.x.value,
+          this.y.value, this.z.value, 1);
     }
+    return matrix;
   };
 
   Translation.prototype._generateCssString = function() {
-    if (this.z == null) {
-      this.cssString = 'translate(' + this.x.cssString + ', ' +
-          this.y.cssString + ')';
+    var cssString;
+    if (this.is2DComponent()) {
+      cssString = 'translate(' + this.x.cssString + ', ' + this.y.cssString +
+          ')';
     } else {
-      this.cssString = 'translate3d(' + this.x.cssString + ', ' +
-          this.y.cssString + ', ' + this.z.cssString + ')';
+      cssString = 'translate3d(' + this.x.cssString + ', ' + this.y.cssString +
+          ', ' + this.z.cssString + ')';
     }
+    return cssString;
   };
 
   scope.Translation = Translation;
