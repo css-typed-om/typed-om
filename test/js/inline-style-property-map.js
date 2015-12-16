@@ -8,7 +8,7 @@ suite('Inline StylePropertyMap', function() {
     document.body.removeChild(this.element);
   });
 
-  test('Element.styleMap method returns a StylePropertyMap object for that element', function() {
+  test('the Element.styleMap method returns a StylePropertyMap object for that element', function() {
     var inlineStyleMap = this.element.styleMap();
     assert.instanceOf(inlineStyleMap, StylePropertyMap);
   });
@@ -41,5 +41,11 @@ suite('Inline StylePropertyMap', function() {
     var keyword = new KeywordValue('lemon');
 
     assert.throw(function() {inlineStyleMap.set('height', keyword)}, TypeError);
+  });
+
+  test('The set method should throw a TypeError if a non StyleValue is inputed into the function', function() {
+    var inlineStyleMap = this.element.styleMap();
+
+    assert.throw(function() {inlineStyleMap.set('height', 4)}, TypeError);
   });
 });
