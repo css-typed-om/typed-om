@@ -31,16 +31,16 @@
       'height': true
     };
   }
-  var instance;
 
   PropertyDictionary.prototype.isSupportedProperty = function(property) {
     return (this._validProperties.hasOwnProperty(property));
   };
 
-  PropertyDictionary.prototype._lengthValueHasPercentage = function(lengthValue) {
+  PropertyDictionary.prototype.
+      _lengthValueHasPercentage = function(lengthValue) {
     if (!(lengthValue instanceof LengthValue)) {
       throw new TypeError(
-        'The input to _lengthValueHasPercentage must be an object of type LengthValue');
+        'The input to _lengthValueHasPercentage must be a LengthValue');
     }
 
     if (lengthValue instanceof CalcLength) {
@@ -50,7 +50,8 @@
     return (lengthValue.type == 'percent');
   };
 
-  PropertyDictionary.prototype._isValidKeyword = function(property, styleValueString) {
+  PropertyDictionary.prototype.
+      _isValidKeyword = function(property, styleValueString) {
     return this._validKeywords[property].indexOf(styleValueString) > -1;
   };
 
@@ -79,6 +80,7 @@
     return false;
   };
 
+  var instance;
   var propertyDictionary = function() {
     if (!instance) {
       instance = new PropertyDictionary();
