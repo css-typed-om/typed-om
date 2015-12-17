@@ -99,6 +99,16 @@
     return false;
   };
 
+  PropertyDictionary.prototype
+      .throwInvalidInputError = function(property, value) {
+    if (value instanceof KeywordValue) {
+      throw new TypeError(property +
+        ' does not take the keyword ' + value.cssString);
+    }
+    throw new TypeError(property +
+      ' does not take values of type ' + value.constructor.name);
+  };
+
   var instance;
   var propertyDictionary = function() {
     if (!instance) {

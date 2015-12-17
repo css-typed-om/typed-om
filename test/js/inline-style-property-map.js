@@ -75,9 +75,9 @@ suite('Inline StylePropertyMap', function() {
     assert.throw(function() {inlineStyleMap.has('lemons')}, TypeError);
   });
 
-  test('The append method should successfully append a valid CSS values to a property ' +
+  test('The append method should successfully append a valid CSS value to a property ' +
       'that supports list values', function() {
-    this.element.style['animationIterationCount'] = 'infinite, 2, 5'; 
+    this.element.style['animationIterationCount'] = 'infinite, 2, 5';
     var inlineStyleMap = this.element.styleMap();
     inlineStyleMap.append('animationIterationCount', new NumberValue(4));
 
@@ -85,7 +85,7 @@ suite('Inline StylePropertyMap', function() {
   });
 
   test('The append method should successfully append a list of valid CSS values to a property ' +
-      'that supports list values', function() { 
+      'that supports list values', function() {
     var inlineStyleMap = this.element.styleMap();
     var valueArray = [new NumberValue(4), new NumberValue(5), new KeywordValue('infinite')];
     this.element.style['animationIterationCount'] = 'infinite, 2, 5';
@@ -95,7 +95,7 @@ suite('Inline StylePropertyMap', function() {
   });
 
   test('The append method should throw a TypeError if any index in the values array is not supported by ' +
-    'the property', function() { 
+    'the property', function() {
     var inlineStyleMap = this.element.styleMap();
     var valueArray = [new NumberValue(4), new NumberValue(5), new SimpleLength(3, 'px'), new KeywordValue('infinite')];
     this.element.style['animationIterationCount'] = 'infinite, 2, 5';

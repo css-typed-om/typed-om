@@ -36,7 +36,7 @@
     }
 
     if (!cssPropertyDictionary.isValidInput(property, value)) {
-      this._throwInvalidInputError(property, value);
+      cssPropertyDictionary.throwInvalidInputError(property, value);
     }
     this._styleObject[property] = value.cssString;
   };
@@ -64,7 +64,7 @@
     var valueSeparator = cssPropertyDictionary.getListValueSeparator(property);
     for (var i = 0; i < values.length; i++) {
       if (!cssPropertyDictionary.isValidInput(property, values[i])) {
-        this._throwInvalidInputError(property, values[i]);
+        cssPropertyDictionary.throwInvalidInputError(property, values[i]);
       }
       cssAppendString += valueSeparator + values[i].cssString;
     }
@@ -85,16 +85,6 @@
       throw new TypeError(property + ' is not a supported CSS property');
     }
     return !(this._styleObject[property] == '');
-  };
-
-  StylePropertyMap.prototype
-      ._throwInvalidInputError = function(property, value) {
-    if (value instanceof KeywordValue) {
-      throw new TypeError(property +
-        ' does not take the keyword ' + value.cssString);
-    }
-    throw new TypeError(property +
-      ' does not take values of type ' + value.constructor.name);
   };
 
   Element.prototype.styleMap = function() {
