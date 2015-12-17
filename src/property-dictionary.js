@@ -44,6 +44,17 @@
     return (this._validProperties.hasOwnProperty(property));
   };
 
+  PropertyDictionary.prototype.isListValuedProperty = function(property) {
+    return (this._allowsListValues.hasOwnProperty(property));
+  };
+
+  PropertyDictionary.prototype.getListValueSeparator = function(property) {
+    if (this.isListValuedProperty(property)) {
+      return this._allowsListValues[property];
+    }
+    throw new TypeError(property + ' does not support lists of styleValues');
+  };
+
   PropertyDictionary.prototype.
       _lengthValueHasPercentage = function(lengthValue) {
     if (!(lengthValue instanceof LengthValue)) {
