@@ -30,7 +30,7 @@
 
     this.x = x;
     this.y = y;
-    this.z = (z instanceof LengthValue) ? z: null;
+    this.z = (z instanceof LengthValue) ? z : null;
 
     this._matrix = this._computeMatrix();
     this.cssString = this._generateCssString();
