@@ -20,7 +20,7 @@
      'pitch-range': [NumberValue],
      'border-top-width': [LengthValue],
      'opacity': [NumberValue],
-     'animation-iteration-count': [NumberValue]
+     'animationIterationCount': [NumberValue]
     };
 
     this._validKeywords = {
@@ -28,7 +28,7 @@
       'pitch-range': ['inherit'],
       'border-top-width': ['inherit'],
       'opacity': ['initial', 'inherit'],
-      'animation-iteration-count': ['infinite']
+      'animationIterationCount': ['infinite']
     };
 
     this._allowsPercentage = {
@@ -36,7 +36,7 @@
     };
 
     this._allowsListValues = {
-      'animation-iteration-count': ', '
+      'animationIterationCount': ', '
     };
   }
 
