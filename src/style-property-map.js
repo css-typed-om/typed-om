@@ -36,18 +36,39 @@
     }
 
     if (!cssPropertyDictionary.isValidInput(property, value)) {
-      if (value instanceof KeywordValue) {
-        throw new TypeError(property +
-          ' does not take the keyword ' + value.cssString);
-      }
-      throw new TypeError(property +
-        ' does not take values of type ' + value.constructor.name);
+      this._throwInvalidInputError(property, value);
     }
     this._styleObject[property] = value.cssString;
   };
 
-  StylePropertyMap.prototype.append = function(property, value) {
-    throw new TypeError('Function not implemented yet');
+  StylePropertyMap.prototype.append = function(property, values) {
+    var cssPropertyDictionary = propertyDictionary();
+    if (!cssPropertyDictionary.isSupportedProperty(property)) {
+      throw new TypeError(property + ' is not a supported CSS property');
+    }
+
+    if (!cssPropertyDictionary.isListValuedProperty(property)) {
+      throw new TypeError(property +
+        ' does not support lists of styleValues' + values.constructor.name);
+    }
+
+    if (values == null) {
+      throw new TypeError('Null cannot be appended to CSS propertys');
+    }
+
+    if (!(values instanceof Array)) {
+      values = [values];
+    }
+
+    var cssAppendString = this._styleObject['animationIterationCount'];
+    var valueSeparator = cssPropertyDictionary.getListValueSeparator(property);
+    for (var i = 0; i < values.length; i++) {
+      if (!cssPropertyDictionary.isValidInput(property, values[i])) {
+        this._throwInvalidInputError(property, values[i]);
+      }
+      cssAppendString += valueSeparator + values[i].cssString;
+    }
+    return this._styleObject[property] = cssAppendString;
   };
 
   StylePropertyMap.prototype.delete = function(property) {
@@ -64,6 +85,16 @@
       throw new TypeError(property + ' is not a supported CSS property');
     }
     return !(this._styleObject[property] == '');
+  };
+
+  StylePropertyMap.prototype
+      ._throwInvalidInputError = function(property, value) {
+    if (value instanceof KeywordValue) {
+      throw new TypeError(property +
+        ' does not take the keyword ' + value.cssString);
+    }
+    throw new TypeError(property +
+      ' does not take values of type ' + value.constructor.name);
   };
 
   Element.prototype.styleMap = function() {
