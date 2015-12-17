@@ -19,18 +19,24 @@
      'height': [LengthValue],
      'pitch-range': [NumberValue],
      'border-top-width': [LengthValue],
-     'opacity': [NumberValue]
+     'opacity': [NumberValue],
+     'animation-iteration-count': [NumberValue]
     };
 
     this._validKeywords = {
       'height': ['auto', 'inherit'],
       'pitch-range': ['inherit'],
       'border-top-width': ['inherit'],
-      'opacity': ['initial', 'inherit']
+      'opacity': ['initial', 'inherit'],
+      'animation-iteration-count': ['infinite']
     };
 
     this._allowsPercentage = {
       'height': true
+    };
+
+    this._allowsListValues = {
+      'animation-iteration-count': ', '
     };
   }
 
