@@ -94,6 +94,16 @@ suite('Inline StylePropertyMap', function() {
     assert.strictEqual(this.element.style['animationIterationCount'], 'infinite, 2, 5, 4, 5, infinite');
   });
 
+  test('The append method should successfully append a list of valid CSS values to a property ' +
+      'that supports list values when the StyleValue is currently not set', function() {
+    var inlineStyleMap = this.element.styleMap();
+    var valueArray = [new NumberValue(4), new NumberValue(5), new KeywordValue('infinite')];
+    this.element.style['animationIterationCount'] = '';
+    inlineStyleMap.append('animationIterationCount', valueArray);
+
+    assert.strictEqual(this.element.style['animationIterationCount'], '4, 5, infinite');
+  });
+
   test('The append method should throw a TypeError if any index in the values array is not supported by ' +
     'the property', function() {
     var inlineStyleMap = this.element.styleMap();

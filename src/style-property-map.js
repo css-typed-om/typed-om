@@ -65,6 +65,10 @@
       if (!cssPropertyDictionary.isValidInput(property, values[i])) {
         cssPropertyDictionary.throwInvalidInputError(property, values[i]);
       }
+      if (cssAppendString == '') {
+        cssAppendString += values[i].cssString;
+        continue;
+      }
       cssAppendString += valueSeparator + values[i].cssString;
     }
     return this._styleObject[property] = cssAppendString;
