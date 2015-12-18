@@ -26,8 +26,9 @@
     }
 
     if (value instanceof Array) {
-      throw new TypeError(
-        'Setting a sequence of StyleValues is not implemented yet');
+      this._styleObject[property] = '';
+      this.append(property, value);
+      return;
     }
 
     if (!value instanceof StyleValue) {
