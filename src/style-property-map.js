@@ -59,7 +59,7 @@
       values = [values];
     }
 
-    var cssAppendString = this._styleObject['animationIterationCount'];
+    var cssAppendString = this._styleObject[property];
     var valueSeparator = cssPropertyDictionary.getListValueSeparator(property);
     for (var i = 0; i < values.length; i++) {
       if (!cssPropertyDictionary.isValidInput(property, values[i])) {
