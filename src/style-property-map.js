@@ -48,12 +48,11 @@
     }
 
     if (!cssPropertyDictionary.isListValuedProperty(property)) {
-      throw new TypeError(property +
-        ' does not support lists of styleValues' + values.constructor.name);
+      throw new TypeError(property + ' does not support lists of styleValues');
     }
 
     if (values == null) {
-      throw new TypeError('Null cannot be appended to CSS propertys');
+      throw new TypeError('null cannot be appended to CSS propertys');
     }
 
     if (!(values instanceof Array)) {

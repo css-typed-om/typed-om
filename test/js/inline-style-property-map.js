@@ -100,24 +100,28 @@ suite('Inline StylePropertyMap', function() {
     var valueArray = [new NumberValue(4), new NumberValue(5), new SimpleLength(3, 'px'), new KeywordValue('infinite')];
     this.element.style['animationIterationCount'] = 'infinite, 2, 5';
 
-    assert.throw(function() {inlineStyleMap.append('animationIterationCount', valueArray)}, TypeError);
+    assert.throw(function() {inlineStyleMap.append('animationIterationCount', valueArray)}, TypeError,
+      'animationIterationCount does not take values of type SimpleLength');
   });
 
   test('The append method should throw a TypeError when an unsupported CSS property is entered', function() {
     var inlineStyleMap = this.element.styleMap();
 
-    assert.throw(function() {inlineStyleMap.append('lemon', new NumberValue(4))}, TypeError);
+    assert.throw(function() {inlineStyleMap.append('lemon', new NumberValue(4))}, TypeError,
+      'lemon is not a supported CSS property');
   });
 
   test('The append method should throw a TypeError when a CSS property that does not support list values is entered', function() {
     var inlineStyleMap = this.element.styleMap();
 
-    assert.throw(function() {inlineStyleMap.append('height', new NumberValue(4))}, TypeError);
+    assert.throw(function() {inlineStyleMap.append('height', new NumberValue(4))}, TypeError,
+      'height does not support lists of styleValues');
   });
 
   test('The append method should throw a TypeError when null is entered as the value', function() {
     var inlineStyleMap = this.element.styleMap();
 
-    assert.throw(function() {inlineStyleMap.append('height', null)}, TypeError);
+    assert.throw(function() {inlineStyleMap.append('animationIterationCount', null)}, TypeError,
+      'null cannot be appended to CSS propertys');
   });
 });
