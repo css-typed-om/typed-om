@@ -125,7 +125,7 @@ suite('Inline StylePropertyMap', function() {
     var inlineStyleMap = this.element.styleMap();
 
     assert.throw(function() {inlineStyleMap.append('height', new NumberValue(4))}, TypeError,
-      'height does not support lists of styleValues');
+      'height does not support sequences of styleValues');
   });
 
   test('The append method should throw a TypeError when null is entered as the value', function() {
