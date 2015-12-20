@@ -1,9 +1,7 @@
 suite('Translation', function() {
-  test('Translation is a Translation and TransformComponent', function() {
+  test('Translation is a TransformComponent', function() {
     var validLength = new SimpleLength(1, 'px');
     var translation = new Translation(validLength, validLength);
-    assert.instanceOf(translation, Translation,
-        'A new Translation should be an instance of Translation');
     assert.instanceOf(translation, TransformComponent,
         'A new Translation should be an instance of TransformComponent');
   });

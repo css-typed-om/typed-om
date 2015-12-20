@@ -42,7 +42,7 @@
   };
 
   Translation.prototype._computeMatrix = function() {
-    // Translation represented by the identity matrix with the translation
+    // Translation is represented by the identity matrix with the translation
     // values down the last column.
     // See documentation https://drafts.csswg.org/css-transforms-1/.
     var matrix;
