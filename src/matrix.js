@@ -31,7 +31,7 @@
       this._matrix[index] = arguments[index];
     }
 
-    this._generateCssString();
+    this.cssString = this._generateCssString();
   }
   internal.inherit(Matrix, internal.TransformComponent);
 
@@ -112,8 +112,9 @@
   };
 
   Matrix.prototype._generateCssString = function() {
-    this.cssString = this.is2DComponent() ? 'matrix' : 'matrix3d';
-    this.cssString += '('+ this._matrix.join(', ') + ')';
+    var cssString = this.is2DComponent() ? 'matrix' : 'matrix3d';
+    cssString += '('+ this._matrix.join(', ') + ')';
+    return cssString;
   };
 
   scope.Matrix = Matrix;
