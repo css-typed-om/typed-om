@@ -28,9 +28,9 @@
       }
     }
 
-    this.x = x;
-    this.y = y;
-    this.z = (z instanceof LengthValue) ? z : null;
+    this.x = new SimpleLength(x);
+    this.y = new SimpleLength(y);
+    this.z = (z instanceof SimpleLength) ? new SimpleLength(z) : null;
 
     this._matrix = this._computeMatrix();
     this.cssString = this._generateCssString();

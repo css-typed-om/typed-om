@@ -27,8 +27,7 @@
       throw new TypeError('Perspective length must be strictly positive.');
     }
 
-    // TODO: Copy the LengthValue given when copy constructors are implemented.
-    this.length = length;
+    this.length = new SimpleLength(length);
     this._matrix = this._computeMatrix();
     this.cssString = this._generateCssString();
   }

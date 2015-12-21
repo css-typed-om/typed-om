@@ -14,7 +14,19 @@
 
 (function(internal, testing) {
 
-  function LengthValue() {}
+  // Constructor (LengthValue)
+  function LengthValue(value) {
+    if (!(value instanceof LengthValue)) {
+      throw new TypeError('Value in the LengthValue constructor must be a ' +
+          'LengthValue.');
+    }
+
+    if (value instanceof SimpleLength) {
+      return new SimpleLength(value);
+    } else {
+      return new CalcLength(value);
+    }
+  }
   internal.inherit(LengthValue, internal.StyleValue);
 
   // The different possible length types.
