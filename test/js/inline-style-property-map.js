@@ -19,11 +19,6 @@ suite('Inline StylePropertyMap', function() {
     inlineStyleMap.set('height', simpleLength);
 
     assert.strictEqual(this.element.style['height'], simpleLength.cssString);
-
-    var numberValue = new NumberValue(9);
-    inlineStyleMap.set('lineHeight', numberValue);
-
-    assert.strictEqual(this.element.style['lineHeight'], numberValue.cssString);
   });
 
   test('The set method successfully sets the CSS string of the list of StyleValues on property ' +

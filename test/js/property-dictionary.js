@@ -22,7 +22,7 @@ suite('PropertyDictionary', function() {
 
   test('The isValidInput method should return true if the property can accept the style value entered', function() {
     assert.isTrue(cssPropertyDictionary.isValidInput('height', new SimpleLength(9.2, 'px')));
-    assert.isTrue(cssPropertyDictionary.isValidInput('lineHeight', new NumberValue(5)));
+    assert.isTrue(cssPropertyDictionary.isValidInput('pitch-range', new NumberValue(5)));
   });
 
   test('The isValidInput method should return false if the property can\'t accept the style value entered' , function() {
@@ -36,7 +36,7 @@ suite('PropertyDictionary', function() {
 
   test('The isValidInput method should return false when a percentage type LengthValue is given as input' +
       'with a CSS property that cannot accept percentage types', function() {
-    assert.isFalse(cssPropertyDictionary.isValidInput('borderTopWidth', new CalcLength({percent: 10})));
+    assert.isFalse(cssPropertyDictionary.isValidInput('border-top-width', new CalcLength({percent: 10})));
   });
 
   test('The isValidInput method should return true when a KeywordValue object contains a keyword' +
@@ -63,6 +63,6 @@ suite('PropertyDictionary', function() {
 
   test('The getListValueSeparator method should throw a TypeError if the property entered does not support list values', function() {
 
-    assert.throw(function() {cssPropertyDictionary.getListValueSeparator('height')}, TypeError);
+    assert.throw(function () {cssPropertyDictionary.getListValueSeparator('height')}, TypeError);
   });
 });

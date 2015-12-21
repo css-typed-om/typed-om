@@ -17,23 +17,22 @@
   function PropertyDictionary() {
     this._validProperties = {
      'height': [LengthValue],
-     'lineHeight': [NumberValue, LengthValue],
-     'borderTopWidth': [LengthValue],
+     'pitch-range': [NumberValue],
+     'border-top-width': [LengthValue],
      'opacity': [NumberValue],
      'animationIterationCount': [NumberValue]
     };
 
     this._validKeywords = {
       'height': ['auto', 'inherit'],
-      'lineHeight': ['inherit', ''],
-      'borderTopWidth': ['inherit'],
+      'pitch-range': ['inherit'],
+      'border-top-width': ['inherit'],
       'opacity': ['initial', 'inherit'],
       'animationIterationCount': ['infinite']
     };
 
     this._allowsPercentage = {
-      'height': true,
-      'lineHeight': true
+      'height': true
     };
 
     this._listSeparator = {
@@ -56,8 +55,8 @@
     throw new TypeError(property + ' does not support lists of StyleValues');
   };
 
-  PropertyDictionary.prototype
-      ._lengthValueHasPercentage = function(lengthValue) {
+  PropertyDictionary.prototype.
+      _lengthValueHasPercentage = function(lengthValue) {
     if (!(lengthValue instanceof LengthValue)) {
       throw new TypeError(
         'The input to _lengthValueHasPercentage must be a LengthValue');
@@ -70,8 +69,8 @@
     return (lengthValue.type == 'percent');
   };
 
-  PropertyDictionary.prototype
-      ._isValidKeyword = function(property, styleValueString) {
+  PropertyDictionary.prototype.
+      _isValidKeyword = function(property, styleValueString) {
     return this._validKeywords[property].indexOf(styleValueString) > -1;
   };
 
