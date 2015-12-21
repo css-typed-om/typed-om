@@ -26,8 +26,8 @@
       throw new TypeError('yPos is not a LengthValue object');
     }
 
-    this.x = xPos;
-    this.y = yPos;
+    this.x = new LengthValue(xPos);
+    this.y = new LengthValue(yPos);
     this.cssString = this._generateCssString();
   }
   internal.inherit(PositionValue, internal.StyleValue);
