@@ -6,12 +6,16 @@ suite('Translation', function() {
         'A new Translation should be an instance of TransformComponent');
   });
 
-  test('Translation constructor throws exception for invalid types',
+  test('Translation constructor throws exception for non LengthValue types',
       function() {
     assert.throws(function() {new Translation()});
     assert.throws(function() {new Translation({})});
+    assert.throws(function() {new Translation(null)});
     assert.throws(function() {new Translation('1px', '2px')});
+    assert.throws(function() {new Translation(1, 2)});
     assert.throws(function() {new Translation(null, null)});
+    assert.throws(function() {new Translation({}, {})});
+    assert.throws(function() {new Translation(null, null, null)});
   });
 
   test('Translation constructor throws exception for unsupported LengthValues',
@@ -23,10 +27,17 @@ suite('Translation', function() {
     assert.throws(function() {new Translation(emSimpleLength, emSimpleLength)});
     assert.throws(function() {new Translation(validLength, pxCalcLength)});
     assert.throws(function() {new Translation(pxCalcLength, pxCalcLength)});
-    // Check that it can only take 2 or 3 arguments, not 1.
+    // Check that it can only take 2 or 3 arguments, not 1, nor 4.
     assert.throws(function() {new Translation(validLength)});
-    // Check that it doesn't simply make a 2D translation with z as null.
+    assert.throws(function() {new Translation(validLength, validLength,
+        validLength, validLength)});
+    // Check that it doesn't make a 2D translation if z is invalid.
     assert.throws(function() {new Translation(validLength, validLength, null)});
+    assert.throws(function() {new Translation(validLength, validLength,
+        undefined)});
+    assert.throws(function() {new Translation(validLength, validLength, {})});
+    assert.throws(function() {new Translation(validLength, validLength,
+        emSimpleLength)});
   });
 
   test('Translation constructor works correctly for 2 arguments', function() {
