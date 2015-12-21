@@ -16,6 +16,9 @@
 
   // TODO: SimpleLength(simpleLength), SimpleLength(cssString)
   function SimpleLength(value, type) {
+    if (value instanceof SimpleLength && arguments.length == 1) {
+      return new SimpleLength(value.value, value.type);
+    }
     if (typeof value != 'number') {
       throw new TypeError('Value of SimpleLength must be a number.');
     }
