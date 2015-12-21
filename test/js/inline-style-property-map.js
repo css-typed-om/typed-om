@@ -19,6 +19,21 @@ suite('Inline StylePropertyMap', function() {
     inlineStyleMap.set('height', simpleLength);
 
     assert.strictEqual(this.element.style['height'], simpleLength.cssString);
+
+    var numberValue = new NumberValue(9);
+    inlineStyleMap.set('lineHeight', numberValue);
+
+    assert.strictEqual(this.element.style['lineHeight'], numberValue.cssString);
+  });
+
+  test('The set method successfully sets the CSS string of the list of StyleValues on property ' +
+    'if it supports setting lists of values', function() {
+    var inlineStyleMap = this.element.styleMap();
+    var valueArray = [new NumberValue(4), new NumberValue(5), new KeywordValue('infinite')];
+    this.element.style['animationIterationCount'] = 'infinite, 2, 5';
+    inlineStyleMap.set('animationIterationCount', valueArray);
+
+    assert.strictEqual(this.element.style['animationIterationCount'], '4, 5, infinite');
   });
 
   test('The set method should throw a TypeError if a non KeywordValue StyleValue unsupported by the CSS style property is set', function() {
@@ -73,5 +88,65 @@ suite('Inline StylePropertyMap', function() {
     var inlineStyleMap = this.element.styleMap();
 
     assert.throw(function() {inlineStyleMap.has('lemons')}, TypeError);
+  });
+
+  test('The append method should successfully append a supported StyleValue to a property ' +
+      'that supports sequences of StyleValues', function() {
+    this.element.style['animationIterationCount'] = 'infinite, 2, 5';
+    var inlineStyleMap = this.element.styleMap();
+    inlineStyleMap.append('animationIterationCount', new NumberValue(4));
+
+    assert.strictEqual(this.element.style['animationIterationCount'], 'infinite, 2, 5, 4');
+  });
+
+  test('The append method should successfully append a sequence of StyleValues to a property ' +
+      'that supports sequences of StyleValues', function() {
+    var inlineStyleMap = this.element.styleMap();
+    var valueSequence = [new NumberValue(4), new NumberValue(5), new KeywordValue('infinite')];
+    this.element.style['animationIterationCount'] = 'infinite, 2, 5';
+    inlineStyleMap.append('animationIterationCount', valueSequence);
+
+    assert.strictEqual(this.element.style['animationIterationCount'], 'infinite, 2, 5, 4, 5, infinite');
+  });
+
+  test('The append method should successfully append a sequence of StyleValues even when the CSS property ' +
+    'is not currently set', function() {
+    var inlineStyleMap = this.element.styleMap();
+    var valueSequence = [new NumberValue(4), new NumberValue(5), new KeywordValue('infinite')];
+    this.element.style['animationIterationCount'] = '';
+    inlineStyleMap.append('animationIterationCount', valueSequence);
+
+    assert.strictEqual(this.element.style['animationIterationCount'], '4, 5, infinite');
+  });
+
+  test('The append method should throw a TypeError if the StyleValue at any index in the values array ' +
+    'is not supported by the property', function() {
+    var inlineStyleMap = this.element.styleMap();
+    var valueSequence = [new NumberValue(4), new NumberValue(5), new SimpleLength(3, 'px'), new KeywordValue('infinite')];
+    this.element.style['animationIterationCount'] = 'infinite, 2, 5';
+
+    assert.throw(function() {inlineStyleMap.append('animationIterationCount', valueSequence)}, TypeError,
+      'animationIterationCount does not take values of type SimpleLength');
+  });
+
+  test('The append method should throw a TypeError when an unsupported CSS property is entered', function() {
+    var inlineStyleMap = this.element.styleMap();
+
+    assert.throw(function() {inlineStyleMap.append('lemon', new NumberValue(4))}, TypeError,
+      'lemon is not a supported CSS property');
+  });
+
+  test('The append method should throw a TypeError when a CSS property that does not support list values is entered', function() {
+    var inlineStyleMap = this.element.styleMap();
+
+    assert.throw(function() {inlineStyleMap.append('height', new NumberValue(4))}, TypeError,
+      'height does not support sequences of styleValues');
+  });
+
+  test('The append method should throw a TypeError when null is entered as the value', function() {
+    var inlineStyleMap = this.element.styleMap();
+
+    assert.throw(function() {inlineStyleMap.append('animationIterationCount', null)}, TypeError,
+      'null cannot be appended to CSS properties');
   });
 });
