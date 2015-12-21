@@ -67,27 +67,25 @@
       }
       if (cssAppendString == '') {
         cssAppendString += values[i].cssString;
-        continue;
+      } else {
+        cssAppendString += valueSeparator + values[i].cssString;
       }
-      cssAppendString += valueSeparator + values[i].cssString;
     }
     return this._styleObject[property] = cssAppendString;
   };
 
   StylePropertyMap.prototype.delete = function(property) {
-    var cssPropertyDictionary = propertyDictionary();
-    if (!cssPropertyDictionary.isSupportedProperty(property)) {
+    if (!propertyDictionary().isSupportedProperty(property)) {
       throw new TypeError(property + ' is not a supported CSS property');
     }
     this._styleObject[property] = '';
   };
 
   StylePropertyMap.prototype.has = function(property) {
-    var cssPropertyDictionary = propertyDictionary();
-    if (!cssPropertyDictionary.isSupportedProperty(property)) {
+    if (!propertyDictionary().isSupportedProperty(property)) {
       throw new TypeError(property + ' is not a supported CSS property');
     }
-    return !(this._styleObject[property] == '');
+    return !!this._styleObject[property]
   };
 
   Element.prototype.styleMap = function() {
