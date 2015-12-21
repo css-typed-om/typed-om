@@ -62,7 +62,7 @@ suite('Inline StylePropertyMap', function() {
     assert.throw(function() {inlineStyleMap.set('lemons', new SimpleLength(3, 'px'))}, TypeError);
   });
 
-  test('The delete method removes any StyleValue assigned to the CSS style property inputed', function() {
+  test('The delete method clears a given property', function() {
     var inlineStyleMap = this.element.styleMap();
     this.element.style.height = '10px';
     inlineStyleMap.delete('height');
@@ -70,7 +70,7 @@ suite('Inline StylePropertyMap', function() {
     assert.strictEqual(this.element.style['height'], '');
   });
 
-  test('The delete method should throw a TypeError if an unsupported property is given as input', function() {
+  test('The delete method should throw a TypeError if an unsupported property', function() {
     var inlineStyleMap = this.element.styleMap();
 
     assert.throw(function() {inlineStyleMap.delete('lemons')}, TypeError);
@@ -84,7 +84,7 @@ suite('Inline StylePropertyMap', function() {
     assert.isFalse(inlineStyleMap.has('height'));
   });
 
-  test('The has method should throw a TypeError if an unsupported property is given as input', function() {
+  test('The has method should throw a TypeError if an unsupported property', function() {
     var inlineStyleMap = this.element.styleMap();
 
     assert.throw(function() {inlineStyleMap.has('lemons')}, TypeError);
