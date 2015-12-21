@@ -17,14 +17,17 @@
   function Perspective(length) {
     if (arguments.length != 1) {
       throw new TypeError('Perspective takes exactly 1 argument.');
-      // TODO: Change check of 'px' when LengthValue.LengthType enum is updated.
-    } else if (!(length instanceof SimpleLength) || length.type != 'px') {
+    }
+    // TODO: Change check of 'px' when LengthValue.LengthType enum is updated.
+    if (!(length instanceof SimpleLength) || length.type != 'px') {
       throw new TypeError('Unsupported Perspective length. Only SimpleLength ' +
           'instances with type \'px\' are supported.');
-    } else if (length.value <= 0) {
+    }
+    if (length.value <= 0) {
       throw new TypeError('Perspective length must be strictly positive.');
     }
 
+    // TODO: Copy the LengthValue given when copy constructors are implemented.
     this.length = length;
     this._matrix = this._computeMatrix();
     this.cssString = this._generateCssString();
