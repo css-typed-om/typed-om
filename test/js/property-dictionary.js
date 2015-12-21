@@ -65,4 +65,15 @@ suite('PropertyDictionary', function() {
 
     assert.throw(function () {cssPropertyDictionary.getListValueSeparator('height')}, TypeError);
   });
+
+  test('The getValidStyleValuesArray should return an array of constructors for all StyleValue types accepted by that propertty', function() {
+    var styleValueArray = cssPropertyDictionary.getValidStyleValuesArray('height');
+
+    assert.strictEqual(styleValueArray[0], LengthValue);
+  });
+
+  test('The getValidStyleValuesArray should throw a type error for unsupported properties', function() {
+
+    assert.throw(function () {cssPropertyDictionary.getValidStyleValuesArray('lemon');}, TypeError);
+  });
 });
