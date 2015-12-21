@@ -31,7 +31,6 @@
     VMAX: 'vmax',
     CM: 'cm',
     MM: 'mm',
-    Q: 'q',
     IN: 'in',
     PC: 'pc',
     PT: 'pt'
