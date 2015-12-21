@@ -16,15 +16,24 @@
 
   function StyleValue() {}
 
-  // TODO: Include parsing logic here.
   StyleValue.parse = function(property, value) {
-    if (typeof value == 'string') {
-      numberValue = Number.parseFloat(value);
-      if (numberValue !== NaN) {
-        return new scope.NumberValue(numberValue);
+    if (!propertyDictionary().isSupportedProperty(property)) {
+      return null;
+    }
+
+    var styleValueObject = null;
+    if (propertyDictionary()._isValidKeyword(property, value)) {
+      return Keyword.parse(value);
+    }
+
+    var supportedStyleValues = propertyDictionary()._validProperties[property];
+    for (int i = 0; i < supportedStyleValues.length; i++) {
+      supportedStyleValues[i].parse(value)
+      if (styleValueObject != null) {
+        return styleValueObject;
       }
     }
-    return null;
+    return styleValueObject;
   };
 
   internal.StyleValue = StyleValue;
