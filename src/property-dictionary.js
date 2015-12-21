@@ -36,7 +36,7 @@
       'lineHeight': true
     };
 
-    this._allowsListValues = {
+    this._listSeparator = {
       'animationIterationCount': ', '
     };
   }
@@ -46,14 +46,14 @@
   };
 
   PropertyDictionary.prototype.isListValuedProperty = function(property) {
-    return (this._allowsListValues.hasOwnProperty(property));
+    return (this._listSeparator.hasOwnProperty(property));
   };
 
   PropertyDictionary.prototype.getListValueSeparator = function(property) {
     if (this.isListValuedProperty(property)) {
-      return this._allowsListValues[property];
+      return this._listSeparator[property];
     }
-    throw new TypeError(property + ' does not support lists of styleValues');
+    throw new TypeError(property + ' does not support lists of StyleValues');
   };
 
   PropertyDictionary.prototype

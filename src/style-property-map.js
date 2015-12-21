@@ -68,9 +68,9 @@
       }
       if (cssAppendString == '') {
         cssAppendString += values[i].cssString;
-        continue;
+      } else {
+        cssAppendString += valueSeparator + values[i].cssString;
       }
-      cssAppendString += valueSeparator + values[i].cssString;
     }
     return this._styleObject[property] = cssAppendString;
   };
@@ -86,7 +86,7 @@
     if (!propertyDictionary().isSupportedProperty(property)) {
       throw new TypeError('Cannot use has method for ' + property + ' because it is not a supported CSS property');
     }
-    return !(this._styleObject[property] == '');
+    return !!this._styleObject[property]
   };
 
   Element.prototype.styleMap = function() {
