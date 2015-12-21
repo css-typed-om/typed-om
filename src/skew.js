@@ -24,8 +24,8 @@
     this.ax = ax;
     this.ay = ay;
 
-    this._computeMatrix();
-    this._generateCssString();
+    this._matrix = this._computeMatrix();
+    this.cssString = this._generateCssString();
   }
   internal.inherit(Skew, internal.TransformComponent);
 
@@ -45,11 +45,11 @@
 
     var tanAx = Skew._tanDegrees(this.ax);
     var tanAy = Skew._tanDegrees(this.ay);
-    this._matrix = new Matrix(1, tanAy, tanAx, 1, 0, 0);
+    return new Matrix(1, tanAy, tanAx, 1, 0, 0);
   };
 
   Skew.prototype._generateCssString = function() {
-    this.cssString = 'skew(' + this.ax + ', ' + this.ay + ')';
+    return 'skew(' + this.ax + ', ' + this.ay + ')';
   };
 
   scope.Skew = Skew;

@@ -22,7 +22,7 @@
   StylePropertyMap.prototype.set = function(property, value) {
     var cssPropertyDictionary = propertyDictionary();
     if (!cssPropertyDictionary.isSupportedProperty(property)) {
-      throw new TypeError(property + ' is not a supported CSS property');
+      throw new TypeError('Cannot set ' + property + ' because it is not a supported CSS property');
     }
 
     if (value instanceof Array) {
@@ -76,14 +76,14 @@
 
   StylePropertyMap.prototype.delete = function(property) {
     if (!propertyDictionary().isSupportedProperty(property)) {
-      throw new TypeError(property + ' is not a supported CSS property');
+      throw new TypeError('Cannot delete ' + property + ' because it is not a supported CSS property');
     }
     this._styleObject[property] = '';
   };
 
   StylePropertyMap.prototype.has = function(property) {
     if (!propertyDictionary().isSupportedProperty(property)) {
-      throw new TypeError(property + ' is not a supported CSS property');
+      throw new TypeError('Cannot use has method for ' + property + ' because it is not a supported CSS property');
     }
     return !!this._styleObject[property]
   };
