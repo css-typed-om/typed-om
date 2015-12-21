@@ -51,16 +51,14 @@
   };
 
   StylePropertyMap.prototype.delete = function(property) {
-    var cssPropertyDictionary = propertyDictionary();
-    if (!cssPropertyDictionary.isSupportedProperty(property)) {
+    if (!propertyDictionary().isSupportedProperty(property)) {
       throw new TypeError('Cannot delete ' + property + ' because it is not a supported CSS property');
     }
     this._styleObject[property] = '';
   };
 
   StylePropertyMap.prototype.has = function(property) {
-    var cssPropertyDictionary = propertyDictionary();
-    if (!cssPropertyDictionary.isSupportedProperty(property)) {
+    if (!propertyDictionary().isSupportedProperty(property)) {
       throw new TypeError('Cannot use has method for ' + property + ' because it is not a supported CSS property');
     }
     return !(this._styleObject[property] == '');
