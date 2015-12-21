@@ -12,4 +12,20 @@ suite('LengthValue', function() {
     assert.instanceOf(calcLength, LengthValue, 'A new calcLength should be an instance of LengthValue');
     assert.instanceOf(calcLength, StyleValue, 'A new calcLength should be an instance of StyleValue');
   });
+
+  test('LengthValue copy constructor returns a LengthValue', function() {
+    var simple = new SimpleLength(3, 'px');
+    var simpleCopy;
+    assert.doesNotThrow(function() {simpleCopy = new LengthValue(simple)});
+    assert.instanceOf(simpleCopy, SimpleLength,
+        'A new simpleLength should be an instanceOf SimpleLength');
+    assert.deepEqual(simpleCopy, simple);
+
+    var calc = new CalcLength({px: 10});
+    var calcCopy;
+    assert.doesNotThrow(function() {calcCopy = new LengthValue(calc)});
+    assert.instanceOf(calcCopy, CalcLength,
+        'A new calcLength should be an instanceOf CalcLength');
+    assert.deepEqual(calcCopy, calc);
+  });
 });

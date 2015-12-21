@@ -35,6 +35,20 @@ suite('CalcLength', function() {
     assert.strictEqual(multiValue.em, 3.2);
   });
 
+  test('CalcLength constructor works correctly for (CalcLength)', function() {
+    var original;
+    var copy;
+    assert.doesNotThrow(function() {original = new CalcLength({px: 10, em: 3.2})});
+    assert.doesNotThrow(function() {copy = new CalcLength(original)});
+    assert.strictEqual(copy.px, original.px);
+    assert.strictEqual(copy.em, original.em);
+    assert.strictEqual(copy.cssString, original.cssString);
+    assert.deepEqual(copy, original);
+
+    // Ensure that the copied object is not tied to the original.
+    assert.doesNotChange(function() {original.px = 3}, copy, 'px');
+  });
+
   test('CalcLength cssString is correct for single and multi value strings', function() {
     var singleValue;
     assert.doesNotThrow(function() {singleValue = new CalcLength({px: 10})});
