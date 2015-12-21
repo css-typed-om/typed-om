@@ -12,13 +12,28 @@ suite('SimpleLength', function() {
     assert.throws(function() {new SimpleLength({}, 'px')});
   });
 
-  // Possible constructors: SimpleLength(SimpleLength),
-  // SimpleLength(number, type)
-  test('SimpleLength constructor works correctly for numbers', function() {
+  test('SimpleLength constructor works correctly for (number, type)',
+      function() {
     var result;
     assert.doesNotThrow(function() {result = new SimpleLength(10, 'px')});
     assert.strictEqual(result.type, 'px');
     assert.strictEqual(result.value, 10);
+  });
+
+  test('SimpleLength constructor works correctly for (SimpleLength)',
+      function() {
+    var original;
+    var copy;
+    assert.doesNotThrow(function() {original = new SimpleLength(10, 'px')});
+    assert.doesNotThrow(function() {copy = new SimpleLength(original)});
+    assert.strictEqual(copy.type, original.type);
+    assert.strictEqual(copy.value, original.value);
+    assert.strictEqual(copy.cssString, original.cssString);
+    assert.deepEqual(copy, original);
+
+    // Ensure that the copied object is not tied to the original.
+    assert.doesNotChange(function() {original.value = 15}, copy, 'value');
+    assert.doesNotChange(function() {original.type = 'em'}, copy, 'type');
   });
 
   test('SimpleLength cssString is correctly defined for different values and types', function() {
