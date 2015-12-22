@@ -47,10 +47,15 @@
         if (value != null) {
           // Add a "+" in the cssString if needed
           // (i.e before non-negative numbers, not including the first number)
-          if (!isFirst && value >= 0) {
-            calcLength.cssString += '+';
+          if (!isFirst) {
+            if (value >= 0) {
+              calcLength.cssString += ' + ';
+            } else {
+              calcLength.cssString += ' - ';
+            }
           }
-          calcLength.cssString += value + internal.LengthValue.cssStringTypeRepresentation(type);
+          calcLength.cssString +=
+              Math.abs(value) + internal.LengthValue.cssStringTypeRepresentation(type);
           isFirst = false;
         }
       }
