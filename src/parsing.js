@@ -22,8 +22,9 @@
       return {px: 0};
 
     // If we have parenthesis, we're a calc and need to start with 'calc'.
-    if (!/^[^(]*$|^calc/.test(string))
+    if (!/^[^(]*$|^calc/.test(string)) {
       return;
+    }
     string = string.replace(/calc\(/g, '(');
 
     // We tag units by prefixing them with 'U' (note that we are already
@@ -51,14 +52,16 @@
         i++;
       }
     }
-    if (typeCheck != 'D')
+    if (typeCheck != 'D') {
       return;
+    }
 
     for (var unit in matchedUnits) {
       var result = eval(string.replace(new RegExp('U' + unit, 'g'), '').replace(
             new RegExp(taggedUnitRegExp, 'g'), '*0'));
-      if (!isFinite(result))
+      if (!isFinite(result)) {
         return;
+      }
       matchedUnits[unit] = result;
     }
     return matchedUnits;
