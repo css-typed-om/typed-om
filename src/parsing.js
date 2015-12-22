@@ -18,6 +18,9 @@
   function parseDimension(unitRegExp, string) {
     string = string.trim().toLowerCase();
 
+    if (string == '0' && 'px'.search(unitRegExp) >= 0)
+      return {px: 0};
+
     // If we have parenthesis, we're a calc and need to start with 'calc'.
     if (!/^[^(]*$|^calc/.test(string)) {
       return;
