@@ -13,7 +13,7 @@ suite('Inline StylePropertyMap', function() {
     assert.instanceOf(inlineStyleMap, StylePropertyMap);
   });
 
-  test('The set method successfully sets the CSS string of the StyleValue on an element', function() {
+  test('Set successfully sets the CSS string of the StyleValue on an element', function() {
     var inlineStyleMap = this.element.styleMap();
     var simpleLength = new SimpleLength(9.2, 'percent');
     inlineStyleMap.set('height', simpleLength);
@@ -21,27 +21,43 @@ suite('Inline StylePropertyMap', function() {
     assert.strictEqual(this.element.style['height'], simpleLength.cssString);
   });
 
-  test('The set method should throw a TypeError if a non KeywordValue StyleValue unsupported by the CSS style property is set', function() {
+  test('Set successfully sets the style string for the list of StyleValues on a property that supports sequences', function() {
+    var inlineStyleMap = this.element.styleMap();
+    var valueArray = [new NumberValue(4), new NumberValue(5), new KeywordValue('infinite')];
+    this.element.style['animation-iteration-count'] = 'infinite, 2, 5';
+    inlineStyleMap.set('animation-iteration-count', valueArray);
+
+    assert.strictEqual(this.element.style['animation-iteration-count'], '4, 5, infinite');
+  });
+
+  test('Set should throw a TypeError for properties that do not support sequences of style values', function() {
+    var inlineStyleMap = this.element.styleMap();
+    var valueSequence = [new SimpleLength(3, 'px'), new SimpleLength(6, 'px')];
+
+    assert.throw(function() {inlineStyleMap.set('height', valueSequence)}, TypeError, 'height does not support sequences of styleValues');
+  });
+
+  test('Set should throw a TypeError if a non KeywordValue StyleValue unsupported by the CSS style property is set', function() {
     var inlineStyleMap = this.element.styleMap();
     var numberValue = new NumberValue(42);
 
     assert.throw(function() {inlineStyleMap.set('height', numberValue)}, TypeError);
   });
 
-  test('The set method should throw a TypeError if a KeywordValue unsupported by the CSS style property is set ', function() {
+  test('Set should throw a TypeError if a KeywordValue unsupported by the CSS style property is set ', function() {
     var inlineStyleMap = this.element.styleMap();
     var keyword = new KeywordValue('lemon');
 
     assert.throw(function() {inlineStyleMap.set('height', keyword)}, 'height does not take the keyword lemon');
   });
 
-  test('The set method should throw a TypeError if a non StyleValue is inputed into the function', function() {
+  test('Set should throw a TypeError if a non StyleValue is inputed into the function', function() {
     var inlineStyleMap = this.element.styleMap();
 
     assert.throw(function() {inlineStyleMap.set('height', 4)}, TypeError);
   });
 
-  test('The set method should throw a TypeError if an unsupported property is inputed into the function', function() {
+  test('Set should throw a TypeError if an unsupported property is inputed into the function', function() {
     var inlineStyleMap = this.element.styleMap();
 
     assert.throw(function() {inlineStyleMap.set('lemons', new SimpleLength(3, 'px'))}, TypeError);
