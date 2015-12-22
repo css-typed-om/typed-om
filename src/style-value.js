@@ -17,6 +17,7 @@
   function StyleValue() {}
 
   StyleValue.parse = function(property, value) {
+    
     // TODO: Add support for value being a sequence value cssString
     if (!propertyDictionary().isSupportedProperty(property)) {
       return null;
