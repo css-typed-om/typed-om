@@ -15,9 +15,15 @@
 
 (function(internal, scope, testing) {
 
+  function isCalc(string) {
+    return /^calc/.test(string); 
+  }
+
+  // Effectively returns a calc dictionary.
   function parseDimension(unitRegExp, string) {
     string = string.trim().toLowerCase();
 
+    // CSS allows lengths to be '0', so if px is a supported unit, return 0px.
     if (string == '0' && 'px'.search(unitRegExp) >= 0)
       return {px: 0};
 
@@ -68,6 +74,7 @@
   }
 
   internal.parsing = {};
+  internal.parsing.isCalc = isCalc;
   internal.parsing.parseDimension = parseDimension;
   if (TYPED_OM_TESTING) {
     testing.parsing = internal.parsing;

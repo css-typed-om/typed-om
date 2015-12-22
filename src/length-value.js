@@ -57,10 +57,10 @@
       throw TypeError('Unable to parse length from ' + cssString);
     }
     var keys = Object.keys(result);
-    if (keys.length == 1) {
-      return new SimpleLength(result[keys[0]], keys[0]);
-    } else {
+    if (internal.parsing.isCalc(cssString)) {
       return new CalcLength(result);
+    } else {
+      return new SimpleLength(result[keys[0]], keys[0]);
     }
   };
 
