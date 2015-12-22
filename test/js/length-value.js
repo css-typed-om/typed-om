@@ -31,6 +31,7 @@ suite('LengthValue', function() {
 
   test('LengthValue.parse returns expected SimpleLengths for simple strings', function() {
     var values = [
+      {str: '0', out: new SimpleLength(0, 'px')},
       {str: '1px', out: new SimpleLength(1, 'px')},
       {str: '2%', out: new SimpleLength(2, 'percent')},
       {str: '3em', out: new SimpleLength(3, 'em')},
