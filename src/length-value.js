@@ -51,7 +51,8 @@
 
   LengthValue.parse = function(cssString) {
     var lengthUnits = 'px|%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc';
-    var result = internal.parsing.parseDimension(new RegExp(lengthUnits, 'g'), cssString);
+    var result = internal.parsing.parseDimension(
+        new RegExp(lengthUnits, 'g'), cssString);
     if (!result) {
       throw TypeError('Unable to parse length from ' + cssString);
     }
@@ -72,7 +73,8 @@
   };
 
   LengthValue.prototype.add = function(addedLength) {
-    if (this instanceof SimpleLength && addedLength instanceof SimpleLength && this.type == addedLength.type) {
+    if (this instanceof SimpleLength &&
+        addedLength instanceof SimpleLength && this.type == addedLength.type) {
       return this._addSimpleLengths(addedLength);
     } else if (addedLength instanceof LengthValue) {
       // Ensure both lengths are of type CalcLength before adding
@@ -83,11 +85,14 @@
   };
 
   LengthValue.prototype.subtract = function(subtractedLength) {
-    if (this instanceof SimpleLength && subtractedLength instanceof SimpleLength && this.type == subtractedLength.type) {
+    if (this instanceof SimpleLength &&
+        subtractedLength instanceof SimpleLength &&
+        this.type == subtractedLength.type) {
       return this._subtractSimpleLengths(subtractedLength);
     } else if (subtractedLength instanceof LengthValue) {
       // Ensure both lengths are of type CalcLength before subtracting
-      return this._asCalcLength()._subtractCalcLengths(subtractedLength._asCalcLength());
+      return this._asCalcLength()._subtractCalcLengths(
+          subtractedLength._asCalcLength());
     } else {
       throw new TypeError('Argument must be a LengthValue');
     }
