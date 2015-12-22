@@ -21,16 +21,6 @@ suite('Inline StylePropertyMap', function() {
     assert.strictEqual(this.element.style['height'], simpleLength.cssString);
   });
 
-  test('The set method successfully sets the CSS string of the list of StyleValues on property ' +
-    'if it supports setting lists of values', function() {
-    var inlineStyleMap = this.element.styleMap();
-    var valueArray = [new NumberValue(4), new NumberValue(5), new KeywordValue('infinite')];
-    this.element.style['animation-iteration-count'] = 'infinite, 2, 5';
-    inlineStyleMap.set('animation-iteration-count', valueArray);
-
-    assert.strictEqual(this.element.style['animation-iteration-count'], '4, 5, infinite');
-  });
-
   test('The set method should throw a TypeError if a non KeywordValue StyleValue unsupported by the CSS style property is set', function() {
     var inlineStyleMap = this.element.styleMap();
     var numberValue = new NumberValue(42);

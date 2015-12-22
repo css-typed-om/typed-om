@@ -37,6 +37,7 @@
       'src/transform-value.js',
       'src/style-property-map-readonly.js',
       'src/style-property-map.js',
+      'src/parsing.js',
       'src/property-dictionary.js'
   ];
 

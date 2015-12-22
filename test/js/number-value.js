@@ -40,6 +40,7 @@ suite('NumberValue', function() {
     assert.strictEqual(NumberValue.parse('3px'), null);
     assert.strictEqual(NumberValue.parse('scale(3, -1)'), null);
     assert.strictEqual(NumberValue.parse('1e-.0'), null);
+    assert.strictEqual(NumberValue.parse('9 manyRandomLemons'), null);
     assert.strictEqual(NumberValue.parse('1e4.0'), null);
     assert.strictEqual(NumberValue.parse('9 manyRandomLemons'), null);
   });
