@@ -50,11 +50,20 @@
   };
 
   LengthValue.parse = function(cssString) {
+    if (typeof cssString != 'string') {
+      throw new TypeError('Must parse a length out of a string.');
+    }
     var lengthUnits = 'px|%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc';
     var result = internal.parsing.parseDimension(
         new RegExp(lengthUnits, 'g'), cssString);
     if (!result) {
       throw TypeError('Unable to parse length from ' + cssString);
+    }
+    if (result['%'] != undefined) {
+      // Percent is a special case - We require 'percent' instead
+      // of '%' as the unit.
+      result['percent'] = result['%'];
+      delete result['%'];
     }
     var keys = Object.keys(result);
     if (internal.parsing.isCalc(cssString)) {
@@ -113,8 +122,6 @@
   LengthValue.prototype.equals = function(other) {
     throw new TypeError('Should not be reached');
   };
-
-
 
   internal.LengthValue = LengthValue;
   if (TYPED_OM_TESTING) {

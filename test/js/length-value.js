@@ -28,4 +28,70 @@ suite('LengthValue', function() {
         'A new calcLength should be an instanceOf CalcLength');
     assert.deepEqual(calcCopy, calc);
   });
+
+  test('LengthValue.parse returns expected SimpleLengths for simple strings', function() {
+    var values = [
+      {str: '1px', out: new SimpleLength(1, 'px')},
+      {str: '2%', out: new SimpleLength(2, 'percent')},
+      {str: '3em', out: new SimpleLength(3, 'em')},
+      {str: '4ex', out: new SimpleLength(4, 'ex')},
+      {str: '6ch', out: new SimpleLength(6, 'ch')},
+      {str: '7rem', out: new SimpleLength(7, 'rem')},
+      {str: '8vw', out: new SimpleLength(8, 'vw')},
+      {str: '9vh', out: new SimpleLength(9, 'vh')},
+      {str: '10vmin', out: new SimpleLength(10, 'vmin')},
+      {str: '11vmax', out: new SimpleLength(11, 'vmax')},
+      {str: '12cm', out: new SimpleLength(12, 'cm')},
+      {str: '13mm', out: new SimpleLength(13, 'mm')},
+      {str: '14in', out: new SimpleLength(14, 'in')},
+      {str: '15pc', out: new SimpleLength(15, 'pc')},
+      {str: '16pt', out: new SimpleLength(16, 'pt')}
+    ];
+  
+    for (var i = 0; i < values.length; i++) {
+      var result = LengthValue.parse(values[i].str);
+      assert.instanceOf(result, SimpleLength);
+      assert.isTrue(values[i].out.equals(result),
+          'Parsing ' + values[i].str + ' did not produce the expected SimpleLength.');
+    }
+  });
+
+  test('LengthValue.parse returns expected CalcLengths for calc() strings.', function() {
+    var values = [
+      {str: 'calc(10px)', out: new CalcLength({px: 10})},
+      {str: 'calc(-10px)', out: new CalcLength({px: -10})},
+      // Addition and subtraction.
+      {str: 'calc(10px + 5%)', out: new CalcLength({px: 10, percent: 5})},
+      {str: 'calc(-10px - 5%)', out: new CalcLength({px: -10, percent: -5})},
+      {str: 'calc(-10px + 5%)', out: new CalcLength({px: -10, percent: 5})},
+      {str: 'calc(10px - 5%)', out: new CalcLength({px: 10, percent: -5})},
+      // Multiplication and division.
+      {str: 'calc(2*(10px - 5%))', out: new CalcLength({px: 20, percent: -10})},
+      {str: 'calc((10px - 5%)/2)', out: new CalcLength({px: 5, percent: -2.5})},
+      // More nesting.
+      {str: 'calc(((10px - 5%)/2) + 10px)', out: new CalcLength({px: 15, percent: -2.5})}
+    ];
+    for (var i = 0; i < values.length; i++) {
+      var result = LengthValue.parse(values[i].str);
+      assert.instanceOf(result, CalcLength);
+      assert.isTrue(values[i].out.equals(result),
+          'Parsing ' + values[i].str + ' did not produce the expected CalcLength.');
+    }
+  });
+
+  test('LengthValue.parse throws exceptions for invalid input.', function() {
+    var values = [
+      // Invalid types.
+      null, 5,
+      // Completely invalid strings.
+      '', 'lemons',
+      // Invalid calc statements.
+      'calc()', 'calc(5)', 'calc(50 + 5px)', 'calc(5px + 5invalid)', 'calc(5px * 5px)',
+      // Invalid or missing units.
+      '100', '50somethings'
+    ];
+    for (var i = 0; i < values.length; i++) {
+      assert.throws(function() { LengthValue.parse(values[i]); }, TypeError);
+    }
+  });
 });
