@@ -24,7 +24,10 @@
   internal.inherit(NumberValue, internal.StyleValue);
 
   NumberValue.parse = function(value) {
-    return new NumberValue(parseFloat(value));
+    if (/^\s*[-+]?(\d*\.)?\d+(e[-+]?(\d*\.)?\d+)?\s*$/.test(value)) {
+      return new NumberValue(parseFloat(value));
+    }
+    return null;
   };
 
   scope.NumberValue = NumberValue;
