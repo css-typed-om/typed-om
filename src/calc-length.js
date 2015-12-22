@@ -53,8 +53,13 @@
       if (value == null) {
         return;  // Exit callback.
       }
-      if (!isFirst && value >= 0) {
-        result += '+';
+      if (!isFirst) {
+        if (value >= 0) {
+          result += ' + ';
+        } else {
+          result += ' - ';
+        }
+        value = Math.abs(value);
       }
       result += value + internal.LengthValue.cssStringTypeRepresentation(type);
       isFirst = false;
