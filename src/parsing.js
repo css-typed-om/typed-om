@@ -44,7 +44,7 @@
     var taggedUnitRegExp = 'U(' + unitRegExp.source + ')';
 
     // Validating input is simply applying as many reductions as we can.
-    var typeCheck = string.replace(/[-+]?(\d*\.)?\d+/g, 'N')
+    var typeCheck = string.replace(/[-+]?(\d*\.)?\d+(e[-+]?\d+)?/g, 'N')
                           .replace(new RegExp('N' + taggedUnitRegExp, 'g'), 'D')
                           .replace(/\s[+-]\s/g, 'O')
                           .replace(/\s/g, '');
@@ -63,6 +63,7 @@
     }
 
     for (var unit in matchedUnits) {
+      // TODO: Don't use eval here as it will throw up security flags.
       var result = eval(string.replace(new RegExp('U' + unit, 'g'), '').replace(
             new RegExp(taggedUnitRegExp, 'g'), '*0'));
       if (!isFinite(result)) {
