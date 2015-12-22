@@ -24,7 +24,7 @@
   internal.inherit(NumberValue, internal.StyleValue);
 
   NumberValue.parse = function(value) {
-    if (/^\s*[-+]?(\d*\.)?\d+(e[-+]?(\d*\.)?\d+)?\s*$/.test(value)) {
+    if (/^\s*[-+]?(\d*\.)?\d+(e[-+]?\d+)?\s*$/.test(value)) {
       return new NumberValue(parseFloat(value));
     }
     return null;

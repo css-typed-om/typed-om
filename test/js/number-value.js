@@ -31,7 +31,6 @@ suite('NumberValue', function() {
     assert.strictEqual(NumberValue.parse('.60').cssString, '0.6');
     assert.strictEqual(NumberValue.parse('10e3').cssString, '10000');
     assert.strictEqual(NumberValue.parse('-3.4e-2').cssString, '-0.034');
-    assert.strictEqual(NumberValue.parse('1e-.0').cssString, '1');
   });
 
   test('parse method should return null if string cannot be successfully parsed to a number', function() {
@@ -40,5 +39,7 @@ suite('NumberValue', function() {
     assert.strictEqual(NumberValue.parse('3px calc(10px+3.2em)'), null);
     assert.strictEqual(NumberValue.parse('3px'), null);
     assert.strictEqual(NumberValue.parse('scale(3, -1)'), null);
+    assert.strictEqual(NumberValue.parse('1e-.0'), null);
+    assert.strictEqual(NumberValue.parse('1e4.0'), null);
   });
 });
