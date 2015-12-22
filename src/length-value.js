@@ -49,6 +49,20 @@
     }
   };
 
+  LengthValue.parse = function(cssString) {
+    var lengthUnits = 'px|%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc';
+    var result = internal.parsing.parseDimension(new RegExp(lengthUnits, 'g'), cssString);
+    if (!result) {
+      throw TypeError('Unable to parse length from ' + cssString);
+    }
+    var keys = Object.keys(result);
+    if (keys.length == 1) {
+      return new SimpleLength(result[keys[0]], keys[0]);
+    } else {
+      return new CalcLength(result);
+    }
+  };
+
   LengthValue.fromValue = function(value, type) {
     return new SimpleLength(value, type);
   };
@@ -87,10 +101,6 @@
     throw new TypeError('Should not be reached');
   };
 
-  LengthValue.prototype.parse = function(cssString) {
-    throw new TypeError('Should not be reached');
-  };
-
   LengthValue.prototype._asCalcLength = function() {
     throw new TypeError('Should not be reached');
   };
@@ -98,6 +108,8 @@
   LengthValue.prototype.equals = function(other) {
     throw new TypeError('Should not be reached');
   };
+
+
 
   internal.LengthValue = LengthValue;
   if (TYPED_OM_TESTING) {

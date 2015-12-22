@@ -16,14 +16,31 @@
 
   function StyleValue() {}
 
-  // TODO: Include parsing logic here.
-  StyleValue.parse = function(property, value) {
-    if (typeof value == 'string') {
-      numberValue = Number.parseFloat(value);
-      if (numberValue !== NaN) {
-        return new scope.NumberValue(numberValue);
-      }
+  StyleValue.parse = function(property, cssString) {
+    if (typeof property != 'string') {
+      throw new TypeError('Property name must be a string');
     }
+    if (typeof cssString != 'string') {
+      throw new TypeError('Must parse a string');
+    }
+    if (!propertyDictionary().isSupportedProperty(property)) {
+      // TODO: How do custom properties play into this?
+      throw new TypeError('Can\'t parse an unsupported property.');
+    }
+    // Make sure that there is no leading or trailing whitespace, case insensitive.
+    cssString = cssString.trim().toLowerCase();
+    if (propertyDictionary().isValidKeyword(property, cssString)) {
+      return new KeywordValue(cssString);
+    }
+
+    switch (property) {
+      case 'width':
+        return LengthValue.parse(cssString);
+      default:
+        throw new TypeError('Couldn\'t figure out how to parse property '
+            + property + '. This is probably a bug.');
+    }
+
     return null;
   };
 
