@@ -100,6 +100,8 @@ suite('LengthValue', function() {
       null, 5,
       // Completely invalid strings.
       '', 'lemons',
+      // Invalid numbers
+      '-3.4e-2.6px',
       // Invalid calc statements.
       'calc()', 'calc(5)', 'calc(50 + 5px)', 'calc(pickles)',
       'calc(5px + 5invalid)', 'calc(5px * 5px)',
