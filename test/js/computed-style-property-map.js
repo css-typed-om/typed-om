@@ -8,20 +8,18 @@ suite('Computed StylePropertyMap', function() {
     document.body.removeChild(this.element);
   });
 
-  test('Computed StylePropertyMapReadOnly.get works for properties that can be NumberValues', function() {
+  test('get method returns a null object if the property is not supported', function() {
     var computedStyleMap = getComputedStyleMap(this.element);
-    var opacity = computedStyleMap.get('opacity');
-    assert.instanceOf(opacity, NumberValue);
-    assert.equal(opacity.value, 0.5);
-    assert.equal(opacity.cssString, '0.5');
+    var propertyStyleValue = computedStyleMap.get('lemon');
+
+    assert.equal(propertyStyleValue, null);
   });
 
-  test('window.getComputedStyleMap works', function() {
+  test('get method returns a NumberValue object if CSS property is set to a number', function() {
     var computedStyleMap = getComputedStyleMap(this.element);
-    assert.instanceOf(computedStyleMap, typedOMTesting.StylePropertyMapReadOnly);
-    var opacity = computedStyleMap.get('opacity');
-    assert.instanceOf(opacity, NumberValue);
-    assert.equal(opacity.value, 0.5);
-    assert.equal(opacity.cssString, '0.5');
+    var propertyStyleValue = computedStyleMap.get('opacity');
+
+    assert.instanceOf(propertyStyleValue, NumberValue);
+    assert.strictEqual(propertyStyleValue.cssString, '0.5');
   });
 });

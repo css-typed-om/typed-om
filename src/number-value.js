@@ -23,7 +23,10 @@
   }
   internal.inherit(NumberValue, internal.StyleValue);
 
+  NumberValue.parse = function(value) {
+    return new NumberValue(parseFloat(value));
+  };
+
   scope.NumberValue = NumberValue;
 
 })(typedOM.internal, window);
-

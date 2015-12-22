@@ -21,14 +21,14 @@
       return null;
     }
 
-    var styleValueObject = null;
-    if (propertyDictionary()._isValidKeyword(property, value)) {
+    if (propertyDictionary().isValidKeyword(property, value)) {
       return Keyword.parse(value);
     }
 
-    var supportedStyleValues = propertyDictionary()._validProperties[property];
-    for (int i = 0; i < supportedStyleValues.length; i++) {
-      supportedStyleValues[i].parse(value)
+    var styleValueObject = null;
+    var supportedStyleValues = propertyDictionary().getValidStyleValuesArray(property);
+    for (var i = 0; i < supportedStyleValues.length; i++) {
+      styleValueObject = supportedStyleValues[i].parse(value);
       if (styleValueObject != null) {
         return styleValueObject;
       }

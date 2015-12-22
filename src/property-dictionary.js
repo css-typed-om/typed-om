@@ -77,7 +77,7 @@
   };
 
   PropertyDictionary.prototype.
-      _isValidKeyword = function(property, styleValueString) {
+      isValidKeyword = function(property, styleValueString) {
     return this._validKeywords[property].indexOf(styleValueString) > -1;
   };
 
@@ -88,7 +88,7 @@
 
     if (styleValue instanceof KeywordValue) {
       if (this._validKeywords.hasOwnProperty(property)) {
-        return this._isValidKeyword(property, styleValue.keywordValue);
+        return this.isValidKeyword(property, styleValue.keywordValue);
       }
       return false;
     }
