@@ -35,6 +35,20 @@ suite('CalcLength', function() {
     assert.strictEqual(multiValue.em, 3.2);
   });
 
+  test('CalcLength constructor works correctly for (CalcLength)', function() {
+    var original;
+    var copy;
+    assert.doesNotThrow(function() {original = new CalcLength({px: 10, em: 3.2})});
+    assert.doesNotThrow(function() {copy = new CalcLength(original)});
+    assert.strictEqual(copy.px, original.px);
+    assert.strictEqual(copy.em, original.em);
+    assert.strictEqual(copy.cssString, original.cssString);
+    assert.deepEqual(copy, original);
+
+    // Ensure that the copied object is not tied to the original.
+    assert.doesNotChange(function() {original.px = 3}, copy, 'px');
+  });
+
   test('CalcLength cssString is correct for single and multi value strings', function() {
     var singleValue;
     assert.doesNotThrow(function() {singleValue = new CalcLength({px: 10})});
@@ -45,14 +59,14 @@ suite('CalcLength', function() {
     assert.doesNotThrow(function() {multiValue = new CalcLength({px: 10, em: 3.2})});
     assert.strictEqual(multiValue.px, 10);
     assert.strictEqual(multiValue.em, 3.2);
-    assert.strictEqual(multiValue.cssString, 'calc(10px+3.2em)');
+    assert.strictEqual(multiValue.cssString, 'calc(10px + 3.2em)');
 
     var negativeValues;
     assert.doesNotThrow(function() {negativeValues = new CalcLength({px: -10, em: -3.2, pt: 0})});
     assert.strictEqual(negativeValues.px, -10);
     assert.strictEqual(negativeValues.em, -3.2);
     assert.strictEqual(negativeValues.pt, 0);
-    assert.strictEqual(negativeValues.cssString, 'calc(-10px-3.2em+0pt)');
+    assert.strictEqual(negativeValues.cssString, 'calc(-10px - 3.2em + 0pt)');
 
     var percentValue;
     assert.doesNotThrow(function() {percentValue = new CalcLength({percent: 10})});
@@ -64,28 +78,28 @@ suite('CalcLength', function() {
     var calcLength = new CalcLength({px: 10, em: 3.2});
     var result = calcLength.multiply(4);
     
-    assert.strictEqual(result.cssString, 'calc(40px+12.8em)');
+    assert.strictEqual(result.cssString, 'calc(40px + 12.8em)');
   });
 
   test('Multiplication of a decimal number produces expected result', function() {
     var calcLength = new CalcLength({px: 10, em: 3.2});
     var result = calcLength.multiply(0.5);
 
-    assert.strictEqual(result.cssString, 'calc(5px+1.6em)');
+    assert.strictEqual(result.cssString, 'calc(5px + 1.6em)');
   });
 
   test('Division of a CalcLength length produces a new CalcLength object', function() {
     var calcLength = new CalcLength({px: 10, em: 4.0});
     var result = calcLength.divide(4);
 
-    assert.strictEqual(result.cssString, 'calc(2.5px+1em)');
+    assert.strictEqual(result.cssString, 'calc(2.5px + 1em)');
   });
 
   test('Division of a decimal number produces expected result', function() {
     var calcLength = new CalcLength({px: 25, em: 3.2});
     var result = calcLength.divide(2.5);
 
-    assert.strictEqual(result.cssString, 'calc(10px+1.28em)');
+    assert.strictEqual(result.cssString, 'calc(10px + 1.28em)');
   });
 
   test('Adding two CalcLengths returns a new CalcLength with expected values in each value type', function() {

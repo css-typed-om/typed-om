@@ -18,22 +18,41 @@
     this._validProperties = {
      'height': [LengthValue],
      'pitch-range': [NumberValue],
-     'border-top-width': [LengthValue]
+     'border-top-width': [LengthValue],
+     'opacity': [NumberValue],
+     'animation-iteration-count': [NumberValue]
     };
 
     this._validKeywords = {
       'height': ['auto', 'inherit'],
       'pitch-range': ['inherit'],
-      'border-top-width': ['inherit']
+      'border-top-width': ['inherit'],
+      'opacity': ['initial', 'inherit'],
+      'animation-iteration-count': ['infinite']
     };
 
     this._allowsPercentage = {
       'height': true
     };
+
+    this._listSeparator = {
+      'animation-iteration-count': ', '
+    };
   }
 
   PropertyDictionary.prototype.isSupportedProperty = function(property) {
     return (this._validProperties.hasOwnProperty(property));
+  };
+
+  PropertyDictionary.prototype.isListValuedProperty = function(property) {
+    return (this._listSeparator.hasOwnProperty(property));
+  };
+
+  PropertyDictionary.prototype.getListValueSeparator = function(property) {
+    if (this.isListValuedProperty(property)) {
+      return this._listSeparator[property];
+    }
+    throw new TypeError(property + ' does not support lists of StyleValues');
   };
 
   PropertyDictionary.prototype.
@@ -78,6 +97,16 @@
       }
     }
     return false;
+  };
+
+  PropertyDictionary.prototype
+      .throwInvalidInputError = function(property, value) {
+    if (value instanceof KeywordValue) {
+      throw new TypeError(property +
+        ' does not take the keyword ' + value.cssString);
+    }
+    throw new TypeError(property +
+      ' does not take values of type ' + value.constructor.name);
   };
 
   var instance;

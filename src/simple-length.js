@@ -16,6 +16,9 @@
 
   // TODO: SimpleLength(simpleLength), SimpleLength(cssString)
   function SimpleLength(value, type) {
+    if (value instanceof SimpleLength && arguments.length == 1) {
+      return new SimpleLength(value.value, value.type);
+    }
     if (typeof value != 'number') {
       throw new TypeError('Value of SimpleLength must be a number.');
     }
@@ -24,7 +27,7 @@
     }
     this.type = type;
     this.value = value;
-    this.cssString = this.value + internal.LengthValue.cssStringTypeRepresentation(this.type);
+    this.cssString = this._generateCssString();
   }
   internal.inherit(SimpleLength, internal.LengthValue);
 
@@ -70,6 +73,12 @@
       return false;
     }
     return true;
+  };
+
+  SimpleLength.prototype._generateCssString = function() {
+    var cssString = this.value +
+        internal.LengthValue.cssStringTypeRepresentation(this.type);
+    return cssString;
   };
 
   scope.SimpleLength = SimpleLength;

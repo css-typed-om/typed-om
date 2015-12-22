@@ -22,12 +22,13 @@
   StylePropertyMap.prototype.set = function(property, value) {
     var cssPropertyDictionary = propertyDictionary();
     if (!cssPropertyDictionary.isSupportedProperty(property)) {
-      throw new TypeError(property + 'is not a supported CSS property');
+      throw new TypeError('Cannot set ' + property + ' because it is not a supported CSS property');
     }
 
     if (value instanceof Array) {
-      throw new TypeError(
-        'Setting a sequence of StyleValues is not implemented yet');
+      this._styleObject[property] = '';
+      this.append(property, value);
+      return;
     }
 
     if (!value instanceof StyleValue) {
@@ -36,22 +37,56 @@
     }
 
     if (!cssPropertyDictionary.isValidInput(property, value)) {
-      if (value instanceof KeywordValue) {
-        throw new TypeError(property +
-          ' does not take the keyword ' + value.cssString);
-      }
-      throw new TypeError(property +
-        ' does not take values of type ' + value.constructor.name);
+      cssPropertyDictionary.throwInvalidInputError(property, value);
     }
     this._styleObject[property] = value.cssString;
   };
 
-  StylePropertyMap.prototype.append = function(property, value) {
-    throw new TypeError('Function not implemented yet');
+  StylePropertyMap.prototype.append = function(property, values) {
+    var cssPropertyDictionary = propertyDictionary();
+    if (!cssPropertyDictionary.isSupportedProperty(property)) {
+      throw new TypeError(property + ' is not a supported CSS property');
+    }
+
+    if (!cssPropertyDictionary.isListValuedProperty(property)) {
+      throw new TypeError(property + ' does not support sequences of styleValues');
+    }
+
+    if (values == null) {
+      throw new TypeError('null cannot be appended to CSS properties');
+    }
+
+    if (!(values instanceof Array)) {
+      values = [values];
+    }
+
+    var cssAppendString = this._styleObject[property];
+    var valueSeparator = cssPropertyDictionary.getListValueSeparator(property);
+    for (var i = 0; i < values.length; i++) {
+      if (!cssPropertyDictionary.isValidInput(property, values[i])) {
+        cssPropertyDictionary.throwInvalidInputError(property, values[i]);
+      }
+      if (cssAppendString == '') {
+        cssAppendString += values[i].cssString;
+      } else {
+        cssAppendString += valueSeparator + values[i].cssString;
+      }
+    }
+    return this._styleObject[property] = cssAppendString;
   };
 
   StylePropertyMap.prototype.delete = function(property) {
-    throw new TypeError('Function not implemented yet');
+    if (!propertyDictionary().isSupportedProperty(property)) {
+      throw new TypeError('Cannot delete ' + property + ' because it is not a supported CSS property');
+    }
+    this._styleObject[property] = '';
+  };
+
+  StylePropertyMap.prototype.has = function(property) {
+    if (!propertyDictionary().isSupportedProperty(property)) {
+      throw new TypeError('Cannot use has method for ' + property + ' because it is not a supported CSS property');
+    }
+    return !!this._styleObject[property]
   };
 
   Element.prototype.styleMap = function() {

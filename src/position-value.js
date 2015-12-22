@@ -26,14 +26,14 @@
       throw new TypeError('yPos is not a LengthValue object');
     }
 
-    this.x = xPos;
-    this.y = yPos;
-    this._createCssString();
+    this.x = new LengthValue(xPos);
+    this.y = new LengthValue(yPos);
+    this.cssString = this._generateCssString();
   }
   internal.inherit(PositionValue, internal.StyleValue);
 
-  PositionValue.prototype._createCssString = function() {
-    this.cssString = this.x.cssString + ' ' + this.y.cssString;
+  PositionValue.prototype._generateCssString = function() {
+    return this.x.cssString + ' ' + this.y.cssString;
   };
 
   scope.PositionValue = PositionValue;
