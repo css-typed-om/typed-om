@@ -17,12 +17,13 @@
   function StyleValue() {}
 
   StyleValue.parse = function(property, value) {
+    // TODO: Add support for value being a sequence value cssString
     if (!propertyDictionary().isSupportedProperty(property)) {
       return null;
     }
 
     if (propertyDictionary().isValidKeyword(property, value)) {
-      return Keyword.parse(value);
+      return new KeywordValue(value);
     }
 
     var styleValueObject = null;

@@ -20,7 +20,7 @@
 
   StylePropertyMapReadOnly.prototype.get = function(property) {
     if (!propertyDictionary().isSupportedProperty(property)) {
-      return null;
+      throw new TypeError(property + ' is not a supported CSS property');
     }
 
     propertyString = this._styleObject[property];
@@ -28,7 +28,11 @@
       return null;
     }
 
-    return StyleValue.parse(property, propertyString);
+    var parsed = StyleValue.parse(property, propertyString);
+    if (typeof parsed == 'Array') {
+      return parsed[0];
+    }
+    return parsed;
   };
 
   StylePropertyMapReadOnly.prototype.getProperties = function() {
