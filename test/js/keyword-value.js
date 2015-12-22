@@ -22,4 +22,16 @@ suite('KeywordValue', function() {
     assert.throws(function() { new KeywordValue(null); });
     assert.throws(function() { new KeywordValue(true); });
   });
+
+  test('parse method should create a KeywordValue object with a cssString equal to the input', function() {
+    assert.strictEqual(KeywordValue.parse('auto').cssString, 'auto');
+  });
+
+  test('parse method should throw an error if its input is not a string', function() {
+    assert.throws(function() { KeywordValue.parse(3) }, TypeError, 'Keyword value must be a non-empty string.');
+  });
+
+  test('parse method should throw an error if its input is an empty string', function() {
+    assert.throws(function() { KeywordValue.parse('') }, TypeError, 'Keyword value must be a non-empty string.');
+  });
 });
