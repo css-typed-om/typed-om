@@ -44,20 +44,19 @@
       for (var index in internal.LengthValue.LengthType) {
         var type = internal.LengthValue.LengthType[index];
         var value = calcLength[type];
-        if (value != null) {
-          // Add a "+" in the cssString if needed
-          // (i.e before non-negative numbers, not including the first number)
-          if (!isFirst) {
-            if (value >= 0) {
-              calcLength.cssString += ' + ';
-            } else {
-              calcLength.cssString += ' - ';
-            }
-          }
-          calcLength.cssString +=
-              Math.abs(value) + internal.LengthValue.cssStringTypeRepresentation(type);
-          isFirst = false;
+        if (value == null) {
+          continue;
         }
+        if (!isFirst) {
+          if (value >= 0) {
+            calcLength.cssString += ' + ';
+          } else {
+            calcLength.cssString += ' - ';
+          }
+          value = Math.abs(value);
+        }
+        calcLength.cssString += value + internal.LengthValue.cssStringTypeRepresentation(type);
+        isFirst = false;
       }
       calcLength.cssString += ')';
     }
