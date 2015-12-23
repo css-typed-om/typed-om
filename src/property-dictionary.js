@@ -44,6 +44,13 @@
     return (this._validProperties.hasOwnProperty(property));
   };
 
+  PropertyDictionary.prototype.isSupportedStyleValue = function(property, styleValue) {
+    if (!this.isSupportedProperty(property)) {
+      throw new TypeError(property + ' is not a supported CSS property');
+    }
+    return this._validProperties[property].indexOf(styleValue) > -1;
+  };
+
   PropertyDictionary.prototype.isListValuedProperty = function(property) {
     return (this._listSeparator.hasOwnProperty(property));
   };
