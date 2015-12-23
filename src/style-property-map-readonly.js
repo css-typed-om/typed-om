@@ -36,13 +36,12 @@
   };
 
   StylePropertyMapReadOnly.prototype.getProperties = function() {
-    var output = [];
-    for (var i = 0, l = this._styleObject.length; i < l; ++i) {
-      var property = this._styleObject[i];
-      // TODO: Construct the objects for each type of thing and add them to the
-      // output array.
+    var cssPropertiesFullText = this._styleObject.cssText.split('; ');
+    var cssProperties = [];
+    for (var i = 0; i < cssPropertiesFullText.length; i++) {
+      cssProperties[i] = cssPropertiesFullText[i].split(':')[0];
     }
-    return output;
+    return cssProperties;
   };
 
   getComputedStyleMap = function(element) {
