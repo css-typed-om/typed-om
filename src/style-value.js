@@ -38,6 +38,10 @@
     return styleValueObject;
   };
 
+  StyleValue.prototype._getValueArray = function(property, value) {
+    return cssSplitStrings = value.split(propertyDictionary().getListValueSeparator(property));
+  };
+
   internal.StyleValue = StyleValue;
   if (TYPED_OM_TESTING) {
     testing.StyleValue = StyleValue;
