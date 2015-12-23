@@ -14,10 +14,10 @@
 
 (function(internal, testing) {
 
-  var numberValueRegex = /^\s*[-+]?(\d*\.)?\d+(e[-+]?\d+)?\s*$/;
+  var _numberValueRegex = /^\s*[-+]?(\d*\.)?\d+(e[-+]?\d+)?\s*$/;
 
   function isNumberValueString(cssString) {
-    return numberValueRegex.test(cssString);
+    return _numberValueRegex.test(cssString);
   }
   
 
