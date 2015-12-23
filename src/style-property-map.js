@@ -89,6 +89,21 @@
     return !!this._styleObject[property]
   };
 
+  StylePropertyMap.prototype.getProperties = function() {
+    var specifiedPropertyIndex = 0;
+    var moreSpecifyedIndex = true;
+    var propertyArray = [];
+
+    while (moreSpecifyedIndex) {
+      if (this._styleObject[specifiedPropertyIndex] == '') {
+        break;
+      }
+      propertyArray[specifiedPropertyIndex] = this._styleObject[specifiedPropertyIndex];
+      specifiedPropertyIndex++;
+    }
+    return propertyArray.sort();
+  };
+
   Element.prototype.styleMap = function() {
     return new StylePropertyMap(this.style);
   };
