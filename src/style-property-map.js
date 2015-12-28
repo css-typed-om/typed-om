@@ -86,19 +86,20 @@
     if (!propertyDictionary().isSupportedProperty(property)) {
       throw new TypeError('Cannot use has method for ' + property + ' because it is not a supported CSS property');
     }
-    return !!this._styleObject[property]
+    return !!this._styleObject[property];
   };
 
   StylePropertyMap.prototype.getProperties = function() {
     var specifiedPropertyIndex = 0;
-    var moreSpecifyedIndex = true;
+    var isSpecifiedProperty = true;
     var propertyArray = [];
 
-    while (moreSpecifyedIndex) {
+    while (isSpecifiedProperty) {
       if (this._styleObject[specifiedPropertyIndex] == '') {
         break;
       }
-      propertyArray[specifiedPropertyIndex] = this._styleObject[specifiedPropertyIndex];
+      propertyArray[specifiedPropertyIndex] =
+        this._styleObject[specifiedPropertyIndex];
       specifiedPropertyIndex++;
     }
     return propertyArray.sort();

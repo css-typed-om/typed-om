@@ -157,7 +157,7 @@ suite('Inline StylePropertyMap', function() {
     this.element.style['height'] = '5px';
     this.element.style['border-top-color'] = 'initial';
     this.element.style['border-top-width'] = 'initial';
-    
+
     assert.deepEqual(inlineStyleMap.getProperties(), ['border-top-color', 'border-top-width', 'height', 'opacity']);
   });
 });
