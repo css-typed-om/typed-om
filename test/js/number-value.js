@@ -42,6 +42,5 @@ suite('NumberValue', function() {
     assert.strictEqual(NumberValue.parse('1e-.0'), null);
     assert.strictEqual(NumberValue.parse('9 manyRandomLemons'), null);
     assert.strictEqual(NumberValue.parse('1e4.0'), null);
-    assert.strictEqual(NumberValue.parse('9 manyRandomLemons'), null);
   });
 });
