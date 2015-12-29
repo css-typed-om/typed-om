@@ -36,6 +36,19 @@
     return parsed;
   };
 
+  StylePropertyMapReadOnly.prototype.getAll = function(property) {
+    if (!propertyDictionary().isSupportedProperty(property)) {
+      throw new TypeError(property + ' is not a supported CSS property');
+    }
+
+    propertyString = this._styleObject[property];
+    if (propertyString == '') {
+      return null;
+    }
+
+    return parsed = StyleValue.parse(property, propertyString);
+  };
+
   StylePropertyMapReadOnly.prototype.getProperties = function() {
     var output = [];
     for (var i = 0, l = this._styleObject.length; i < l; ++i) {

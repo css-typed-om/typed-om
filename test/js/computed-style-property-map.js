@@ -35,4 +35,25 @@ suite('Computed StylePropertyMap', function() {
     assert.instanceOf(propertyStyleValue, NumberValue);
     assert.strictEqual(propertyStyleValue.cssString, '4');
   });
+
+  test('getAll method returns an array of the sequence of StyleValues set on a property', function() {
+    var inlineStyleMap = this.element.styleMap();
+    var computedStyleMap = getComputedStyleMap(this.element);
+    var valueArray = [new NumberValue(4), new NumberValue(5), new KeywordValue('infinite')];
+    inlineStyleMap.set('animation-iteration-count', valueArray);
+    var propertyStyleValue = computedStyleMap.getAll('animation-iteration-count');
+
+    console.log(propertyStyleValue);
+    assert.strictEqual(propertyStyleValue[0].cssString, '4');
+    assert.strictEqual(propertyStyleValue[1].cssString, '5');
+    assert.strictEqual(propertyStyleValue[2].cssString, 'infinite');
+  });
+
+  test('getAll method returns an array of size 1 if only a single StyleValue is set on a property', function() {
+    var computedStyleMap = getComputedStyleMap(this.element);
+    var propertyStyleValue = computedStyleMap.getAll('opacity');
+
+    assert.strictEqual(propertyStyleValue.length, 1);
+    assert.strictEqual(propertyStyleValue[0].cssString, '0.5');
+  });
 });
