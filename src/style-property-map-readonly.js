@@ -19,21 +19,8 @@
   }
 
   StylePropertyMapReadOnly.prototype.get = function(property) {
-    if (!propertyDictionary().isSupportedProperty(property)) {
-      throw new TypeError(property + ' is not a supported CSS property');
-    }
-
-    propertyString = this._styleObject[property];
-    if (propertyString == '') {
-      return null;
-    }
-
-    var parsed = StyleValue.parse(property, propertyString);
-
-    if (parsed.constructor == Array) {
-      return parsed[0];
-    }
-    return parsed;
+    var parsed = this.getAll(property);
+    return parsed[0];
   };
 
   StylePropertyMapReadOnly.prototype.getAll = function(property) {
@@ -45,7 +32,6 @@
     if (propertyString == '') {
       return null;
     }
-
     return parsed = StyleValue.parse(property, propertyString);
   };
 

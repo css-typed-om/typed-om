@@ -43,7 +43,6 @@ suite('Computed StylePropertyMap', function() {
     inlineStyleMap.set('animation-iteration-count', valueArray);
     var propertyStyleValue = computedStyleMap.getAll('animation-iteration-count');
 
-    console.log(propertyStyleValue);
     assert.strictEqual(propertyStyleValue[0].cssString, '4');
     assert.strictEqual(propertyStyleValue[1].cssString, '5');
     assert.strictEqual(propertyStyleValue[2].cssString, 'infinite');
