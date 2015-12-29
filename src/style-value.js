@@ -33,7 +33,7 @@
 
     for (var i = 0; i < valueArray.length; i++) {
       if (propertyDictionary().isValidKeyword(property, valueArray[i])) {
-        styleValueArray[i] = new KeywordValue(value);
+        styleValueArray[i] = new KeywordValue(valueArray[i]);
         continue;
       }
 
