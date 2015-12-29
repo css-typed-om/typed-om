@@ -22,4 +22,17 @@ suite('Computed StylePropertyMap', function() {
     assert.instanceOf(propertyStyleValue, NumberValue);
     assert.strictEqual(propertyStyleValue.cssString, '0.5');
   });
+
+  test('get method returns the first StyleValue in the sequence if a property has been set a sequence ' +
+    'of StyleValues', function() {
+    var inlineStyleMap = this.element.styleMap();
+    var computedStyleMap = getComputedStyleMap(this.element);
+    var valueArray = [new NumberValue(4), new NumberValue(5), new KeywordValue('infinite')];
+    inlineStyleMap.set('animation-iteration-count', valueArray);
+    var propertyStyleValue = computedStyleMap.get('animation-iteration-count');
+
+
+    assert.instanceOf(propertyStyleValue, NumberValue);
+    assert.strictEqual(propertyStyleValue.cssString, '4');
+  });
 });

@@ -16,7 +16,6 @@
 
   function StyleValue() {}
 
-  // TODO: Add support for value being a sequence value cssString
   StyleValue.parse = function(property, value) {
     if (!propertyDictionary().isSupportedProperty(property)) {
       return null;
@@ -26,19 +25,42 @@
       return new KeywordValue(value);
     }
 
-    var styleValueObject = null;
-    var supportedStyleValues = propertyDictionary().getValidStyleValuesArray(property);
-    for (var i = 0; i < supportedStyleValues.length; i++) {
-      styleValueObject = supportedStyleValues[i].parse(value);
-      if (styleValueObject != null) {
-        return styleValueObject;
+    //Currently only supports sequences separated by ', '
+    var valueArray = value.split(', ');
+    var styleValueArray = [];
+    var supportedStyleValues =
+        propertyDictionary().getValidStyleValuesArray(property);
+
+    for (var i = 0; i < valueArray.length; i++) {
+      if (propertyDictionary().isValidKeyword(property, valueArray[i])) {
+        styleValueArray[i] = new KeywordValue(value);
+        continue;
+      }
+
+      var styleValueObject = null;
+      var successfulParse = false;
+      for (var j = 0; j < supportedStyleValues.length; j++) {
+        styleValueObject = supportedStyleValues[j].parse(valueArray[i]);
+        if (styleValueObject != null) {
+          styleValueArray[i] = styleValueObject;
+          successfulParse = true;
+          break;
+        }
+      }
+
+      if (successfulParse == false) {
+        throw new TypeError(property +
+          ' has an unsupported StyleValue type or Sequence value separator');
       }
     }
-    return styleValueObject;
+    console.log(styleValueArray);
+    return styleValueArray;
   };
 
-  StyleValue.prototype._getValueArray = function(property, value) {
-    return cssSplitStrings = value.split(propertyDictionary().getListValueSeparator(property));
+  StyleValue.prototype.
+      _getValueArray = function(property, value) {
+    return cssSplitStrings =
+      value.split(propertyDictionary().getListValueSeparator(property));
   };
 
   internal.StyleValue = StyleValue;
