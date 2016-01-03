@@ -40,11 +40,11 @@
           'A CalcDictionary must have at least one valid length.');
     }
 
-    this.cssString = this.createCssString();
+    this.cssString = this._generateCssString();
   }
   internal.inherit(CalcLength, internal.LengthValue);
 
-  CalcLength.prototype.createCssString = function() {
+  CalcLength.prototype._generateCssString = function() {
     var result = 'calc(';
 
     var isFirst = true;
