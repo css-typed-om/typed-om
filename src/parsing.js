@@ -31,7 +31,7 @@
     if (!/^[^(]*$|^calc/.test(string)) {
       return;
     }
-    string = string.replace(/calc\(/g, '(');
+    string = string.replace(/^calc\(/, '(');
 
     // We tag units by prefixing them with 'U' (note that we are already
     // lowercase) to prevent problems with types which are substrings of

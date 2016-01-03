@@ -105,6 +105,7 @@ suite('LengthValue', function() {
       // Invalid calc statements.
       'calc()', 'calc(5)', 'calc(50 + 5px)', 'calc(pickles)',
       'calc(5px + 5invalid)', 'calc(5px * 5px)',
+      'calc(5px + calc(3%))',
       // Invalid or missing units.
       '100', '50somethings'
     ];
