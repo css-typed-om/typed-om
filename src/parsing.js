@@ -19,7 +19,6 @@
   function isNumberValueString(cssString) {
     return _numberValueRegex.test(cssString);
   }
-  
 
   internal.parsing = {};
   internal.parsing.isNumberValueString = isNumberValueString;
