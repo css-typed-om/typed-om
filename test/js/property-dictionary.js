@@ -83,7 +83,6 @@ suite('PropertyDictionary', function() {
   });
 
   test('isSupportedStyleValue should throw a type error for unsupported properties', function() {
-
     assert.throw(function () {cssPropertyDictionary.isSupportedStyleValue('lemon', NumberValue);}, TypeError);
   });
 });

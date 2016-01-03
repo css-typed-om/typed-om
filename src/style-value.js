@@ -53,7 +53,6 @@
           ' has an unsupported StyleValue type or Sequence value separator');
       }
     }
-    console.log(styleValueArray);
     return styleValueArray;
   };
 
