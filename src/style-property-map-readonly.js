@@ -19,77 +19,20 @@
   }
 
   StylePropertyMapReadOnly.prototype.get = function(property) {
-    if (typeof property != 'string') {
-      throw new TypeError('parameter 1 is not of type \'string\'');
+    if (!propertyDictionary().isSupportedProperty(property)) {
+      throw new TypeError(property + ' is not a supported CSS property');
     }
 
-    var value = this._styleObject[property];
-    if (!value) {
+    propertyString = this._styleObject[property];
+    if (!propertyString) {
       return null;
     }
-    if (value == 'inherit') {
-      // TODO: Properly detect when it's a keyword.
-      throw new TypeError('Not implemented yet');
+
+    var parsed = StyleValue.parse(property, propertyString);
+    if (typeof parsed == 'Array') {
+      return parsed[0];
     }
-
-    // TODO: The rest of the properties once the rest of the StyleValues are
-    // defined.
-    switch (property) {
-      // These properties always take numbers or a keyword handled above.
-      case 'opacity':
-      case 'orphans':
-      case 'pitch-range':
-      case 'richness':
-      case 'stress':
-      case 'widows':
-      case 'z-index':
-        return new scope.NumberValue(Number(value));
-
-      case 'line-height':
-        // normal | <number> | <length> | <percentage> | inherit
-        throw new TypeError('Not implemented yet');
-
-      case 'speech-rate':
-        // <number> | x-slow | slow | medium | fast | x-fast | faster | slower |
-        // inherit
-        throw new TypeError('Not implemented yet');
-
-      case 'volume':
-        // <number> | <percentage> | silent | x-soft | soft | medium | loud |
-        // x-loud | inherit
-        throw new TypeError('Not implemented yet');
-
-      default:
-        throw new TypeError('Not implemented yet');
-    }
-  };
-
-  StylePropertyMapReadOnly.prototype.getAll = function(property) {
-    if (typeof property != 'string') {
-      throw new TypeError('parameter 1 is not of type \'string\'');
-    }
-
-    switch (property) {
-      // These properties always return a single value.
-      case 'line-height':
-      case 'opacity':
-      case 'orphans':
-      case 'pitch-range':
-      case 'richness':
-      case 'speech-rate':
-      case 'stress':
-      case 'volume':
-      case 'widows':
-      case 'z-index':
-        var value = this.get(property);
-        return value ? [value] : [];
-
-      // TODO: Stuff that takes shorthands will need to be handled separately.
-
-      default:
-        throw new TypeError('Not implemented yet');
-    }
-
+    return parsed;
   };
 
   StylePropertyMapReadOnly.prototype.getProperties = function() {

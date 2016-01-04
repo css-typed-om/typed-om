@@ -55,14 +55,25 @@ suite('PropertyDictionary', function() {
     assert.isFalse(cssPropertyDictionary.isListValuedProperty('height'));
   });
 
-  test('The getListValueSeparator method should return the string used to separate a list of StyleValue strings' +
+  test('getListValueSeparator method should return the string used to separate a list of StyleValue strings' +
       'for a given property', function() {
 
     assert.strictEqual(cssPropertyDictionary.getListValueSeparator('animation-iteration-count'), ', ');
   });
 
-  test('The getListValueSeparator method should throw a TypeError if the property entered does not support list values', function() {
+  test('getListValueSeparator method should throw a TypeError if the property entered does not support list values', function() {
 
     assert.throw(function () {cssPropertyDictionary.getListValueSeparator('height')}, TypeError);
+  });
+
+  test('getValidStyleValuesArray should return an array of constructors for all StyleValue types accepted by that property', function() {
+    var styleValueArray = cssPropertyDictionary.getValidStyleValuesArray('height');
+
+    assert.strictEqual(styleValueArray[0], LengthValue);
+  });
+
+  test('getValidStyleValuesArray should throw a type error for unsupported properties', function() {
+
+    assert.throw(function () {cssPropertyDictionary.getValidStyleValuesArray('lemon');}, TypeError);
   });
 });

@@ -16,15 +16,25 @@
 
   function StyleValue() {}
 
-  // TODO: Include parsing logic here.
+  // TODO: Add support for value being a sequence value cssString
   StyleValue.parse = function(property, value) {
-    if (typeof value == 'string') {
-      numberValue = Number.parseFloat(value);
-      if (numberValue !== NaN) {
-        return new scope.NumberValue(numberValue);
+    if (!propertyDictionary().isSupportedProperty(property)) {
+      return null;
+    }
+
+    if (propertyDictionary().isValidKeyword(property, value)) {
+      return new KeywordValue(value);
+    }
+
+    var styleValueObject = null;
+    var supportedStyleValues = propertyDictionary().getValidStyleValuesArray(property);
+    for (var i = 0; i < supportedStyleValues.length; i++) {
+      styleValueObject = supportedStyleValues[i].parse(value);
+      if (styleValueObject != null) {
+        return styleValueObject;
       }
     }
-    return null;
+    return styleValueObject;
   };
 
   internal.StyleValue = StyleValue;

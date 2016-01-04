@@ -48,6 +48,13 @@
     return (this._listSeparator.hasOwnProperty(property));
   };
 
+  PropertyDictionary.prototype.getValidStyleValuesArray = function(property) {
+    if (!this.isSupportedProperty(property)) {
+      throw new TypeError(property + ' is not a supported CSS property');
+    }
+    return this._validProperties[property];
+  };
+
   PropertyDictionary.prototype.getListValueSeparator = function(property) {
     if (this.isListValuedProperty(property)) {
       return this._listSeparator[property];
@@ -70,7 +77,7 @@
   };
 
   PropertyDictionary.prototype.
-      _isValidKeyword = function(property, styleValueString) {
+      isValidKeyword = function(property, styleValueString) {
     return this._validKeywords[property].indexOf(styleValueString) > -1;
   };
 
@@ -81,7 +88,7 @@
 
     if (styleValue instanceof KeywordValue) {
       if (this._validKeywords.hasOwnProperty(property)) {
-        return this._isValidKeyword(property, styleValue.keywordValue);
+        return this.isValidKeyword(property, styleValue.keywordValue);
       }
       return false;
     }

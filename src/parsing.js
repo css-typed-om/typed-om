@@ -12,24 +12,17 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, scope) {
+(function(internal, testing) {
 
-  function NumberValue(value) {
-    if (typeof value != 'number') {
-      throw new TypeError('Value of NumberValue must be a number.');
-    }
-    this.value = value;
-    this.cssString = '' + value;
+  var _numberValueRegex = /^\s*[-+]?(\d*\.)?\d+(e[-+]?\d+)?\s*$/;
+
+  function isNumberValueString(cssString) {
+    return _numberValueRegex.test(cssString);
   }
-  internal.inherit(NumberValue, internal.StyleValue);
 
-  NumberValue.parse = function(value) {
-    if (internal.parsing.isNumberValueString(value)) {
-      return new NumberValue(parseFloat(value));
-    }
-    return null;
-  };
-
-  scope.NumberValue = NumberValue;
-
-})(typedOM.internal, window);
+  internal.parsing = {};
+  internal.parsing.isNumberValueString = isNumberValueString;
+  if (TYPED_OM_TESTING) {
+    testing.parsing = internal.parsing;
+  }
+})(typedOM.internal, typedOMTesting);
