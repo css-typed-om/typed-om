@@ -18,8 +18,8 @@
     if (arguments.length != 1) {
       throw new TypeError('Perspective takes exactly 1 argument.');
     }
-    // TODO: Change check of 'px' when LengthValue.LengthType enum is updated.
-    if (!(length instanceof SimpleLength) || length.type != 'px') {
+    if (!(length instanceof SimpleLength) ||
+        length.type != LengthValue.LengthType.PX) {
       throw new TypeError('Unsupported Perspective length. Only SimpleLength ' +
           'instances with type \'px\' are supported.');
     }

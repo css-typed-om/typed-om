@@ -23,7 +23,13 @@
   }
   internal.inherit(NumberValue, internal.StyleValue);
 
+  NumberValue.parse = function(value) {
+    if (internal.parsing.isNumberValueString(value)) {
+      return new NumberValue(parseFloat(value));
+    }
+    return null;
+  };
+
   scope.NumberValue = NumberValue;
 
 })(typedOM.internal, window);
-

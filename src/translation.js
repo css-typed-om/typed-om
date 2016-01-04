@@ -20,9 +20,8 @@
     }
 
     for (var i = 0; i < arguments.length; i++) {
-      // TODO: Change check of 'px' when LengthValue.LengthType enum is updated.
       if (!(arguments[i] instanceof SimpleLength) ||
-          arguments[i].type != 'px') {
+          arguments[i].type != LengthValue.LengthType.PX) {
         throw new TypeError('Unsupported argument for Translation. Only ' +
             'SimpleLength instances with type \'px\' are supported.');
       }

@@ -14,6 +14,12 @@
 
 (function(internal, scope, testing) {
 
+  var _numberValueRegex = /^\s*[-+]?(\d*\.)?\d+(e[-+]?\d+)?\s*$/;
+
+  function isNumberValueString(cssString) {
+    return _numberValueRegex.test(cssString);
+  }
+
   function isCalc(string) {
     return /^calc/.test(string); 
   }
@@ -74,6 +80,7 @@
   }
 
   internal.parsing = {};
+  internal.parsing.isNumberValueString = isNumberValueString;
   internal.parsing.isCalc = isCalc;
   internal.parsing.parseDimension = parseDimension;
   if (TYPED_OM_TESTING) {

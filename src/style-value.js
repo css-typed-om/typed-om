@@ -16,7 +16,8 @@
 
   function StyleValue() {}
 
-  StyleValue.parse = function(property, cssString) {
+  // TODO: Add support for value being a sequence value cssString
+  StyleValue.parse = function(property, value) {
     if (typeof property != 'string') {
       throw new TypeError('Property name must be a string');
     }
@@ -27,21 +28,22 @@
       // TODO: How do custom properties play into this?
       throw new TypeError('Can\'t parse an unsupported property.');
     }
+
     // Make sure that there is no leading or trailing whitespace, case insensitive.
     cssString = cssString.trim().toLowerCase();
-    if (propertyDictionary().isValidKeyword(property, cssString)) {
-      return new KeywordValue(cssString);
+    if (propertyDictionary().isValidKeyword(property, value)) {
+      return new KeywordValue(value);
     }
 
-    switch (property) {
-      case 'width':
-        return LengthValue.parse(cssString);
-      default:
-        throw new TypeError('Couldn\'t figure out how to parse property '
-            + property + '. This is probably a bug.');
+    var styleValueObject = null;
+    var supportedStyleValues = propertyDictionary().getValidStyleValuesArray(property);
+    for (var i = 0; i < supportedStyleValues.length; i++) {
+      styleValueObject = supportedStyleValues[i].parse(value);
+      if (styleValueObject != null) {
+        return styleValueObject;
+      }
     }
-
-    return null;
+    return styleValueObject;
   };
 
   internal.StyleValue = StyleValue;

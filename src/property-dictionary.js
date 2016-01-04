@@ -48,6 +48,13 @@
     return (this._listSeparator.hasOwnProperty(property));
   };
 
+  PropertyDictionary.prototype.getValidStyleValuesArray = function(property) {
+    if (!this.isSupportedProperty(property)) {
+      throw new TypeError(property + ' is not a supported CSS property');
+    }
+    return this._validProperties[property];
+  };
+
   PropertyDictionary.prototype.getListValueSeparator = function(property) {
     if (this.isListValuedProperty(property)) {
       return this._listSeparator[property];
