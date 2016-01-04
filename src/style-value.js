@@ -16,8 +16,8 @@
 
   function StyleValue() {}
 
-  // TODO: Add support for value being a sequence value cssString
-  StyleValue.parse = function(property, value) {
+  // TODO: Add support for cssString being a sequence.
+  StyleValue.parse = function(property, cssString) {
     if (typeof property != 'string') {
       throw new TypeError('Property name must be a string');
     }
@@ -31,14 +31,14 @@
 
     // Make sure that there is no leading or trailing whitespace, case insensitive.
     cssString = cssString.trim().toLowerCase();
-    if (propertyDictionary().isValidKeyword(property, value)) {
-      return new KeywordValue(value);
+    if (propertyDictionary().isValidKeyword(property, cssString)) {
+      return new KeywordValue(cssString);
     }
 
     var styleValueObject = null;
     var supportedStyleValues = propertyDictionary().getValidStyleValuesArray(property);
     for (var i = 0; i < supportedStyleValues.length; i++) {
-      styleValueObject = supportedStyleValues[i].parse(value);
+      styleValueObject = supportedStyleValues[i].parse(cssString);
       if (styleValueObject != null) {
         return styleValueObject;
       }

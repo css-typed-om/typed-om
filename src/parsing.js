@@ -14,10 +14,13 @@
 
 (function(internal, scope, testing) {
 
-  var _numberValueRegex = /^\s*[-+]?(\d*\.)?\d+(e[-+]?\d+)?\s*$/;
+  // Extra backslashes because otherwise JS interprets them incorrectly.
+  var _numberValueRegexStr = '[-+]?(\\d*\\.)?\\d+(e[-+]?\\d+)?';
 
   function isNumberValueString(cssString) {
-    return _numberValueRegex.test(cssString);
+    // Anchor the regex to the start and end of the string..
+    var numberValueRegex = new RegExp('^\\s*' + _numberValueRegexStr + '\\s*$');
+    return numberValueRegex.test(cssString);
   }
 
   function isCalc(string) {
@@ -49,7 +52,7 @@
     var taggedUnitRegExp = 'U(' + unitRegExp.source + ')';
 
     // Validating input is simply applying as many reductions as we can.
-    var typeCheck = string.replace(/[-+]?(\d*\.)?\d+(e[-+]?\d+)?/g, 'N')
+    var typeCheck = string.replace(new RegExp(_numberValueRegexStr, 'g'), 'N')
                           .replace(new RegExp('N' + taggedUnitRegExp, 'g'), 'D')
                           .replace(/\s[+-]\s/g, 'O')
                           .replace(/\s/g, '');
