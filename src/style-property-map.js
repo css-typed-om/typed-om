@@ -90,19 +90,11 @@
   };
 
   StylePropertyMap.prototype.getProperties = function() {
-    var specifiedPropertyIndex = 0;
-    var isSpecifiedProperty = true;
     var propertyArray = [];
-
-    while (isSpecifiedProperty) {
-      if (this._styleObject[specifiedPropertyIndex] == '') {
-        break;
-      }
-      propertyArray[specifiedPropertyIndex] =
-        this._styleObject[specifiedPropertyIndex];
-      specifiedPropertyIndex++;
+    for (var i = 0; i < this._styleObject.length; i++) {
+      propertyArray.push(this._styleObject[i]);
     }
-    return propertyArray.sort();
+    return propertyArray;
   };
 
   Element.prototype.styleMap = function() {
