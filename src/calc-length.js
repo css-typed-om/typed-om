@@ -21,60 +21,63 @@
     }
 
     var isEmpty = true;
-    for (var index in internal.LengthValue.LengthType) {
-      var type = internal.LengthValue.LengthType[index];
+    internal.objects.foreach(internal.LengthValue.LengthType, function(type) {
       var value = dictionary[type];
+      if (value == null) {
+        this[type] = null;
+        return;  // Exit callback.
+      }
       if (typeof value == 'number') {
         this[type] = value;
         isEmpty = false;
-      } else if (value == undefined || value == null) {
-        this[type] = null;
       } else {
         throw new TypeError('Value of each field must be null or a number.');
       }
-    }
+    }, this);
 
     if (isEmpty) {
-      throw new TypeError('A CalcDictionary must have at least one valid length.');
+      throw new TypeError(
+          'A CalcDictionary must have at least one valid length.');
     }
 
-    function createCssString(calcLength) {
-      calcLength.cssString = 'calc(';
-      var isFirst = true;
-      for (var index in internal.LengthValue.LengthType) {
-        var type = internal.LengthValue.LengthType[index];
-        var value = calcLength[type];
-        if (value == null) {
-          continue;
-        }
-        if (!isFirst) {
-          if (value >= 0) {
-            calcLength.cssString += ' + ';
-          } else {
-            calcLength.cssString += ' - ';
-          }
-          value = Math.abs(value);
-        }
-        calcLength.cssString += value + internal.LengthValue.cssStringTypeRepresentation(type);
-        isFirst = false;
-      }
-      calcLength.cssString += ')';
-    }
-    createCssString(this);
+    this.cssString = this._generateCssString();
   }
   internal.inherit(CalcLength, internal.LengthValue);
 
-  // Length Calculation Methods
+  CalcLength.prototype._generateCssString = function() {
+    var result = 'calc(';
+
+    var isFirst = true;
+    internal.objects.foreach(internal.LengthValue.LengthType, function(type) {
+      var value = this[type];
+      if (value == null) {
+        return;  // Exit callback.
+      }
+      if (!isFirst) {
+        if (value >= 0) {
+          result += ' + ';
+        } else {
+          result += ' - ';
+        }
+        value = Math.abs(value);
+      }
+      result += value + internal.LengthValue.cssStringTypeRepresentation(type);
+      isFirst = false;
+    }, this);
+
+    result += ')';
+    return result;
+  };
+
   CalcLength.prototype.multiply = function(multiplier) {
     var calcDictionary = {};
 
-    // Iterate through all length types and multiply all non null lengths
-    for (var i = 0; i < internal.LengthValue.LengthType.length; i++) {
-      var type = internal.LengthValue.LengthType[i];
+    // Iterate through all length types and multiply all non null lengths.
+    internal.objects.foreach(internal.LengthValue.LengthType, function(type) {
       if (this[type] != null) {
         calcDictionary[type] = this[type] * multiplier;
       }
-    }
+    }, this);
 
     return new CalcLength(calcDictionary);
   };
@@ -82,13 +85,12 @@
   CalcLength.prototype.divide = function(divider) {
     var calcDictionary = {};
 
-    // Iterate through all length types and divide all non null lengths
-    for (var i = 0; i < internal.LengthValue.LengthType.length; i++) {
-      var type = internal.LengthValue.LengthType[i];
+    // Iterate through all length types and divide all non null lengths.
+    internal.objects.foreach(LengthValue.LengthType, function(type) {
       if (this[type] != null) {
         calcDictionary[type] = this[type] / divider;
       }
-    }
+    }, this);
 
     return new CalcLength(calcDictionary);
   };
@@ -100,9 +102,8 @@
 
     var calcDictionary = {};
 
-    // Iterate through all possible length types and add their values
-    for (var i = 0; i < internal.LengthValue.LengthType.length; i++) {
-      var type = internal.LengthValue.LengthType[i];
+    // Iterate through all possible length types and add their values.
+    internal.objects.foreach(internal.LengthValue.LengthType, function(type) {
       if (this[type] == null && addedLength[type] == null) {
         calcDictionary[type] = null;
       } else if (this[type] == null) {
@@ -112,7 +113,7 @@
       } else {
         calcDictionary[type] = this[type] + addedLength[type];
       }
-    }
+    }, this);
 
     return new CalcLength(calcDictionary);
   };
@@ -124,9 +125,8 @@
 
     var calcDictionary = {};
 
-    // Iterate through all possible length types and add their values
-    for (var i = 0; i < internal.LengthValue.LengthType.length; i++) {
-      var type = internal.LengthValue.LengthType[i];
+    // Iterate through all possible length types and subtract their values.
+    internal.objects.foreach(internal.LengthValue.LengthType, function(type) {
       if (this[type] == null && subtractedLength[type] == null) {
         calcDictionary[type] = null;
       } else if (subtractedLength[type] == null) {
@@ -136,7 +136,7 @@
       } else {
         calcDictionary[type] = this[type] - subtractedLength[type];
       }
-    }
+    }, this);
 
     return new CalcLength(calcDictionary);
   };
@@ -150,15 +150,11 @@
       return false;
     }
 
-    // Iterate through all length types and check that both objects contain the same values
-    for (var i = 0; i < internal.LengthValue.LengthType.length; i++) {
-      var type = internal.LengthValue.LengthType[i];
-      if (this[type] != other[type]) {
-        return false;
-      }
-    }
-
-    return true;
+    // Iterate through all length types and check that both objects contain the
+    // same values.
+    return !internal.objects.any(LengthValue.LengthType, function(type) {
+      return this[type] != other[type];
+    }, this);
   };
 
   scope.CalcLength = CalcLength;

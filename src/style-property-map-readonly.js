@@ -24,7 +24,7 @@
     }
 
     propertyString = this._styleObject[property];
-    if (propertyString == '') {
+    if (!propertyString) {
       return null;
     }
 
