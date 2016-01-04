@@ -20,7 +20,6 @@
 
   var typedOMSrc = [
       'src/util.js',
-      'src/parsing.js',
       'src/style-value.js',
       'src/number-value.js',
       'src/keyword-value.js',
