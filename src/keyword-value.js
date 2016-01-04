@@ -23,6 +23,10 @@
   }
   internal.inherit(KeywordValue, internal.StyleValue);
 
+  KeywordValue.parse = function(value) {
+    return new KeywordValue(value);
+  };
+
   scope.KeywordValue = KeywordValue;
 
 })(typedOM.internal, window);
