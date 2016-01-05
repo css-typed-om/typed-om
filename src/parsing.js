@@ -15,11 +15,11 @@
 (function(internal, testing) {
 
   // Extra backslashes because otherwise JS interprets them incorrectly.
-  var _numberValueRegexStr = '[-+]?(\\d*\\.)?\\d+(e[-+]?\\d+)?';
+  var numberValueRegexStr = '[-+]?(\\d*\\.)?\\d+(e[-+]?\\d+)?';
 
   function isNumberValueString(cssString) {
     // Anchor the regex to the start and end of the string..
-    var numberValueRegex = new RegExp('^\\s*' + _numberValueRegexStr + '\\s*$');
+    var numberValueRegex = new RegExp('^\\s*' + numberValueRegexStr + '\\s*$');
     return numberValueRegex.test(cssString);
   }
 
@@ -52,20 +52,40 @@
     var taggedUnitRegExp = 'U(' + unitRegExp.source + ')';
 
     // Validating input is simply applying as many reductions as we can.
-    var typeCheck = string.replace(new RegExp(_numberValueRegexStr, 'g'), 'N')
+    // Replace numbers with N, numbers with units with D, operations with O,
+    // then remove all whitespace.
+    var typeCheck = string.replace(new RegExp(numberValueRegexStr, 'g'), 'N')
                           .replace(new RegExp('N' + taggedUnitRegExp, 'g'), 'D')
                           .replace(/\s[+-]\s/g, 'O')
                           .replace(/\s/g, '');
-    var reductions = [/N\*(D)/g, /(N|D)[*/]N/g, /(N|D)O\1/g, /\((N|D)\)/g];
+    var reductions = [
+      // Matches on a number tag followed by the * operator followed by a
+      // number tag, capturing the number tag (D).
+      /N\*(D)/g,
+      // Matches on a number tag (N) or number with unit (D) followed by an
+      // * or / operator, followed by a number (N), capturing the first N or D.
+      /(N|D)[*/]N/g,
+      // Matches on a number tag (N) or number with unit (D) followed by a
+      // + or - operator (O), followed by another number or number with unit
+      // tag, capturing the first N or D.
+      /(N|D)O\1/g,
+      // Matches on number (N) or number with unit (D) tags surrounded by
+      // brackets, capturing the N or D.
+      /\((N|D)\)/g
+    ];
     var i = 0;
     while (i < reductions.length) {
       if (reductions[i].test(typeCheck)) {
+        // Replace each reduction with the captured part, so that
+        // (DOD) becomes (D) then D.
         typeCheck = typeCheck.replace(reductions[i], '$1');
         i = 0;
       } else {
         i++;
       }
     }
+    // If we don't end up only with a number tag after reducing, the
+    // expression is invalid.
     if (typeCheck != 'D') {
       return;
     }
