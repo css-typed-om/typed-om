@@ -30,15 +30,33 @@
   internal.inherit(LengthValue, internal.StyleValue);
 
   // The different possible length types.
-  LengthValue.LengthType = [
-    'px', 'percent', 'em', 'ex', 'ch',
-    'rem', 'vw', 'vh', 'vmin', 'vmax',
-    'cm', 'mm', 'in', 'pc', 'pt'
-  ];
+  LengthValue.LengthType = {
+    PX: 'px',
+    PERCENT: 'percent',
+    EM: 'em',
+    EX: 'ex',
+    CH: 'ch',
+    REM: 'rem',
+    VW: 'vw',
+    VH: 'vh',
+    VMIN: 'vmin',
+    VMAX: 'vmax',
+    CM: 'cm',
+    MM: 'mm',
+    IN: 'in',
+    PC: 'pc',
+    PT: 'pt'
+  };
+
+  LengthValue.isValidLengthType = function(str) {
+    return internal.objects.any(LengthValue.LengthType, function(type) {
+      return str == type;
+    });
+  };
 
   LengthValue.cssStringTypeRepresentation = function(type) {
-    if (LengthValue.LengthType.indexOf(type) < 0) {
-      throw new TypeError('Invalid LengthType.');
+    if (!LengthValue.isValidLengthType(type)) {
+      throw new TypeError('Invalid Length Type.');
     }
 
     switch (type) {
@@ -46,6 +64,30 @@
         return '%';
       default:
         return type;
+    }
+  };
+
+  LengthValue.parse = function(cssString) {
+    if (typeof cssString != 'string') {
+      throw new TypeError('Must parse a length out of a string.');
+    }
+    var lengthUnits = 'px|%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc';
+    var result = internal.parsing.parseDimension(
+        new RegExp(lengthUnits, 'g'), cssString);
+    if (!result) {
+      throw TypeError('Unable to parse length from ' + cssString);
+    }
+    if (result['%'] != undefined) {
+      // Percent is a special case - We require 'percent' instead
+      // of '%' as the unit.
+      result['percent'] = result['%'];
+      delete result['%'];
+    }
+    var keys = Object.keys(result);
+    if (internal.parsing.isCalc(cssString)) {
+      return new CalcLength(result);
+    } else {
+      return new SimpleLength(result[keys[0]], keys[0]);
     }
   };
 
@@ -58,22 +100,28 @@
   };
 
   LengthValue.prototype.add = function(addedLength) {
-    if (this instanceof SimpleLength && addedLength instanceof SimpleLength && this.type == addedLength.type) {
+    if (this instanceof SimpleLength &&
+        addedLength instanceof SimpleLength &&
+        this.type == addedLength.type) {
       return this._addSimpleLengths(addedLength);
     } else if (addedLength instanceof LengthValue) {
       // Ensure both lengths are of type CalcLength before adding
-      return this._asCalcLength()._addCalcLengths(addedLength._asCalcLength());
+      return this._asCalcLength()._addCalcLengths(
+          addedLength._asCalcLength());
     } else {
       throw new TypeError('Argument must be a LengthValue');
     }
   };
 
   LengthValue.prototype.subtract = function(subtractedLength) {
-    if (this instanceof SimpleLength && subtractedLength instanceof SimpleLength && this.type == subtractedLength.type) {
+    if (this instanceof SimpleLength &&
+        subtractedLength instanceof SimpleLength &&
+        this.type == subtractedLength.type) {
       return this._subtractSimpleLengths(subtractedLength);
     } else if (subtractedLength instanceof LengthValue) {
       // Ensure both lengths are of type CalcLength before subtracting
-      return this._asCalcLength()._subtractCalcLengths(subtractedLength._asCalcLength());
+      return this._asCalcLength()._subtractCalcLengths(
+          subtractedLength._asCalcLength());
     } else {
       throw new TypeError('Argument must be a LengthValue');
     }
@@ -84,10 +132,6 @@
   };
 
   LengthValue.prototype.divide = function(divider) {
-    throw new TypeError('Should not be reached');
-  };
-
-  LengthValue.prototype.parse = function(cssString) {
     throw new TypeError('Should not be reached');
   };
 

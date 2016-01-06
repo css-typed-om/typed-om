@@ -18,11 +18,8 @@
 
   StyleValue.parse = function(property, value) {
     if (!propertyDictionary().isSupportedProperty(property)) {
-      return null;
-    }
-
-    if (propertyDictionary().isValidKeyword(property, value)) {
-      return new KeywordValue(value);
+      // TODO: How do custom properties play into this?
+      throw new TypeError('Can\'t parse an unsupported property.');
     }
 
     //Currently only supports sequences separated by ', '

@@ -24,7 +24,7 @@
     }
 
     propertyString = this._styleObject[property];
-    if (propertyString == '') {
+    if (!propertyString) {
       return null;
     }
 
@@ -36,13 +36,11 @@
   };
 
   StylePropertyMapReadOnly.prototype.getProperties = function() {
-    var output = [];
-    for (var i = 0, l = this._styleObject.length; i < l; ++i) {
-      var property = this._styleObject[i];
-      // TODO: Construct the objects for each type of thing and add them to the
-      // output array.
+    var propertyArray = [];
+    for (var i = 0; i < this._styleObject.length; i++) {
+      propertyArray.push(this._styleObject[i]);
     }
-    return output;
+    return propertyArray;
   };
 
   getComputedStyleMap = function(element) {
