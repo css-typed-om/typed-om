@@ -36,12 +36,11 @@
   };
 
   StylePropertyMapReadOnly.prototype.getProperties = function() {
-    var cssPropertiesFullText = this._styleObject.cssText.split('; ');
-    var cssProperties = [];
-    for (var i = 0; i < cssPropertiesFullText.length; i++) {
-      cssProperties[i] = cssPropertiesFullText[i].split(':')[0];
+    var propertyArray = [];
+    for (var i = 0; i < this._styleObject.length; i++) {
+      propertyArray.push(this._styleObject[i]);
     }
-    return cssProperties;
+    return propertyArray;
   };
 
   getComputedStyleMap = function(element) {

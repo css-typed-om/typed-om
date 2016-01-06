@@ -89,14 +89,6 @@
     return !!this._styleObject[property];
   };
 
-  StylePropertyMap.prototype.getProperties = function() {
-    var propertyArray = [];
-    for (var i = 0; i < this._styleObject.length; i++) {
-      propertyArray.push(this._styleObject[i]);
-    }
-    return propertyArray;
-  };
-
   Element.prototype.styleMap = function() {
     return new StylePropertyMap(this.style);
   };
