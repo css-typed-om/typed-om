@@ -17,6 +17,9 @@
   function StyleValue() {}
 
   StyleValue.parse = function(property, value) {
+    if (typeof property != 'string') {    
+      throw new TypeError('Property name must be a string');   
+    }
     if (!propertyDictionary().isSupportedProperty(property)) {
       // TODO: How do custom properties play into this?
       throw new TypeError('Can\'t parse an unsupported property.');
@@ -29,15 +32,20 @@
         propertyDictionary().getValidStyleValuesArray(property);
 
     for (var i = 0; i < valueArray.length; i++) {
-      if (propertyDictionary().isValidKeyword(property, valueArray[i])) {
-        styleValueArray[i] = new KeywordValue(valueArray[i]);
+      var cssString = valueArray[i];
+      cssString = cssString.trim().toLowerCase();
+      if (typeof cssString != 'string') {    
+        throw new TypeError('Must parse a string');    
+      }
+      if (propertyDictionary().isValidKeyword(property, cssString)) {
+        styleValueArray[i] = new KeywordValue(cssString);
         continue;
       }
 
       var styleValueObject = null;
       var successfulParse = false;
       for (var j = 0; j < supportedStyleValues.length; j++) {
-        styleValueObject = supportedStyleValues[j].parse(valueArray[i]);
+        styleValueObject = supportedStyleValues[j].parse(cssString);
         if (styleValueObject != null) {
           styleValueArray[i] = styleValueObject;
           successfulParse = true;
