@@ -76,13 +76,4 @@ suite('PropertyDictionary', function() {
 
     assert.throw(function () {cssPropertyDictionary.getValidStyleValuesArray('lemon');}, TypeError);
   });
-
-  test('isSupportedStyleValue should return true if a property supports a StyleValue and false if it does not', function() {
-    assert.isTrue(cssPropertyDictionary.isSupportedStyleValue('height', LengthValue));
-    assert.isFalse(cssPropertyDictionary.isSupportedStyleValue('height', NumberValue));
-  });
-
-  test('isSupportedStyleValue should throw a type error for unsupported properties', function() {
-    assert.throw(function () {cssPropertyDictionary.isSupportedStyleValue('lemon', NumberValue);}, TypeError);
-  });
 });
