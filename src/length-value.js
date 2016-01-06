@@ -67,6 +67,30 @@
     }
   };
 
+  LengthValue.parse = function(cssString) {
+    if (typeof cssString != 'string') {
+      throw new TypeError('Must parse a length out of a string.');
+    }
+    var lengthUnits = 'px|%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc';
+    var result = internal.parsing.parseDimension(
+        new RegExp(lengthUnits, 'g'), cssString);
+    if (!result) {
+      throw TypeError('Unable to parse length from ' + cssString);
+    }
+    if (result['%'] != undefined) {
+      // Percent is a special case - We require 'percent' instead
+      // of '%' as the unit.
+      result['percent'] = result['%'];
+      delete result['%'];
+    }
+    var keys = Object.keys(result);
+    if (internal.parsing.isCalc(cssString)) {
+      return new CalcLength(result);
+    } else {
+      return new SimpleLength(result[keys[0]], keys[0]);
+    }
+  };
+
   LengthValue.fromValue = function(value, type) {
     return new SimpleLength(value, type);
   };
@@ -108,10 +132,6 @@
   };
 
   LengthValue.prototype.divide = function(divider) {
-    throw new TypeError('Should not be reached');
-  };
-
-  LengthValue.prototype.parse = function(cssString) {
     throw new TypeError('Should not be reached');
   };
 
