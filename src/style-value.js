@@ -16,9 +16,12 @@
 
   function StyleValue() {}
 
-  StyleValue.parse = function(property, value) {
+  StyleValue.parse = function(property, cssString) {
     if (typeof property != 'string') {    
       throw new TypeError('Property name must be a string');   
+    }
+    if (typeof cssString != 'string') {    
+      throw new TypeError('Must parse a string');    
     }
     if (!propertyDictionary().isSupportedProperty(property)) {
       // TODO: How do custom properties play into this?
@@ -26,26 +29,25 @@
     }
 
     //Currently only supports sequences separated by ', '
-    var valueArray = value.split(', ');
+    var valueArray = cssString.split(', ');
     var styleValueArray = [];
     var supportedStyleValues =
         propertyDictionary().getValidStyleValuesArray(property);
 
+    var styleValueObject = null;
+    var successfulParse = false;
     for (var i = 0; i < valueArray.length; i++) {
-      var cssString = valueArray[i];
-      cssString = cssString.trim().toLowerCase();
-      if (typeof cssString != 'string') {    
-        throw new TypeError('Must parse a string');    
-      }
-      if (propertyDictionary().isValidKeyword(property, cssString)) {
-        styleValueArray[i] = new KeywordValue(cssString);
+      var cssStringStyleValue = valueArray[i];
+      cssStringStyleValue = cssStringStyleValue.trim().toLowerCase();
+      if (propertyDictionary().isValidKeyword(property, cssStringStyleValue)) {
+        styleValueArray[i] = new KeywordValue(cssStringStyleValue);
         continue;
       }
 
-      var styleValueObject = null;
-      var successfulParse = false;
+      styleValueObject = null;
+      successfulParse = false;
       for (var j = 0; j < supportedStyleValues.length; j++) {
-        styleValueObject = supportedStyleValues[j].parse(cssString);
+        styleValueObject = supportedStyleValues[j].parse(cssStringStyleValue);
         if (styleValueObject != null) {
           styleValueArray[i] = styleValueObject;
           successfulParse = true;
@@ -53,7 +55,7 @@
         }
       }
 
-      if (successfulParse == false) {
+      if (!successfulParse) {
         throw new TypeError(property +
           ' has an unsupported StyleValue type or Sequence value separator');
       }
