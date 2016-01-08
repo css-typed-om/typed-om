@@ -47,7 +47,12 @@
       styleValueObject = null;
       successfulParse = false;
       for (var j = 0; j < supportedStyleValues.length; j++) {
-        styleValueObject = supportedStyleValues[j].parse(cssStringStyleValue);
+        try {
+          styleValueObject = supportedStyleValues[j].parse(cssStringStyleValue);
+        } catch (e) {
+          //Makes sure method does not terminate if a StyleValue parse method throws an error
+          continue;
+        }
         if (styleValueObject != null) {
           styleValueArray[i] = styleValueObject;
           successfulParse = true;
