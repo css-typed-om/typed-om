@@ -58,7 +58,8 @@
       'test/js/transform-value.js',
       'test/js/computed-style-property-map.js',
       'test/js/inline-style-property-map.js',
-      'test/js/property-dictionary.js'
+      'test/js/property-dictionary.js',
+      'test/js/style-value.js'
   ];
 
   // This object specifies the source and test files for different build targets.
