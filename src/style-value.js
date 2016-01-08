@@ -17,11 +17,11 @@
   function StyleValue() {}
 
   StyleValue.parse = function(property, cssString) {
-    if (typeof property != 'string') {    
-      throw new TypeError('Property name must be a string');   
+    if (typeof property != 'string') {
+      throw new TypeError('Property name must be a string');
     }
-    if (typeof cssString != 'string') {    
-      throw new TypeError('Must parse a string');    
+    if (typeof cssString != 'string') {
+      throw new TypeError('Must parse a string');
     }
     if (!propertyDictionary().isSupportedProperty(property)) {
       // TODO: How do custom properties play into this?
@@ -50,7 +50,7 @@
         try {
           styleValueObject = supportedStyleValues[j].parse(cssStringStyleValue);
         } catch (e) {
-          //Makes sure method does not terminate if a StyleValue parse method throws an error
+          //Ensures method does not terminate if a StyleValue parse method throws an error
           continue;
         }
         if (styleValueObject != null) {
