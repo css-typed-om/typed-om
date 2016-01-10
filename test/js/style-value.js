@@ -11,6 +11,12 @@ suite('StyleValue', function() {
     assert.strictEqual(keywordValueArray[0].cssString, 'calc(10px + 3em)');
   });
 
+  test('parse should be case insensitive', function() {
+    var keywordValueArray = StyleValue.parse('height', 'CaLc(10px + 3em)');
+
+    assert.strictEqual(keywordValueArray[0].cssString, 'calc(10px + 3em)');
+  });
+
   test('parse successfully creates an array of StyleValue objects if the cssString is a valid list of values ' +
     'for a property', function() {
     var keywordValueArray = StyleValue.parse('animation-iteration-count', 'infinite, 4, 5, 7, 9');

@@ -28,8 +28,8 @@
       throw new TypeError('Can\'t parse an unsupported property.');
     }
 
-    //Currently only supports sequences separated by ', '
-    var valueArray = cssString.split(', ');
+    // Currently only supports sequences separated by ', '
+    var valueArray = cssString.toLowerCase().split(', ');
     var styleValueArray = [];
     var supportedStyleValues =
         propertyDictionary().getValidStyleValuesArray(property);
@@ -38,7 +38,7 @@
     var successfulParse = false;
     for (var i = 0; i < valueArray.length; i++) {
       var cssStringStyleValue = valueArray[i];
-      cssStringStyleValue = cssStringStyleValue.trim().toLowerCase();
+      cssStringStyleValue = cssStringStyleValue.trim();
       if (propertyDictionary().isValidKeyword(property, cssStringStyleValue)) {
         styleValueArray[i] = new KeywordValue(cssStringStyleValue);
         continue;
@@ -50,7 +50,7 @@
         try {
           styleValueObject = supportedStyleValues[j].parse(cssStringStyleValue);
         } catch (e) {
-          //Ensures method does not terminate if a StyleValue parse method throws an error
+          // Ensures method does not terminate if a StyleValue parse method throws an error
           continue;
         }
         if (styleValueObject != null) {
