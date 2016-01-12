@@ -35,7 +35,17 @@ suite('Computed StylePropertyMap', function() {
     assert.strictEqual(propertyStyleValue.cssString, '4');
   });
 
-  test('getAll method returns an array of the sequence of StyleValues set on a property', function() {
+  test('getProperties returns an ordered list of properties that have been set on an element', function() {
+    var inlineStyleMap = this.element.styleMap();
+    this.element.style['opacity'] = '0.5';
+    this.element.style['height'] = '5px';
+    this.element.style['border-top-color'] = 'initial';
+    this.element.style['border-top-width'] = 'initial';
+
+    assert.deepEqual(inlineStyleMap.getProperties(), ['opacity', 'height', 'border-top-color', 'border-top-width']);
+  });
+
+  test('getAll method returns an array containing the sequence of StyleValues set on a property', function() {
     var inlineStyleMap = this.element.styleMap();
     var computedStyleMap = getComputedStyleMap(this.element);
     var valueArray = [new NumberValue(4), new NumberValue(5), new KeywordValue('infinite')];
@@ -53,15 +63,12 @@ suite('Computed StylePropertyMap', function() {
 
     assert.strictEqual(propertyStyleValue.length, 1);
     assert.strictEqual(propertyStyleValue[0].cssString, '0.5');
+  });
 
-  test('getProperties returns an ordered list of properties that have been set on an element', function() {
-    var inlineStyleMap = this.element.styleMap();
-    this.element.style['opacity'] = '0.5';
-    this.element.style['height'] = '5px';
-    this.element.style['border-top-color'] = 'initial';
-    this.element.style['border-top-width'] = 'initial';
+  test('getAll method throws a TypeError if the property is not supported', function() {
+    var computedStyleMap = getComputedStyleMap(this.element);
 
-    assert.deepEqual(inlineStyleMap.getProperties(), ['opacity', 'height', 'border-top-color', 'border-top-width']);
-
+    assert.throw(function() {computedStyleMap.getAll('lemon')}, TypeError,
+      'lemon is not a supported CSS property');
   });
 });
