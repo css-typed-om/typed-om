@@ -150,4 +150,14 @@ suite('Inline StylePropertyMap', function() {
     assert.throw(function() {inlineStyleMap.append('animation-iteration-count', null)}, TypeError,
       'null cannot be appended to CSS properties');
   });
+
+  test('getProperties returns an ordered list of properties that have been set on an element', function() {
+    var inlineStyleMap = this.element.styleMap();
+    this.element.style['opacity'] = '0.5';
+    this.element.style['height'] = '5px';
+    this.element.style['border-top-color'] = 'initial';
+    this.element.style['border-top-width'] = 'initial';
+
+    assert.deepEqual(inlineStyleMap.getProperties(), ['opacity', 'height', 'border-top-color', 'border-top-width']);
+  });
 });

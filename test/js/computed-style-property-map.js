@@ -31,7 +31,6 @@ suite('Computed StylePropertyMap', function() {
     inlineStyleMap.set('animation-iteration-count', valueArray);
     var propertyStyleValue = computedStyleMap.get('animation-iteration-count');
 
-
     assert.instanceOf(propertyStyleValue, NumberValue);
     assert.strictEqual(propertyStyleValue.cssString, '4');
   });
@@ -54,5 +53,15 @@ suite('Computed StylePropertyMap', function() {
 
     assert.strictEqual(propertyStyleValue.length, 1);
     assert.strictEqual(propertyStyleValue[0].cssString, '0.5');
+
+  test('getProperties returns an ordered list of properties that have been set on an element', function() {
+    var inlineStyleMap = this.element.styleMap();
+    this.element.style['opacity'] = '0.5';
+    this.element.style['height'] = '5px';
+    this.element.style['border-top-color'] = 'initial';
+    this.element.style['border-top-width'] = 'initial';
+
+    assert.deepEqual(inlineStyleMap.getProperties(), ['opacity', 'height', 'border-top-color', 'border-top-width']);
+
   });
 });

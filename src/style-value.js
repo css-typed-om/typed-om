@@ -16,31 +16,43 @@
 
   function StyleValue() {}
 
-  StyleValue.parse = function(property, value) {
+  StyleValue.parse = function(property, cssString) {
+    if (typeof property != 'string') {
+      throw new TypeError('Property name must be a string');
+    }
+    if (typeof cssString != 'string') {
+      throw new TypeError('Must parse a string');
+    }
     if (!propertyDictionary().isSupportedProperty(property)) {
-      return null;
+      // TODO: How do custom properties play into this?
+      throw new TypeError('Can\'t parse an unsupported property.');
     }
 
-    if (propertyDictionary().isValidKeyword(property, value)) {
-      return new KeywordValue(value);
-    }
-
-    //Currently only supports sequences separated by ', '
-    var valueArray = value.split(', ');
+    // Currently only supports sequences separated by ', '
+    var valueArray = cssString.toLowerCase().split(', ');
     var styleValueArray = [];
     var supportedStyleValues =
         propertyDictionary().getValidStyleValuesArray(property);
 
+    var styleValueObject = null;
+    var successfulParse = false;
     for (var i = 0; i < valueArray.length; i++) {
-      if (propertyDictionary().isValidKeyword(property, valueArray[i])) {
-        styleValueArray[i] = new KeywordValue(valueArray[i]);
+      var cssStringStyleValue = valueArray[i];
+      cssStringStyleValue = cssStringStyleValue.trim();
+      if (propertyDictionary().isValidKeyword(property, cssStringStyleValue)) {
+        styleValueArray[i] = new KeywordValue(cssStringStyleValue);
         continue;
       }
 
-      var styleValueObject = null;
-      var successfulParse = false;
+      styleValueObject = null;
+      successfulParse = false;
       for (var j = 0; j < supportedStyleValues.length; j++) {
-        styleValueObject = supportedStyleValues[j].parse(valueArray[i]);
+        try {
+          styleValueObject = supportedStyleValues[j].parse(cssStringStyleValue);
+        } catch (e) {
+          // Ensures method does not terminate if a StyleValue parse method throws an error
+          continue;
+        }
         if (styleValueObject != null) {
           styleValueArray[i] = styleValueObject;
           successfulParse = true;
@@ -48,18 +60,12 @@
         }
       }
 
-      if (successfulParse == false) {
+      if (!successfulParse) {
         throw new TypeError(property +
           ' has an unsupported StyleValue type or Sequence value separator');
       }
     }
     return styleValueArray;
-  };
-
-  StyleValue.prototype.
-      _getValueArray = function(property, value) {
-    return cssSplitStrings =
-      value.split(propertyDictionary().getListValueSeparator(property));
   };
 
   internal.StyleValue = StyleValue;
