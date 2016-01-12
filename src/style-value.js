@@ -16,7 +16,6 @@
 
   function StyleValue() {}
 
-  // TODO: Add support for cssString being a sequence.
   StyleValue.parse = function(property, cssString) {
     if (typeof property != 'string') {
       throw new TypeError('Property name must be a string');
@@ -29,21 +28,44 @@
       throw new TypeError('Can\'t parse an unsupported property.');
     }
 
-    // Make sure that there is no leading or trailing whitespace, case insensitive.
-    cssString = cssString.trim().toLowerCase();
-    if (propertyDictionary().isValidKeyword(property, cssString)) {
-      return new KeywordValue(cssString);
-    }
+    // Currently only supports sequences separated by ', '
+    var valueArray = cssString.toLowerCase().split(', ');
+    var styleValueArray = [];
+    var supportedStyleValues =
+        propertyDictionary().getValidStyleValuesArray(property);
 
     var styleValueObject = null;
-    var supportedStyleValues = propertyDictionary().getValidStyleValuesArray(property);
-    for (var i = 0; i < supportedStyleValues.length; i++) {
-      styleValueObject = supportedStyleValues[i].parse(cssString);
-      if (styleValueObject != null) {
-        return styleValueObject;
+    var successfulParse = false;
+    for (var i = 0; i < valueArray.length; i++) {
+      var cssStringStyleValue = valueArray[i];
+      cssStringStyleValue = cssStringStyleValue.trim();
+      if (propertyDictionary().isValidKeyword(property, cssStringStyleValue)) {
+        styleValueArray[i] = new KeywordValue(cssStringStyleValue);
+        continue;
+      }
+
+      styleValueObject = null;
+      successfulParse = false;
+      for (var j = 0; j < supportedStyleValues.length; j++) {
+        try {
+          styleValueObject = supportedStyleValues[j].parse(cssStringStyleValue);
+        } catch (e) {
+          // Ensures method does not terminate if a StyleValue parse method throws an error
+          continue;
+        }
+        if (styleValueObject != null) {
+          styleValueArray[i] = styleValueObject;
+          successfulParse = true;
+          break;
+        }
+      }
+
+      if (!successfulParse) {
+        throw new TypeError(property +
+          ' has an unsupported StyleValue type or Sequence value separator');
       }
     }
-    return styleValueObject;
+    return styleValueArray;
   };
 
   internal.StyleValue = StyleValue;

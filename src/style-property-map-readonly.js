@@ -29,7 +29,7 @@
     }
 
     var parsed = StyleValue.parse(property, propertyString);
-    if (typeof parsed == 'Array') {
+    if (parsed.constructor == Array) {
       return parsed[0];
     }
     return parsed;
