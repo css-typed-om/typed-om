@@ -13,9 +13,11 @@
 // limitations under the License.
 
 var TYPED_OM_TESTING = false;
+var typedOMIncludePath = typedOMIncludePath || '/typed-om';
 (function() {
-  var scripts = document.getElementsByTagName('script');
-  var location = scripts[scripts.length - 1].src.replace(/[^\/]+$/, '');
-  document.write('<script src="' + location + 'target-config.js"></script>');
-  document.write('<script src="' + location + 'target-loader.js"></script>');
+  ['target-config.js', 'target-loader.js'].forEach(function(sourceFile) {
+    var s = document.createElement('script');
+    s.src = typedOMIncludePath + sourceFile;
+    document.head.appendChild(s);
+  });
 })();
