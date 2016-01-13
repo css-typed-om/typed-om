@@ -1,0 +1,21 @@
+{
+  "name": "typed-om",
+  "version": "1.0.0",
+  "description": "Prototype for CSS Typed OM",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4",
+    "mocha-phantomjs": "^4.0.2"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha-phantomjs/bin/mocha-phantomjs ./test/runner.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/css-typed-om/typed-om"
+  },
+  "license": "Apache-2.0"
+}

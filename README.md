@@ -13,8 +13,6 @@ The tests use the [Mocha framework](https://mochajs.org/) with [Chai asserts](ht
 
 To run the tests do
 ```
-sudo apt-get install npm
-sudo npm install mocha
-sudo npm install chai
+npm install
+npm test
 ```
-Then open typed-om/test/runner.html in a web browser.
