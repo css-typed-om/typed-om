@@ -44,4 +44,31 @@ suite('Computed StylePropertyMap', function() {
 
     assert.deepEqual(inlineStyleMap.getProperties(), ['opacity', 'height', 'border-top-color', 'border-top-width']);
   });
+
+  test('getAll method returns an array containing the sequence of StyleValues set on a property', function() {
+    var inlineStyleMap = this.element.styleMap();
+    var computedStyleMap = getComputedStyleMap(this.element);
+    var valueArray = [new NumberValue(4), new NumberValue(5), new KeywordValue('infinite')];
+    inlineStyleMap.set('animation-iteration-count', valueArray);
+    var propertyStyleValue = computedStyleMap.getAll('animation-iteration-count');
+
+    assert.strictEqual(propertyStyleValue[0].cssString, '4');
+    assert.strictEqual(propertyStyleValue[1].cssString, '5');
+    assert.strictEqual(propertyStyleValue[2].cssString, 'infinite');
+  });
+
+  test('getAll method returns an array of size 1 if only a single StyleValue is set on a property', function() {
+    var computedStyleMap = getComputedStyleMap(this.element);
+    var propertyStyleValue = computedStyleMap.getAll('opacity');
+
+    assert.strictEqual(propertyStyleValue.length, 1);
+    assert.strictEqual(propertyStyleValue[0].cssString, '0.5');
+  });
+
+  test('getAll method throws a TypeError if the property is not supported', function() {
+    var computedStyleMap = getComputedStyleMap(this.element);
+
+    assert.throw(function() {computedStyleMap.getAll('lemon')}, TypeError,
+      'lemon is not a supported CSS property');
+  });
 });
