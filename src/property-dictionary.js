@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, scope, testing) {
+(function(internal, testing) {
 
   function PropertyDictionary() {
     this._validProperties = {
