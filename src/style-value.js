@@ -23,7 +23,7 @@
     if (typeof cssString != 'string') {
       throw new TypeError('Must parse a string');
     }
-    if (!propertyDictionary().isSupportedProperty(property)) {
+    if (!internal.propertyDictionary().isSupportedProperty(property)) {
       // TODO: How do custom properties play into this?
       throw new TypeError('Can\'t parse an unsupported property.');
     }
@@ -32,14 +32,14 @@
     var valueArray = cssString.toLowerCase().split(', ');
     var styleValueArray = [];
     var supportedStyleValues =
-        propertyDictionary().getValidStyleValuesArray(property);
+        internal.propertyDictionary().getValidStyleValuesArray(property);
 
     var styleValueObject = null;
     var successfulParse = false;
     for (var i = 0; i < valueArray.length; i++) {
       var cssStringStyleValue = valueArray[i];
       cssStringStyleValue = cssStringStyleValue.trim();
-      if (propertyDictionary().isValidKeyword(property, cssStringStyleValue)) {
+      if (internal.propertyDictionary().isValidKeyword(property, cssStringStyleValue)) {
         styleValueArray[i] = new KeywordValue(cssStringStyleValue);
         continue;
       }
@@ -68,7 +68,7 @@
     return styleValueArray;
   };
 
-  internal.StyleValue = StyleValue;
+  scope.StyleValue = StyleValue;
   if (TYPED_OM_TESTING) {
     testing.StyleValue = StyleValue;
   }

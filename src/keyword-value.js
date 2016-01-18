@@ -21,7 +21,7 @@
     this.keywordValue = value;
     this.cssString = value;
   }
-  internal.inherit(KeywordValue, internal.StyleValue);
+  internal.inherit(KeywordValue, StyleValue);
 
   KeywordValue.parse = function(value) {
     return new KeywordValue(value);

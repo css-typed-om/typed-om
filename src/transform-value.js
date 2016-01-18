@@ -35,7 +35,7 @@
     this._matrix = this._computeMatrix();
     this.cssString = this._generateCssString();
   }
-  internal.inherit(TransformValue, internal.StyleValue);
+  internal.inherit(TransformValue, StyleValue);
 
 
   TransformValue.prototype.asMatrix = function() {

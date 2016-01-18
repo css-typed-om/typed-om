@@ -24,7 +24,7 @@
   };
 
   StylePropertyMapReadOnly.prototype.getAll = function(property) {
-    if (!propertyDictionary().isSupportedProperty(property)) {
+    if (!internal.propertyDictionary().isSupportedProperty(property)) {
       throw new TypeError(property + ' is not a supported CSS property');
     }
 

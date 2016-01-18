@@ -22,14 +22,14 @@
     if (typeof value != 'number') {
       throw new TypeError('Value of SimpleLength must be a number.');
     }
-    if (!internal.LengthValue.isValidLengthType(type)) {
+    if (!LengthValue.isValidLengthType(type)) {
       throw new TypeError('\'' + type + '\' is not a valid type for a SimpleLength.');
     }
     this.type = type;
     this.value = value;
     this.cssString = this._generateCssString();
   }
-  internal.inherit(SimpleLength, internal.LengthValue);
+  internal.inherit(SimpleLength, LengthValue);
 
   SimpleLength.prototype.multiply = function(multiplier) {
     return new SimpleLength((this.value * multiplier), this.type);
@@ -77,7 +77,7 @@
 
   SimpleLength.prototype._generateCssString = function() {
     var cssString = this.value +
-        internal.LengthValue.cssStringTypeRepresentation(this.type);
+        LengthValue.cssStringTypeRepresentation(this.type);
     return cssString;
   };
 

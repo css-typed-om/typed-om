@@ -20,7 +20,7 @@
   internal.inherit(StylePropertyMap, internal.StylePropertyMapReadOnly);
 
   StylePropertyMap.prototype.set = function(property, value) {
-    var cssPropertyDictionary = propertyDictionary();
+    var cssPropertyDictionary = internal.propertyDictionary();
     if (!cssPropertyDictionary.isSupportedProperty(property)) {
       throw new TypeError('Cannot set ' + property + ' because it is not a supported CSS property');
     }
@@ -43,7 +43,7 @@
   };
 
   StylePropertyMap.prototype.append = function(property, values) {
-    var cssPropertyDictionary = propertyDictionary();
+    var cssPropertyDictionary = internal.propertyDictionary();
     if (!cssPropertyDictionary.isSupportedProperty(property)) {
       throw new TypeError(property + ' is not a supported CSS property');
     }
@@ -76,14 +76,14 @@
   };
 
   StylePropertyMap.prototype.delete = function(property) {
-    if (!propertyDictionary().isSupportedProperty(property)) {
+    if (!internal.propertyDictionary().isSupportedProperty(property)) {
       throw new TypeError('Cannot delete ' + property + ' because it is not a supported CSS property');
     }
     this._styleObject[property] = '';
   };
 
   StylePropertyMap.prototype.has = function(property) {
-    if (!propertyDictionary().isSupportedProperty(property)) {
+    if (!internal.propertyDictionary().isSupportedProperty(property)) {
       throw new TypeError('Cannot use has method for ' + property + ' because it is not a supported CSS property');
     }
     return !!this._styleObject[property];

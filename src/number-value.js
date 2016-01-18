@@ -21,7 +21,7 @@
     this.value = value;
     this.cssString = '' + value;
   }
-  internal.inherit(NumberValue, internal.StyleValue);
+  internal.inherit(NumberValue, StyleValue);
 
   NumberValue.parse = function(value) {
     if (internal.parsing.isNumberValueString(value)) {
