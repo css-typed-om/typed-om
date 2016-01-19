@@ -30,7 +30,7 @@
     this.y = new LengthValue(yPos);
     this.cssString = this._generateCssString();
   }
-  internal.inherit(PositionValue, internal.StyleValue);
+  internal.inherit(PositionValue, StyleValue);
 
   PositionValue.prototype._generateCssString = function() {
     return this.x.cssString + ' ' + this.y.cssString;

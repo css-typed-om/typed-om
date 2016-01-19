@@ -21,7 +21,7 @@
     }
 
     var isEmpty = true;
-    internal.objects.foreach(internal.LengthValue.LengthType, function(type) {
+    internal.objects.foreach(LengthValue.LengthType, function(type) {
       var value = dictionary[type];
       if (value == null) {
         this[type] = null;
@@ -42,13 +42,13 @@
 
     this.cssString = this._generateCssString();
   }
-  internal.inherit(CalcLength, internal.LengthValue);
+  internal.inherit(CalcLength, LengthValue);
 
   CalcLength.prototype._generateCssString = function() {
     var result = 'calc(';
 
     var isFirst = true;
-    internal.objects.foreach(internal.LengthValue.LengthType, function(type) {
+    internal.objects.foreach(LengthValue.LengthType, function(type) {
       var value = this[type];
       if (value == null) {
         return;  // Exit callback.
@@ -61,7 +61,7 @@
         }
         value = Math.abs(value);
       }
-      result += value + internal.LengthValue.cssStringTypeRepresentation(type);
+      result += value + LengthValue.cssStringTypeRepresentation(type);
       isFirst = false;
     }, this);
 
@@ -73,7 +73,7 @@
     var calcDictionary = {};
 
     // Iterate through all length types and multiply all non null lengths.
-    internal.objects.foreach(internal.LengthValue.LengthType, function(type) {
+    internal.objects.foreach(LengthValue.LengthType, function(type) {
       if (this[type] != null) {
         calcDictionary[type] = this[type] * multiplier;
       }
@@ -103,7 +103,7 @@
     var calcDictionary = {};
 
     // Iterate through all possible length types and add their values.
-    internal.objects.foreach(internal.LengthValue.LengthType, function(type) {
+    internal.objects.foreach(LengthValue.LengthType, function(type) {
       if (this[type] == null && addedLength[type] == null) {
         calcDictionary[type] = null;
       } else if (this[type] == null) {
@@ -126,7 +126,7 @@
     var calcDictionary = {};
 
     // Iterate through all possible length types and subtract their values.
-    internal.objects.foreach(internal.LengthValue.LengthType, function(type) {
+    internal.objects.foreach(LengthValue.LengthType, function(type) {
       if (this[type] == null && subtractedLength[type] == null) {
         calcDictionary[type] = null;
       } else if (subtractedLength[type] == null) {

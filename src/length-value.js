@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, testing) {
+(function(internal, scope, testing) {
 
   // Constructor (LengthValue)
   function LengthValue(value) {
@@ -27,7 +27,7 @@
       return new CalcLength(value);
     }
   }
-  internal.inherit(LengthValue, internal.StyleValue);
+  internal.inherit(LengthValue, StyleValue);
 
   // The different possible length types.
   LengthValue.LengthType = {
@@ -143,9 +143,9 @@
     throw new TypeError('Should not be reached');
   };
 
-  internal.LengthValue = LengthValue;
+  scope.LengthValue = LengthValue;
   if (TYPED_OM_TESTING) {
     testing.LengthValue = LengthValue;
   }
 
-})(typedOM.internal, typedOMTesting);
+})(typedOM.internal, window, typedOMTesting);

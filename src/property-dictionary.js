@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(shared, scope, testing) {
+(function(internal, testing) {
 
   function PropertyDictionary() {
     this._validProperties = {
@@ -124,7 +124,7 @@
     return instance;
   };
 
-  shared.propertyDictionary = propertyDictionary;
+  internal.propertyDictionary = propertyDictionary;
   if (TYPED_OM_TESTING) {
     testing.propertyDictionary = propertyDictionary;
   }
