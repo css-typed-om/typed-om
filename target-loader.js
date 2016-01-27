@@ -13,9 +13,9 @@
 // limitations under the License.
 
 (function() {
-  var scripts = document.getElementsByTagName('script');
-  var location = scripts[scripts.length - 1].src.replace(/[^\/]+$/, '');
-  typedOMTargetConfig['typed-om'].src.forEach(function(sourceFile) {
-    document.write('<script src="' + location + sourceFile + '"></script>');
+  window.typedOMTargetConfig['typed-om'].src.forEach(function(sourceFile) {
+    var s = document.createElement('script');
+    s.src = window.typedOMIncludePath + sourceFile;
+    document.head.appendChild(s);
   });
 })();
