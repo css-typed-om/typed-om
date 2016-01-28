@@ -20,7 +20,8 @@
      'pitch-range': [NumberValue],
      'border-top-width': [LengthValue],
      'opacity': [NumberValue],
-     'animation-iteration-count': [NumberValue]
+     'animation-iteration-count': [NumberValue],
+     'transform': [TransformValue]
     };
 
     this._validKeywords = {
@@ -28,7 +29,8 @@
       'pitch-range': ['inherit'],
       'border-top-width': ['inherit'],
       'opacity': ['initial', 'inherit'],
-      'animation-iteration-count': ['infinite']
+      'animation-iteration-count': ['infinite'],
+      'transform': ['none', 'initial', 'inherit']
     };
 
     this._allowsPercentage = {
