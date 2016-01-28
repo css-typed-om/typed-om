@@ -15,9 +15,19 @@
 var TYPED_OM_TESTING = false;
 var typedOMIncludePath = typedOMIncludePath || '/typed-om';
 (function() {
-  ['target-config.js', 'target-loader.js'].forEach(function(sourceFile) {
-    var s = document.createElement('script');
-    s.src = typedOMIncludePath + sourceFile;
-    document.head.appendChild(s);
-  });
+  var loadScript = function(sourceFile) {
+    return new Promise(function(resolve, reject) {
+      var s = document.createElement('script');
+      s.src = typedOMIncludePath + '/' + sourceFile;
+      s.onload = function() {
+        resolve();
+      };
+      document.head.appendChild(s);
+    });
+  };
+  ['target-config.js', 'target-loader.js'].reduce(function(prev, cur) {
+    return prev.then(function() {
+      return loadScript(cur);
+    });
+  }, Promise.resolve());
 })();
