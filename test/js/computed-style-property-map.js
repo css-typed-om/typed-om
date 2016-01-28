@@ -23,7 +23,7 @@ suite('Computed StylePropertyMap', function() {
     assert.strictEqual(propertyStyleValue.cssString, '0.5');
   });
 
-  test('get method returns the first StyleValue in the sequence if a property has been set a sequence ' +
+  test.skip('get method returns the first StyleValue in the sequence if a property has been set a sequence ' +
     'of StyleValues', function() {
     var inlineStyleMap = this.element.styleMap();
     var computedStyleMap = getComputedStyleMap(this.element);
