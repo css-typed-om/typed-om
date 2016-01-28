@@ -49,7 +49,7 @@
   };
 
   Skew.prototype._generateCssString = function() {
-    return 'skew(' + this.ax + ', ' + this.ay + ')';
+    return 'skew(' + this.ax + 'deg' + ', ' + this.ay + 'deg' + ')';
   };
 
   scope.Skew = Skew;
