@@ -15,6 +15,18 @@ suite('KeywordValue', function() {
     assert.strictEqual(keywordValue.cssString, cssString);
   });
 
+  test('KeywordValue should convert all strings to lower case', function() {
+    var keywordValue = new KeywordValue('Initial');
+    var cssString = 'initial';
+    assert.strictEqual(keywordValue.keywordValue, cssString);
+    assert.strictEqual(keywordValue.cssString, cssString);
+
+    var keywordValue = new KeywordValue('HeLlO');
+    var cssString = 'hello';
+    assert.strictEqual(keywordValue.keywordValue, cssString);
+    assert.strictEqual(keywordValue.cssString, cssString);
+  });
+
   test('KeywordValue constructor throws an exception for invalid inputs', function() {
     assert.throws(function() { new KeywordValue(); });
     assert.throws(function() { new KeywordValue(1); });
