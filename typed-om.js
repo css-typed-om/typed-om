@@ -14,20 +14,22 @@
 
 var TYPED_OM_TESTING = false;
 var typedOMIncludePath = typedOMIncludePath || '/typed-om';
-(function() {
-  var loadScript = function(sourceFile) {
-    return new Promise(function(resolve, reject) {
-      var s = document.createElement('script');
-      s.src = typedOMIncludePath + '/' + sourceFile;
-      s.onload = function() {
-        resolve();
-      };
-      document.head.appendChild(s);
-    });
-  };
-  ['target-config.js', 'target-loader.js'].reduce(function(prev, cur) {
+var loadScript = function(sourceFile) {
+  return new Promise(function(resolve, reject) {
+    var s = document.createElement('script');
+    s.src = typedOMIncludePath + '/' + sourceFile;
+    s.onload = function() {
+      resolve();
+    };
+    document.head.appendChild(s);
+  });
+};
+var loadScripts = function(sourceFiles) {
+  sourceFiles.reduce(function(prev, cur) {
     return prev.then(function() {
       return loadScript(cur);
     });
   }, Promise.resolve());
-})();
+}
+
+loadScripts(['target-config.js', 'target-loader.js']);
