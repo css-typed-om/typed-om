@@ -12,21 +12,4 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function() {
-  var loadScript = function(sourceFile) {
-    return new Promise(function(resolve, reject) {
-      var s = document.createElement('script');
-      s.src = typedOMIncludePath + '/' + sourceFile;
-      s.onload = function() {
-        resolve();
-      };
-      document.head.appendChild(s);
-    });
-  };
-
-  window.typedOMTargetConfig['typed-om'].src.reduce(function(prev, cur) {
-    return prev.then(function() {
-      return loadScript(cur);
-    });
-  }, Promise.resolve());
-})();
+loadScripts(window.typedOMTargetConfig['typed-om'].src);
