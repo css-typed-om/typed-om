@@ -17,6 +17,14 @@ suite('TransformValue', function() {
     assert.throws(function() {new TransformValue([new NumberValue(5)])});
   });
 
+  test('TransformValue empty constructor should create an object with ' + 
+    'the expected properties', function() {
+    var transform = new TransformValue();
+    assert.isTrue(transform.is2D());
+    assert.isTrue(transform.cssString == "");
+    assert.deepEqual(transform.asMatrix(), new Matrix(1, 1, 1, 1, 1, 1));
+  });
+
   test('TransformValue constructor works with 1 component', function() {
     var transform;
     var scale = new Scale(2, -1);
