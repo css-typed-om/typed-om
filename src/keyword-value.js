@@ -18,6 +18,7 @@
     if (!value || typeof value != 'string') {
       throw new TypeError('Keyword value must be a non-empty string.');
     }
+    value = value.toLowerCase();
     this.keywordValue = value;
     this.cssString = value;
   }
