@@ -19,7 +19,7 @@ suite('Skew', function() {
   test('Skew constructor works correctly', function() {
     var skew;
     assert.doesNotThrow(function() {skew = new Skew(30, 180)});
-    assert.strictEqual(skew.cssString, 'skew(30, 180)');
+    assert.strictEqual(skew.cssString, 'skew(30deg, 180deg)');
     assert.strictEqual(skew.ax, 30);
     assert.strictEqual(skew.ay, 180);
     assert.isTrue(skew.is2DComponent());
