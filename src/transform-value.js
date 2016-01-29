@@ -15,28 +15,12 @@
 (function(internal, scope) {
 
   function TransformValue(values) {
-    if (!Array.isArray(values)) {
-      throw new TypeError('TransformValue must be an array of ' +
-          'TransformComponents.');
-    } else if (values.length < 1) {
-      throw new TypeError('TransformValue must have at least 1 ' +
-          'TransformComponent.');
+    if (values === undefined) {
+      return this._createEmptyTransform();
     }
-
-    this.transformComponents = [];
-    for (var i = 0; i < values.length; i++) {
-      if (!(values[i] instanceof TransformComponent)) {
-        throw new TypeError('Argument at index ' + i + ' is not an instance ' +
-            'of \'TransformComponent\'.');
-      }
-      this.transformComponents.push(values[i]);
-    }
-
-    this._matrix = this._computeMatrix();
-    this.cssString = this._generateCssString();
+    return this._createSequenceTransform(values);
   }
   internal.inherit(TransformValue, StyleValue);
-
 
   TransformValue.prototype.asMatrix = function() {
     return this._matrix;
@@ -59,6 +43,30 @@
       return value.cssString;
     }
     return this.transformComponents.map(getCssString).join(' ');
+  };
+
+  TransformValue.prototype._createEmptyTransform = function() {
+    this._matrix = new Matrix(1, 1, 1, 1, 1, 1);
+    this.cssString = "";
+  };
+
+  TransformValue.prototype._createSequenceTransform = function(values) {
+    if (!Array.isArray(values) || values.length < 1) {
+      throw new TypeError('TransformValue must have an array ' +
+          'with at least 1 TransformComponent.');
+    }
+
+    this.transformComponents = [];
+    for (var i = 0; i < values.length; i++) {
+      if (!(values[i] instanceof TransformComponent)) {
+        throw new TypeError('Argument at index ' + i + ' is not an instance ' +
+            'of \'TransformComponent\'.');
+      }
+      this.transformComponents.push(values[i]);
+    }
+
+    this._matrix = this._computeMatrix();
+    this.cssString = this._generateCssString();
   };
 
   scope.TransformValue = TransformValue;

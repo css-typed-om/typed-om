@@ -9,7 +9,7 @@ suite('TransformValue', function() {
 
   test('TransformValue constructor throws exception for invalid types',
       function() {
-    assert.throws(function() {new TransformValue()});
+    assert.throws(function() {new TransformValue(null)});
     assert.throws(function() {new TransformValue({})});
     assert.throws(function() {new TransformValue([])});
     assert.throws(function() {new TransformValue(['1', '2'])});
