@@ -11,7 +11,6 @@ suite('TransformValue', function() {
       function() {
     assert.throws(function() {new TransformValue(null)});
     assert.throws(function() {new TransformValue({})});
-    assert.throws(function() {new TransformValue([])});
     assert.throws(function() {new TransformValue(['1', '2'])});
     assert.throws(function() {new TransformValue([null])});
     assert.throws(function() {new TransformValue([new NumberValue(5)])});
@@ -22,7 +21,7 @@ suite('TransformValue', function() {
     var transform = new TransformValue();
     assert.isTrue(transform.is2D());
     assert.isTrue(transform.cssString == "");
-    assert.deepEqual(transform.asMatrix(), new Matrix(1, 1, 1, 1, 1, 1));
+    assert.deepEqual(transform.asMatrix(), new Matrix(1, 0, 0, 1, 0, 0));
   });
 
   test('TransformValue constructor works with 1 component', function() {
