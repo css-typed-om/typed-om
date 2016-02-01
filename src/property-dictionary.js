@@ -16,19 +16,21 @@
 
   function PropertyDictionary() {
     this._validProperties = {
-     'height': [LengthValue],
-     'pitch-range': [NumberValue],
-     'border-top-width': [LengthValue],
-     'opacity': [NumberValue],
-     'animation-iteration-count': [NumberValue]
+      'animation-iteration-count': [NumberValue],
+      'border-top-width': [LengthValue],
+      'height': [LengthValue],
+      'opacity': [NumberValue],
+      'pitch-range': [NumberValue],
+      'transform': [TransformValue]
     };
 
     this._validKeywords = {
-      'height': ['auto', 'inherit'],
-      'pitch-range': ['inherit'],
+      'animation-iteration-count': ['infinite'],
       'border-top-width': ['inherit'],
+      'height': ['auto', 'inherit'],
       'opacity': ['initial', 'inherit'],
-      'animation-iteration-count': ['infinite']
+      'pitch-range': ['inherit'],
+      'transform': ['none', 'initial', 'inherit']
     };
 
     this._allowsPercentage = {
