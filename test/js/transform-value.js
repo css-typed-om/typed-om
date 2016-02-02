@@ -16,8 +16,9 @@ suite('TransformValue', function() {
     assert.throws(function() {new TransformValue([new NumberValue(5)])});
   });
 
-  test('TransformValue empty constructor should create an object with ' + 
-    'the expected properties', function() {
+  test('TransformValue empty constructor creates an object with ' + 
+    'the following properties: cssString contains an empty string, asMatrix ' +
+    'returns the 2D identity matrix', function() {
     var transform = new TransformValue();
     assert.isTrue(transform.is2D());
     assert.isTrue(transform.cssString == "");
