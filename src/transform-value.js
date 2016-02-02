@@ -15,12 +15,12 @@
 (function(internal, scope) {
 
   function TransformValue(values) {
+    if (values === undefined) {
+      values = [];
+    }
     if (!Array.isArray(values)) {
-      throw new TypeError('TransformValue must be an array of ' +
-          'TransformComponents.');
-    } else if (values.length < 1) {
-      throw new TypeError('TransformValue must have at least 1 ' +
-          'TransformComponent.');
+      throw new TypeError('TransformValue must have an array ' +
+          'of TransformComponents or must be empty');
     }
 
     this.transformComponents = [];
@@ -37,7 +37,6 @@
   }
   internal.inherit(TransformValue, StyleValue);
 
-
   TransformValue.prototype.asMatrix = function() {
     return this._matrix;
   };
@@ -47,6 +46,9 @@
   };
 
   TransformValue.prototype._computeMatrix = function() {
+    if (!this.transformComponents.length) {
+      return new Matrix(1, 0, 0, 1, 0, 0);
+    }
     var matrix = this.transformComponents[0].asMatrix();
     for (var i = 1; i < this.transformComponents.length; ++i) {
       matrix = matrix.multiply(this.transformComponents[i].asMatrix());

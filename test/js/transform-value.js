@@ -9,12 +9,20 @@ suite('TransformValue', function() {
 
   test('TransformValue constructor throws exception for invalid types',
       function() {
-    assert.throws(function() {new TransformValue()});
+    assert.throws(function() {new TransformValue(null)});
     assert.throws(function() {new TransformValue({})});
-    assert.throws(function() {new TransformValue([])});
     assert.throws(function() {new TransformValue(['1', '2'])});
     assert.throws(function() {new TransformValue([null])});
     assert.throws(function() {new TransformValue([new NumberValue(5)])});
+  });
+
+  test('TransformValue empty constructor creates an object with ' + 
+    'the following properties: cssString contains an empty string, asMatrix ' +
+    'returns the 2D identity matrix', function() {
+    var transform = new TransformValue();
+    assert.isTrue(transform.is2D());
+    assert.isTrue(transform.cssString == "");
+    assert.deepEqual(transform.asMatrix(), new Matrix(1, 0, 0, 1, 0, 0));
   });
 
   test('TransformValue constructor works with 1 component', function() {
