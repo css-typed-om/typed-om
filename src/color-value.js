@@ -21,13 +21,12 @@
       this._aFlag = false;
     }
 
-    if (typeof r != 'number' || typeof g != 'number'
-      || typeof b != 'number' || typeof a != 'number') {
-      throw new TypeError('r, g, b and a must be a numbers.');
+    if (!this._isInt(r) || !this._isInt(g) || !this._isInt(b)) {
+      throw new TypeError('r, g and b must be integers.');
     }
 
-    if (r % 1 !== 0 || g % 1 !== 0 || b % 1 !== 0) {
-      throw new TypeError('r, g, b must be integers.');
+    if (typeof a != 'number') {
+      throw new TypeError('a must be a number.');
     }
 
     if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
@@ -58,6 +57,13 @@
     }
     cssString = cssString + ')'
     return cssString;
+  };
+
+  ColorValue.prototype._isInt = function(value) {
+    if (typeof value == 'number' && value % 1 === 0) {
+      return true;
+    }
+    return false;
   };
 
   scope.ColorValue = ColorValue;
