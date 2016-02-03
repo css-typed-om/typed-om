@@ -21,7 +21,7 @@
       this._aFlag = false;
     }
 
-    if (!this._isInt(r) || !this._isInt(g) || !this._isInt(b)) {
+    if (!(this._isInt(r) && this._isInt(g) && this._isInt(b))) {
       throw new TypeError('r, g and b must be integers.');
     }
 
@@ -30,7 +30,7 @@
     }
 
     if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
-      throw new TypeError('r, g, b and a must be a number between 0 and 255.');
+      throw new TypeError('r, g and b must be integers between 0 and 255.');
     }
 
     if (a < 0 || a > 1) {

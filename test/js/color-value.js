@@ -1,7 +1,5 @@
 suite('ColorValue', function() {
-  test('Constructor should throw an error if r, g, b and a are not numbers', function() {
-    assert.throw(function() {new ColorValue(0, "lemon", 50);}, TypeError,
-      'r, g and b must be integers.');
+  test('Constructor should throw an error a is not a number', function() {
     assert.throw(function() {new ColorValue(0, 50, 50, "lemon");}, TypeError,
       'a must be a number.');
     assert.throw(function() {new ColorValue(0, 50, 50, null);}, TypeError,
@@ -9,15 +7,19 @@ suite('ColorValue', function() {
   });
 
   test('Constructor should throw an error if r, g and b are not integers', function() {
-    assert.throw(function() {new ColorValue(0, 50.5, 50);}, TypeError,
+    assert.throw(function() {new ColorValue(0, "lemon", 50);}, TypeError,
+      'r, g and b must be integers.');
+    assert.throw(function() {new ColorValue(0, 50, null);}, TypeError,
+      'r, g and b must be integers.');
+    assert.throw(function() {new ColorValue(50.5, 20, 50);}, TypeError,
       'r, g and b must be integers.');
   });
 
   test('Constructor should throw an error if r, g and b are not between 0 and 255', function() {
     assert.throw(function() {new ColorValue(0, -1, 50, 0);}, TypeError,
-      'r, g, b and a must be a number between 0 and 255.');
+      'r, g and b must be integers between 0 and 255.');
     assert.throw(function() {new ColorValue(0, 255, 256);}, TypeError,
-      'r, g, b and a must be a number between 0 and 255.');
+      'r, g and b must be integers between 0 and 255.');
   });
 
   test('Constructor should throw an error if a is not between 0 and 1', function() {
