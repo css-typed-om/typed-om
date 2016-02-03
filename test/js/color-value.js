@@ -27,15 +27,15 @@ suite('ColorValue', function() {
       'a must be a number between 0 and 1.');
   });
 
-  test('cssString should return rgb(<number>,<number>,<number>) if the three ' +
-    'input constructor is used', function() {
+  test('cssString should return rgb(<number>,<number>,<number>) if alpha ' +
+    'is not specified', function() {
     var color = new ColorValue(50, 100, 100);
 
     assert.strictEqual(color.cssString, 'rgb(50,100,100)');
   });
 
-  test('cssString should return rgb(<number>,<number>,<number>,<number>) if the four ' +
-    'input constructor is used', function() {
+  test('cssString should return rgb(<number>,<number>,<number>,<number>) if alpha ' +
+    'is specified', function() {
     var color = new ColorValue(50, 100, 100, 1);
 
     assert.strictEqual(color.cssString, 'rgba(50,100,100,1)');
