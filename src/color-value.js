@@ -51,7 +51,7 @@
   ColorValue.prototype._generateCssString = function() {
     var cssString = this._aFlag ? 'rgba(' : 'rgb(';
     cssString = cssString + this.r + ',' + this.g + ',' + this.b;
-    
+
     if (this._aFlag) {
       cssString  = cssString + ',' + this.a;
     }

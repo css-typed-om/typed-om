@@ -1,11 +1,4 @@
 suite('ColorValue', function() {
-  test('Constructor should throw an error a is not a number', function() {
-    assert.throw(function() {new ColorValue(0, 50, 50, "lemon");}, TypeError,
-      'a must be a number.');
-    assert.throw(function() {new ColorValue(0, 50, 50, null);}, TypeError,
-      'a must be a number.');
-  });
-
   test('Constructor should throw an error if r, g and b are not integers', function() {
     assert.throw(function() {new ColorValue(0, "lemon", 50);}, TypeError,
       'r, g and b must be integers.');
@@ -20,6 +13,13 @@ suite('ColorValue', function() {
       'r, g and b must be integers between 0 and 255.');
     assert.throw(function() {new ColorValue(0, 255, 256);}, TypeError,
       'r, g and b must be integers between 0 and 255.');
+  });
+
+  test('Constructor should throw an error if a is not a number', function() {
+    assert.throw(function() {new ColorValue(0, 50, 50, "lemon");}, TypeError,
+      'a must be a number.');
+    assert.throw(function() {new ColorValue(0, 50, 50, null);}, TypeError,
+      'a must be a number.');
   });
 
   test('Constructor should throw an error if a is not between 0 and 1', function() {
@@ -38,8 +38,8 @@ suite('ColorValue', function() {
 
   test('cssString should return rgb(<number>,<number>,<number>,<number>) if alpha ' +
     'is specified', function() {
-    var color = new ColorValue(50, 100, 100, 1);
+    var color = new ColorValue(50, 100, 100, 0.2);
 
-    assert.strictEqual(color.cssString, 'rgba(50,100,100,1)');
+    assert.strictEqual(color.cssString, 'rgba(50,100,100,0.2)');
   });
 });
