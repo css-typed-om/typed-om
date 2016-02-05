@@ -15,10 +15,10 @@
 (function(internal, scope) {
 
   function ColorValue(r, g, b, a) {
-    this._aFlag = true;
+    this._hasA = true;
     if (a === undefined) {
       a = 1;
-      this._aFlag = false;
+      this._hasA = false;
     }
 
     if (!(this._isInt(r) && this._isInt(g) && this._isInt(b))) {
@@ -49,10 +49,10 @@
   };
 
   ColorValue.prototype._generateCssString = function() {
-    var cssString = this._aFlag ? 'rgba(' : 'rgb(';
+    var cssString = this._hasA ? 'rgba(' : 'rgb(';
     cssString = cssString + this.r + ',' + this.g + ',' + this.b;
 
-    if (this._aFlag) {
+    if (this._hasA) {
       cssString  = cssString + ',' + this.a;
     }
     cssString = cssString + ')'
@@ -60,10 +60,7 @@
   };
 
   ColorValue.prototype._isInt = function(value) {
-    if (typeof value == 'number' && value % 1 === 0) {
-      return true;
-    }
-    return false;
+    return typeof value == 'number' && value % 1 === 0;
   };
 
   scope.ColorValue = ColorValue;
