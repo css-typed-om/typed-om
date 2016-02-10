@@ -35,14 +35,13 @@ suite('ColorValue', function() {
   });
 
   test('cssString should return rgb(<number>,<number>,<number>) if alpha ' +
-    'is not specified', function() {
-    var color = new ColorValue(50, 100, 100);
-
-    assert.strictEqual(color.cssString, 'rgb(50,100,100)');
+    'is equal to 1', function() {
+    assert.strictEqual(new ColorValue(50, 100, 100).cssString, 'rgb(50,100,100)');
+    assert.strictEqual(new ColorValue(50, 100, 100, 1).cssString, 'rgb(50,100,100)');
   });
 
   test('cssString should return rgb(<number>,<number>,<number>,<number>) if alpha ' +
-    'is specified', function() {
+    'is not equal to 1', function() {
     var color = new ColorValue(50, 100, 100, 0.2);
 
     assert.strictEqual(color.cssString, 'rgba(50,100,100,0.2)');
