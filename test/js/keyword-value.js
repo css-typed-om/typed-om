@@ -15,16 +15,20 @@ suite('KeywordValue', function() {
     assert.strictEqual(keywordValue.cssString, cssString);
   });
 
-  test('KeywordValue should convert all strings to lower case', function() {
-    var keywordValue = new KeywordValue('Initial');
-    var cssString = 'initial';
-    assert.strictEqual(keywordValue.keywordValue, cssString);
-    assert.strictEqual(keywordValue.cssString, cssString);
+  test('cssString returns a string with the same format as CSS.escape()', function() {
+    assert.strictEqual(new KeywordValue('initial').cssString, 'initial');
+    assert.strictEqual(new KeywordValue('center').cssString, 'center');
+    assert.strictEqual(new KeywordValue('customLemon').cssString, 'customLemon');
+    assert.strictEqual(new KeywordValue(' Hello World').cssString, CSS.escape(' Hello World'));
+    assert.strictEqual(new KeywordValue('3').cssString, CSS.escape('3'));
+  });
 
-    var keywordValue = new KeywordValue('HeLlO');
-    var cssString = 'hello';
-    assert.strictEqual(keywordValue.keywordValue, cssString);
-    assert.strictEqual(keywordValue.cssString, cssString);
+  test('keywordValue returns a string equal to the string used in the constructor', function() {
+    assert.strictEqual(new KeywordValue('initial').keywordValue, 'initial');
+    assert.strictEqual(new KeywordValue('center').keywordValue, 'center');
+    assert.strictEqual(new KeywordValue('customLemon').keywordValue, 'customLemon');
+    assert.strictEqual(new KeywordValue(' Hello World').keywordValue, ' Hello World');
+    assert.strictEqual(new KeywordValue('3').keywordValue, '3');
   });
 
   test('KeywordValue constructor throws an exception for invalid inputs', function() {
