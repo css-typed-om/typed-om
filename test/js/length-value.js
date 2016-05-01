@@ -1,13 +1,13 @@
 suite('CSSLengthValue', function() {
-  test('fromValue returns a CSSSimpleLength which is an instance of CSSLengthValue and CSSStyleValue', function() {
-    var simpleLength = CSSLengthValue.fromValue(9.2, 'px');
+  test('from returns a CSSSimpleLength which is an instance of CSSLengthValue and CSSStyleValue', function() {
+    var simpleLength = CSSLengthValue.from(9.2, 'px');
     assert.instanceOf(simpleLength, CSSSimpleLength, 'A new simpleLength should be an instance of CSSSimpleLength');
     assert.instanceOf(simpleLength, CSSLengthValue, 'A new simpleLength should be an instance of CSSLengthValue');
     assert.instanceOf(simpleLength, CSSStyleValue, 'A new simpleLength should be an instance of CSSStyleValue');
   });
 
-  test('fromDictionary returns a CSSCalcLength which is an instance of CSSLengthValue and CSSStyleValue', function() {
-    var calcLength = CSSLengthValue.fromDictionary({px: 10});
+  test('from returns a CSSCalcLength which is an instance of CSSLengthValue and CSSStyleValue', function() {
+    var calcLength = CSSLengthValue.from({px: 10});
     assert.instanceOf(calcLength, CSSCalcLength, 'A new calcLength should be an instance of CSSCalcLength');
     assert.instanceOf(calcLength, CSSLengthValue, 'A new calcLength should be an instance of CSSLengthValue');
     assert.instanceOf(calcLength, CSSStyleValue, 'A new calcLength should be an instance of CSSStyleValue');
@@ -29,7 +29,7 @@ suite('CSSLengthValue', function() {
     assert.deepEqual(calcCopy, calc);
   });
 
-  test('CSSLengthValue.parse returns expected CSSSimpleLengths for simple strings', function() {
+  test('CSSLengthValue.from returns expected CSSSimpleLengths for simple strings', function() {
     var values = [
       {str: '0', out: new CSSSimpleLength(0, 'px')},
       {str: '1px', out: new CSSSimpleLength(1, 'px')},
@@ -57,16 +57,16 @@ suite('CSSLengthValue', function() {
       {str: '10e3px', out: new CSSSimpleLength(10e3, 'px')},
       {str: '-3.4e-2px', out: new CSSSimpleLength(-3.4e-2, 'px')},
     ];
-  
+
     for (var i = 0; i < values.length; i++) {
-      var result = CSSLengthValue.parse(values[i].str);
+      var result = CSSLengthValue.from(values[i].str);
       assert.instanceOf(result, CSSSimpleLength);
       assert.isTrue(values[i].out.equals(result),
           'Parsing ' + values[i].str + ' did not produce the expected CSSSimpleLength.');
     }
   });
 
-  test('CSSLengthValue.parse returns expected CSSCalcLengths for calc() strings.', function() {
+  test('CSSLengthValue.from returns expected CSSCalcLengths for calc() strings.', function() {
     var values = [
       {str: 'calc(10px)', out: new CSSCalcLength({px: 10})},
       {str: 'calc(-10px)', out: new CSSCalcLength({px: -10})},
@@ -87,14 +87,14 @@ suite('CSSLengthValue', function() {
       }
     ];
     for (var i = 0; i < values.length; i++) {
-      var result = CSSLengthValue.parse(values[i].str);
+      var result = CSSLengthValue.from(values[i].str);
       assert.instanceOf(result, CSSCalcLength);
       assert.isTrue(values[i].out.equals(result),
           'Parsing ' + values[i].str + ' did not produce the expected CSSCalcLength.');
     }
   });
 
-  test('CSSLengthValue.parse throws exceptions for invalid input.', function() {
+  test('CSSLengthValue.from throws exceptions for invalid input.', function() {
     var values = [
       // Invalid types.
       null, 5,
@@ -110,7 +110,7 @@ suite('CSSLengthValue', function() {
       '100', '50somethings'
     ];
     for (var i = 0; i < values.length; i++) {
-      assert.throws(function() { CSSLengthValue.parse(values[i]); }, TypeError);
+      assert.throws(function() { CSSLengthValue.from(values[i]); }, TypeError);
     }
   });
 });
