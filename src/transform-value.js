@@ -14,12 +14,12 @@
 
 (function(internal, scope) {
 
-  function TransformValue(values) {
+  function CSSTransformValue(values) {
     if (values === undefined) {
       values = [];
     }
     if (!Array.isArray(values)) {
-      throw new TypeError('TransformValue must have an array ' +
+      throw new TypeError('CSSTransformValue must have an array ' +
           'of TransformComponents or must be empty');
     }
 
@@ -35,17 +35,17 @@
     this._matrix = this._computeMatrix();
     this.cssString = this._generateCssString();
   }
-  internal.inherit(TransformValue, StyleValue);
+  internal.inherit(CSSTransformValue, CSSStyleValue);
 
-  TransformValue.prototype.asMatrix = function() {
+  CSSTransformValue.prototype.asMatrix = function() {
     return this._matrix;
   };
 
-  TransformValue.prototype.is2D = function() {
+  CSSTransformValue.prototype.is2D = function() {
     return this.asMatrix().is2DComponent();
   };
 
-  TransformValue.prototype._computeMatrix = function() {
+  CSSTransformValue.prototype._computeMatrix = function() {
     if (!this.transformComponents.length) {
       return new Matrix(1, 0, 0, 1, 0, 0);
     }
@@ -56,13 +56,13 @@
     return matrix;
   };
 
-  TransformValue.prototype._generateCssString = function() {
+  CSSTransformValue.prototype._generateCssString = function() {
     function getCssString(value) {
       return value.cssString;
     }
     return this.transformComponents.map(getCssString).join(' ');
   };
 
-  scope.TransformValue = TransformValue;
+  scope.CSSTransformValue = CSSTransformValue;
 
 })(typedOM.internal, window);

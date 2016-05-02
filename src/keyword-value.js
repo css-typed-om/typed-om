@@ -14,19 +14,19 @@
 
 (function(internal, scope) {
 
-  function KeywordValue(value) {
+  function CSSKeywordValue(value) {
     if (!value || typeof value != 'string') {
       throw new TypeError('Keyword value must be a non-empty string.');
     }
     this.keywordValue = value;
     this.cssString = CSS.escape(value);
   }
-  internal.inherit(KeywordValue, StyleValue);
+  internal.inherit(CSSKeywordValue, CSSStyleValue);
 
-  KeywordValue.parse = function(value) {
-    return new KeywordValue(value);
+  CSSKeywordValue.parse = function(value) {
+    return new CSSKeywordValue(value);
   };
 
-  scope.KeywordValue = KeywordValue;
+  scope.CSSKeywordValue = CSSKeywordValue;
 
 })(typedOM.internal, window);

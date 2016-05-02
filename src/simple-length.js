@@ -14,59 +14,59 @@
 
 (function(internal, scope) {
 
-  // TODO: SimpleLength(simpleLength), SimpleLength(cssString)
-  function SimpleLength(value, type) {
-    if (value instanceof SimpleLength && arguments.length == 1) {
-      return new SimpleLength(value.value, value.type);
+  // TODO: CSSSimpleLength(simpleLength), CSSSimpleLength(cssString)
+  function CSSSimpleLength(value, type) {
+    if (value instanceof CSSSimpleLength && arguments.length == 1) {
+      return new CSSSimpleLength(value.value, value.type);
     }
     if (typeof value != 'number') {
-      throw new TypeError('Value of SimpleLength must be a number.');
+      throw new TypeError('Value of CSSSimpleLength must be a number.');
     }
-    if (!LengthValue.isValidLengthType(type)) {
-      throw new TypeError('\'' + type + '\' is not a valid type for a SimpleLength.');
+    if (!CSSLengthValue.isValidLengthType(type)) {
+      throw new TypeError('\'' + type + '\' is not a valid type for a CSSSimpleLength.');
     }
     this.type = type;
     this.value = value;
     this.cssString = this._generateCssString();
   }
-  internal.inherit(SimpleLength, LengthValue);
+  internal.inherit(CSSSimpleLength, CSSLengthValue);
 
-  SimpleLength.prototype.multiply = function(multiplier) {
-    return new SimpleLength((this.value * multiplier), this.type);
+  CSSSimpleLength.prototype.multiply = function(multiplier) {
+    return new CSSSimpleLength((this.value * multiplier), this.type);
   };
 
-  SimpleLength.prototype.divide = function(divider) {
-    return new SimpleLength((this.value / divider), this.type);
+  CSSSimpleLength.prototype.divide = function(divider) {
+    return new CSSSimpleLength((this.value / divider), this.type);
   };
 
-  SimpleLength.prototype._addSimpleLengths = function(addedLength) {
-    if (!(addedLength instanceof SimpleLength)) {
-      throw new TypeError('Argument must be a SimpleLength');
+  CSSSimpleLength.prototype._addSimpleLengths = function(addedLength) {
+    if (!(addedLength instanceof CSSSimpleLength)) {
+      throw new TypeError('Argument must be a CSSSimpleLength');
     }
     if (this.type != addedLength.type) {
-      throw new TypeError('SimpleLength units are not the same');
+      throw new TypeError('CSSSimpleLength units are not the same');
     }
-    return new SimpleLength((this.value + addedLength.value), this.type);
+    return new CSSSimpleLength((this.value + addedLength.value), this.type);
   };
 
-  SimpleLength.prototype._subtractSimpleLengths = function(subtractedLength) {
-    if (!(subtractedLength instanceof SimpleLength)) {
-      throw new TypeError('Argument must be a SimpleLength');
+  CSSSimpleLength.prototype._subtractSimpleLengths = function(subtractedLength) {
+    if (!(subtractedLength instanceof CSSSimpleLength)) {
+      throw new TypeError('Argument must be a CSSSimpleLength');
     }
     if (this.type != subtractedLength.type) {
-      throw new TypeError('SimpleLength units are not the same');
+      throw new TypeError('CSSSimpleLength units are not the same');
     }
-    return new SimpleLength((this.value - subtractedLength.value), this.type);
+    return new CSSSimpleLength((this.value - subtractedLength.value), this.type);
   };
 
-  SimpleLength.prototype._asCalcLength = function() {
+  CSSSimpleLength.prototype._asCalcLength = function() {
     var calcDictionary = {};
     calcDictionary[this.type] = this.value;
-    return new CalcLength(calcDictionary);
+    return new CSSCalcLength(calcDictionary);
   };
 
-  SimpleLength.prototype.equals = function(other) {
-    if (!(other instanceof SimpleLength)) {
+  CSSSimpleLength.prototype.equals = function(other) {
+    if (!(other instanceof CSSSimpleLength)) {
       return false;
     }
     if (!(this.type == other.type && this.value == other.value)) {
@@ -75,12 +75,12 @@
     return true;
   };
 
-  SimpleLength.prototype._generateCssString = function() {
+  CSSSimpleLength.prototype._generateCssString = function() {
     var cssString = this.value +
-        LengthValue.cssStringTypeRepresentation(this.type);
+        CSSLengthValue.cssStringTypeRepresentation(this.type);
     return cssString;
   };
 
-  scope.SimpleLength = SimpleLength;
+  scope.CSSSimpleLength = CSSSimpleLength;
 
 })(typedOM.internal, window);

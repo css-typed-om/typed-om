@@ -15,27 +15,27 @@
 (function(internal, scope) {
 
   /**
-   * PositionValue(xPos, yPos)
+   * CSSPositionValue(xPos, yPos)
    */
-  function PositionValue(xPos, yPos) {
-    if (!(xPos instanceof LengthValue)) {
-      throw new TypeError('xPos is not a LengthValue object');
+  function CSSPositionValue(xPos, yPos) {
+    if (!(xPos instanceof CSSLengthValue)) {
+      throw new TypeError('xPos is not a CSSLengthValue object');
     }
 
-    if (!(yPos instanceof LengthValue)) {
-      throw new TypeError('yPos is not a LengthValue object');
+    if (!(yPos instanceof CSSLengthValue)) {
+      throw new TypeError('yPos is not a CSSLengthValue object');
     }
 
-    this.x = new LengthValue(xPos);
-    this.y = new LengthValue(yPos);
+    this.x = new CSSLengthValue(xPos);
+    this.y = new CSSLengthValue(yPos);
     this.cssString = this._generateCssString();
   }
-  internal.inherit(PositionValue, StyleValue);
+  internal.inherit(CSSPositionValue, CSSStyleValue);
 
-  PositionValue.prototype._generateCssString = function() {
+  CSSPositionValue.prototype._generateCssString = function() {
     return this.x.cssString + ' ' + this.y.cssString;
   };
 
-  scope.PositionValue = PositionValue;
+  scope.CSSPositionValue = CSSPositionValue;
 
 })(typedOM.internal, window);

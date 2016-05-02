@@ -14,11 +14,11 @@
 
 (function(internal, scope, testing) {
 
-  function StyleValue() {
-    throw new TypeError('StyleValue cannot be instantiated.');
+  function CSSStyleValue() {
+    throw new TypeError('CSSStyleValue cannot be instantiated.');
   }
 
-  StyleValue.parse = function(property, cssString) {
+  CSSStyleValue.parse = function(property, cssString) {
     if (typeof property != 'string') {
       throw new TypeError('Property name must be a string');
     }
@@ -42,7 +42,7 @@
       var cssStringStyleValue = valueArray[i];
       cssStringStyleValue = cssStringStyleValue.trim();
       if (internal.propertyDictionary().isValidKeyword(property, cssStringStyleValue)) {
-        styleValueArray[i] = new KeywordValue(cssStringStyleValue);
+        styleValueArray[i] = new CSSKeywordValue(cssStringStyleValue);
         continue;
       }
 
@@ -52,7 +52,7 @@
         try {
           styleValueObject = supportedStyleValues[j].parse(cssStringStyleValue);
         } catch (e) {
-          // Ensures method does not terminate if a StyleValue parse method throws an error
+          // Ensures method does not terminate if a CSSStyleValue parse method throws an error
           continue;
         }
         if (styleValueObject != null) {
@@ -64,15 +64,15 @@
 
       if (!successfulParse) {
         throw new TypeError(property +
-          ' has an unsupported StyleValue type or Sequence value separator');
+          ' has an unsupported CSSStyleValue type or Sequence value separator');
       }
     }
     return styleValueArray;
   };
 
-  scope.StyleValue = StyleValue;
+  scope.CSSStyleValue = CSSStyleValue;
   if (TYPED_OM_TESTING) {
-    testing.StyleValue = StyleValue;
+    testing.CSSStyleValue = CSSStyleValue;
   }
 
 })(typedOM.internal, window, typedOMTesting);

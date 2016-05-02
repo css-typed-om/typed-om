@@ -18,16 +18,16 @@
     if (arguments.length != 1) {
       throw new TypeError('Perspective takes exactly 1 argument.');
     }
-    if (!(length instanceof SimpleLength) ||
-        length.type != LengthValue.LengthType.PX) {
-      throw new TypeError('Unsupported Perspective length. Only SimpleLength ' +
+    if (!(length instanceof CSSSimpleLength) ||
+        length.type != CSSLengthValue.LengthType.PX) {
+      throw new TypeError('Unsupported Perspective length. Only CSSSimpleLength ' +
           'instances with type \'px\' are supported.');
     }
     if (length.value <= 0) {
       throw new TypeError('Perspective length must be strictly positive.');
     }
 
-    this.length = new SimpleLength(length);
+    this.length = new CSSSimpleLength(length);
     this._matrix = this._computeMatrix();
     this.cssString = this._generateCssString();
   }

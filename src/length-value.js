@@ -14,23 +14,23 @@
 
 (function(internal, scope, testing) {
 
-  // Constructor (LengthValue)
-  function LengthValue(value) {
-    if (!(value instanceof LengthValue)) {
-      throw new TypeError('Value in the LengthValue constructor must be a ' +
-          'LengthValue.');
+  // Constructor (CSSLengthValue)
+  function CSSLengthValue(value) {
+    if (!(value instanceof CSSLengthValue)) {
+      throw new TypeError('Value in the CSSLengthValue constructor must be a ' +
+          'CSSLengthValue.');
     }
 
-    if (value instanceof SimpleLength) {
-      return new SimpleLength(value);
+    if (value instanceof CSSSimpleLength) {
+      return new CSSSimpleLength(value);
     } else {
-      return new CalcLength(value);
+      return new CSSCalcLength(value);
     }
   }
-  internal.inherit(LengthValue, StyleValue);
+  internal.inherit(CSSLengthValue, CSSStyleValue);
 
   // The different possible length types.
-  LengthValue.LengthType = {
+  CSSLengthValue.LengthType = {
     PX: 'px',
     PERCENT: 'percent',
     EM: 'em',
@@ -48,14 +48,14 @@
     PT: 'pt'
   };
 
-  LengthValue.isValidLengthType = function(str) {
-    return internal.objects.any(LengthValue.LengthType, function(type) {
+  CSSLengthValue.isValidLengthType = function(str) {
+    return internal.objects.any(CSSLengthValue.LengthType, function(type) {
       return str == type;
     });
   };
 
-  LengthValue.cssStringTypeRepresentation = function(type) {
-    if (!LengthValue.isValidLengthType(type)) {
+  CSSLengthValue.cssStringTypeRepresentation = function(type) {
+    if (!CSSLengthValue.isValidLengthType(type)) {
       throw new TypeError('Invalid Length Type.');
     }
 
@@ -67,7 +67,7 @@
     }
   };
 
-  LengthValue.parse = function(cssString) {
+  CSSLengthValue.parse = function(cssString) {
     if (typeof cssString != 'string') {
       throw new TypeError('Must parse a length out of a string.');
     }
@@ -85,67 +85,67 @@
     }
     var keys = Object.keys(result);
     if (internal.parsing.isCalc(cssString)) {
-      return new CalcLength(result);
+      return new CSSCalcLength(result);
     } else {
-      return new SimpleLength(result[keys[0]], keys[0]);
+      return new CSSSimpleLength(result[keys[0]], keys[0]);
     }
   };
 
-  LengthValue.fromValue = function(value, type) {
-    return new SimpleLength(value, type);
+  CSSLengthValue.fromValue = function(value, type) {
+    return new CSSSimpleLength(value, type);
   };
 
-  LengthValue.fromDictionary = function(dictionary) {
-    return new CalcLength(dictionary);
+  CSSLengthValue.fromDictionary = function(dictionary) {
+    return new CSSCalcLength(dictionary);
   };
 
-  LengthValue.prototype.add = function(addedLength) {
-    if (this instanceof SimpleLength &&
-        addedLength instanceof SimpleLength &&
+  CSSLengthValue.prototype.add = function(addedLength) {
+    if (this instanceof CSSSimpleLength &&
+        addedLength instanceof CSSSimpleLength &&
         this.type == addedLength.type) {
       return this._addSimpleLengths(addedLength);
-    } else if (addedLength instanceof LengthValue) {
-      // Ensure both lengths are of type CalcLength before adding
+    } else if (addedLength instanceof CSSLengthValue) {
+      // Ensure both lengths are of type CSSCalcLength before adding
       return this._asCalcLength()._addCalcLengths(
           addedLength._asCalcLength());
     } else {
-      throw new TypeError('Argument must be a LengthValue');
+      throw new TypeError('Argument must be a CSSLengthValue');
     }
   };
 
-  LengthValue.prototype.subtract = function(subtractedLength) {
-    if (this instanceof SimpleLength &&
-        subtractedLength instanceof SimpleLength &&
+  CSSLengthValue.prototype.subtract = function(subtractedLength) {
+    if (this instanceof CSSSimpleLength &&
+        subtractedLength instanceof CSSSimpleLength &&
         this.type == subtractedLength.type) {
       return this._subtractSimpleLengths(subtractedLength);
-    } else if (subtractedLength instanceof LengthValue) {
-      // Ensure both lengths are of type CalcLength before subtracting
+    } else if (subtractedLength instanceof CSSLengthValue) {
+      // Ensure both lengths are of type CSSCalcLength before subtracting
       return this._asCalcLength()._subtractCalcLengths(
           subtractedLength._asCalcLength());
     } else {
-      throw new TypeError('Argument must be a LengthValue');
+      throw new TypeError('Argument must be a CSSLengthValue');
     }
   };
 
-  LengthValue.prototype.multiply = function(multiplier) {
+  CSSLengthValue.prototype.multiply = function(multiplier) {
     throw new TypeError('Should not be reached');
   };
 
-  LengthValue.prototype.divide = function(divider) {
+  CSSLengthValue.prototype.divide = function(divider) {
     throw new TypeError('Should not be reached');
   };
 
-  LengthValue.prototype._asCalcLength = function() {
+  CSSLengthValue.prototype._asCalcLength = function() {
     throw new TypeError('Should not be reached');
   };
 
-  LengthValue.prototype.equals = function(other) {
+  CSSLengthValue.prototype.equals = function(other) {
     throw new TypeError('Should not be reached');
   };
 
-  scope.LengthValue = LengthValue;
+  scope.CSSLengthValue = CSSLengthValue;
   if (TYPED_OM_TESTING) {
-    testing.LengthValue = LengthValue;
+    testing.CSSLengthValue = CSSLengthValue;
   }
 
 })(typedOM.internal, window, typedOMTesting);

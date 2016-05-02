@@ -15,11 +15,11 @@ suite('Computed StylePropertyMap', function() {
       'lemon is not a supported CSS property');
   });
 
-  test('get method returns a NumberValue object if CSS property is set to a number', function() {
+  test('get method returns a CSSNumberValue object if CSS property is set to a number', function() {
     var computedStyleMap = getComputedStyleMap(this.element);
     var propertyStyleValue = computedStyleMap.get('opacity');
 
-    assert.instanceOf(propertyStyleValue, NumberValue);
+    assert.instanceOf(propertyStyleValue, CSSNumberValue);
     assert.strictEqual(propertyStyleValue.cssString, '0.5');
   });
 
@@ -27,15 +27,15 @@ suite('Computed StylePropertyMap', function() {
   // prefixed by PhantomJS and make the tests fail. Once we have support
   // for another property that takes an array of values, this test can be
   // migrated and reenabled.
-  test.skip('get method returns the first StyleValue in the sequence if a property has been set a sequence ' +
-    'of StyleValues', function() {
+  test.skip('get method returns the first CSSStyleValue in the sequence if a property has been set a sequence ' +
+    'of CSSStyleValues', function() {
     var inlineStyleMap = this.element.styleMap();
     var computedStyleMap = getComputedStyleMap(this.element);
-    var valueArray = [new NumberValue(4), new NumberValue(5), new KeywordValue('infinite')];
+    var valueArray = [new CSSNumberValue(4), new CSSNumberValue(5), new CSSKeywordValue('infinite')];
     inlineStyleMap.set('animation-iteration-count', valueArray);
     var propertyStyleValue = computedStyleMap.get('animation-iteration-count');
 
-    assert.instanceOf(propertyStyleValue, NumberValue);
+    assert.instanceOf(propertyStyleValue, CSSNumberValue);
     assert.strictEqual(propertyStyleValue.cssString, '4');
   });
 
@@ -49,10 +49,10 @@ suite('Computed StylePropertyMap', function() {
     assert.deepEqual(inlineStyleMap.getProperties(), ['opacity', 'height', 'border-top-color', 'border-top-width']);
   });
 
-  test('getAll method returns an array containing the sequence of StyleValues set on a property', function() {
+  test('getAll method returns an array containing the sequence of CSSStyleValues set on a property', function() {
     var inlineStyleMap = this.element.styleMap();
     var computedStyleMap = getComputedStyleMap(this.element);
-    var valueArray = [new NumberValue(4), new NumberValue(5), new KeywordValue('infinite')];
+    var valueArray = [new CSSNumberValue(4), new CSSNumberValue(5), new CSSKeywordValue('infinite')];
     inlineStyleMap.set('animation-iteration-count', valueArray);
     var propertyStyleValue = computedStyleMap.getAll('animation-iteration-count');
 
@@ -61,7 +61,7 @@ suite('Computed StylePropertyMap', function() {
     assert.strictEqual(propertyStyleValue[2].cssString, 'infinite');
   });
 
-  test('getAll method returns an array of size 1 if only a single StyleValue is set on a property', function() {
+  test('getAll method returns an array of size 1 if only a single CSSStyleValue is set on a property', function() {
     var computedStyleMap = getComputedStyleMap(this.element);
     var propertyStyleValue = computedStyleMap.getAll('opacity');
 

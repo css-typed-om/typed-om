@@ -14,14 +14,14 @@
 
 (function(internal, scope) {
 
-  // TODO: CalcLength(cssString)
-  function CalcLength(dictionary) {
+  // TODO: CSSCalcLength(cssString)
+  function CSSCalcLength(dictionary) {
     if (typeof dictionary != 'object') {
-      throw new TypeError('CalcLength must be passed a dictionary object');
+      throw new TypeError('CSSCalcLength must be passed a dictionary object');
     }
 
     var isEmpty = true;
-    internal.objects.foreach(LengthValue.LengthType, function(type) {
+    internal.objects.foreach(CSSLengthValue.LengthType, function(type) {
       var value = dictionary[type];
       if (value == null) {
         this[type] = null;
@@ -42,13 +42,13 @@
 
     this.cssString = this._generateCssString();
   }
-  internal.inherit(CalcLength, LengthValue);
+  internal.inherit(CSSCalcLength, CSSLengthValue);
 
-  CalcLength.prototype._generateCssString = function() {
+  CSSCalcLength.prototype._generateCssString = function() {
     var result = 'calc(';
 
     var isFirst = true;
-    internal.objects.foreach(LengthValue.LengthType, function(type) {
+    internal.objects.foreach(CSSLengthValue.LengthType, function(type) {
       var value = this[type];
       if (value == null) {
         return;  // Exit callback.
@@ -61,7 +61,7 @@
         }
         value = Math.abs(value);
       }
-      result += value + LengthValue.cssStringTypeRepresentation(type);
+      result += value + CSSLengthValue.cssStringTypeRepresentation(type);
       isFirst = false;
     }, this);
 
@@ -69,41 +69,41 @@
     return result;
   };
 
-  CalcLength.prototype.multiply = function(multiplier) {
+  CSSCalcLength.prototype.multiply = function(multiplier) {
     var calcDictionary = {};
 
     // Iterate through all length types and multiply all non null lengths.
-    internal.objects.foreach(LengthValue.LengthType, function(type) {
+    internal.objects.foreach(CSSLengthValue.LengthType, function(type) {
       if (this[type] != null) {
         calcDictionary[type] = this[type] * multiplier;
       }
     }, this);
 
-    return new CalcLength(calcDictionary);
+    return new CSSCalcLength(calcDictionary);
   };
 
-  CalcLength.prototype.divide = function(divider) {
+  CSSCalcLength.prototype.divide = function(divider) {
     var calcDictionary = {};
 
     // Iterate through all length types and divide all non null lengths.
-    internal.objects.foreach(LengthValue.LengthType, function(type) {
+    internal.objects.foreach(CSSLengthValue.LengthType, function(type) {
       if (this[type] != null) {
         calcDictionary[type] = this[type] / divider;
       }
     }, this);
 
-    return new CalcLength(calcDictionary);
+    return new CSSCalcLength(calcDictionary);
   };
 
-  CalcLength.prototype._addCalcLengths = function(addedLength) {
-    if (!(addedLength instanceof CalcLength)) {
-      throw new TypeError('Argument must be a CalcLength');
+  CSSCalcLength.prototype._addCalcLengths = function(addedLength) {
+    if (!(addedLength instanceof CSSCalcLength)) {
+      throw new TypeError('Argument must be a CSSCalcLength');
     }
 
     var calcDictionary = {};
 
     // Iterate through all possible length types and add their values.
-    internal.objects.foreach(LengthValue.LengthType, function(type) {
+    internal.objects.foreach(CSSLengthValue.LengthType, function(type) {
       if (this[type] == null && addedLength[type] == null) {
         calcDictionary[type] = null;
       } else if (this[type] == null) {
@@ -115,18 +115,18 @@
       }
     }, this);
 
-    return new CalcLength(calcDictionary);
+    return new CSSCalcLength(calcDictionary);
   };
 
-  CalcLength.prototype._subtractCalcLengths = function(subtractedLength) {
-    if (!(subtractedLength instanceof CalcLength)) {
-      throw new TypeError('Argument must be a CalcLength');
+  CSSCalcLength.prototype._subtractCalcLengths = function(subtractedLength) {
+    if (!(subtractedLength instanceof CSSCalcLength)) {
+      throw new TypeError('Argument must be a CSSCalcLength');
     }
 
     var calcDictionary = {};
 
     // Iterate through all possible length types and subtract their values.
-    internal.objects.foreach(LengthValue.LengthType, function(type) {
+    internal.objects.foreach(CSSLengthValue.LengthType, function(type) {
       if (this[type] == null && subtractedLength[type] == null) {
         calcDictionary[type] = null;
       } else if (subtractedLength[type] == null) {
@@ -138,25 +138,25 @@
       }
     }, this);
 
-    return new CalcLength(calcDictionary);
+    return new CSSCalcLength(calcDictionary);
   };
 
-  CalcLength.prototype._asCalcLength = function() {
+  CSSCalcLength.prototype._asCalcLength = function() {
     return this;
   };
 
-  CalcLength.prototype.equals = function(other) {
-    if (!(other instanceof CalcLength)) {
+  CSSCalcLength.prototype.equals = function(other) {
+    if (!(other instanceof CSSCalcLength)) {
       return false;
     }
 
     // Iterate through all length types and check that both objects contain the
     // same values.
-    return !internal.objects.any(LengthValue.LengthType, function(type) {
+    return !internal.objects.any(CSSLengthValue.LengthType, function(type) {
       return this[type] != other[type];
     }, this);
   };
 
-  scope.CalcLength = CalcLength;
+  scope.CSSCalcLength = CSSCalcLength;
 
 })(typedOM.internal, window);

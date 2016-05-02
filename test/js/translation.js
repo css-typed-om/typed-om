@@ -1,12 +1,12 @@
 suite('Translation', function() {
   test('Translation is a TransformComponent', function() {
-    var validLength = new SimpleLength(1, 'px');
+    var validLength = new CSSSimpleLength(1, 'px');
     var translation = new Translation(validLength, validLength);
     assert.instanceOf(translation, TransformComponent,
         'A new Translation should be an instance of TransformComponent');
   });
 
-  test('Translation constructor throws exception for non LengthValue types',
+  test('Translation constructor throws exception for non CSSLengthValue types',
       function() {
     assert.throws(function() {new Translation()});
     assert.throws(function() {new Translation({})});
@@ -18,11 +18,11 @@ suite('Translation', function() {
     assert.throws(function() {new Translation(null, null, null)});
   });
 
-  test('Translation constructor throws exception for unsupported LengthValues',
+  test('Translation constructor throws exception for unsupported CSSLengthValues',
       function() {
-    var validLength = new SimpleLength(3, 'px');
-    var emSimpleLength = new SimpleLength(3, 'em');
-    var pxCalcLength = new CalcLength({px: 3});
+    var validLength = new CSSSimpleLength(3, 'px');
+    var emSimpleLength = new CSSSimpleLength(3, 'em');
+    var pxCalcLength = new CSSCalcLength({px: 3});
     assert.throws(function() {new Translation(validLength, emSimpleLength)});
     assert.throws(function() {new Translation(emSimpleLength, emSimpleLength)});
     assert.throws(function() {new Translation(validLength, pxCalcLength)});
@@ -42,8 +42,8 @@ suite('Translation', function() {
 
   test('Translation constructor works correctly for 2 arguments', function() {
     var translation;
-    var x = new SimpleLength(3, 'px');
-    var y = new SimpleLength(-1, 'px');
+    var x = new CSSSimpleLength(3, 'px');
+    var y = new CSSSimpleLength(-1, 'px');
     assert.doesNotThrow(function() {translation = new Translation(x, y)});
 
     assert.strictEqual(translation.x.value, 3);
@@ -64,9 +64,9 @@ suite('Translation', function() {
 
   test('Translation constructor works correctly for 3 arguments', function() {
     var translation;
-    var x = new SimpleLength(3, 'px');
-    var y = new SimpleLength(0.5, 'px');
-    var z = new SimpleLength(-4, 'px');
+    var x = new CSSSimpleLength(3, 'px');
+    var y = new CSSSimpleLength(0.5, 'px');
+    var z = new CSSSimpleLength(-4, 'px');
     assert.doesNotThrow(function() {translation = new Translation(x, y, z)});
 
     assert.strictEqual(translation.x.value, 3);
