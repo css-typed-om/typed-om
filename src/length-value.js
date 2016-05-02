@@ -97,8 +97,6 @@
     }
   };
 
-  CSSLengthValue.parse = CSSLengthValue.from;
-
   CSSLengthValue.prototype.add = function(addedLength) {
     if (this instanceof CSSSimpleLength &&
         addedLength instanceof CSSSimpleLength &&
