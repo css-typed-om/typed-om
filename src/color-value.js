@@ -14,7 +14,7 @@
 
 (function(internal, scope) {
 
-  function ColorValue(r, g, b, a) {
+  function CSSColorValue(r, g, b, a) {
     if (a === undefined) {
       a = 1;
     }
@@ -40,13 +40,13 @@
     this.a = a;
     this.cssString = this._generateCssString();
   }
-  internal.inherit(ColorValue, StyleValue);
+  internal.inherit(CSSColorValue, CSSStyleValue);
 
-  ColorValue.parse = function(value) {
+  CSSColorValue.parse = function(value) {
     return null;
   };
 
-  ColorValue.prototype._generateCssString = function() {
+  CSSColorValue.prototype._generateCssString = function() {
     var cssString = this.a == 1 ? 'rgb(' : 'rgba(';
     cssString = cssString + this.r + ',' + this.g + ',' + this.b;
 
@@ -57,10 +57,10 @@
     return cssString;
   };
 
-  ColorValue.prototype._isInt = function(value) {
+  CSSColorValue.prototype._isInt = function(value) {
     return typeof value == 'number' && value % 1 === 0;
   };
 
-  scope.ColorValue = ColorValue;
+  scope.CSSColorValue = CSSColorValue;
 
 })(typedOM.internal, window);

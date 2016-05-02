@@ -31,9 +31,9 @@
       return;
     }
 
-    if (!value instanceof StyleValue) {
+    if (!value instanceof CSSStyleValue) {
       throw new TypeError(
-        'The value must be a StyleValue or sequence of StyleValues');
+        'The value must be a CSSStyleValue or sequence of CSSStyleValues');
     }
 
     if (!cssPropertyDictionary.isValidInput(property, value)) {

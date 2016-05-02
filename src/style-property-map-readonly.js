@@ -33,7 +33,7 @@
       return null;
     }
 
-    return parsed = StyleValue.parse(property, propertyString);
+    return parsed = CSSStyleValue.parse(property, propertyString);
   };
 
   StylePropertyMapReadOnly.prototype.getProperties = function() {

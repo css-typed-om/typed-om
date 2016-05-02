@@ -14,22 +14,22 @@
 
 (function(internal, scope) {
 
-  function NumberValue(value) {
+  function CSSNumberValue(value) {
     if (typeof value != 'number') {
-      throw new TypeError('Value of NumberValue must be a number.');
+      throw new TypeError('Value of CSSNumberValue must be a number.');
     }
     this.value = value;
     this.cssString = '' + value;
   }
-  internal.inherit(NumberValue, StyleValue);
+  internal.inherit(CSSNumberValue, CSSStyleValue);
 
-  NumberValue.parse = function(value) {
+  CSSNumberValue.parse = function(value) {
     if (internal.parsing.isNumberValueString(value)) {
-      return new NumberValue(parseFloat(value));
+      return new CSSNumberValue(parseFloat(value));
     }
     return null;
   };
 
-  scope.NumberValue = NumberValue;
+  scope.CSSNumberValue = CSSNumberValue;
 
 })(typedOM.internal, window);

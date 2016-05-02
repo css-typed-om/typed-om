@@ -11,42 +11,42 @@ suite('PropertyDictionary', function() {
     assert.isFalse(cssPropertyDictionary.isSupportedProperty('lemons'));
   });
 
-  test('The _lengthValueHasPercentage method should return true if a CalcLength object has a' +
+  test('The _lengthValueHasPercentage method should return true if a CSSCalcLength object has a' +
       'value that is not null for its percent property', function() {
-    assert.isTrue(cssPropertyDictionary._lengthValueHasPercentage(new CalcLength({percent: 10})));
+    assert.isTrue(cssPropertyDictionary._lengthValueHasPercentage(new CSSCalcLength({percent: 10})));
   });
 
-  test('The _lengthValueHasPercentage method should return true if a SimpleLength object has a type of percent', function() {
-    assert.isTrue(cssPropertyDictionary._lengthValueHasPercentage(new SimpleLength(10, 'percent')));
+  test('The _lengthValueHasPercentage method should return true if a CSSSimpleLength object has a type of percent', function() {
+    assert.isTrue(cssPropertyDictionary._lengthValueHasPercentage(new CSSSimpleLength(10, 'percent')));
   });
 
   test('The isValidInput method should return true if the property can accept the style value entered', function() {
-    assert.isTrue(cssPropertyDictionary.isValidInput('height', new SimpleLength(9.2, 'px')));
-    assert.isTrue(cssPropertyDictionary.isValidInput('pitch-range', new NumberValue(5)));
+    assert.isTrue(cssPropertyDictionary.isValidInput('height', new CSSSimpleLength(9.2, 'px')));
+    assert.isTrue(cssPropertyDictionary.isValidInput('pitch-range', new CSSNumberValue(5)));
   });
 
   test('The isValidInput method should return false if the property can\'t accept the style value entered' , function() {
-    assert.isFalse(cssPropertyDictionary.isValidInput('height', new NumberValue(5)));
+    assert.isFalse(cssPropertyDictionary.isValidInput('height', new CSSNumberValue(5)));
   });
 
-  test('The isValidInput method should return true when a percentage type LengthValue is given as input' +
+  test('The isValidInput method should return true when a percentage type CSSLengthValue is given as input' +
       'with a CSS property that can accept percentage types', function() {
-    assert.isTrue(cssPropertyDictionary.isValidInput('height', new SimpleLength(9.2, 'percent')));
+    assert.isTrue(cssPropertyDictionary.isValidInput('height', new CSSSimpleLength(9.2, 'percent')));
   });
 
-  test('The isValidInput method should return false when a percentage type LengthValue is given as input' +
+  test('The isValidInput method should return false when a percentage type CSSLengthValue is given as input' +
       'with a CSS property that cannot accept percentage types', function() {
-    assert.isFalse(cssPropertyDictionary.isValidInput('border-top-width', new CalcLength({percent: 10})));
+    assert.isFalse(cssPropertyDictionary.isValidInput('border-top-width', new CSSCalcLength({percent: 10})));
   });
 
-  test('The isValidInput method should return true when a KeywordValue object contains a keyword' +
+  test('The isValidInput method should return true when a CSSKeywordValue object contains a keyword' +
       'that is accepted by the CSS property', function() {
-    assert.isTrue(cssPropertyDictionary.isValidInput('height', new KeywordValue('inherit')));
+    assert.isTrue(cssPropertyDictionary.isValidInput('height', new CSSKeywordValue('inherit')));
   });
 
-  test('The isValidInput method should return false when a KeywordValue object contains a keyword' +
+  test('The isValidInput method should return false when a CSSKeywordValue object contains a keyword' +
       'that is not accepted by the CSS property', function() {
-    assert.isFalse(cssPropertyDictionary.isValidInput('height', new KeywordValue('unset')));
+    assert.isFalse(cssPropertyDictionary.isValidInput('height', new CSSKeywordValue('unset')));
   });
 
   test('the isListValuedProperty method should return true if the property accepts list values' +
@@ -55,7 +55,7 @@ suite('PropertyDictionary', function() {
     assert.isFalse(cssPropertyDictionary.isListValuedProperty('height'));
   });
 
-  test('getListValueSeparator method should return the string used to separate a list of StyleValue strings' +
+  test('getListValueSeparator method should return the string used to separate a list of CSSStyleValue strings' +
       'for a given property', function() {
 
     assert.strictEqual(cssPropertyDictionary.getListValueSeparator('animation-iteration-count'), ', ');
@@ -66,10 +66,10 @@ suite('PropertyDictionary', function() {
     assert.throw(function () {cssPropertyDictionary.getListValueSeparator('height')}, TypeError);
   });
 
-  test('getValidStyleValuesArray should return an array of constructors for all StyleValue types accepted by that property', function() {
+  test('getValidStyleValuesArray should return an array of constructors for all CSSStyleValue types accepted by that property', function() {
     var styleValueArray = cssPropertyDictionary.getValidStyleValuesArray('height');
 
-    assert.strictEqual(styleValueArray[0], LengthValue);
+    assert.strictEqual(styleValueArray[0], CSSLengthValue);
   });
 
   test('getValidStyleValuesArray should throw a type error for unsupported properties', function() {

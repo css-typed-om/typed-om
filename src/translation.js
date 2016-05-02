@@ -20,16 +20,16 @@
     }
 
     for (var i = 0; i < arguments.length; i++) {
-      if (!(arguments[i] instanceof SimpleLength) ||
-          arguments[i].type != LengthValue.LengthType.PX) {
+      if (!(arguments[i] instanceof CSSSimpleLength) ||
+          arguments[i].type != CSSLengthValue.LengthType.PX) {
         throw new TypeError('Unsupported argument for Translation. Only ' +
-            'SimpleLength instances with type \'px\' are supported.');
+            'CSSSimpleLength instances with type \'px\' are supported.');
       }
     }
 
-    this.x = new SimpleLength(x);
-    this.y = new SimpleLength(y);
-    this.z = (z instanceof SimpleLength) ? new SimpleLength(z) : null;
+    this.x = new CSSSimpleLength(x);
+    this.y = new CSSSimpleLength(y);
+    this.z = (z instanceof CSSSimpleLength) ? new CSSSimpleLength(z) : null;
 
     this._matrix = this._computeMatrix();
     this.cssString = this._generateCssString();

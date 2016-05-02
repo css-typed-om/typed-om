@@ -1,6 +1,6 @@
 suite('Perspective', function() {
   test('Perspective is a Perspective and TransformComponent', function() {
-    var perspective = new Perspective(new SimpleLength(10, 'px'));
+    var perspective = new Perspective(new CSSSimpleLength(10, 'px'));
     assert.instanceOf(perspective, Perspective,
         'A new Perspective should be an instance of Perspective');
     assert.instanceOf(perspective, TransformComponent,
@@ -16,20 +16,20 @@ suite('Perspective', function() {
     assert.throws(function() {new Perspective('1px')});
   });
 
-  test('Perspective constructor throws exception for invalid LengthValues',
+  test('Perspective constructor throws exception for invalid CSSLengthValues',
         function() {
-    // Perspective length must be a SimpleLength with type 'px'.
-    assert.throws(function() {new Perspective(new SimpleLength(-10, 'em'))});
-    assert.throws(function() {new Perspective(new CalcLength({px: 10}))});
+    // Perspective length must be a CSSSimpleLength with type 'px'.
+    assert.throws(function() {new Perspective(new CSSSimpleLength(-10, 'em'))});
+    assert.throws(function() {new Perspective(new CSSCalcLength({px: 10}))});
 
     // Perspective length must be strictly positive.
-    assert.throws(function() {new Perspective(new SimpleLength(0, 'px'))});
-    assert.throws(function() {new Perspective(new SimpleLength(-10, 'px'))});
+    assert.throws(function() {new Perspective(new CSSSimpleLength(0, 'px'))});
+    assert.throws(function() {new Perspective(new CSSSimpleLength(-10, 'px'))});
   });
 
   test('Perspective constructor works correctly for valid length', function() {
     var perspective;
-    var length = new SimpleLength(10, 'px');
+    var length = new CSSSimpleLength(10, 'px');
     assert.doesNotThrow(function() {perspective = new Perspective(length)});
     assert.strictEqual(perspective.cssString,
         'perspective(' + length.cssString + ')');

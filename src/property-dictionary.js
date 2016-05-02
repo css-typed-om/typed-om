@@ -16,12 +16,12 @@
 
   function PropertyDictionary() {
     this._validProperties = {
-      'animation-iteration-count': [NumberValue],
-      'border-top-width': [LengthValue],
-      'height': [LengthValue],
-      'opacity': [NumberValue],
-      'pitch-range': [NumberValue],
-      'transform': [TransformValue]
+      'animation-iteration-count': [CSSNumberValue],
+      'border-top-width': [CSSLengthValue],
+      'height': [CSSLengthValue],
+      'opacity': [CSSNumberValue],
+      'pitch-range': [CSSNumberValue],
+      'transform': [CSSTransformValue]
     };
 
     this._validKeywords = {
@@ -61,17 +61,17 @@
     if (this.isListValuedProperty(property)) {
       return this._listSeparator[property];
     }
-    throw new TypeError(property + ' does not support lists of StyleValues');
+    throw new TypeError(property + ' does not support lists of CSSStyleValues');
   };
 
   PropertyDictionary.prototype.
       _lengthValueHasPercentage = function(lengthValue) {
-    if (!(lengthValue instanceof LengthValue)) {
+    if (!(lengthValue instanceof CSSLengthValue)) {
       throw new TypeError(
-        'The input to _lengthValueHasPercentage must be a LengthValue');
+        'The input to _lengthValueHasPercentage must be a CSSLengthValue');
     }
 
-    if (lengthValue instanceof CalcLength) {
+    if (lengthValue instanceof CSSCalcLength) {
       return (lengthValue.percent != null);
     }
 
@@ -88,7 +88,7 @@
       return false;
     }
 
-    if (styleValue instanceof KeywordValue) {
+    if (styleValue instanceof CSSKeywordValue) {
       if (this._validKeywords.hasOwnProperty(property)) {
         return this.isValidKeyword(property, styleValue.keywordValue);
       }
@@ -98,7 +98,7 @@
     for (var i = 0; i < this._validProperties[property].length; i++) {
       var styleValueType = this._validProperties[property][i];
       if (styleValue instanceof styleValueType) {
-        if (styleValueType != LengthValue) {
+        if (styleValueType != CSSLengthValue) {
           return true;
         }
         return (!this._lengthValueHasPercentage(styleValue) ||
@@ -110,7 +110,7 @@
 
   PropertyDictionary.prototype
       .throwInvalidInputError = function(property, value) {
-    if (value instanceof KeywordValue) {
+    if (value instanceof CSSKeywordValue) {
       throw new TypeError(property +
         ' does not take the keyword ' + value.cssString);
     }
