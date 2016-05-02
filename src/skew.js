@@ -14,11 +14,11 @@
 
 (function(internal, scope) {
 
-  function Skew(ax, ay) {
+  function CSSSkew(ax, ay) {
     if (arguments.length != 2) {
-      throw new TypeError('Skew must have 2 arguments.');
+      throw new TypeError('CSSSkew must have 2 arguments.');
     } else if (typeof ax != 'number' || typeof ay != 'number') {
-      throw new TypeError('Skew arguments must be of type \'number\'.');
+      throw new TypeError('CSSSkew arguments must be of type \'number\'.');
     }
 
     this.ax = ax;
@@ -27,31 +27,31 @@
     this._matrix = this._computeMatrix();
     this.cssString = this._generateCssString();
   }
-  internal.inherit(Skew, internal.TransformComponent);
+  internal.inherit(CSSSkew, internal.CSSTransformComponent);
 
-  Skew._tanDegrees = function(degrees) {
+  CSSSkew._tanDegrees = function(degrees) {
     var radians = degrees * Math.PI / 180;
     return Math.tan(radians);
   };
 
-  Skew.prototype.asMatrix = function() {
+  CSSSkew.prototype.asMatrix = function() {
     return this._matrix;
   };
 
-  Skew.prototype._computeMatrix = function() {
-    // Skew represented by the 2D matrix:
+  CSSSkew.prototype._computeMatrix = function() {
+    // CSSSkew represented by the 2D matrix:
     //   1     tan(ax)  0
     // tan(ay)    1     0
 
-    var tanAx = Skew._tanDegrees(this.ax);
-    var tanAy = Skew._tanDegrees(this.ay);
-    return new Matrix(1, tanAy, tanAx, 1, 0, 0);
+    var tanAx = CSSSkew._tanDegrees(this.ax);
+    var tanAy = CSSSkew._tanDegrees(this.ay);
+    return new CSSMatrix(1, tanAy, tanAx, 1, 0, 0);
   };
 
-  Skew.prototype._generateCssString = function() {
+  CSSSkew.prototype._generateCssString = function() {
     return 'skew(' + this.ax + 'deg' + ', ' + this.ay + 'deg' + ')';
   };
 
-  scope.Skew = Skew;
+  scope.CSSSkew = CSSSkew;
 
 })(typedOM.internal, window);

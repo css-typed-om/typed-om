@@ -14,20 +14,20 @@
 
 (function(internal, testing) {
 
-  function TransformComponent() {
+  function CSSTransformComponent() {
   }
 
-  TransformComponent.prototype.asMatrix = function() {
+  CSSTransformComponent.prototype.asMatrix = function() {
     throw new TypeError('Should not be reached.');
   };
 
-  TransformComponent.prototype.is2DComponent = function() {
+  CSSTransformComponent.prototype.is2DComponent = function() {
     return this.asMatrix().is2DComponent();
   };
 
-  internal.TransformComponent = TransformComponent;
+  internal.CSSTransformComponent = CSSTransformComponent;
   if (TYPED_OM_TESTING) {
-    testing.TransformComponent = TransformComponent;
+    testing.CSSTransformComponent = CSSTransformComponent;
   }
 
 })(typedOM.internal, typedOMTesting);

@@ -14,14 +14,14 @@
 
 (function(internal, scope) {
 
-  function Rotation(angle, x, y, z) {
+  function CSSRotation(angle, x, y, z) {
     if (arguments.length != 1 && arguments.length != 4) {
-      throw new TypeError('Rotation must have 1 or 4 arguments.');
+      throw new TypeError('CSSRotation must have 1 or 4 arguments.');
     }
 
     for (var i = 0; i < arguments.length; i++) {
       if (typeof arguments[i] != 'number') {
-        throw new TypeError('Rotation arguments must be of type \'number\'.');
+        throw new TypeError('CSSRotation arguments must be of type \'number\'.');
       }
     }
 
@@ -35,13 +35,13 @@
     this._matrix = this._computeMatrix();
     this.cssString = this._generateCssString();
   }
-  internal.inherit(Rotation, internal.TransformComponent);
+  internal.inherit(CSSRotation, internal.CSSTransformComponent);
 
-  Rotation.prototype.asMatrix = function() {
+  CSSRotation.prototype.asMatrix = function() {
     return this._matrix;
   };
 
-  Rotation.prototype._computeMatrix = function() {
+  CSSRotation.prototype._computeMatrix = function() {
     // See documentation https://drafts.csswg.org/css-transforms-1/.
     var halfRadians = this.angle * Math.PI / 360;
     var sc = Math.sin(halfRadians) * Math.cos(halfRadians);
@@ -49,7 +49,7 @@
 
     var matrix;
     if (this.x == null) {
-      matrix = new Matrix(1 - 2 * sq, 2 * sc, -2 * sc, 1 - 2 * sq, 0, 0);
+      matrix = new CSSMatrix(1 - 2 * sq, 2 * sc, -2 * sc, 1 - 2 * sq, 0, 0);
     } else {
       // Normalize the [x, y, z] vector
       var lengthSqrd = this.x * this.x + this.y * this.y + this.z * this.z;
@@ -58,7 +58,7 @@
       var y = this.y * scale;
       var z = this.z * scale;
 
-      matrix = new Matrix(
+      matrix = new CSSMatrix(
           1 - 2 * (y * y + z * z) * sq,
           2 * (x * y * sq + z * sc),
           2 * (x * z * sq - y * sc),
@@ -75,7 +75,7 @@
     return matrix;
   };
 
-  Rotation.prototype._generateCssString = function() {
+  CSSRotation.prototype._generateCssString = function() {
     var cssString;
     if (this.is2DComponent()) {
       cssString = 'rotate(' + this.angle + 'deg)';
@@ -86,6 +86,6 @@
     return cssString;
   };
 
-  scope.Rotation = Rotation;
+  scope.CSSRotation = CSSRotation;
 
 })(typedOM.internal, window);

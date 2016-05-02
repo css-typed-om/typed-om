@@ -14,15 +14,15 @@
 
 (function(internal, scope) {
 
-  function Translation(x, y, z) {
+  function CSSTranslation(x, y, z) {
     if (arguments.length != 2 && arguments.length != 3) {
-      throw new TypeError('Translation takes 2 or 3 arguments.');
+      throw new TypeError('CSSTranslation takes 2 or 3 arguments.');
     }
 
     for (var i = 0; i < arguments.length; i++) {
       if (!(arguments[i] instanceof CSSSimpleLength) ||
           arguments[i].type != CSSLengthValue.LengthType.PX) {
-        throw new TypeError('Unsupported argument for Translation. Only ' +
+        throw new TypeError('Unsupported argument for CSSTranslation. Only ' +
             'CSSSimpleLength instances with type \'px\' are supported.');
       }
     }
@@ -34,27 +34,27 @@
     this._matrix = this._computeMatrix();
     this.cssString = this._generateCssString();
   }
-  internal.inherit(Translation, internal.TransformComponent);
+  internal.inherit(CSSTranslation, internal.CSSTransformComponent);
 
-  Translation.prototype.asMatrix = function() {
+  CSSTranslation.prototype.asMatrix = function() {
     return this._matrix;
   };
 
-  Translation.prototype._computeMatrix = function() {
-    // Translation is represented by the identity matrix with the translation
+  CSSTranslation.prototype._computeMatrix = function() {
+    // CSSTranslation is represented by the identity matrix with the translation
     // values down the last column.
     // See documentation https://drafts.csswg.org/css-transforms-1/.
     var matrix;
     if (this.z == null) {
-      matrix = new Matrix(1, 0, 0, 1, this.x.value, this.y.value);
+      matrix = new CSSMatrix(1, 0, 0, 1, this.x.value, this.y.value);
     } else {
-      matrix = new Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, this.x.value,
+      matrix = new CSSMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, this.x.value,
           this.y.value, this.z.value, 1);
     }
     return matrix;
   };
 
-  Translation.prototype._generateCssString = function() {
+  CSSTranslation.prototype._generateCssString = function() {
     var cssString;
     if (this.is2DComponent()) {
       cssString = 'translate(' + this.x.cssString + ', ' + this.y.cssString +
@@ -66,6 +66,6 @@
     return cssString;
   };
 
-  scope.Translation = Translation;
+  scope.CSSTranslation = CSSTranslation;
 
 })(typedOM.internal, window);

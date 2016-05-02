@@ -14,41 +14,41 @@
 
 (function(internal, scope) {
 
-  function Perspective(length) {
+  function CSSPerspective(length) {
     if (arguments.length != 1) {
-      throw new TypeError('Perspective takes exactly 1 argument.');
+      throw new TypeError('CSSPerspective takes exactly 1 argument.');
     }
     if (!(length instanceof CSSSimpleLength) ||
         length.type != CSSLengthValue.LengthType.PX) {
-      throw new TypeError('Unsupported Perspective length. Only CSSSimpleLength ' +
+      throw new TypeError('Unsupported CSSPerspective length. Only CSSSimpleLength ' +
           'instances with type \'px\' are supported.');
     }
     if (length.value <= 0) {
-      throw new TypeError('Perspective length must be strictly positive.');
+      throw new TypeError('CSSPerspective length must be strictly positive.');
     }
 
     this.length = new CSSSimpleLength(length);
     this._matrix = this._computeMatrix();
     this.cssString = this._generateCssString();
   }
-  internal.inherit(Perspective, internal.TransformComponent);
+  internal.inherit(CSSPerspective, internal.CSSTransformComponent);
 
-  Perspective.prototype.asMatrix = function() {
+  CSSPerspective.prototype.asMatrix = function() {
     return this._matrix;
   };
 
-  Perspective.prototype._computeMatrix = function() {
-    // Perspective represented by the 3D identity matrix with the value
+  CSSPerspective.prototype._computeMatrix = function() {
+    // CSSPerspective represented by the 3D identity matrix with the value
     // -1/length in the 4th row, 3rd column.
     // See documentation https://drafts.csswg.org/css-transforms-1/.
     var value = -1 / this.length.value;
-    return new Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, value, 0, 0, 0, 1);
+    return new CSSMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, value, 0, 0, 0, 1);
   };
 
-  Perspective.prototype._generateCssString = function() {
+  CSSPerspective.prototype._generateCssString = function() {
     return 'perspective(' + this.length.cssString + ')';
   };
 
-  scope.Perspective = Perspective;
+  scope.CSSPerspective = CSSPerspective;
 
 })(typedOM.internal, window);

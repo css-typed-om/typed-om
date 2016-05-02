@@ -20,14 +20,14 @@
     }
     if (!Array.isArray(values)) {
       throw new TypeError('CSSTransformValue must have an array ' +
-          'of TransformComponents or must be empty');
+          'of CSSTransformComponents or must be empty');
     }
 
     this.transformComponents = [];
     for (var i = 0; i < values.length; i++) {
-      if (!(values[i] instanceof TransformComponent)) {
+      if (!(values[i] instanceof CSSTransformComponent)) {
         throw new TypeError('Argument at index ' + i + ' is not an instance ' +
-            'of \'TransformComponent\'.');
+            'of \'CSSTransformComponent\'.');
       }
       this.transformComponents.push(values[i]);
     }
@@ -47,7 +47,7 @@
 
   CSSTransformValue.prototype._computeMatrix = function() {
     if (!this.transformComponents.length) {
-      return new Matrix(1, 0, 0, 1, 0, 0);
+      return new CSSMatrix(1, 0, 0, 1, 0, 0);
     }
     var matrix = this.transformComponents[0].asMatrix();
     for (var i = 1; i < this.transformComponents.length; ++i) {
