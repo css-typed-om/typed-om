@@ -70,7 +70,8 @@
   CSSLengthValue.from = function(value, type) {
     if (type !== undefined) {
       return new CSSSimpleLength(value, type);
-    } else if (typeof value == 'object') {
+    }
+    if (typeof value == 'object') {
       return new CSSCalcLength(value);
     }
     if (typeof value != 'string') {
