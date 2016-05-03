@@ -14,14 +14,14 @@
 
 (function(internal, scope) {
 
-  function Scale(x, y, z) {
+  function CSSScale(x, y, z) {
     if (arguments.length != 2 && arguments.length != 3) {
-      throw new TypeError('Scale must have 2 or 3 arguments.');
+      throw new TypeError('CSSScale must have 2 or 3 arguments.');
     }
 
     for (var index = 0; index < arguments.length; index++) {
       if (typeof arguments[index] != 'number') {
-        throw new TypeError('Scale arguments must be of type \'number\'.');
+        throw new TypeError('CSSScale arguments must be of type \'number\'.');
       }
     }
 
@@ -32,24 +32,24 @@
     this._matrix = this._computeMatrix();
     this.cssString = this._generateCssString();
   }
-  internal.inherit(Scale, internal.TransformComponent);
+  internal.inherit(CSSScale, internal.CSSTransformComponent);
 
-  Scale.prototype.asMatrix = function() {
+  CSSScale.prototype.asMatrix = function() {
     return this._matrix;
   };
 
-  Scale.prototype._computeMatrix = function() {
+  CSSScale.prototype._computeMatrix = function() {
     var matrix;
     if (this.z == null) {
-      matrix = new Matrix(this.x, 0, 0, this.y, 0, 0);
+      matrix = new CSSMatrix(this.x, 0, 0, this.y, 0, 0);
     } else {
-      matrix = new Matrix(this.x, 0, 0, 0, 0, this.y, 0, 0, 0, 0, this.z, 0, 0,
+      matrix = new CSSMatrix(this.x, 0, 0, 0, 0, this.y, 0, 0, 0, 0, this.z, 0, 0,
           0, 0, 1);
     }
     return matrix;
   };
 
-  Scale.prototype._generateCssString = function() {
+  CSSScale.prototype._generateCssString = function() {
     var cssString;
     if (this.is2DComponent()) {
       cssString = 'scale(' + this.x + ', ' + this.y + ')';
@@ -59,6 +59,6 @@
     return cssString;
   };
 
-  scope.Scale = Scale;
+  scope.CSSScale = CSSScale;
 
 })(typedOM.internal, window);

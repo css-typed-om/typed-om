@@ -1,23 +1,23 @@
-suite('Matrix', function() {
-  test('Matrix is a Matrix and a TransformComponent', function() {
-    var matrix2D = new Matrix(0, 0, 0, 0, 0, 0);
-    assert.instanceOf(matrix2D, Matrix,
-      'A new Matrix should be an instance of Matrix');
-    assert.instanceOf(matrix2D, TransformComponent,
-      'A new Matrix should be an instance of TransformComponent');
+suite('CSSMatrix', function() {
+  test('CSSMatrix is a CSSMatrix and a CSSTransformComponent', function() {
+    var matrix2D = new CSSMatrix(0, 0, 0, 0, 0, 0);
+    assert.instanceOf(matrix2D, CSSMatrix,
+      'A new CSSMatrix should be an instance of CSSMatrix');
+    assert.instanceOf(matrix2D, CSSTransformComponent,
+      'A new CSSMatrix should be an instance of CSSTransformComponent');
   });
 
-  test('Matrix constructor throws exception for invalid values', function() {
-    assert.throws(function() {new Matrix('0', '1', '2', '3', '4', '5')});
-    assert.throws(function() {new Matrix({})});
-    assert.throws(function() {new Matrix(0, 1, 2, 3, 4, 5, 6)});
+  test('CSSMatrix constructor throws exception for invalid values', function() {
+    assert.throws(function() {new CSSMatrix('0', '1', '2', '3', '4', '5')});
+    assert.throws(function() {new CSSMatrix({})});
+    assert.throws(function() {new CSSMatrix(0, 1, 2, 3, 4, 5, 6)});
   });
 
-  test('Matrix constructor works correctly for 2D matrices', function() {
+  test('CSSMatrix constructor works correctly for 2D matrices', function() {
     var value;
     var randomValues = [10, 20, -0.5, 0.5, 4, 2];
     assert.doesNotThrow(function() {
-      value = new Matrix(10, 20, -0.5, 0.5, 4, 2);
+      value = new CSSMatrix(10, 20, -0.5, 0.5, 4, 2);
     });
     assert.isTrue(value.is2DComponent());
     assert.strictEqual(value.cssString,
@@ -28,11 +28,11 @@ suite('Matrix', function() {
     }
   });
 
-  test('Matrix constructor works correctly for 3D matrices', function() {
+  test('CSSMatrix constructor works correctly for 3D matrices', function() {
     var value;
     var randomValues = [10, 20, 0, 0, -0.5, 0.5, 0, 0, 0, 0, 1, 0, 4, 2, 0, 1];
     assert.doesNotThrow(function() {
-      value = new Matrix(10, 20, 0, 0, -0.5, 0.5, 0, 0, 0, 0, 1, 0, 4, 2, 0, 1);
+      value = new CSSMatrix(10, 20, 0, 0, -0.5, 0.5, 0, 0, 0, 0, 1, 0, 4, 2, 0, 1);
     });
     assert.isFalse(value.is2DComponent());
     assert.strictEqual(value._matrix.length, 16);
@@ -43,9 +43,9 @@ suite('Matrix', function() {
     }
   });
 
-  test('Matrix to3DComponent works for 2D and 3D matrices', function() {
-    var identity2D = new Matrix(1, 0, 0, 1, 0, 0);
-    var identity3D = new Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  test('CSSMatrix to3DComponent works for 2D and 3D matrices', function() {
+    var identity2D = new CSSMatrix(1, 0, 0, 1, 0, 0);
+    var identity3D = new CSSMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 
     assert.isTrue(identity2D.is2DComponent());
 
@@ -63,10 +63,10 @@ suite('Matrix', function() {
     assert.deepEqual(identity3DTo3D, identity2DTo3D);
   });
 
-  test('Matrix to3DComponent works for random 2D and 3D matrices', function() {
-    var random2D = new Matrix(10, 20, -0.5, 0.5, 4, 2);
+  test('CSSMatrix to3DComponent works for random 2D and 3D matrices', function() {
+    var random2D = new CSSMatrix(10, 20, -0.5, 0.5, 4, 2);
     var random3D =
-      new Matrix(10, 20, 0, 0, -0.5, 0.5, 0, 0, 0, 0, 1, 0, 4, 2, 0, 1);
+      new CSSMatrix(10, 20, 0, 0, -0.5, 0.5, 0, 0, 0, 0, 1, 0, 4, 2, 0, 1);
 
     assert.isTrue(random2D.is2DComponent());
     assert.isFalse(random3D.is2DComponent());
@@ -82,29 +82,29 @@ suite('Matrix', function() {
     assert.deepEqual(random3DTo3D, random3D);
   });
 
-  test('Matrix multiply works with 2D identity matrices', function() {
-    var identity2D = new Matrix(1, 0, 0, 1, 0, 0);
+  test('CSSMatrix multiply works with 2D identity matrices', function() {
+    var identity2D = new CSSMatrix(1, 0, 0, 1, 0, 0);
 
     var result = identity2D.multiply(identity2D);
-    assert.instanceOf(result, Matrix,
-      'Matrix multiply returns an instance of Matrix');
+    assert.instanceOf(result, CSSMatrix,
+      'CSSMatrix multiply returns an instance of CSSMatrix');
     assert.isTrue(result.is2DComponent());
     assert.deepEqual(result, identity2D);
   });
 
-  test('Matrix multiply works with 3D identity matrices', function() {
-    var identity3D = new Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  test('CSSMatrix multiply works with 3D identity matrices', function() {
+    var identity3D = new CSSMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 
     var result = identity3D.multiply(identity3D);
-    assert.instanceOf(result, Matrix,
-      'Matrix multiply returns an instance of Matrix');
+    assert.instanceOf(result, CSSMatrix,
+      'CSSMatrix multiply returns an instance of CSSMatrix');
     assert.isFalse(result.is2DComponent());
     assert.deepEqual(result, identity3D);
   });
 
-  test('Matrix multiply works between 2D and 3D identity matrices', function() {
-    var identity2D = new Matrix(1, 0, 0, 1, 0, 0);
-    var identity3D = new Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  test('CSSMatrix multiply works between 2D and 3D identity matrices', function() {
+    var identity2D = new CSSMatrix(1, 0, 0, 1, 0, 0);
+    var identity3D = new CSSMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 
     var multiply2DAnd3D = identity2D.multiply(identity3D);
     assert.isFalse(multiply2DAnd3D.is2DComponent());
@@ -117,10 +117,10 @@ suite('Matrix', function() {
     assert.deepEqual(multiply3DAnd2D, identity3D);
   });
 
-  test('Matrix multiply works between 2D random matrices', function() {
-    var random1 = new Matrix(10, 20, -0.5, 0.5, 4, 2);
-    var random2 = new Matrix(-2, 0, 49, 3, 7, 0.8);
-    var expectedResult = new Matrix(-20, -40, 488.5, 981.5, 73.6, 142.4);
+  test('CSSMatrix multiply works between 2D random matrices', function() {
+    var random1 = new CSSMatrix(10, 20, -0.5, 0.5, 4, 2);
+    var random2 = new CSSMatrix(-2, 0, 49, 3, 7, 0.8);
+    var expectedResult = new CSSMatrix(-20, -40, 488.5, 981.5, 73.6, 142.4);
 
     var result = random1.multiply(random2);
     assert.isTrue(result.is2DComponent());
@@ -128,15 +128,15 @@ suite('Matrix', function() {
     assert.deepEqual(result, expectedResult);
   });
 
-  test('Matrix multiply works between 2D and 3D random matrices', function() {
-    var random2D = new Matrix(10, 20, -0.5, 0.5, 4, 2);
+  test('CSSMatrix multiply works between 2D and 3D random matrices', function() {
+    var random2D = new CSSMatrix(10, 20, -0.5, 0.5, 4, 2);
     var random3D =
-        new Matrix(-2, 5, 0, 1, 15, 3, 1, 7, -4, 3, 1, 0.8, 10, 1, 3, 5);
+        new CSSMatrix(-2, 5, 0, 1, 15, 3, 1, 7, -4, 3, 1, 0.8, 10, 1, 3, 5);
     var expectedMultiply2DAnd3D =
-        new Matrix(-18.5, -35.5, 0, 1, 176.5, 315.5, 1, 7, -38.3, -76.9, 1, 0.8,
+        new CSSMatrix(-18.5, -35.5, 0, 1, 176.5, 315.5, 1, 7, -38.3, -76.9, 1, 0.8,
             119.5, 210.5, 3, 5);
     var expectedMultiply3DAnd2D =
-        new Matrix(280, 110, 20, 150, 8.5, -1, 0.5, 3, -4, 3, 1, 0.8, 32, 27, 5,
+        new CSSMatrix(280, 110, 20, 150, 8.5, -1, 0.5, 3, -4, 3, 1, 0.8, 32, 27, 5,
             23);
 
     var multiply2DAnd3D = random2D.multiply(random3D);
@@ -152,13 +152,13 @@ suite('Matrix', function() {
     assert.deepEqual(multiply3DAnd2D, expectedMultiply3DAnd2D);
   });
 
-  test('Matrix multiply works between 3D random matrices', function() {
+  test('CSSMatrix multiply works between 3D random matrices', function() {
     var random1 =
-        new Matrix(10, 20, 0, 0, -0.5, 0.5, 0, 0, 0, 0, 1, 0, 4, 2, 0, 1);
+        new CSSMatrix(10, 20, 0, 0, -0.5, 0.5, 0, 0, 0, 0, 1, 0, 4, 2, 0, 1);
     var random2 =
-        new Matrix(-2, 5, 0, 1, 15, 3, 1, 7, -4, 3, 1, 0.8, 10, 1, 3, 5);
+        new CSSMatrix(-2, 5, 0, 1, 15, 3, 1, 7, -4, 3, 1, 0.8, 10, 1, 3, 5);
     var expectedResult =
-        new Matrix(-18.5, -35.5, 0, 1, 176.5, 315.5, 1, 7, -38.3, -76.9, 1, 0.8,
+        new CSSMatrix(-18.5, -35.5, 0, 1, 176.5, 315.5, 1, 7, -38.3, -76.9, 1, 0.8,
             119.5, 210.5, 3, 5);
 
     var result = random1.multiply(random2);

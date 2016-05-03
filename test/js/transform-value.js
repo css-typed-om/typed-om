@@ -1,6 +1,6 @@
 suite('CSSTransformValue', function() {
   test('CSSTransformValue is a CSSTransformValue and CSSStyleValue', function() {
-    var transform = new CSSTransformValue([new Scale(2, -1)]);
+    var transform = new CSSTransformValue([new CSSScale(2, -1)]);
     assert.instanceOf(transform, CSSTransformValue,
         'A new CSSTransformValue should be an instance of CSSTransformValue');
     assert.instanceOf(transform, CSSStyleValue,
@@ -22,12 +22,12 @@ suite('CSSTransformValue', function() {
     var transform = new CSSTransformValue();
     assert.isTrue(transform.is2D());
     assert.isTrue(transform.cssString == "");
-    assert.deepEqual(transform.asMatrix(), new Matrix(1, 0, 0, 1, 0, 0));
+    assert.deepEqual(transform.asMatrix(), new CSSMatrix(1, 0, 0, 1, 0, 0));
   });
 
   test('CSSTransformValue constructor works with 1 component', function() {
     var transform;
-    var scale = new Scale(2, -1);
+    var scale = new CSSScale(2, -1);
     var values = [scale];
     assert.doesNotThrow(function() {transform = new CSSTransformValue(values)});
     assert.isTrue(transform.is2D());
@@ -38,7 +38,7 @@ suite('CSSTransformValue', function() {
   test('CSSTransformValue constructor works with duplicate component types',
         function() {
     var transform;
-    var scale = new Scale(2, -1);
+    var scale = new CSSScale(2, -1);
     var values = [scale, scale];
     assert.doesNotThrow(function() {transform = new CSSTransformValue(values)});
     assert.isTrue(transform.is2D());
@@ -54,8 +54,8 @@ suite('CSSTransformValue', function() {
   test('CSSTransformValue constructor works with multiple 2D components',
         function() {
     var transform;
-    var matrix = new Matrix(1, 2, 3, 4, 5, 6);
-    var scale = new Scale(2, -1);
+    var matrix = new CSSMatrix(1, 2, 3, 4, 5, 6);
+    var scale = new CSSScale(2, -1);
     var values = [matrix, scale];
     assert.doesNotThrow(function() {transform = new CSSTransformValue(values)});
     assert.isTrue(transform.is2D());
@@ -71,8 +71,8 @@ suite('CSSTransformValue', function() {
   test('CSSTransformValue constructor works with multiple 3D components',
         function() {
     var transform;
-    var matrix = new Matrix(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6);
-    var scale = new Scale(3, 2, 0.5);
+    var matrix = new CSSMatrix(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6);
+    var scale = new CSSScale(3, 2, 0.5);
     var values = [matrix, scale];
     assert.doesNotThrow(function() {transform = new CSSTransformValue(values)});
     assert.isFalse(transform.is2D());
@@ -88,11 +88,11 @@ suite('CSSTransformValue', function() {
   test('CSSTransformValue constructor works with multiple 2D and 3D components',
         function() {
     var transform;
-    var matrix2d = new Matrix(1, 2, 3, 4, 5, 6);
-    var matrix3d = new Matrix(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6);
-    var skew = new Skew(30, 60);
-    var scale2d = new Scale(2, -1);
-    var scale3d = new Scale(3, 2, 0.5);
+    var matrix2d = new CSSMatrix(1, 2, 3, 4, 5, 6);
+    var matrix3d = new CSSMatrix(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6);
+    var skew = new CSSSkew(30, 60);
+    var scale2d = new CSSScale(2, -1);
+    var scale3d = new CSSScale(3, 2, 0.5);
     var values = [matrix2d, scale3d, matrix2d, skew, matrix3d, scale2d];
     assert.doesNotThrow(function() {transform = new CSSTransformValue(values)});
     assert.isFalse(transform.is2D());
