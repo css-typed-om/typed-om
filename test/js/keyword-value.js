@@ -39,15 +39,15 @@ suite('CSSKeywordValue', function() {
     assert.throws(function() { new CSSKeywordValue(true); });
   });
 
-  test('parse method should create a CSSKeywordValue object with a cssString equal to the input', function() {
-    assert.strictEqual(CSSKeywordValue.parse('auto').cssString, 'auto');
+  test('from method should create a CSSKeywordValue object with a cssString equal to the input', function() {
+    assert.strictEqual(CSSKeywordValue.from('auto').cssString, 'auto');
   });
 
-  test('parse method should throw an error if its input is not a string', function() {
-    assert.throws(function() { CSSKeywordValue.parse(3) }, TypeError, 'Keyword value must be a non-empty string.');
+  test('from method should throw an error if its input is not a string', function() {
+    assert.throws(function() { CSSKeywordValue.from(3) }, TypeError, 'Keyword value must be a non-empty string.');
   });
 
-  test('parse method should throw an error if its input is an empty string', function() {
-    assert.throws(function() { CSSKeywordValue.parse('') }, TypeError, 'Keyword value must be a non-empty string.');
+  test('from method should throw an error if its input is an empty string', function() {
+    assert.throws(function() { CSSKeywordValue.from('') }, TypeError, 'Keyword value must be a non-empty string.');
   });
 });

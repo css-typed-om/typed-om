@@ -23,7 +23,7 @@
   }
   internal.inherit(CSSKeywordValue, CSSStyleValue);
 
-  CSSKeywordValue.parse = function(value) {
+  CSSKeywordValue.from = function(value) {
     return new CSSKeywordValue(value);
   };
 

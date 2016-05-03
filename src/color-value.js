@@ -42,7 +42,7 @@
   }
   internal.inherit(CSSColorValue, CSSStyleValue);
 
-  CSSColorValue.parse = function(value) {
+  CSSColorValue.from = function(value) {
     return null;
   };
 

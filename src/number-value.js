@@ -23,7 +23,7 @@
   }
   internal.inherit(CSSNumberValue, CSSStyleValue);
 
-  CSSNumberValue.parse = function(value) {
+  CSSNumberValue.from = function(value) {
     if (internal.parsing.isNumberValueString(value)) {
       return new CSSNumberValue(parseFloat(value));
     }

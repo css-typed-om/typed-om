@@ -50,9 +50,9 @@
       successfulParse = false;
       for (var j = 0; j < supportedStyleValues.length; j++) {
         try {
-          styleValueObject = supportedStyleValues[j].parse(cssStringStyleValue);
+          styleValueObject = supportedStyleValues[j].from(cssStringStyleValue);
         } catch (e) {
-          // Ensures method does not terminate if a CSSStyleValue parse method throws an error
+          // Ensures method does not terminate if a CSSStyleValue fom method throws an error
           continue;
         }
         if (styleValueObject != null) {
