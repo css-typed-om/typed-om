@@ -77,7 +77,7 @@
 
   CSSRotation.prototype._generateCssString = function() {
     var cssString;
-    if (this.is2D()) {
+    if (this.is2DComponent()) {
       cssString = 'rotate(' + this.angle + 'deg)';
     } else {
       cssString = 'rotate3d(' + this.x + ', ' + this.y + ', ' + this.z + ', ' +

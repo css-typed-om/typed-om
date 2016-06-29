@@ -21,8 +21,8 @@
     throw new TypeError('Should not be reached.');
   };
 
-  CSSTransformComponent.prototype.is2D = function() {
-    return this.asMatrix().is2D();
+  CSSTransformComponent.prototype.is2DComponent = function() {
+    return this.asMatrix().is2DComponent();
   };
 
   internal.CSSTransformComponent = CSSTransformComponent;
