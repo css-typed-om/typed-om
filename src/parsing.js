@@ -102,10 +102,83 @@
     return matchedUnits;
   }
 
+  function ignore(value) {
+    return function(input) {
+      var result = value(input);
+      if (result)
+        result[0] = undefined;
+      return result;
+    }
+  }
+
+  // Regex should be anchored with /^
+  function consumeToken(regex, string) {
+    var result = regex.exec(string);
+    if (result) {
+      result = regex.ignoreCase ? result[0].toLowerCase() : result[0];
+      return [result, string.substr(result.length)];
+    }
+  }
+
+  function consumeNumber(string) {
+    var result = consumeToken(/^[0-9]?\.?[0-9]+/, string);
+    if (result && result[0]) {
+      result[0] = parseFloat(result[0]);
+    }
+    return result;
+  }
+
+  function consumeTrimmed(consumer, string) {
+    string = string.replace(/^\s*/, '');
+    var result = consumer(string);
+    if (result) {
+      return [result[0], result[1].replace(/^\s*/, '')];
+    }
+  }
+
+  function consumeRepeated(consumer, separator, string) {
+    consumer = consumeTrimmed.bind(null, consumer);
+    var list = [];
+    while (true) {
+      var result = consumer(string);
+      if (!result) {
+        return [list, string];
+      }
+      list.push(result[0]);
+      string = result[1];
+      result = consumeToken(separator, string);
+      if (!result || result[1] == '') {
+        return [list, string];
+      }
+      string = result[1];
+    }
+  }
+
+  function consumeList(list, input) {
+    var output = [];
+    for (var i = 0; i < list.length; i++) {
+      var result = consumeTrimmed(list[i], input);
+      if (!result || result[0] == '')
+        return;
+      if (result[0] !== undefined)
+        output.push(result[0]);
+      input = result[1];
+    }
+    if (input == '') {
+      return output;
+    }
+  }
+
   internal.parsing = {};
   internal.parsing.isNumberValueString = isNumberValueString;
   internal.parsing.isCalc = isCalc;
   internal.parsing.parseDimension = parseDimension;
+  internal.parsing.ignore = ignore;
+  internal.parsing.consumeToken = consumeToken;
+  internal.parsing.consumeNumber = consumeNumber;
+  internal.parsing.consumeTrimmed = consumeTrimmed;
+  internal.parsing.consumeRepeated = consumeRepeated;
+  internal.parsing.consumeList = consumeList;
   if (TYPED_OM_TESTING) {
     testing.parsing = internal.parsing;
   }
