@@ -30,7 +30,7 @@
     this.z = (typeof z == 'number') ? z : null;
 
     this._matrix = this._computeMatrix();
-    this.cssString = this._generateCssString();
+    this.cssText = this._generateCssString();
   }
   internal.inherit(CSSScale, internal.CSSTransformComponent);
 
@@ -50,13 +50,13 @@
   };
 
   CSSScale.prototype._generateCssString = function() {
-    var cssString;
+    var cssText;
     if (this.is2DComponent()) {
-      cssString = 'scale(' + this.x + ', ' + this.y + ')';
+      cssText = 'scale(' + this.x + ', ' + this.y + ')';
     } else {
-      cssString = 'scale3d(' + this.x + ', ' + this.y + ', ' + this.z + ')';
+      cssText = 'scale3d(' + this.x + ', ' + this.y + ', ' + this.z + ')';
     }
-    return cssString;
+    return cssText;
   };
 
   scope.CSSScale = CSSScale;

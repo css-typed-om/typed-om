@@ -19,7 +19,7 @@
       throw new TypeError('Keyword value must be a non-empty string.');
     }
     this.keywordValue = value;
-    this.cssString = CSS.escape(value);
+    this.cssText = CSS.escape(value);
   }
   internal.inherit(CSSKeywordValue, CSSStyleValue);
 

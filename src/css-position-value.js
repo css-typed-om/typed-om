@@ -28,12 +28,12 @@
 
     this.x = new CSSLengthValue(xPos);
     this.y = new CSSLengthValue(yPos);
-    this.cssString = this._generateCssString();
+    this.cssText = this._generateCssString();
   }
   internal.inherit(CSSPositionValue, CSSStyleValue);
 
   CSSPositionValue.prototype._generateCssString = function() {
-    return this.x.cssString + ' ' + this.y.cssString;
+    return this.x.cssText + ' ' + this.y.cssText;
   };
 
   scope.CSSPositionValue = CSSPositionValue;

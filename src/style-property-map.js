@@ -39,7 +39,7 @@
     if (!cssPropertyDictionary.isValidInput(property, value)) {
       cssPropertyDictionary.throwInvalidInputError(property, value);
     }
-    this._styleObject[property] = value.cssString;
+    this._styleObject[property] = value.cssText;
   };
 
   StylePropertyMap.prototype.append = function(property, values) {
@@ -67,9 +67,9 @@
         cssPropertyDictionary.throwInvalidInputError(property, values[i]);
       }
       if (cssAppendString == '') {
-        cssAppendString += values[i].cssString;
+        cssAppendString += values[i].cssText;
       } else {
-        cssAppendString += valueSeparator + values[i].cssString;
+        cssAppendString += valueSeparator + values[i].cssText;
       }
     }
     return this._styleObject[property] = cssAppendString;

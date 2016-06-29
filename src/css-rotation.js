@@ -33,7 +33,7 @@
     this.z = is2D ? null : z;
 
     this._matrix = this._computeMatrix();
-    this.cssString = this._generateCssString();
+    this.cssText = this._generateCssString();
   }
   internal.inherit(CSSRotation, internal.CSSTransformComponent);
 
@@ -76,14 +76,14 @@
   };
 
   CSSRotation.prototype._generateCssString = function() {
-    var cssString;
+    var cssText;
     if (this.is2DComponent()) {
-      cssString = 'rotate(' + this.angle + 'deg)';
+      cssText = 'rotate(' + this.angle + 'deg)';
     } else {
-      cssString = 'rotate3d(' + this.x + ', ' + this.y + ', ' + this.z + ', ' +
+      cssText = 'rotate3d(' + this.x + ', ' + this.y + ', ' + this.z + ', ' +
           this.angle + 'deg)';
     }
-    return cssString;
+    return cssText;
   };
 
   scope.CSSRotation = CSSRotation;

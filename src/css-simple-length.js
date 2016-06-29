@@ -14,7 +14,7 @@
 
 (function(internal, scope) {
 
-  // TODO: CSSSimpleLength(simpleLength), CSSSimpleLength(cssString)
+  // TODO: CSSSimpleLength(simpleLength), CSSSimpleLength(cssText)
   function CSSSimpleLength(value, type) {
     if (value instanceof CSSSimpleLength && arguments.length == 1) {
       return new CSSSimpleLength(value.value, value.type);
@@ -27,7 +27,7 @@
     }
     this.type = type;
     this.value = value;
-    this.cssString = this._generateCssString();
+    this.cssText = this._generateCssString();
   }
   internal.inherit(CSSSimpleLength, CSSLengthValue);
 
@@ -76,9 +76,9 @@
   };
 
   CSSSimpleLength.prototype._generateCssString = function() {
-    var cssString = this.value +
-        CSSLengthValue.cssStringTypeRepresentation(this.type);
-    return cssString;
+    var cssText = this.value +
+        CSSLengthValue.cssTextTypeRepresentation(this.type);
+    return cssText;
   };
 
   scope.CSSSimpleLength = CSSSimpleLength;
