@@ -14,8 +14,12 @@
 
 (function(internal, scope, testing) {
 
-  function CSSStyleValue() {
-    throw new TypeError('CSSStyleValue cannot be instantiated.');
+  function CSSStyleValue(cssText) {
+    if (!cssText) {
+      throw new TypeError('Constructing CSSStyleValues will not be available in the native implementation');
+    }
+    // CSSStyleValue constructor needs to be available for type checking, but is there a way to also warn if this is constructed?
+    this.cssText = cssText;
   }
 
   CSSStyleValue.parse = function(property, cssString) {
