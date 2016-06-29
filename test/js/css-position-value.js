@@ -9,6 +9,6 @@ suite('CSSPositionValue', function() {
     var lengthValue_2 = new CSSSimpleLength(3, 'px');
     var positionValue = new CSSPositionValue(lengthValue_1, lengthValue_2);
 
-    assert.strictEqual(positionValue.cssString, 'calc(10px + 3.2em) 3px');
+    assert.strictEqual(positionValue.cssText, 'calc(10px + 3.2em) 3px');
   });
 });
