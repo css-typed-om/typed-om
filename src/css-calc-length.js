@@ -14,6 +14,7 @@
 
 (function(internal, scope) {
 
+  // TODO: CSSCalcLength(cssString)
   function CSSCalcLength(dictionary) {
     if (typeof dictionary != 'object') {
       throw new TypeError('CSSCalcLength must be passed a dictionary object');
