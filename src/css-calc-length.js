@@ -14,7 +14,6 @@
 
 (function(internal, scope) {
 
-  // TODO: CSSCalcLength(cssString)
   function CSSCalcLength(dictionary) {
     if (typeof dictionary != 'object') {
       throw new TypeError('CSSCalcLength must be passed a dictionary object');
@@ -40,33 +39,32 @@
           'A CalcDictionary must have at least one valid length.');
     }
 
-    this.cssString = this._generateCssString();
+    this.cssString = generateCSSString(this);
   }
   internal.inherit(CSSCalcLength, CSSLengthValue);
 
-  CSSCalcLength.prototype._generateCssString = function() {
-    var result = 'calc(';
+  CSSCalcLength.prototype.add = function(length) {
+    if (length instanceof CSSCalcLength) {
+      return addCalcLengths(this, length);
+    }
+    if (length instanceof CSSSimpleLength) {
+      var result = new CSSCalcLength(this);
+      result[length.type] += length.value;
+      return result;
+    }
+    throw new TypeError('Argument must be a CSSLengthValue');
+  };
 
-    var isFirst = true;
-    internal.objects.foreach(CSSLengthValue.LengthType, function(type) {
-      var value = this[type];
-      if (value == null) {
-        return;  // Exit callback.
-      }
-      if (!isFirst) {
-        if (value >= 0) {
-          result += ' + ';
-        } else {
-          result += ' - ';
-        }
-        value = Math.abs(value);
-      }
-      result += value + CSSLengthValue.cssStringTypeRepresentation(type);
-      isFirst = false;
-    }, this);
-
-    result += ')';
-    return result;
+  CSSCalcLength.prototype.subtract = function(length) {
+    if (length instanceof CSSCalcLength) {
+      return subtractCalcLengths(this, length);
+    }
+    if (length instanceof CSSSimpleLength) {
+      var result = new CSSCalcLength(this);
+      result[length.type] -= length.value;
+      return result;
+    }
+    throw new TypeError('Argument must be a CSSLengthValue');
   };
 
   CSSCalcLength.prototype.multiply = function(multiplier) {
@@ -95,7 +93,7 @@
     return new CSSCalcLength(calcDictionary);
   };
 
-  CSSCalcLength.prototype._addCalcLengths = function(addedLength) {
+  function addCalcLengths(calcLength, addedLength) {
     if (!(addedLength instanceof CSSCalcLength)) {
       throw new TypeError('Argument must be a CSSCalcLength');
     }
@@ -104,45 +102,37 @@
 
     // Iterate through all possible length types and add their values.
     internal.objects.foreach(CSSLengthValue.LengthType, function(type) {
-      if (this[type] == null && addedLength[type] == null) {
+      if (calcLength[type] == null && addedLength[type] == null) {
         calcDictionary[type] = null;
-      } else if (this[type] == null) {
+      } else if (calcLength[type] == null) {
         calcDictionary[type] = addedLength[type];
       } else if (addedLength[type] == null) {
-        calcDictionary[type] = this[type];
+        calcDictionary[type] = calcLength[type];
       } else {
-        calcDictionary[type] = this[type] + addedLength[type];
+        calcDictionary[type] = calcLength[type] + addedLength[type];
       }
-    }, this);
+    }, calcLength);
 
     return new CSSCalcLength(calcDictionary);
   };
 
-  CSSCalcLength.prototype._subtractCalcLengths = function(subtractedLength) {
+  function subtractCalcLengths(calcLength, subtractedLength) {
     if (!(subtractedLength instanceof CSSCalcLength)) {
       throw new TypeError('Argument must be a CSSCalcLength');
     }
 
     var calcDictionary = {};
-
-    // Iterate through all possible length types and subtract their values.
     internal.objects.foreach(CSSLengthValue.LengthType, function(type) {
-      if (this[type] == null && subtractedLength[type] == null) {
-        calcDictionary[type] = null;
-      } else if (subtractedLength[type] == null) {
-        calcDictionary[type] = this[type];
-      } else if (this[type] == null) {
+      if (subtractedLength[type] == null) {
+        calcDictionary[type] = calcLength[type];
+      } else if (calcLength[type] == null) {
         calcDictionary[type] = -subtractedLength[type];
       } else {
-        calcDictionary[type] = this[type] - subtractedLength[type];
+        calcDictionary[type] = calcLength[type] - subtractedLength[type];
       }
-    }, this);
+    }, calcLength);
 
     return new CSSCalcLength(calcDictionary);
-  };
-
-  CSSCalcLength.prototype._asCalcLength = function() {
-    return this;
   };
 
   CSSCalcLength.prototype.equals = function(other) {
@@ -156,6 +146,31 @@
       return this[type] != other[type];
     }, this);
   };
+
+  function generateCSSString(calcLength) {
+    var result = 'calc(';
+
+    var isFirst = true;
+    internal.objects.foreach(CSSLengthValue.LengthType, function(type) {
+      var value = calcLength[type];
+      if (value == null) {
+        return;  // Exit callback.
+      }
+      if (!isFirst) {
+        if (value >= 0) {
+          result += ' + ';
+        } else {
+          result += ' - ';
+        }
+        value = Math.abs(value);
+      }
+      result += value + CSSLengthValue.cssStringTypeRepresentation(type);
+      isFirst = false;
+    }, calcLength);
+
+    result += ')';
+    return result;
+  }
 
   scope.CSSCalcLength = CSSCalcLength;
 

@@ -154,13 +154,6 @@ suite('CSSCalcLength', function() {
     assert.strictEqual(null, result.em);
   });
 
-  test('_asCalcLength method returns the object that called it if it is of type CSSCalcLength', function() {
-    var calcLength = new CSSCalcLength({px: 25, em: 3.2});
-    var result = calcLength._asCalcLength();
-
-    assert.strictEqual(calcLength, result);
-  });
-
   test('CSSCalcLength.equals returns true if the compared CSSCalcLengths are the same', function() {
     var calcLength1 = new CSSCalcLength({px: 25, em: 3.2});
     var calcLength2 = new CSSCalcLength({px: 25, em: 3.2});

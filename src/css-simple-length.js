@@ -39,29 +39,29 @@
     return new CSSSimpleLength((this.value / divider), this.type);
   };
 
-  CSSSimpleLength.prototype._addSimpleLengths = function(addedLength) {
+  function addSimpleLengths(length, addedLength) {
     if (!(addedLength instanceof CSSSimpleLength)) {
       throw new TypeError('Argument must be a CSSSimpleLength');
     }
-    if (this.type != addedLength.type) {
+    if (length.type != addedLength.type) {
       throw new TypeError('CSSSimpleLength units are not the same');
     }
-    return new CSSSimpleLength((this.value + addedLength.value), this.type);
+    return new CSSSimpleLength(length.value + addedLength.value, length.type);
   };
 
-  CSSSimpleLength.prototype._subtractSimpleLengths = function(subtractedLength) {
+  function subtractSimpleLengths(length, subtractedLength) {
     if (!(subtractedLength instanceof CSSSimpleLength)) {
       throw new TypeError('Argument must be a CSSSimpleLength');
     }
-    if (this.type != subtractedLength.type) {
+    if (length.type != subtractedLength.type) {
       throw new TypeError('CSSSimpleLength units are not the same');
     }
-    return new CSSSimpleLength((this.value - subtractedLength.value), this.type);
+    return new CSSSimpleLength(length.value - subtractedLength.value, length.type);
   };
 
-  CSSSimpleLength.prototype._asCalcLength = function() {
+  function toCalcLength(simpleLength) {
     var calcDictionary = {};
-    calcDictionary[this.type] = this.value;
+    calcDictionary[simpleLength.type] = simpleLength.value;
     return new CSSCalcLength(calcDictionary);
   };
 
@@ -82,5 +82,9 @@
   };
 
   scope.CSSSimpleLength = CSSSimpleLength;
+
+  internal.addSimpleLengths = addSimpleLengths;
+  internal.subtractSimpleLengths = subtractSimpleLengths;
+  internal.simpleLengthToCalcLength = toCalcLength;
 
 })(typedOM.internal, window);
