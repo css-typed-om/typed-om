@@ -46,10 +46,10 @@
     // See documentation https://drafts.csswg.org/css-transforms-1/.
     var matrix;
     if (this.z == null) {
-      matrix = new CSSMatrix(1, 0, 0, 1, this.x.value, this.y.value);
+      matrix = new CSSMatrix(new internal.DOMMatrixReadonly([1, 0, 0, 1, this.x.value, this.y.value]));
     } else {
-      matrix = new CSSMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, this.x.value,
-          this.y.value, this.z.value, 1);
+      matrix = new CSSMatrix(new internal.DOMMatrixReadonly([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, this.x.value,
+          this.y.value, this.z.value, 1]));
     }
     return matrix;
   };

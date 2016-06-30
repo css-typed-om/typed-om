@@ -56,7 +56,7 @@ suite('CSSTranslation', function() {
     assert.strictEqual(translation.cssString,
         'translate(' + x.cssString + ', ' + y.cssString + ')');
 
-    var expectedMatrix = new CSSMatrix(1, 0, 0, 1, 3, -1);
+    var expectedMatrix = new CSSMatrix(new DOMMatrixReadonly([1, 0, 0, 1, 3, -1]));
     assert.strictEqual(translation.asMatrix().cssString,
         expectedMatrix.cssString);
     assert.deepEqual(translation.asMatrix(), expectedMatrix);
@@ -82,8 +82,8 @@ suite('CSSTranslation', function() {
         ', ' + z.cssString + ')';
     assert.strictEqual(translation.cssString, expectedCssString);
 
-    var expectedMatrix = new CSSMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 3, 0.5,
-        -4, 1);
+    var expectedMatrix = new CSSMatrix(new DOMMatrixReadonly([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 3, 0.5,
+        -4, 1]));
     assert.strictEqual(translation.asMatrix().cssString,
         expectedMatrix.cssString);
     assert.deepEqual(translation.asMatrix(), expectedMatrix);

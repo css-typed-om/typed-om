@@ -22,7 +22,7 @@ suite('CSSTransformValue', function() {
     var transform = new CSSTransformValue();
     assert.isTrue(transform.is2D());
     assert.isTrue(transform.cssString == "");
-    assert.deepEqual(transform.asMatrix(), new CSSMatrix(1, 0, 0, 1, 0, 0));
+    assert.deepEqual(transform.asMatrix(), new CSSMatrix(new DOMMatrixReadonly([1, 0, 0, 1, 0, 0])));
   });
 
   test('CSSTransformValue constructor works with 1 component', function() {
@@ -45,16 +45,16 @@ suite('CSSTransformValue', function() {
     assert.strictEqual(transform.cssString,
         scale.cssString + ' ' + scale.cssString);
 
-    var expectedMatrix = scale.asMatrix().multiply(scale.asMatrix());
+    var expectedMatrix = new CSSMatrix(scale.asMatrix().matrix.multiply(scale.asMatrix().matrix));
     var transformMatrix = transform.asMatrix();
     assert.strictEqual(transformMatrix.cssString, expectedMatrix.cssString);
-    assert.deepEqual(transformMatrix, expectedMatrix);
+    matricesApproxEqual(transformMatrix.matrix, expectedMatrix.matrix);
   });
 
   test('CSSTransformValue constructor works with multiple 2D components',
         function() {
     var transform;
-    var matrix = new CSSMatrix(1, 2, 3, 4, 5, 6);
+    var matrix = new CSSMatrix(new DOMMatrixReadonly([1, 2, 3, 4, 5, 6]));
     var scale = new CSSScale(2, -1);
     var values = [matrix, scale];
     assert.doesNotThrow(function() {transform = new CSSTransformValue(values)});
@@ -62,7 +62,7 @@ suite('CSSTransformValue', function() {
     assert.strictEqual(transform.cssString,
         values[0].cssString + ' ' + values[1].cssString);
 
-    var expectedMatrix = values[0].asMatrix().multiply(values[1].asMatrix());
+    var expectedMatrix = new CSSMatrix(values[0].asMatrix().matrix.multiply(values[1].asMatrix().matrix));
     var transformMatrix = transform.asMatrix();
     assert.strictEqual(transformMatrix.cssString, expectedMatrix.cssString);
     assert.deepEqual(transformMatrix, expectedMatrix);
@@ -71,7 +71,7 @@ suite('CSSTransformValue', function() {
   test('CSSTransformValue constructor works with multiple 3D components',
         function() {
     var transform;
-    var matrix = new CSSMatrix(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6);
+    var matrix = new CSSMatrix(new DOMMatrixReadonly([1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6]));
     var scale = new CSSScale(3, 2, 0.5);
     var values = [matrix, scale];
     assert.doesNotThrow(function() {transform = new CSSTransformValue(values)});
@@ -79,7 +79,7 @@ suite('CSSTransformValue', function() {
     assert.strictEqual(transform.cssString,
         values[0].cssString + ' ' + values[1].cssString);
 
-    var expectedMatrix = values[0].asMatrix().multiply(values[1].asMatrix());
+    var expectedMatrix = new CSSMatrix(values[0].asMatrix().matrix.multiply(values[1].asMatrix().matrix));
     var transformMatrix = transform.asMatrix();
     assert.strictEqual(transformMatrix.cssString, expectedMatrix.cssString);
     assert.deepEqual(transformMatrix, expectedMatrix);
@@ -88,8 +88,8 @@ suite('CSSTransformValue', function() {
   test('CSSTransformValue constructor works with multiple 2D and 3D components',
         function() {
     var transform;
-    var matrix2d = new CSSMatrix(1, 2, 3, 4, 5, 6);
-    var matrix3d = new CSSMatrix(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6);
+    var matrix2d = new CSSMatrix(new DOMMatrixReadonly([1, 2, 3, 4, 5, 6]));
+    var matrix3d = new CSSMatrix(new DOMMatrixReadonly([1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6]));
     var skew = new CSSSkew(30, 60);
     var scale2d = new CSSScale(2, -1);
     var scale3d = new CSSScale(3, 2, 0.5);
@@ -99,10 +99,11 @@ suite('CSSTransformValue', function() {
     assert.strictEqual(transform.cssString,
         values.map(function(value) {return value.cssString}).join(' '));
 
-    var expectedMatrix = values[0].asMatrix();
+    var expectedMatrix = values[0].asMatrix().matrix;
     for (var i = 1; i < values.length; ++i) {
-      expectedMatrix = expectedMatrix.multiply(values[i].asMatrix());
+      expectedMatrix = expectedMatrix.multiply(values[i].asMatrix().matrix);
     }
+    expectedMatrix = new CSSMatrix(expectedMatrix);
 
     var transformMatrix = transform.asMatrix();
     assert.strictEqual(transformMatrix.cssString, expectedMatrix.cssString);

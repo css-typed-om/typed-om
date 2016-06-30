@@ -42,7 +42,7 @@
     // -1/length in the 4th row, 3rd column.
     // See documentation https://drafts.csswg.org/css-transforms-1/.
     var value = -1 / this.length.value;
-    return new CSSMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, value, 0, 0, 0, 1);
+    return new CSSMatrix(new internal.DOMMatrixReadonly([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, value, 0, 0, 0, 1]));
   };
 
   CSSPerspective.prototype._generateCssString = function() {

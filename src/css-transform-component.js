@@ -22,7 +22,7 @@
   };
 
   CSSTransformComponent.prototype.is2DComponent = function() {
-    return this.asMatrix().is2DComponent();
+    return this.asMatrix().is2D;
   };
 
   internal.CSSTransformComponent = CSSTransformComponent;

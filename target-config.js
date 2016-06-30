@@ -36,6 +36,7 @@
       'src/css-skew.js',
       'src/css-translation.js',
       'src/css-transform-value.js',
+      'src/dom-matrix-readonly.js',
       'src/style-property-map-readonly.js',
       'src/style-property-map.js',
       'src/parsing.js',
@@ -51,7 +52,6 @@
       'test/js/css-color-value.js',
       'test/js/css-calc-length.js',
       'test/js/css-transform-component.js',
-      'test/js/css-matrix.js',
       'test/js/css-perspective.js',
       'test/js/css-rotation.js',
       'test/js/css-scale.js',
@@ -59,6 +59,7 @@
       'test/js/css-translation.js',
       'test/js/css-transform-value.js',
       'test/js/computed-style-property-map.js',
+      'test/js/dom-matrix-readonly.js',
       'test/js/inline-style-property-map.js',
       'test/js/property-dictionary.js',
       'test/js/css-style-value.js'
