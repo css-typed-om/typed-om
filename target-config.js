@@ -52,6 +52,7 @@
       'test/js/css-color-value.js',
       'test/js/css-calc-length.js',
       'test/js/css-transform-component.js',
+      'test/js/css-matrix.js',
       'test/js/css-perspective.js',
       'test/js/css-rotation.js',
       'test/js/css-scale.js',
