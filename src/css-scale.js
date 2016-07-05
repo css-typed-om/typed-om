@@ -51,7 +51,7 @@
 
   CSSScale.prototype._generateCssString = function() {
     var cssText;
-    if (this.is2DComponent()) {
+    if (this.is2D()) {
       cssText = 'scale(' + this.x + ', ' + this.y + ')';
     } else {
       cssText = 'scale3d(' + this.x + ', ' + this.y + ', ' + this.z + ')';

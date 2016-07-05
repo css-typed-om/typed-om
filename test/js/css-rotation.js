@@ -1,8 +1,8 @@
 suite('CSSRotation', function() {
   function assertMatrixCloseTo(actualMatrix, expectedMatrix) {
     var delta = 0.000001;
-    assert.strictEqual(actualMatrix.is2DComponent(),
-        expectedMatrix.is2DComponent());
+    assert.strictEqual(actualMatrix.is2D(),
+        expectedMatrix.is2D());
     for (var i = 0; i < expectedMatrix._matrix.length; i++) {
       assert.closeTo(actualMatrix._matrix[i], expectedMatrix._matrix[i], delta);
     }
@@ -34,7 +34,7 @@ suite('CSSRotation', function() {
     assert.isNull(rotation.x);
     assert.isNull(rotation.y);
     assert.isNull(rotation.z);
-    assert.isTrue(rotation.is2DComponent());
+    assert.isTrue(rotation.is2D());
 
     var sinCos = Math.sqrt(3) / 4;
     var expectedMatrix = new CSSMatrix(0.5, 2 * sinCos, -2 * sinCos, 0.5, 0, 0);
@@ -43,13 +43,13 @@ suite('CSSRotation', function() {
 
   test('CSSRotation constructor works correctly for 4 arguments', function() {
     var rotation;
-    assert.doesNotThrow(function() {rotation = new CSSRotation(30, 1, 0.5, -2)});
+    assert.doesNotThrow(function() {rotation = new CSSRotation(1, 0.5, -2, 30)});
     assert.strictEqual(rotation.cssText, 'rotate3d(1, 0.5, -2, 30deg)');
     assert.strictEqual(rotation.angle, 30);
     assert.strictEqual(rotation.x, 1);
     assert.strictEqual(rotation.y, 0.5);
     assert.strictEqual(rotation.z, -2);
-    assert.isFalse(rotation.is2DComponent());
+    assert.isFalse(rotation.is2D());
 
     var expectedMatrix = new CSSMatrix(0.89154437, -0.42367629, -0.16014688, 0,
         0.44919526, 0.872405146, 0.19269891, 0, 0.05807100, -0.243736860,
@@ -62,13 +62,13 @@ suite('CSSRotation', function() {
     var expected2D = new CSSMatrix(1, 0, 0, 1, 0, 0);
     assertMatrixCloseTo(rotation2D.asMatrix(), expected2D);
 
-    var rotation3D = new CSSRotation(0, 20, -5, 10);
+    var rotation3D = new CSSRotation(20, -5, 10, 0);
     var expected3D = new CSSMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
     assertMatrixCloseTo(rotation3D.asMatrix(), expected3D);
   });
 
   test('CSSRotation matrix with x, y, and z all 0 is the identity', function() {
-    var rotation = new CSSRotation(45, 0, 0, 0);
+    var rotation = new CSSRotation(0, 0, 0, 45);
     var expectedMatrix = new CSSMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0,
         1);
     assertMatrixCloseTo(rotation.asMatrix(), expectedMatrix);
@@ -76,16 +76,16 @@ suite('CSSRotation', function() {
 
   test('CSSRotation(angle) equivalent to CSSRotation(angle, 0, 0, 1)', function() {
     var rotation2D = new CSSRotation(30);
-    var rotation3D = new CSSRotation(30, 0, 0, 1);
-    assert.isTrue(rotation2D.is2DComponent());
-    assert.isFalse(rotation3D.is2DComponent());
+    var rotation3D = new CSSRotation(0, 0, 1, 30);
+    assert.isTrue(rotation2D.is2D());
+    assert.isFalse(rotation3D.is2D());
     assertMatrixCloseTo(rotation3D.asMatrix(),
         rotation2D.asMatrix().to3DComponent());
   });
 
   test('CSSRotation 3D is normalizing (x, y, z)', function() {
-    var rotation = new CSSRotation(30, 1, -2, 4);
-    var rotationScaled = new CSSRotation(30, 10, -20, 40);
+    var rotation = new CSSRotation(1, -2, 4, 30);
+    var rotationScaled = new CSSRotation(10, -20, 40, 30);
     assertMatrixCloseTo(rotationScaled.asMatrix(), rotation.asMatrix());
   });
 });

@@ -75,7 +75,7 @@
     return this;
   };
 
-  CSSMatrix.prototype.is2DComponent = function() {
+  CSSMatrix.prototype.is2D = function() {
     return this._matrix.length == 6;
   };
 
@@ -84,7 +84,7 @@
       throw new TypeError('Expected a single argument of type CSSMatrix');
     }
 
-    if (this.is2DComponent() && rightMatrix.is2DComponent()) {
+    if (this.is2D() && rightMatrix.is2D()) {
       return CSSMatrix._multiply2DMatrices(this, rightMatrix);
     }
 
@@ -94,7 +94,7 @@
   };
 
   CSSMatrix.prototype.to3DComponent = function() {
-    if (!this.is2DComponent()) {
+    if (!this.is2D()) {
       return this;
     }
 
@@ -112,7 +112,7 @@
   };
 
   CSSMatrix.prototype._generateCssString = function() {
-    var cssText = this.is2DComponent() ? 'matrix' : 'matrix3d';
+    var cssText = this.is2D() ? 'matrix' : 'matrix3d';
     cssText += '('+ this._matrix.join(', ') + ')';
     return cssText;
   };

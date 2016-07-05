@@ -56,7 +56,7 @@
 
   CSSTranslation.prototype._generateCssString = function() {
     var cssText;
-    if (this.is2DComponent()) {
+    if (this.is2D()) {
       cssText = 'translate(' + this.x.cssText + ', ' + this.y.cssText +
           ')';
     } else {
