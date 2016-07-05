@@ -21,28 +21,28 @@
     TURN: "turn"
   };
 
-  function isValidAngleUnit(unit) {
+  function isValidAngleType(unit) {
     return internal.objects.any(AngleType, function(type) {
       return unit == type;
     });
   }
 
-  function rad2deg(rad) {
+  function radToDeg(rad) {
     return rad * 180 / Math.PI;
   }
-  function grad2deg(grad) {
+  function gradToDeg(grad) {
     return grad * 9 / 10;
   }
-  function turn2deg(turn) {
+  function turnToDeg(turn) {
     return turn * 360;
   }
-  function deg2rad(deg) {
+  function degToRad(deg) {
     return deg * Math.PI / 180;
   }
-  function deg2grad(deg) {
+  function degToGrad(deg) {
     return deg * 10 / 9;
   }
-  function deg2turn(deg) {
+  function degToTurn(deg) {
     return deg / 360;
   }
 
@@ -53,7 +53,7 @@
     if (typeof value != 'number') {
       throw new TypeError('Value must be a number');
     }
-    if (!isValidAngleUnit(unit)) {
+    if (!isValidAngleType(unit)) {
       throw new TypeError('Invalid unit type');
     }
 
@@ -62,26 +62,26 @@
     switch (unit) {
       case AngleType.DEG:
         this.degrees = value;
-        this.radians = deg2rad(value);
-        this.gradians = deg2grad(value);
-        this.turns = deg2turn(value);
+        this.radians = degToRad(value);
+        this.gradians = degToGrad(value);
+        this.turns = degToTurn(value);
         break;
       case AngleType.RAD:
-        this.degrees = rad2deg(value);
+        this.degrees = radToDeg(value);
         this.radians = value;
-        this.gradians = deg2grad(this.degrees);
-        this.turns = deg2turn(this.degrees);
+        this.gradians = degToGrad(this.degrees);
+        this.turns = degToTurn(this.degrees);
         break;
       case AngleType.GRAD:
-        this.degrees = grad2deg(value);
-        this.radians = deg2rad(this.degrees);
+        this.degrees = gradToDeg(value);
+        this.radians = degToRad(this.degrees);
         this.gradians = value;
-        this.turns = deg2turn(this.degrees);
+        this.turns = degToTurn(this.degrees);
         break;
       case  AngleType.TURN:
-        this.degrees = turn2deg(value);
-        this.radians = deg2rad(this.degrees);
-        this.gradians = deg2grad(this.degrees);
+        this.degrees = turnToDeg(value);
+        this.radians = degToRad(this.degrees);
+        this.gradians = degToGrad(this.degrees);
         this.turns = value;
         break;
     }
