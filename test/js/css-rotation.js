@@ -43,7 +43,7 @@ suite('CSSRotation', function() {
 
   test('CSSRotation constructor works correctly for 4 arguments', function() {
     var rotation;
-    assert.doesNotThrow(function() {rotation = new CSSRotation(30, 1, 0.5, -2)});
+    assert.doesNotThrow(function() {rotation = new CSSRotation(1, 0.5, -2, 30)});
     assert.strictEqual(rotation.cssString, 'rotate3d(1, 0.5, -2, 30deg)');
     assert.strictEqual(rotation.angle, 30);
     assert.strictEqual(rotation.x, 1);
@@ -62,13 +62,13 @@ suite('CSSRotation', function() {
     var expected2D = new CSSMatrix(1, 0, 0, 1, 0, 0);
     assertMatrixCloseTo(rotation2D.asMatrix(), expected2D);
 
-    var rotation3D = new CSSRotation(0, 20, -5, 10);
+    var rotation3D = new CSSRotation(20, -5, 10, 0);
     var expected3D = new CSSMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
     assertMatrixCloseTo(rotation3D.asMatrix(), expected3D);
   });
 
   test('CSSRotation matrix with x, y, and z all 0 is the identity', function() {
-    var rotation = new CSSRotation(45, 0, 0, 0);
+    var rotation = new CSSRotation(0, 0, 0, 45);
     var expectedMatrix = new CSSMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0,
         1);
     assertMatrixCloseTo(rotation.asMatrix(), expectedMatrix);
@@ -76,7 +76,7 @@ suite('CSSRotation', function() {
 
   test('CSSRotation(angle) equivalent to CSSRotation(angle, 0, 0, 1)', function() {
     var rotation2D = new CSSRotation(30);
-    var rotation3D = new CSSRotation(30, 0, 0, 1);
+    var rotation3D = new CSSRotation(0, 0, 1, 30);
     assert.isTrue(rotation2D.is2DComponent());
     assert.isFalse(rotation3D.is2DComponent());
     assertMatrixCloseTo(rotation3D.asMatrix(),
@@ -84,8 +84,8 @@ suite('CSSRotation', function() {
   });
 
   test('CSSRotation 3D is normalizing (x, y, z)', function() {
-    var rotation = new CSSRotation(30, 1, -2, 4);
-    var rotationScaled = new CSSRotation(30, 10, -20, 40);
+    var rotation = new CSSRotation(1, -2, 4, 30);
+    var rotationScaled = new CSSRotation(10, -20, 40, 30);
     assertMatrixCloseTo(rotationScaled.asMatrix(), rotation.asMatrix());
   });
 });
