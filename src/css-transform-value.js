@@ -42,7 +42,7 @@
   };
 
   CSSTransformValue.prototype.is2D = function() {
-    return this.asMatrix().is2DComponent();
+    return this.asMatrix().is2D();
   };
 
   CSSTransformValue.prototype._computeMatrix = function() {
