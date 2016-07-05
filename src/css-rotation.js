@@ -19,9 +19,15 @@
       throw new TypeError('CSSRotation must have 1 or 4 arguments.');
     }
 
-    for (var i = 0; i < arguments.length; i++) {
-      if (typeof arguments[i] != 'number') {
-        throw new TypeError('CSSRotation arguments must be of type \'number\'.');
+    if (arguments.length == 1 && (typeof x != 'number' || !(x instanceof CSSAngleValue))) {
+      throw new TypeError('CSSRotation angle argument must be a number or a CSSAngleValue.');
+    }
+    if (arguments.length == 4) {
+      if (typeof x != 'number' || typeof y != 'number' || typeof z != 'number') {
+        throw new TypeError('x, y and z values must be numbers.');
+      }
+      if (typeof angle != 'number' && !(angle instanceof CSSAngleValue)) {
+        throw new TypeError('CSSRotation angle argument must be a number or a CSSAngleValue.');
       }
     }
 
