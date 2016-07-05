@@ -32,7 +32,7 @@
     this.z = (z instanceof CSSSimpleLength) ? new CSSSimpleLength(z) : null;
 
     this._matrix = this._computeMatrix();
-    this.cssString = this._generateCssString();
+    this.cssText = this._generateCssString();
   }
   internal.inherit(CSSTranslation, internal.CSSTransformComponent);
 
@@ -55,15 +55,15 @@
   };
 
   CSSTranslation.prototype._generateCssString = function() {
-    var cssString;
+    var cssText;
     if (this.is2D()) {
-      cssString = 'translate(' + this.x.cssString + ', ' + this.y.cssString +
+      cssText = 'translate(' + this.x.cssText + ', ' + this.y.cssText +
           ')';
     } else {
-      cssString = 'translate3d(' + this.x.cssString + ', ' + this.y.cssString +
-          ', ' + this.z.cssString + ')';
+      cssText = 'translate3d(' + this.x.cssText + ', ' + this.y.cssText +
+          ', ' + this.z.cssText + ')';
     }
-    return cssString;
+    return cssText;
   };
 
   scope.CSSTranslation = CSSTranslation;

@@ -29,7 +29,7 @@ suite('CSSRotation', function() {
   test('CSSRotation constructor works correctly for 1 argument', function() {
     var rotation;
     assert.doesNotThrow(function() {rotation = new CSSRotation(60)});
-    assert.strictEqual(rotation.cssString, 'rotate(60deg)');
+    assert.strictEqual(rotation.cssText, 'rotate(60deg)');
     assert.strictEqual(rotation.angle, 60);
     assert.isNull(rotation.x);
     assert.isNull(rotation.y);
@@ -44,7 +44,7 @@ suite('CSSRotation', function() {
   test('CSSRotation constructor works correctly for 4 arguments', function() {
     var rotation;
     assert.doesNotThrow(function() {rotation = new CSSRotation(1, 0.5, -2, 30)});
-    assert.strictEqual(rotation.cssString, 'rotate3d(1, 0.5, -2, 30deg)');
+    assert.strictEqual(rotation.cssText, 'rotate3d(1, 0.5, -2, 30deg)');
     assert.strictEqual(rotation.angle, 30);
     assert.strictEqual(rotation.x, 1);
     assert.strictEqual(rotation.y, 0.5);

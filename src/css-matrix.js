@@ -31,7 +31,7 @@
       this._matrix[index] = arguments[index];
     }
 
-    this.cssString = this._generateCssString();
+    this.cssText = this._generateCssString();
   }
   internal.inherit(CSSMatrix, internal.CSSTransformComponent);
 
@@ -112,9 +112,9 @@
   };
 
   CSSMatrix.prototype._generateCssString = function() {
-    var cssString = this.is2D() ? 'matrix' : 'matrix3d';
-    cssString += '('+ this._matrix.join(', ') + ')';
-    return cssString;
+    var cssText = this.is2D() ? 'matrix' : 'matrix3d';
+    cssText += '('+ this._matrix.join(', ') + ')';
+    return cssText;
   };
 
   scope.CSSMatrix = CSSMatrix;
