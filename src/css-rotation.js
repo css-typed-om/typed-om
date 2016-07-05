@@ -14,7 +14,7 @@
 
 (function(internal, scope) {
 
-  function CSSRotation(angle, x, y, z) {
+  function CSSRotation(x, y, z, angle) {
     if (arguments.length != 1 && arguments.length != 4) {
       throw new TypeError('CSSRotation must have 1 or 4 arguments.');
     }
@@ -25,7 +25,7 @@
       }
     }
 
-    this.angle = angle;
+    this.angle = arguments.length == 1 ? x : angle;
 
     var is2D = (arguments.length == 1);
     this.x = is2D ? null : x;
