@@ -103,9 +103,7 @@
 
     // Iterate through all possible length types and add their values.
     internal.objects.foreach(CSSLengthValue.LengthType, function(type) {
-      if (calcLength[type] == null && addedLength[type] == null) {
-        calcDictionary[type] = null;
-      } else if (calcLength[type] == null) {
+      if (calcLength[type] == null) {
         calcDictionary[type] = addedLength[type];
       } else if (addedLength[type] == null) {
         calcDictionary[type] = calcLength[type];

@@ -59,7 +59,7 @@
     return new CSSSimpleLength(length.value - subtractedLength.value, length.type);
   };
 
-  function toCalcLength(simpleLength) {
+  function simpleLengthToCalcLength(simpleLength) {
     var calcDictionary = {};
     calcDictionary[simpleLength.type] = simpleLength.value;
     return new CSSCalcLength(calcDictionary);
@@ -85,6 +85,6 @@
 
   internal.addSimpleLengths = addSimpleLengths;
   internal.subtractSimpleLengths = subtractSimpleLengths;
-  internal.simpleLengthToCalcLength = toCalcLength;
+  internal.simpleLengthToCalcLength = simpleLengthToCalcLength;
 
 })(typedOM.internal, window);
