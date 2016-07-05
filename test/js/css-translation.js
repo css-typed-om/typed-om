@@ -52,13 +52,13 @@ suite('CSSTranslation', function() {
     assert.deepEqual(translation.x, x);
     assert.deepEqual(translation.y, y);
 
-    assert.isTrue(translation.is2DComponent());
-    assert.strictEqual(translation.cssString,
-        'translate(' + x.cssString + ', ' + y.cssString + ')');
+    assert.isTrue(translation.is2D());
+    assert.strictEqual(translation.cssText,
+        'translate(' + x.cssText + ', ' + y.cssText + ')');
 
     var expectedMatrix = new CSSMatrix(1, 0, 0, 1, 3, -1);
-    assert.strictEqual(translation.asMatrix().cssString,
-        expectedMatrix.cssString);
+    assert.strictEqual(translation.asMatrix().cssText,
+        expectedMatrix.cssText);
     assert.deepEqual(translation.asMatrix(), expectedMatrix);
   });
 
@@ -76,16 +76,16 @@ suite('CSSTranslation', function() {
     assert.deepEqual(translation.y, y);
     assert.deepEqual(translation.z, z);
 
-    assert.isFalse(translation.is2DComponent());
+    assert.isFalse(translation.is2D());
 
-    var expectedCssString = 'translate3d(' + x.cssString + ', ' + y.cssString +
-        ', ' + z.cssString + ')';
-    assert.strictEqual(translation.cssString, expectedCssString);
+    var expectedCssString = 'translate3d(' + x.cssText + ', ' + y.cssText +
+        ', ' + z.cssText + ')';
+    assert.strictEqual(translation.cssText, expectedCssString);
 
     var expectedMatrix = new CSSMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 3, 0.5,
         -4, 1);
-    assert.strictEqual(translation.asMatrix().cssString,
-        expectedMatrix.cssString);
+    assert.strictEqual(translation.asMatrix().cssText,
+        expectedMatrix.cssText);
     assert.deepEqual(translation.asMatrix(), expectedMatrix);
   });
 });

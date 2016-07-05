@@ -33,7 +33,7 @@
     }
 
     this._matrix = this._computeMatrix();
-    this.cssString = this._generateCssString();
+    this.cssText = this._generateCssString();
   }
   internal.inherit(CSSTransformValue, CSSStyleValue);
 
@@ -42,7 +42,7 @@
   };
 
   CSSTransformValue.prototype.is2D = function() {
-    return this.asMatrix().is2DComponent();
+    return this.asMatrix().is2D();
   };
 
   CSSTransformValue.prototype._computeMatrix = function() {
@@ -58,7 +58,7 @@
 
   CSSTransformValue.prototype._generateCssString = function() {
     function getCssString(value) {
-      return value.cssString;
+      return value.cssText;
     }
     return this.transformComponents.map(getCssString).join(' ');
   };

@@ -54,7 +54,7 @@
     });
   };
 
-  CSSLengthValue.cssStringTypeRepresentation = function(type) {
+  CSSLengthValue.cssTextTypeRepresentation = function(type) {
     if (!CSSLengthValue.isValidLengthType(type)) {
       throw new TypeError('Invalid Length Type.');
     }

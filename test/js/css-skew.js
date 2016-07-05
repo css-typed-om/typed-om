@@ -19,16 +19,16 @@ suite('CSSSkew', function() {
   test('CSSSkew constructor works correctly', function() {
     var skew;
     assert.doesNotThrow(function() {skew = new CSSSkew(30, 180)});
-    assert.strictEqual(skew.cssString, 'skew(30deg, 180deg)');
+    assert.strictEqual(skew.cssText, 'skew(30deg, 180deg)');
     assert.strictEqual(skew.ax, 30);
     assert.strictEqual(skew.ay, 180);
-    assert.isTrue(skew.is2DComponent());
+    assert.isTrue(skew.is2D());
 
     var tanAx = CSSSkew._tanDegrees(30);
     var tanAy = CSSSkew._tanDegrees(180);
 
     var expectedMatrix = new CSSMatrix(1, tanAy, tanAx, 1, 0, 0);
-    assert.strictEqual(skew.asMatrix().cssString, expectedMatrix.cssString);
+    assert.strictEqual(skew.asMatrix().cssText, expectedMatrix.cssText);
     assert.deepEqual(skew.asMatrix(), expectedMatrix);
   });
 
