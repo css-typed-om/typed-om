@@ -1,8 +1,8 @@
 suite('CSSRotation', function() {
   function assertMatrixCloseTo(actualMatrix, expectedMatrix) {
     var delta = 0.000001;
-    assert.strictEqual(actualMatrix.is2DComponent(),
-        expectedMatrix.is2DComponent());
+    assert.strictEqual(actualMatrix.is2D(),
+        expectedMatrix.is2D());
     for (var i = 0; i < expectedMatrix._matrix.length; i++) {
       assert.closeTo(actualMatrix._matrix[i], expectedMatrix._matrix[i], delta);
     }
@@ -29,12 +29,12 @@ suite('CSSRotation', function() {
   test('CSSRotation constructor works correctly for 1 argument', function() {
     var rotation;
     assert.doesNotThrow(function() {rotation = new CSSRotation(60)});
-    assert.strictEqual(rotation.cssString, 'rotate(60deg)');
+    assert.strictEqual(rotation.cssText, 'rotate(60deg)');
     assert.strictEqual(rotation.angle, 60);
     assert.isNull(rotation.x);
     assert.isNull(rotation.y);
     assert.isNull(rotation.z);
-    assert.isTrue(rotation.is2DComponent());
+    assert.isTrue(rotation.is2D());
 
     var sinCos = Math.sqrt(3) / 4;
     var expectedMatrix = new CSSMatrix(0.5, 2 * sinCos, -2 * sinCos, 0.5, 0, 0);
@@ -44,12 +44,12 @@ suite('CSSRotation', function() {
   test('CSSRotation constructor works correctly for 4 arguments', function() {
     var rotation;
     assert.doesNotThrow(function() {rotation = new CSSRotation(1, 0.5, -2, 30)});
-    assert.strictEqual(rotation.cssString, 'rotate3d(1, 0.5, -2, 30deg)');
+    assert.strictEqual(rotation.cssText, 'rotate3d(1, 0.5, -2, 30deg)');
     assert.strictEqual(rotation.angle, 30);
     assert.strictEqual(rotation.x, 1);
     assert.strictEqual(rotation.y, 0.5);
     assert.strictEqual(rotation.z, -2);
-    assert.isFalse(rotation.is2DComponent());
+    assert.isFalse(rotation.is2D());
 
     var expectedMatrix = new CSSMatrix(0.89154437, -0.42367629, -0.16014688, 0,
         0.44919526, 0.872405146, 0.19269891, 0, 0.05807100, -0.243736860,

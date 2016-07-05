@@ -34,17 +34,17 @@ suite('CSSColorValue', function() {
       'a must be a number between 0 and 1.');
   });
 
-  test('cssString should return rgb(<number>,<number>,<number>) if alpha ' +
+  test('cssText should return rgb(<number>,<number>,<number>) if alpha ' +
     'is equal to 1', function() {
-    assert.strictEqual(new CSSColorValue(50, 100, 100).cssString, 'rgb(50,100,100)');
-    assert.strictEqual(new CSSColorValue(50, 100, 100, 1).cssString, 'rgb(50,100,100)');
+    assert.strictEqual(new CSSColorValue(50, 100, 100).cssText, 'rgb(50,100,100)');
+    assert.strictEqual(new CSSColorValue(50, 100, 100, 1).cssText, 'rgb(50,100,100)');
   });
 
-  test('cssString should return rgb(<number>,<number>,<number>,<number>) if alpha ' +
+  test('cssText should return rgb(<number>,<number>,<number>,<number>) if alpha ' +
     'is not equal to 1', function() {
     var color = new CSSColorValue(50, 100, 100, 0.2);
 
-    assert.strictEqual(color.cssString, 'rgba(50,100,100,0.2)');
+    assert.strictEqual(color.cssText, 'rgba(50,100,100,0.2)');
   });
 
   test('Parse simple rgb color', function() {
@@ -69,7 +69,7 @@ suite('CSSColorValue', function() {
   test('Whitespace is ignore when parsing', function() {
     var color = CSSColorValue.from('  rgba( 45  , 12  , 56  , 0.5  )');
     assert.instanceOf(color, CSSColorValue);
-    assert.strictEqual(color.cssString, 'rgba(45,12,56,0.5)');
+    assert.strictEqual(color.cssText, 'rgba(45,12,56,0.5)');
   });
 
   test('Parsing invalid strings result in null', function() {
