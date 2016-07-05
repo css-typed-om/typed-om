@@ -82,7 +82,7 @@ suite('CSSSimpleLength', function() {
     var simpleLength1 = new CSSSimpleLength(10, 'em');
     var simpleLength2 = new CSSSimpleLength(5, 'em');
     var result = simpleLength1.add(simpleLength2);
-    assert.instanceOf(result, CSSSimpleLength, 'Two added CSSSimpleLengths of same type should return an instance of CSSSimpleLength');
+    assert.instanceOf(result, CSSSimpleLength);
     assert.strictEqual(result.type, 'em');
     assert.strictEqual(result.value, 15);
   });
@@ -92,7 +92,7 @@ suite('CSSSimpleLength', function() {
     var simpleLength2 = new CSSSimpleLength(5, 'px');
     var result = simpleLength1.add(simpleLength2);
     var expectedResult = new CSSCalcLength({em: 10, px: 5});
-    assert.instanceOf(result, CSSCalcLength, 'Two added CSSSimpleLengths of different types should return an instance of CSSCalcLength');
+    assert.instanceOf(result, CSSCalcLength);
     assert.isTrue(expectedResult.equals(result));
   });
 
@@ -112,13 +112,6 @@ suite('CSSSimpleLength', function() {
     var expectedResult = new CSSCalcLength({em: 10, px: -5});
     assert.instanceOf(result, CSSCalcLength, 'Two subtracted CSSSimpleLengths of different types should return an instance of CSSCalcLength');
     assert.isTrue(expectedResult.equals(result));
-  });
-
-  test('_asCalcLength method returns a CSSCalcLength with single value', function() {
-    var simpleLength = new CSSSimpleLength(10, 'em');
-    var result = simpleLength._asCalcLength();
-    var expectedResult = new CSSCalcLength({em: 10});
-    assert.isTrue(result.equals(expectedResult));
   });
 
   test('equals method should return true for equal CSSSimpleLengths', function() {
