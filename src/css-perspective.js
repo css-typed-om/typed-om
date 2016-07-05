@@ -29,7 +29,7 @@
 
     this.length = new CSSSimpleLength(length);
     this._matrix = this._computeMatrix();
-    this.cssString = this._generateCssString();
+    this.cssText = this._generateCssString();
   }
   internal.inherit(CSSPerspective, internal.CSSTransformComponent);
 
@@ -46,7 +46,7 @@
   };
 
   CSSPerspective.prototype._generateCssString = function() {
-    return 'perspective(' + this.length.cssString + ')';
+    return 'perspective(' + this.length.cssText + ')';
   };
 
   scope.CSSPerspective = CSSPerspective;

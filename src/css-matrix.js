@@ -21,8 +21,6 @@
     this.matrix = domMatrix;
     this.is2D = this.matrix.is2D;
     this.cssText = generateCssText(this.matrix);
-    // For backwards compat.
-    this.cssString = this.cssText;
   }
   internal.inherit(CSSMatrix, internal.CSSTransformComponent);
 

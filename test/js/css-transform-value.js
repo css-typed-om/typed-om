@@ -17,11 +17,11 @@ suite('CSSTransformValue', function() {
   });
 
   test('CSSTransformValue empty constructor creates an object with ' + 
-    'the following properties: cssString contains an empty string, asMatrix ' +
+    'the following properties: cssText contains an empty string, asMatrix ' +
     'returns the 2D identity matrix', function() {
     var transform = new CSSTransformValue();
     assert.isTrue(transform.is2D());
-    assert.isTrue(transform.cssString == "");
+    assert.isTrue(transform.cssText == "");
     assert.deepEqual(transform.asMatrix(), new CSSMatrix(new DOMMatrixReadonly([1, 0, 0, 1, 0, 0])));
   });
 
@@ -31,7 +31,7 @@ suite('CSSTransformValue', function() {
     var values = [scale];
     assert.doesNotThrow(function() {transform = new CSSTransformValue(values)});
     assert.isTrue(transform.is2D());
-    assert.strictEqual(transform.cssString, scale.cssString);
+    assert.strictEqual(transform.cssText, scale.cssText);
     assert.deepEqual(transform.asMatrix(), scale.asMatrix());
   });
 
@@ -42,12 +42,12 @@ suite('CSSTransformValue', function() {
     var values = [scale, scale];
     assert.doesNotThrow(function() {transform = new CSSTransformValue(values)});
     assert.isTrue(transform.is2D());
-    assert.strictEqual(transform.cssString,
-        scale.cssString + ' ' + scale.cssString);
+    assert.strictEqual(transform.cssText,
+        scale.cssText + ' ' + scale.cssText);
 
     var expectedMatrix = new CSSMatrix(scale.asMatrix().matrix.multiply(scale.asMatrix().matrix));
     var transformMatrix = transform.asMatrix();
-    assert.strictEqual(transformMatrix.cssString, expectedMatrix.cssString);
+    assert.strictEqual(transformMatrix.cssText, expectedMatrix.cssText);
     matricesApproxEqual(transformMatrix.matrix, expectedMatrix.matrix);
   });
 
@@ -59,12 +59,12 @@ suite('CSSTransformValue', function() {
     var values = [matrix, scale];
     assert.doesNotThrow(function() {transform = new CSSTransformValue(values)});
     assert.isTrue(transform.is2D());
-    assert.strictEqual(transform.cssString,
-        values[0].cssString + ' ' + values[1].cssString);
+    assert.strictEqual(transform.cssText,
+        values[0].cssText + ' ' + values[1].cssText);
 
     var expectedMatrix = new CSSMatrix(values[0].asMatrix().matrix.multiply(values[1].asMatrix().matrix));
     var transformMatrix = transform.asMatrix();
-    assert.strictEqual(transformMatrix.cssString, expectedMatrix.cssString);
+    assert.strictEqual(transformMatrix.cssText, expectedMatrix.cssText);
     assert.deepEqual(transformMatrix, expectedMatrix);
   });
 
@@ -76,12 +76,12 @@ suite('CSSTransformValue', function() {
     var values = [matrix, scale];
     assert.doesNotThrow(function() {transform = new CSSTransformValue(values)});
     assert.isFalse(transform.is2D());
-    assert.strictEqual(transform.cssString,
-        values[0].cssString + ' ' + values[1].cssString);
+    assert.strictEqual(transform.cssText,
+        values[0].cssText + ' ' + values[1].cssText);
 
     var expectedMatrix = new CSSMatrix(values[0].asMatrix().matrix.multiply(values[1].asMatrix().matrix));
     var transformMatrix = transform.asMatrix();
-    assert.strictEqual(transformMatrix.cssString, expectedMatrix.cssString);
+    assert.strictEqual(transformMatrix.cssText, expectedMatrix.cssText);
     assert.deepEqual(transformMatrix, expectedMatrix);
   });
 
@@ -96,8 +96,8 @@ suite('CSSTransformValue', function() {
     var values = [matrix2d, scale3d, matrix2d, skew, matrix3d, scale2d];
     assert.doesNotThrow(function() {transform = new CSSTransformValue(values)});
     assert.isFalse(transform.is2D());
-    assert.strictEqual(transform.cssString,
-        values.map(function(value) {return value.cssString}).join(' '));
+    assert.strictEqual(transform.cssText,
+        values.map(function(value) {return value.cssText}).join(' '));
 
     var expectedMatrix = values[0].asMatrix().matrix;
     for (var i = 1; i < values.length; ++i) {
@@ -106,7 +106,7 @@ suite('CSSTransformValue', function() {
     expectedMatrix = new CSSMatrix(expectedMatrix);
 
     var transformMatrix = transform.asMatrix();
-    assert.strictEqual(transformMatrix.cssString, expectedMatrix.cssString);
+    assert.strictEqual(transformMatrix.cssText, expectedMatrix.cssText);
     assert.deepEqual(transformMatrix, expectedMatrix);
   });
 });

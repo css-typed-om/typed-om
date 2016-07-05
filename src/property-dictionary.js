@@ -112,7 +112,7 @@
       .throwInvalidInputError = function(property, value) {
     if (value instanceof CSSKeywordValue) {
       throw new TypeError(property +
-        ' does not take the keyword ' + value.cssString);
+        ' does not take the keyword ' + value.cssText);
     }
     throw new TypeError(property +
       ' does not take values of type ' + value.constructor.name);

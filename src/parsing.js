@@ -17,10 +17,10 @@
   // Extra backslashes because otherwise JS interprets them incorrectly.
   var numberValueRegexStr = '[-+]?(\\d*\\.)?\\d+(e[-+]?\\d+)?';
 
-  function isNumberValueString(cssString) {
+  function isNumberValueString(cssText) {
     // Anchor the regex to the start and end of the string..
     var numberValueRegex = new RegExp('^\\s*' + numberValueRegexStr + '\\s*$');
-    return numberValueRegex.test(cssString);
+    return numberValueRegex.test(cssText);
   }
 
   function isCalc(string) {

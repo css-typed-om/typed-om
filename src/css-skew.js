@@ -25,7 +25,7 @@
     this.ay = ay;
 
     this._matrix = this._computeMatrix();
-    this.cssString = this._generateCssString();
+    this.cssText = this._generateCssString();
   }
   internal.inherit(CSSSkew, internal.CSSTransformComponent);
 

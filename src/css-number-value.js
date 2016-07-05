@@ -19,7 +19,7 @@
       throw new TypeError('Value of CSSNumberValue must be a number.');
     }
     this.value = value;
-    this.cssString = '' + value;
+    this.cssText = '' + value;
   }
   internal.inherit(CSSNumberValue, CSSStyleValue);
 

@@ -7,20 +7,20 @@ suite('CSSKeywordValue', function() {
       'A new CSSKeywordValue should be an instance of CSSStyleValue');
   });
 
-  test('CSSKeywordValue.cssString and CSSKeywordValue.keywordValue are correctly ' +
+  test('CSSKeywordValue.cssText and CSSKeywordValue.keywordValue are correctly ' +
       'initialized', function() {
     var keywordValue = new CSSKeywordValue('initial');
-    var cssString = 'initial';
-    assert.strictEqual(keywordValue.keywordValue, cssString);
-    assert.strictEqual(keywordValue.cssString, cssString);
+    var cssText = 'initial';
+    assert.strictEqual(keywordValue.keywordValue, cssText);
+    assert.strictEqual(keywordValue.cssText, cssText);
   });
 
-  test('cssString returns a string with the same format as CSS.escape()', function() {
-    assert.strictEqual(new CSSKeywordValue('initial').cssString, 'initial');
-    assert.strictEqual(new CSSKeywordValue('center').cssString, 'center');
-    assert.strictEqual(new CSSKeywordValue('customLemon').cssString, 'customLemon');
-    assert.strictEqual(new CSSKeywordValue(' Hello World').cssString, CSS.escape(' Hello World'));
-    assert.strictEqual(new CSSKeywordValue('3').cssString, CSS.escape('3'));
+  test('cssText returns a string with the same format as CSS.escape()', function() {
+    assert.strictEqual(new CSSKeywordValue('initial').cssText, 'initial');
+    assert.strictEqual(new CSSKeywordValue('center').cssText, 'center');
+    assert.strictEqual(new CSSKeywordValue('customLemon').cssText, 'customLemon');
+    assert.strictEqual(new CSSKeywordValue(' Hello World').cssText, CSS.escape(' Hello World'));
+    assert.strictEqual(new CSSKeywordValue('3').cssText, CSS.escape('3'));
   });
 
   test('keywordValue returns a string equal to the string used in the constructor', function() {
@@ -39,8 +39,8 @@ suite('CSSKeywordValue', function() {
     assert.throws(function() { new CSSKeywordValue(true); });
   });
 
-  test('from method should create a CSSKeywordValue object with a cssString equal to the input', function() {
-    assert.strictEqual(CSSKeywordValue.from('auto').cssString, 'auto');
+  test('from method should create a CSSKeywordValue object with a cssText equal to the input', function() {
+    assert.strictEqual(CSSKeywordValue.from('auto').cssText, 'auto');
   });
 
   test('from method should throw an error if its input is not a string', function() {
