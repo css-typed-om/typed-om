@@ -23,7 +23,7 @@ suite('CSSScale', function() {
     assert.strictEqual(scale.x, 3);
     assert.strictEqual(scale.y, -1);
     assert.isNull(scale.z);
-    assert.isTrue(scale.is2DComponent());
+    assert.isTrue(scale.is2D());
 
     var expectedMatrix = new CSSMatrix(3, 0, 0, -1, 0, 0);
     assert.strictEqual(scale.asMatrix().cssString, expectedMatrix.cssString);
@@ -37,7 +37,7 @@ suite('CSSScale', function() {
     assert.strictEqual(scale.x, 3);
     assert.strictEqual(scale.y, 0.5);
     assert.strictEqual(scale.z, -4);
-    assert.isFalse(scale.is2DComponent());
+    assert.isFalse(scale.is2D());
 
     var expectedMatrix = new CSSMatrix(3, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, -4, 0, 0, 0,
         0, 1);

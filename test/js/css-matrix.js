@@ -19,7 +19,7 @@ suite('CSSMatrix', function() {
     assert.doesNotThrow(function() {
       value = new CSSMatrix(10, 20, -0.5, 0.5, 4, 2);
     });
-    assert.isTrue(value.is2DComponent());
+    assert.isTrue(value.is2D());
     assert.strictEqual(value.cssString,
       'matrix(10, 20, -0.5, 0.5, 4, 2)');
     assert.strictEqual(value._matrix.length, 6);
@@ -34,7 +34,7 @@ suite('CSSMatrix', function() {
     assert.doesNotThrow(function() {
       value = new CSSMatrix(10, 20, 0, 0, -0.5, 0.5, 0, 0, 0, 0, 1, 0, 4, 2, 0, 1);
     });
-    assert.isFalse(value.is2DComponent());
+    assert.isFalse(value.is2D());
     assert.strictEqual(value._matrix.length, 16);
     assert.strictEqual(value.cssString,
       'matrix3d(10, 20, 0, 0, -0.5, 0.5, 0, 0, 0, 0, 1, 0, 4, 2, 0, 1)');
@@ -47,17 +47,17 @@ suite('CSSMatrix', function() {
     var identity2D = new CSSMatrix(1, 0, 0, 1, 0, 0);
     var identity3D = new CSSMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 
-    assert.isTrue(identity2D.is2DComponent());
+    assert.isTrue(identity2D.is2D());
 
-    assert.isFalse(identity3D.is2DComponent());
+    assert.isFalse(identity3D.is2D());
 
     var identity2DTo3D = identity2D.to3DComponent();
-    assert.isFalse(identity2DTo3D.is2DComponent());
+    assert.isFalse(identity2DTo3D.is2D());
     assert.strictEqual(identity2DTo3D.cssString, identity3D.cssString);
     assert.deepEqual(identity2DTo3D, identity3D);
 
     var identity3DTo3D = identity3D.to3DComponent();
-    assert.isFalse(identity3DTo3D.is2DComponent());
+    assert.isFalse(identity3DTo3D.is2D());
     assert.strictEqual(identity3DTo3D.cssString, identity3D.cssString);
     assert.deepEqual(identity3DTo3D, identity3D);
     assert.deepEqual(identity3DTo3D, identity2DTo3D);
@@ -68,16 +68,16 @@ suite('CSSMatrix', function() {
     var random3D =
       new CSSMatrix(10, 20, 0, 0, -0.5, 0.5, 0, 0, 0, 0, 1, 0, 4, 2, 0, 1);
 
-    assert.isTrue(random2D.is2DComponent());
-    assert.isFalse(random3D.is2DComponent());
+    assert.isTrue(random2D.is2D());
+    assert.isFalse(random3D.is2D());
 
     var random2DTo3D = random2D.to3DComponent();
-    assert.isFalse(random2DTo3D.is2DComponent());
+    assert.isFalse(random2DTo3D.is2D());
     assert.strictEqual(random2DTo3D.cssString, random3D.cssString);
     assert.deepEqual(random2DTo3D, random3D);
 
     var random3DTo3D = random3D.to3DComponent();
-    assert.isFalse(random3DTo3D.is2DComponent());
+    assert.isFalse(random3DTo3D.is2D());
     assert.strictEqual(random3DTo3D.cssString, random3D.cssString);
     assert.deepEqual(random3DTo3D, random3D);
   });
@@ -88,7 +88,7 @@ suite('CSSMatrix', function() {
     var result = identity2D.multiply(identity2D);
     assert.instanceOf(result, CSSMatrix,
       'CSSMatrix multiply returns an instance of CSSMatrix');
-    assert.isTrue(result.is2DComponent());
+    assert.isTrue(result.is2D());
     assert.deepEqual(result, identity2D);
   });
 
@@ -98,7 +98,7 @@ suite('CSSMatrix', function() {
     var result = identity3D.multiply(identity3D);
     assert.instanceOf(result, CSSMatrix,
       'CSSMatrix multiply returns an instance of CSSMatrix');
-    assert.isFalse(result.is2DComponent());
+    assert.isFalse(result.is2D());
     assert.deepEqual(result, identity3D);
   });
 
@@ -107,12 +107,12 @@ suite('CSSMatrix', function() {
     var identity3D = new CSSMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 
     var multiply2DAnd3D = identity2D.multiply(identity3D);
-    assert.isFalse(multiply2DAnd3D.is2DComponent());
+    assert.isFalse(multiply2DAnd3D.is2D());
     assert.strictEqual(multiply2DAnd3D.cssString, identity3D.cssString);
     assert.deepEqual(multiply2DAnd3D, identity3D);
 
     var multiply3DAnd2D = identity3D.multiply(identity2D);
-    assert.isFalse(multiply3DAnd2D.is2DComponent());
+    assert.isFalse(multiply3DAnd2D.is2D());
     assert.strictEqual(multiply2DAnd3D.cssString, identity3D.cssString);
     assert.deepEqual(multiply3DAnd2D, identity3D);
   });
@@ -123,7 +123,7 @@ suite('CSSMatrix', function() {
     var expectedResult = new CSSMatrix(-20, -40, 488.5, 981.5, 73.6, 142.4);
 
     var result = random1.multiply(random2);
-    assert.isTrue(result.is2DComponent());
+    assert.isTrue(result.is2D());
     assert.strictEqual(result.cssString, expectedResult.cssString);
     assert.deepEqual(result, expectedResult);
   });
@@ -140,13 +140,13 @@ suite('CSSMatrix', function() {
             23);
 
     var multiply2DAnd3D = random2D.multiply(random3D);
-    assert.isFalse(multiply2DAnd3D.is2DComponent());
+    assert.isFalse(multiply2DAnd3D.is2D());
     assert.strictEqual(multiply2DAnd3D.cssString,
         expectedMultiply2DAnd3D.cssString);
     assert.deepEqual(multiply2DAnd3D, expectedMultiply2DAnd3D);
 
     var multiply3DAnd2D = random3D.multiply(random2D);
-    assert.isFalse(multiply3DAnd2D.is2DComponent());
+    assert.isFalse(multiply3DAnd2D.is2D());
     assert.strictEqual(multiply3DAnd2D.cssString,
         expectedMultiply3DAnd2D.cssString);
     assert.deepEqual(multiply3DAnd2D, expectedMultiply3DAnd2D);
@@ -162,7 +162,7 @@ suite('CSSMatrix', function() {
             119.5, 210.5, 3, 5);
 
     var result = random1.multiply(random2);
-    assert.isFalse(result.is2DComponent());
+    assert.isFalse(result.is2D());
     assert.strictEqual(result.cssString, expectedResult.cssString);
     assert.deepEqual(result, expectedResult);
   });
