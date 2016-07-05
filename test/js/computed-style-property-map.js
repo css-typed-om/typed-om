@@ -81,7 +81,6 @@ suite('Computed StylePropertyMap', function() {
     var computedStyleMap = getComputedStyleMap(this.element);
 
     var result = computedStyleMap.get('animation-delay');
-    console.log(result);
     assert.instanceOf(result, CSSStyleValue);
     assert.strictEqual(result.cssText, '5s');
   });
