@@ -14,7 +14,7 @@
 
 (function(internal, scope) {
 
-  // TODO: CSSCalcLength(cssString)
+  // TODO: CSSCalcLength(cssText)
   function CSSCalcLength(dictionary) {
     if (typeof dictionary != 'object') {
       throw new TypeError('CSSCalcLength must be passed a dictionary object');
@@ -40,7 +40,7 @@
           'A CalcDictionary must have at least one valid length.');
     }
 
-    this.cssString = generateCSSString(this);
+    this.cssText = generateCSSString(this);
   }
   internal.inherit(CSSCalcLength, CSSLengthValue);
 
@@ -165,7 +165,7 @@
         }
         value = Math.abs(value);
       }
-      result += value + CSSLengthValue.cssStringTypeRepresentation(type);
+      result += value + CSSLengthValue.cssTextTypeRepresentation(type);
       isFirst = false;
     }, calcLength);
 

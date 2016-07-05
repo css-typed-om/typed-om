@@ -31,16 +31,16 @@ suite('CSSPerspective', function() {
     var perspective;
     var length = new CSSSimpleLength(10, 'px');
     assert.doesNotThrow(function() {perspective = new CSSPerspective(length)});
-    assert.strictEqual(perspective.cssString,
-        'perspective(' + length.cssString + ')');
+    assert.strictEqual(perspective.cssText,
+        'perspective(' + length.cssText + ')');
     assert.strictEqual(perspective.length.value, 10);
     assert.deepEqual(perspective.length, length);
     assert.isFalse(perspective.is2D());
 
     var expectedMatrix = new CSSMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, -0.1, 0, 0,
         0, 1);
-    assert.strictEqual(perspective.asMatrix().cssString,
-        expectedMatrix.cssString);
+    assert.strictEqual(perspective.asMatrix().cssText,
+        expectedMatrix.cssText);
     assert.deepEqual(perspective.asMatrix(), expectedMatrix);
   });
 });
