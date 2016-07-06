@@ -14,7 +14,7 @@
 
 (function(internal, scope) {
 
-  // TODO: CSSSimpleLength(simpleLength), CSSSimpleLength(cssString)
+  // TODO: CSSSimpleLength(simpleLength), CSSSimpleLength(cssText)
   function CSSSimpleLength(value, type) {
     if (value instanceof CSSSimpleLength && arguments.length == 1) {
       return new CSSSimpleLength(value.value, value.type);
@@ -27,7 +27,7 @@
     }
     this.type = type;
     this.value = value;
-    this.cssString = this._generateCssString();
+    this.cssText = this._generateCssString();
   }
   internal.inherit(CSSSimpleLength, CSSLengthValue);
 
@@ -39,29 +39,29 @@
     return new CSSSimpleLength((this.value / divider), this.type);
   };
 
-  CSSSimpleLength.prototype._addSimpleLengths = function(addedLength) {
+  function addSimpleLengths(length, addedLength) {
     if (!(addedLength instanceof CSSSimpleLength)) {
       throw new TypeError('Argument must be a CSSSimpleLength');
     }
-    if (this.type != addedLength.type) {
+    if (length.type != addedLength.type) {
       throw new TypeError('CSSSimpleLength units are not the same');
     }
-    return new CSSSimpleLength((this.value + addedLength.value), this.type);
+    return new CSSSimpleLength(length.value + addedLength.value, length.type);
   };
 
-  CSSSimpleLength.prototype._subtractSimpleLengths = function(subtractedLength) {
+  function subtractSimpleLengths(length, subtractedLength) {
     if (!(subtractedLength instanceof CSSSimpleLength)) {
       throw new TypeError('Argument must be a CSSSimpleLength');
     }
-    if (this.type != subtractedLength.type) {
+    if (length.type != subtractedLength.type) {
       throw new TypeError('CSSSimpleLength units are not the same');
     }
-    return new CSSSimpleLength((this.value - subtractedLength.value), this.type);
+    return new CSSSimpleLength(length.value - subtractedLength.value, length.type);
   };
 
-  CSSSimpleLength.prototype._asCalcLength = function() {
+  function simpleLengthToCalcLength(simpleLength) {
     var calcDictionary = {};
-    calcDictionary[this.type] = this.value;
+    calcDictionary[simpleLength.type] = simpleLength.value;
     return new CSSCalcLength(calcDictionary);
   };
 
@@ -76,11 +76,15 @@
   };
 
   CSSSimpleLength.prototype._generateCssString = function() {
-    var cssString = this.value +
-        CSSLengthValue.cssStringTypeRepresentation(this.type);
-    return cssString;
+    var cssText = this.value +
+        CSSLengthValue.cssTextTypeRepresentation(this.type);
+    return cssText;
   };
 
   scope.CSSSimpleLength = CSSSimpleLength;
+
+  internal.addSimpleLengths = addSimpleLengths;
+  internal.subtractSimpleLengths = subtractSimpleLengths;
+  internal.simpleLengthToCalcLength = simpleLengthToCalcLength;
 
 })(typedOM.internal, window);

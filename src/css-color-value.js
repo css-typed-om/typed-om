@@ -38,7 +38,7 @@
     this.g = g;
     this.b = b;
     this.a = a;
-    this.cssString = this._generateCssString();
+    this.cssText = this._generateCssString();
   }
   internal.inherit(CSSColorValue, CSSStyleValue);
 
@@ -47,14 +47,14 @@
   };
 
   CSSColorValue.prototype._generateCssString = function() {
-    var cssString = this.a == 1 ? 'rgb(' : 'rgba(';
-    cssString = cssString + this.r + ',' + this.g + ',' + this.b;
+    var cssText = this.a == 1 ? 'rgb(' : 'rgba(';
+    cssText = cssText + this.r + ',' + this.g + ',' + this.b;
 
     if (this.a != 1) {
-      cssString  = cssString + ',' + this.a;
+      cssText  = cssText + ',' + this.a;
     }
-    cssString = cssString + ')'
-    return cssString;
+    cssText = cssText + ')'
+    return cssText;
   };
 
   CSSColorValue.prototype._isInt = function(value) {

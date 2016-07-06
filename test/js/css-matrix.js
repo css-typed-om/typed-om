@@ -20,7 +20,7 @@ suite('CSSMatrix', function() {
       value = new CSSMatrix(10, 20, -0.5, 0.5, 4, 2);
     });
     assert.isTrue(value.is2D());
-    assert.strictEqual(value.cssString,
+    assert.strictEqual(value.cssText,
       'matrix(10, 20, -0.5, 0.5, 4, 2)');
     assert.strictEqual(value._matrix.length, 6);
     for (var i = 0; i < value._matrix.length; i++) {
@@ -36,7 +36,7 @@ suite('CSSMatrix', function() {
     });
     assert.isFalse(value.is2D());
     assert.strictEqual(value._matrix.length, 16);
-    assert.strictEqual(value.cssString,
+    assert.strictEqual(value.cssText,
       'matrix3d(10, 20, 0, 0, -0.5, 0.5, 0, 0, 0, 0, 1, 0, 4, 2, 0, 1)');
     for (var i = 0; i < value._matrix.length; i++) {
       assert.strictEqual(value._matrix[i], randomValues[i]);
@@ -53,12 +53,12 @@ suite('CSSMatrix', function() {
 
     var identity2DTo3D = identity2D.to3DComponent();
     assert.isFalse(identity2DTo3D.is2D());
-    assert.strictEqual(identity2DTo3D.cssString, identity3D.cssString);
+    assert.strictEqual(identity2DTo3D.cssText, identity3D.cssText);
     assert.deepEqual(identity2DTo3D, identity3D);
 
     var identity3DTo3D = identity3D.to3DComponent();
     assert.isFalse(identity3DTo3D.is2D());
-    assert.strictEqual(identity3DTo3D.cssString, identity3D.cssString);
+    assert.strictEqual(identity3DTo3D.cssText, identity3D.cssText);
     assert.deepEqual(identity3DTo3D, identity3D);
     assert.deepEqual(identity3DTo3D, identity2DTo3D);
   });
@@ -73,12 +73,12 @@ suite('CSSMatrix', function() {
 
     var random2DTo3D = random2D.to3DComponent();
     assert.isFalse(random2DTo3D.is2D());
-    assert.strictEqual(random2DTo3D.cssString, random3D.cssString);
+    assert.strictEqual(random2DTo3D.cssText, random3D.cssText);
     assert.deepEqual(random2DTo3D, random3D);
 
     var random3DTo3D = random3D.to3DComponent();
     assert.isFalse(random3DTo3D.is2D());
-    assert.strictEqual(random3DTo3D.cssString, random3D.cssString);
+    assert.strictEqual(random3DTo3D.cssText, random3D.cssText);
     assert.deepEqual(random3DTo3D, random3D);
   });
 
@@ -108,12 +108,12 @@ suite('CSSMatrix', function() {
 
     var multiply2DAnd3D = identity2D.multiply(identity3D);
     assert.isFalse(multiply2DAnd3D.is2D());
-    assert.strictEqual(multiply2DAnd3D.cssString, identity3D.cssString);
+    assert.strictEqual(multiply2DAnd3D.cssText, identity3D.cssText);
     assert.deepEqual(multiply2DAnd3D, identity3D);
 
     var multiply3DAnd2D = identity3D.multiply(identity2D);
     assert.isFalse(multiply3DAnd2D.is2D());
-    assert.strictEqual(multiply2DAnd3D.cssString, identity3D.cssString);
+    assert.strictEqual(multiply2DAnd3D.cssText, identity3D.cssText);
     assert.deepEqual(multiply3DAnd2D, identity3D);
   });
 
@@ -124,7 +124,7 @@ suite('CSSMatrix', function() {
 
     var result = random1.multiply(random2);
     assert.isTrue(result.is2D());
-    assert.strictEqual(result.cssString, expectedResult.cssString);
+    assert.strictEqual(result.cssText, expectedResult.cssText);
     assert.deepEqual(result, expectedResult);
   });
 
@@ -141,14 +141,14 @@ suite('CSSMatrix', function() {
 
     var multiply2DAnd3D = random2D.multiply(random3D);
     assert.isFalse(multiply2DAnd3D.is2D());
-    assert.strictEqual(multiply2DAnd3D.cssString,
-        expectedMultiply2DAnd3D.cssString);
+    assert.strictEqual(multiply2DAnd3D.cssText,
+        expectedMultiply2DAnd3D.cssText);
     assert.deepEqual(multiply2DAnd3D, expectedMultiply2DAnd3D);
 
     var multiply3DAnd2D = random3D.multiply(random2D);
     assert.isFalse(multiply3DAnd2D.is2D());
-    assert.strictEqual(multiply3DAnd2D.cssString,
-        expectedMultiply3DAnd2D.cssString);
+    assert.strictEqual(multiply3DAnd2D.cssText,
+        expectedMultiply3DAnd2D.cssText);
     assert.deepEqual(multiply3DAnd2D, expectedMultiply3DAnd2D);
   });
 
@@ -163,7 +163,7 @@ suite('CSSMatrix', function() {
 
     var result = random1.multiply(random2);
     assert.isFalse(result.is2D());
-    assert.strictEqual(result.cssString, expectedResult.cssString);
+    assert.strictEqual(result.cssText, expectedResult.cssText);
     assert.deepEqual(result, expectedResult);
   });
 });

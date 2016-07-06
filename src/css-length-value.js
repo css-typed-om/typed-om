@@ -54,7 +54,7 @@
     });
   };
 
-  CSSLengthValue.cssStringTypeRepresentation = function(type) {
+  CSSLengthValue.cssTextTypeRepresentation = function(type) {
     if (!CSSLengthValue.isValidLengthType(type)) {
       throw new TypeError('Invalid Length Type.');
     }
@@ -101,11 +101,9 @@
     if (this instanceof CSSSimpleLength &&
         addedLength instanceof CSSSimpleLength &&
         this.type == addedLength.type) {
-      return this._addSimpleLengths(addedLength);
+      return internal.addSimpleLengths(this, addedLength);
     } else if (addedLength instanceof CSSLengthValue) {
-      // Ensure both lengths are of type CSSCalcLength before adding
-      return this._asCalcLength()._addCalcLengths(
-          addedLength._asCalcLength());
+      return internal.simpleLengthToCalcLength(this).add(addedLength);
     } else {
       throw new TypeError('Argument must be a CSSLengthValue');
     }
@@ -115,11 +113,9 @@
     if (this instanceof CSSSimpleLength &&
         subtractedLength instanceof CSSSimpleLength &&
         this.type == subtractedLength.type) {
-      return this._subtractSimpleLengths(subtractedLength);
+      return internal.subtractSimpleLengths(this, subtractedLength);
     } else if (subtractedLength instanceof CSSLengthValue) {
-      // Ensure both lengths are of type CSSCalcLength before subtracting
-      return this._asCalcLength()._subtractCalcLengths(
-          subtractedLength._asCalcLength());
+      return internal.simpleLengthToCalcLength(this).subtract(subtractedLength);
     } else {
       throw new TypeError('Argument must be a CSSLengthValue');
     }
@@ -130,10 +126,6 @@
   };
 
   CSSLengthValue.prototype.divide = function(divider) {
-    throw new TypeError('Should not be reached');
-  };
-
-  CSSLengthValue.prototype._asCalcLength = function() {
     throw new TypeError('Should not be reached');
   };
 

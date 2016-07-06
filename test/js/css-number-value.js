@@ -17,20 +17,20 @@ suite('CSSNumberValue', function() {
       'strings', function() {
     var value;
     assert.doesNotThrow(function() {value = new CSSNumberValue(10)});
-    assert.strictEqual(value.cssString, '10');
+    assert.strictEqual(value.cssText, '10');
     assert.strictEqual(value.value, 10);
   });
 
   test('from method should return a CSSNumberValue object if string can be successfully parsed to a number', function() {
-    assert.strictEqual(CSSNumberValue.from('12').cssString, '12');
-    assert.strictEqual(CSSNumberValue.from('4.01').cssString, '4.01');
-    assert.strictEqual(CSSNumberValue.from('-456.8').cssString, '-456.8');
-    assert.strictEqual(CSSNumberValue.from('0.0').cssString, '0');
-    assert.strictEqual(CSSNumberValue.from('+0.0').cssString, '0');
-    assert.strictEqual(CSSNumberValue.from('-0.0').cssString, '0');
-    assert.strictEqual(CSSNumberValue.from('.60').cssString, '0.6');
-    assert.strictEqual(CSSNumberValue.from('10e3').cssString, '10000');
-    assert.strictEqual(CSSNumberValue.from('-3.4e-2').cssString, '-0.034');
+    assert.strictEqual(CSSNumberValue.from('12').cssText, '12');
+    assert.strictEqual(CSSNumberValue.from('4.01').cssText, '4.01');
+    assert.strictEqual(CSSNumberValue.from('-456.8').cssText, '-456.8');
+    assert.strictEqual(CSSNumberValue.from('0.0').cssText, '0');
+    assert.strictEqual(CSSNumberValue.from('+0.0').cssText, '0');
+    assert.strictEqual(CSSNumberValue.from('-0.0').cssText, '0');
+    assert.strictEqual(CSSNumberValue.from('.60').cssText, '0.6');
+    assert.strictEqual(CSSNumberValue.from('10e3').cssText, '10000');
+    assert.strictEqual(CSSNumberValue.from('-3.4e-2').cssText, '-0.034');
   });
 
   test('from method should return null if string cannot be successfully parsed to a number', function() {

@@ -20,7 +20,7 @@ suite('Computed StylePropertyMap', function() {
     var propertyStyleValue = computedStyleMap.get('opacity');
 
     assert.instanceOf(propertyStyleValue, CSSNumberValue);
-    assert.strictEqual(propertyStyleValue.cssString, '0.5');
+    assert.strictEqual(propertyStyleValue.cssText, '0.5');
   });
 
   // Test disabled for now as `animation-*` properties are automatically
@@ -36,7 +36,7 @@ suite('Computed StylePropertyMap', function() {
     var propertyStyleValue = computedStyleMap.get('animation-iteration-count');
 
     assert.instanceOf(propertyStyleValue, CSSNumberValue);
-    assert.strictEqual(propertyStyleValue.cssString, '4');
+    assert.strictEqual(propertyStyleValue.cssText, '4');
   });
 
   test('getProperties returns an ordered list of properties that have been set on an element', function() {
@@ -56,9 +56,9 @@ suite('Computed StylePropertyMap', function() {
     inlineStyleMap.set('animation-iteration-count', valueArray);
     var propertyStyleValue = computedStyleMap.getAll('animation-iteration-count');
 
-    assert.strictEqual(propertyStyleValue[0].cssString, '4');
-    assert.strictEqual(propertyStyleValue[1].cssString, '5');
-    assert.strictEqual(propertyStyleValue[2].cssString, 'infinite');
+    assert.strictEqual(propertyStyleValue[0].cssText, '4');
+    assert.strictEqual(propertyStyleValue[1].cssText, '5');
+    assert.strictEqual(propertyStyleValue[2].cssText, 'infinite');
   });
 
   test('getAll method returns an array of size 1 if only a single CSSStyleValue is set on a property', function() {
@@ -66,7 +66,7 @@ suite('Computed StylePropertyMap', function() {
     var propertyStyleValue = computedStyleMap.getAll('opacity');
 
     assert.strictEqual(propertyStyleValue.length, 1);
-    assert.strictEqual(propertyStyleValue[0].cssString, '0.5');
+    assert.strictEqual(propertyStyleValue[0].cssText, '0.5');
   });
 
   test('getAll method throws a TypeError if the property is not supported', function() {

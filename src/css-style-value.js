@@ -18,11 +18,11 @@
     throw new TypeError('CSSStyleValue cannot be instantiated.');
   }
 
-  CSSStyleValue.parse = function(property, cssString) {
+  CSSStyleValue.parse = function(property, cssText) {
     if (typeof property != 'string') {
       throw new TypeError('Property name must be a string');
     }
-    if (typeof cssString != 'string') {
+    if (typeof cssText != 'string') {
       throw new TypeError('Must parse a string');
     }
     if (!internal.propertyDictionary().isSupportedProperty(property)) {
@@ -31,7 +31,7 @@
     }
 
     // Currently only supports sequences separated by ', '
-    var valueArray = cssString.toLowerCase().split(', ');
+    var valueArray = cssText.toLowerCase().split(', ');
     var styleValueArray = [];
     var supportedStyleValues =
         internal.propertyDictionary().getValidStyleValuesArray(property);
@@ -39,10 +39,10 @@
     var styleValueObject = null;
     var successfulParse = false;
     for (var i = 0; i < valueArray.length; i++) {
-      var cssStringStyleValue = valueArray[i];
-      cssStringStyleValue = cssStringStyleValue.trim();
-      if (internal.propertyDictionary().isValidKeyword(property, cssStringStyleValue)) {
-        styleValueArray[i] = new CSSKeywordValue(cssStringStyleValue);
+      var cssTextStyleValue = valueArray[i];
+      cssTextStyleValue = cssTextStyleValue.trim();
+      if (internal.propertyDictionary().isValidKeyword(property, cssTextStyleValue)) {
+        styleValueArray[i] = new CSSKeywordValue(cssTextStyleValue);
         continue;
       }
 
@@ -50,7 +50,7 @@
       successfulParse = false;
       for (var j = 0; j < supportedStyleValues.length; j++) {
         try {
-          styleValueObject = supportedStyleValues[j].from(cssStringStyleValue);
+          styleValueObject = supportedStyleValues[j].from(cssTextStyleValue);
         } catch (e) {
           // Ensures method does not terminate if a CSSStyleValue fom method throws an error
           continue;

@@ -18,7 +18,7 @@ suite('Inline StylePropertyMap', function() {
     var simpleLength = new CSSSimpleLength(9.2, 'percent');
     inlineStyleMap.set('height', simpleLength);
 
-    assert.strictEqual(this.element.style['height'], simpleLength.cssString);
+    assert.strictEqual(this.element.style['height'], simpleLength.cssText);
   });
 
   test('Set successfully sets the style string for the list of CSSStyleValues on a property that supports sequences', function() {
