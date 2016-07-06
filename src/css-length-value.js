@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, scope, testing) {
+(function(internal, scope) {
 
   // Constructor (CSSLengthValue)
   function CSSLengthValue(value) {
@@ -134,8 +134,4 @@
   };
 
   scope.CSSLengthValue = CSSLengthValue;
-  if (TYPED_OM_TESTING) {
-    testing.CSSLengthValue = CSSLengthValue;
-  }
-
-})(typedOM.internal, window, typedOMTesting);
+})(typedOM.internal, window);
