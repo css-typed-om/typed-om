@@ -29,18 +29,6 @@
 
   // Effectively returns a calc dictionary.
   function parseDimension(unitRegExp, string) {
-    string = string.trim().toLowerCase();
-
-    // CSS allows lengths to be '0', so if px is a supported unit, return 0px.
-    if (string == '0' && 'px'.search(unitRegExp) >= 0)
-      return {px: 0};
-
-    // If we have parenthesis, we're a calc and need to start with 'calc'.
-    if (!/^[^(]*$|^calc/.test(string)) {
-      return;
-    }
-    string = string.replace(/^calc\(/, '(');
-
     // We tag units by prefixing them with 'U' (note that we are already
     // lowercase) to prevent problems with types which are substrings of
     // each other (although prefixes may be problematic!)
@@ -102,10 +90,107 @@
     return matchedUnits;
   }
 
-  internal.parsing = {};
+  function ignore(value) {
+    return function(input) {
+      var result = value(input);
+      if (result)
+        result[0] = undefined;
+      return result;
+    }
+  }
+
+  // Regex should be anchored with /^
+  function consumeToken(regex, string) {
+    var result = regex.exec(string);
+    if (result) {
+      result = regex.ignoreCase ? result[0].toLowerCase() : result[0];
+      return [result, string.substr(result.length)];
+    }
+  }
+
+  function consumeNumber(string) {
+    var result = consumeToken(/^[0-9]?\.?[0-9]+/, string);
+    if (result && result[0]) {
+      result[0] = parseFloat(result[0]);
+    }
+    return result;
+  }
+
+  function consumeTrimmed(consumer, string) {
+    string = string.replace(/^\s*/, '');
+    var result = consumer(string);
+    if (result) {
+      return [result[0], result[1].replace(/^\s*/, '')];
+    }
+  }
+
+  function consumeRepeated(consumer, separator, string) {
+    consumer = consumeTrimmed.bind(null, consumer);
+    var list = [];
+    while (true) {
+      var result = consumer(string);
+      if (!result) {
+        return [list, string];
+      }
+      list.push(result[0]);
+      string = result[1];
+      result = consumeToken(separator, string);
+      if (!result || result[1] == '') {
+        return [list, string];
+      }
+      string = result[1];
+    }
+  }
+
+  function consumeList(list, input) {
+    var output = [];
+    for (var i = 0; i < list.length; i++) {
+      var result = consumeTrimmed(list[i], input);
+      if (!result || result[0] == '')
+        return;
+      if (result[0] !== undefined)
+        output.push(result[0]);
+      input = result[1];
+    }
+    if (input == '') {
+      return output;
+    }
+  }
+
+  // Consumes a token or expression with balanced parentheses
+  function consumeParenthesised(parser, string) {
+    var nesting = 0;
+    for (var n = 0; n < string.length; n++) {
+      if (/\s|,/.test(string[n]) && nesting == 0) {
+        break;
+      } else if (string[n] == '(') {
+        nesting++;
+      } else if (string[n] == ')') {
+        nesting--;
+        if (nesting == 0)
+          n++;
+        if (nesting <= 0)
+          break;
+      }
+    }
+    console.log(string.substr(0, n));
+    var parsed = parser(string.substr(0, n));
+    return parsed == undefined ? undefined : [parsed, string.substr(n)];
+  }
+
+  if (!internal.parsing) {
+    internal.parsing = {};
+  }
   internal.parsing.isNumberValueString = isNumberValueString;
   internal.parsing.isCalc = isCalc;
   internal.parsing.parseDimension = parseDimension;
+  internal.parsing.ignore = ignore;
+  internal.parsing.consumeToken = consumeToken;
+  internal.parsing.consumeNumber = consumeNumber;
+  internal.parsing.consumeTrimmed = consumeTrimmed;
+  internal.parsing.consumeRepeated = consumeRepeated;
+  internal.parsing.consumeList = consumeList;
+  internal.parsing.consumeParenthesised = consumeParenthesised;
   if (TYPED_OM_TESTING) {
     testing.parsing = internal.parsing;
   }

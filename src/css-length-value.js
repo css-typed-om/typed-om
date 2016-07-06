@@ -68,6 +68,8 @@
   };
 
   CSSLengthValue.from = function(value, type) {
+    internal.parsing.consumeCalcLength(value);
+    /*
     if (type !== undefined) {
       return new CSSSimpleLength(value, type);
     }
@@ -94,7 +96,7 @@
       return new CSSCalcLength(result);
     } else {
       return new CSSSimpleLength(result[keys[0]], keys[0]);
-    }
+    }*/
   };
 
   CSSLengthValue.prototype.add = function(addedLength) {

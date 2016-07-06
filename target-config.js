@@ -20,11 +20,13 @@
 
   var typedOMSrc = [
       'src/util.js',
+      'src/parsing.js',
       'src/css-style-value.js',
       'src/css-angle-value.js',
       'src/css-number-value.js',
       'src/css-keyword-value.js',
       'src/css-length-value.js',
+      'src/css-length-value-parsing.js',
       'src/css-simple-length.js',
       'src/css-calc-length.js',
       'src/css-position-value.js',
@@ -39,7 +41,6 @@
       'src/css-transform-value.js',
       'src/style-property-map-readonly.js',
       'src/style-property-map.js',
-      'src/parsing.js',
       'src/property-dictionary.js'
   ];
 
