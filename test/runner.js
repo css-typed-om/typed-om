@@ -13,7 +13,6 @@
 // limitations under the License.
 
 var TYPED_OM_TESTING = true;
-var typedOMTesting = window;
 var assert = chai.assert;
 mocha.setup({ ui: 'tdd' });
 

@@ -19,7 +19,7 @@ typedOM.internal = {};
 typedOM.internal.objects = {};
 
 if (TYPED_OM_TESTING) {
-  var typedOMTesting = window;
+  var typedOMTesting = {};
 } else {
   var typedOMTesting = null;
 }
