@@ -102,9 +102,12 @@
     return matchedUnits;
   }
 
-  function ignore(value) {
+  // The consumeX functions all return pairs of
+  // [consumed, remainingString] (or undefined, if nothing was consumed).
+
+  function ignore(consumerFn) {
     return function(input) {
-      var result = value(input);
+      var result = consumerFn(input);
       if (result)
         result[0] = undefined;
       return result;
