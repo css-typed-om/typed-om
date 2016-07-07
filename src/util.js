@@ -61,9 +61,4 @@
   internal.objects.any = any;
 
   internal.inherit = inherit;
-
-  if (TYPED_OM_TESTING) {
-    testing.objects = internal.objects;
-  }
-
-})(typedOM.internal, typedOMTesting);
+})(typedOM.internal);

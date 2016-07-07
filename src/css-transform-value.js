@@ -25,7 +25,7 @@
 
     this.transformComponents = [];
     for (var i = 0; i < values.length; i++) {
-      if (!(values[i] instanceof CSSTransformComponent)) {
+      if (!(values[i] instanceof internal.CSSTransformComponent)) {
         throw new TypeError('Argument at index ' + i + ' is not an instance ' +
             'of \'CSSTransformComponent\'.');
       }

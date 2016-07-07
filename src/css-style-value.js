@@ -75,8 +75,4 @@
   };
 
   scope.CSSStyleValue = CSSStyleValue;
-  if (TYPED_OM_TESTING) {
-    testing.CSSStyleValue = CSSStyleValue;
-  }
-
-})(typedOM.internal, window, typedOMTesting);
+})(typedOM.internal, window);

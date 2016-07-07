@@ -3,7 +3,7 @@ suite('CSSScale', function() {
     var scale = new CSSScale(1, 2);
     assert.instanceOf(scale, CSSScale,
         'A new CSSScale should be an instance of CSSScale');
-    assert.instanceOf(scale, CSSTransformComponent,
+    assert.instanceOf(scale, typedOM.internal.CSSTransformComponent,
         'A new CSSScale should be an instance of CSSTransformComponent');
   });
 

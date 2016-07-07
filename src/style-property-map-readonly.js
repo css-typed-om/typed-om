@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, scope, testing) {
+(function(internal, scope) {
 
   function StylePropertyMapReadOnly(styleObject) {
     this._styleObject = styleObject;
@@ -53,8 +53,4 @@
 
   internal.StylePropertyMapReadOnly = StylePropertyMapReadOnly;
   scope.getComputedStyleMap = getComputedStyleMap;
-  if (TYPED_OM_TESTING) {
-    testing.StylePropertyMapReadOnly = StylePropertyMapReadOnly;
-  }
-
-})(typedOM.internal, window, typedOMTesting);
+})(typedOM.internal, window);
