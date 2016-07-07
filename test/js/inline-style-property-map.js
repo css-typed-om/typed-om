@@ -10,7 +10,7 @@ suite('Inline StylePropertyMap', function() {
 
   test('The Element.styleMap method returns a StylePropertyMap object for that element', function() {
     var inlineStyleMap = this.element.styleMap();
-    assert.instanceOf(inlineStyleMap, StylePropertyMap);
+    assert.instanceOf(inlineStyleMap, typedOM.internal.StylePropertyMap);
   });
 
   test('Set successfully sets the CSS string of the CSSStyleValue on an element', function() {

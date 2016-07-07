@@ -3,7 +3,7 @@ suite('CSSMatrix', function() {
     var matrix2D = new CSSMatrix(0, 0, 0, 0, 0, 0);
     assert.instanceOf(matrix2D, CSSMatrix,
       'A new CSSMatrix should be an instance of CSSMatrix');
-    assert.instanceOf(matrix2D, CSSTransformComponent,
+    assert.instanceOf(matrix2D, typedOM.internal.CSSTransformComponent,
       'A new CSSMatrix should be an instance of CSSTransformComponent');
   });
 

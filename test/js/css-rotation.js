@@ -12,7 +12,7 @@ suite('CSSRotation', function() {
     var rotation = new CSSRotation(45);
     assert.instanceOf(rotation, CSSRotation,
         'A new CSSRotation should be an instance of CSSRotation');
-    assert.instanceOf(rotation, CSSTransformComponent,
+    assert.instanceOf(rotation, typedOM.internal.CSSTransformComponent,
         'A new CSSRotation should be an instance of CSSTransformComponent');
   });
 
