@@ -135,10 +135,11 @@
     var e = matrix._matrix[4];
     var f = matrix._matrix[5];
     // See documentation http://www.w3.org/TR/css3-transforms/#MatrixDefined.
-    return new DOMMatrixReadonly([a, b, 0, 0,
-                      c, d, 0, 0,
-                      0, 0, 1, 0,
-                      e, f, 0, 1]);
+    return new DOMMatrixReadonly(
+        [a, b, 0, 0,
+        c, d, 0, 0,
+        0, 0, 1, 0,
+        e, f, 0, 1]);
   };
 
   function matricesApproxEqual(matrix1, matrix2) {
