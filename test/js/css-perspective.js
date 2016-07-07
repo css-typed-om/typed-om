@@ -3,7 +3,7 @@ suite('CSSPerspective', function() {
     var perspective = new CSSPerspective(new CSSSimpleLength(10, 'px'));
     assert.instanceOf(perspective, CSSPerspective,
         'A new CSSPerspective should be an instance of CSSPerspective');
-    assert.instanceOf(perspective, CSSTransformComponent,
+    assert.instanceOf(perspective, typedOM.internal.CSSTransformComponent,
         'A new CSSPerspective should be an instance of CSSTransformComponent');
   });
 

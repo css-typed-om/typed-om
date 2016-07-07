@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, testing) {
+(function(internal) {
 
   // Extra backslashes because otherwise JS interprets them incorrectly.
   var numberValueRegexStr = '[-+]?(\\d*\\.)?\\d+(e[-+]?\\d+)?';
@@ -179,7 +179,4 @@
   internal.parsing.consumeTrimmed = consumeTrimmed;
   internal.parsing.consumeRepeated = consumeRepeated;
   internal.parsing.consumeList = consumeList;
-  if (TYPED_OM_TESTING) {
-    testing.parsing = internal.parsing;
-  }
-})(typedOM.internal, typedOMTesting);
+})(typedOM.internal);

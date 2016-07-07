@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, testing) {
+(function(internal) {
 
   function StylePropertyMap(styleObject) {
     this._styleObject = styleObject;
@@ -94,8 +94,4 @@
   };
 
   internal.StylePropertyMap = StylePropertyMap;
-  if (TYPED_OM_TESTING) {
-    testing.StylePropertyMap = StylePropertyMap;
-  }
-
-})(typedOM.internal, typedOMTesting);
+})(typedOM.internal);
