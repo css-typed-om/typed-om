@@ -12,43 +12,132 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, testing) {
+(function(internal) {
 
-  function consumeLengthValue(str) {
-    var lengthUnits = 'px|%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc';
-    var result = internal.parsing.parseDimension(new RegExp(lengthUnits, 'g'), value);
-    if (!result) {
-      return null;
+  var unitRegExpStr = 'px|%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc';
+
+  function isCalc(string) {
+    return /^calc/.test(string); 
+  }
+
+  // Returns a calc dictionary.
+  function parseDimension(string) {
+    // We tag units by prefixing them with 'U' (note that we are already
+    // lowercase) to prevent problems with types which are substrings of
+    // each other (although prefixes may be problematic!)
+    var matchedUnits = {};
+    string = string.replace(new RegExp(unitRegExpStr, 'g'), function(match) {
+      matchedUnits[match] = null;
+      return 'U' + match;
+    });
+    var taggedUnitRegExp = 'U(' + unitRegExpStr + ')';
+
+    // Validating input is simply applying as many reductions as we can.
+    // Replace numbers with N, numbers with units with D, operations with O,
+    // then remove all whitespace.
+    var typeCheck = string.replace(new RegExp(internal.parsing.NUMBER_REGEX_STR, 'g'), 'N')
+                          .replace(new RegExp('N' + taggedUnitRegExp, 'g'), 'D')
+                          .replace(/\s[+-]\s/g, 'O')
+                          .replace(/\s/g, '');
+
+    var reductions = [
+      // Matches on a number tag followed by the * operator followed by a
+      // number tag, capturing the number tag (D).
+      /N\*(D)/g,
+      // Matches on a number tag (N) or number with unit (D) followed by an
+      // * or / operator, followed by a number (N), capturing the first N or D.
+      /(N|D)[*/]N/g,
+      // Matches on a number tag (N) or number with unit (D) followed by a
+      // + or - operator (O), followed by another number or number with unit
+      // tag, capturing the first N or D.
+      /(N|D)O\1/g,
+      // Matches on number (N) or number with unit (D) tags surrounded by
+      // brackets, capturing the N or D.
+      /\((N|D)\)/g
+    ];
+    var i = 0;
+    while (i < reductions.length) {
+      if (reductions[i].test(typeCheck)) {
+        // Replace each reduction with the captured part, so that
+        // (DOD) becomes (D) then D.
+        typeCheck = typeCheck.replace(reductions[i], '$1');
+        i = 0;
+      } else {
+        i++;
+      }
     }
-    if (result['%'] != undefined) {
+    // If we don't end up only with a number tag after reducing, the
+    // expression is invalid.
+    if (typeCheck != 'D') {
+      return;
+    }
+
+    for (var unit in matchedUnits) {
+      // TODO: Don't use eval here as it will throw up security flags.
+      var result = eval(string.replace(new RegExp('U' + unit, 'g'), '').replace(
+            new RegExp(taggedUnitRegExp, 'g'), '*0'));
+      if (!isFinite(result)) {
+        return;
+      }
+      matchedUnits[unit] = result;
+    }
+
+    if (matchedUnits['%'] != undefined) {
       // Percent is a special case - We require 'percent' instead
       // of '%' as the unit.
-      result['percent'] = result['%'];
-      delete result['%'];
+      matchedUnits['percent'] = matchedUnits['%'];
+      delete matchedUnits['%'];
     }
-    var keys = Object.keys(result);
-    if (internal.parsing.isCalc(value)) {
-      return [new CSSCalcLength(result)];
-    } else {
-      return [new CSSSimpleLength(result[keys[0]], keys[0])];
+
+    return matchedUnits;
+  }
+
+  function consumeSimpleLength(str) {
+    var consumedNumber = internal.parsing.consumeNumber(str);
+    if (!consumedNumber) {
+      return;
     }
+    var unitRegExp = new RegExp('^' + unitRegExpStr, 'g');
+    var consumedUnit = internal.parsing.consumeToken(unitRegExp, consumedNumber[1]);
+    if (!consumedUnit) {
+      if (consumedNumber[0] == 0) {
+        return [new CSSSimpleLength(0, 'px'), consumedNumber[1]];
+      }
+      return;
+    }
+    if (consumedUnit[0] == '%') {
+      // Percent is a special case - We require 'percent' instead
+      // of '%' as the unit.
+      consumedUnit[0] = 'percent';
+    }
+    return [new CSSSimpleLength(consumedNumber[0], consumedUnit[0]), consumedUnit[1]];
   }
 
   function consumeCalcLength(str) {
-    var result = internal.parsing.consumeToken(/^calc/, str);
-    if (!result) {
+    var consumedCalcToken = internal.parsing.consumeToken(/^calc/, str);
+    if (!consumedCalcToken) {
       return;
     }
 
     // Consume until balanced closing parens
-    var unitRegexp = /px|%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc/g;
-    result = internal.parsing.consumeParenthesised(
-        internal.parsing.parseDimension.bind(null, unitRegexp), result[1]);
+    var unitRegExp = new RegExp('^' + unitRegExpStr, 'g');
+    var result = internal.parsing.consumeParenthesised(
+        parseDimension, consumedCalcToken[1]);
+    if (!result) {
+      return;
+    }
+
+    return [new CSSCalcLength(result[0]), result[1]];
   }
 
-  if (!internal.parsing) {
-    internal.parsing = {};
+  function consumeLengthValue(str) {
+    var consumedCalcLength = consumeCalcLength(str);
+    if (consumedCalcLength) {
+      return consumedCalcLength;
+    }
+    return consumeSimpleLength(str);
   }
-  internal.parsing.consumeCalcLength = consumeCalcLength;
 
-})(typedOM.internal, typedOMTesting);
+
+  internal.parsing.consumeLengthValue = consumeLengthValue;
+})(typedOM.internal);

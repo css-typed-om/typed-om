@@ -18,3 +18,5 @@ typedOM.internal = {};
 // Helper methods for manipulating objects.
 typedOM.internal.objects = {};
 
+typedOM.internal.parsing = {};
+

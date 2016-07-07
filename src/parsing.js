@@ -23,73 +23,6 @@
     return numberValueRegex.test(cssText);
   }
 
-  function isCalc(string) {
-    return /^calc/.test(string); 
-  }
-
-  // Effectively returns a calc dictionary.
-  function parseDimension(unitRegExp, string) {
-    // We tag units by prefixing them with 'U' (note that we are already
-    // lowercase) to prevent problems with types which are substrings of
-    // each other (although prefixes may be problematic!)
-    var matchedUnits = {};
-    string = string.replace(unitRegExp, function(match) {
-      matchedUnits[match] = null;
-      return 'U' + match;
-    });
-    var taggedUnitRegExp = 'U(' + unitRegExp.source + ')';
-
-    // Validating input is simply applying as many reductions as we can.
-    // Replace numbers with N, numbers with units with D, operations with O,
-    // then remove all whitespace.
-    var typeCheck = string.replace(new RegExp(numberValueRegexStr, 'g'), 'N')
-                          .replace(new RegExp('N' + taggedUnitRegExp, 'g'), 'D')
-                          .replace(/\s[+-]\s/g, 'O')
-                          .replace(/\s/g, '');
-    var reductions = [
-      // Matches on a number tag followed by the * operator followed by a
-      // number tag, capturing the number tag (D).
-      /N\*(D)/g,
-      // Matches on a number tag (N) or number with unit (D) followed by an
-      // * or / operator, followed by a number (N), capturing the first N or D.
-      /(N|D)[*/]N/g,
-      // Matches on a number tag (N) or number with unit (D) followed by a
-      // + or - operator (O), followed by another number or number with unit
-      // tag, capturing the first N or D.
-      /(N|D)O\1/g,
-      // Matches on number (N) or number with unit (D) tags surrounded by
-      // brackets, capturing the N or D.
-      /\((N|D)\)/g
-    ];
-    var i = 0;
-    while (i < reductions.length) {
-      if (reductions[i].test(typeCheck)) {
-        // Replace each reduction with the captured part, so that
-        // (DOD) becomes (D) then D.
-        typeCheck = typeCheck.replace(reductions[i], '$1');
-        i = 0;
-      } else {
-        i++;
-      }
-    }
-    // If we don't end up only with a number tag after reducing, the
-    // expression is invalid.
-    if (typeCheck != 'D') {
-      return;
-    }
-
-    for (var unit in matchedUnits) {
-      // TODO: Don't use eval here as it will throw up security flags.
-      var result = eval(string.replace(new RegExp('U' + unit, 'g'), '').replace(
-            new RegExp(taggedUnitRegExp, 'g'), '*0'));
-      if (!isFinite(result)) {
-        return;
-      }
-      matchedUnits[unit] = result;
-    }
-    return matchedUnits;
-  }
-
   function ignore(value) {
     return function(input) {
       var result = value(input);
@@ -109,7 +42,7 @@
   }
 
   function consumeNumber(string) {
-    var result = consumeToken(/^[0-9]?\.?[0-9]+/, string);
+    var result = consumeToken(new RegExp('^\\s*' + numberValueRegexStr), string);
     if (result && result[0]) {
       result[0] = parseFloat(result[0]);
     }
@@ -173,17 +106,12 @@
           break;
       }
     }
-    console.log(string.substr(0, n));
     var parsed = parser(string.substr(0, n));
     return parsed == undefined ? undefined : [parsed, string.substr(n)];
   }
 
-  if (!internal.parsing) {
-    internal.parsing = {};
-  }
+  internal.parsing.NUMBER_REGEX_STR = numberValueRegexStr;
   internal.parsing.isNumberValueString = isNumberValueString;
-  internal.parsing.isCalc = isCalc;
-  internal.parsing.parseDimension = parseDimension;
   internal.parsing.ignore = ignore;
   internal.parsing.consumeToken = consumeToken;
   internal.parsing.consumeNumber = consumeNumber;

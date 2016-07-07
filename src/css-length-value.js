@@ -68,8 +68,6 @@
   };
 
   CSSLengthValue.from = function(value, type) {
-    internal.parsing.consumeCalcLength(value);
-    /*
     if (type !== undefined) {
       return new CSSSimpleLength(value, type);
     }
@@ -79,24 +77,14 @@
     if (typeof value != 'string') {
       throw new TypeError('Must make a length out of a string, calc dictionary, or number-type pair.');
     }
-    var lengthUnits = 'px|%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc';
-    var result = internal.parsing.parseDimension(
-        new RegExp(lengthUnits, 'g'), value);
-    if (!result) {
-      throw TypeError('Unable to make length from ' + value);
+    var consumedLength = internal.parsing.consumeLengthValue(value);
+    if (!consumedLength) {
+      throw new TypeError('Unable to parse a length out of ' + value);
     }
-    if (result['%'] != undefined) {
-      // Percent is a special case - We require 'percent' instead
-      // of '%' as the unit.
-      result['percent'] = result['%'];
-      delete result['%'];
+    if (consumedLength[1]) {
+      throw new TypeError('Trailing characters');
     }
-    var keys = Object.keys(result);
-    if (internal.parsing.isCalc(value)) {
-      return new CSSCalcLength(result);
-    } else {
-      return new CSSSimpleLength(result[keys[0]], keys[0]);
-    }*/
+    return consumedLength[0];
   };
 
   CSSLengthValue.prototype.add = function(addedLength) {
