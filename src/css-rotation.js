@@ -49,7 +49,7 @@
 
     var matrix;
     if (this.x == null) {
-      matrix = new CSSMatrix(new internal.DOMMatrixReadonly([
+      matrix = new CSSMatrix(new DOMMatrixReadonly([
           1 - 2 * sq, 2 * sc, -2 * sc, 1 - 2 * sq, 0, 0]));
     } else {
       // Normalize the [x, y, z] vector
@@ -59,7 +59,7 @@
       var y = this.y * scale;
       var z = this.z * scale;
 
-      matrix = new CSSMatrix(new internal.DOMMatrixReadonly([
+      matrix = new CSSMatrix(new DOMMatrixReadonly([
           1 - 2 * (y * y + z * z) * sq,
           2 * (x * y * sq + z * sc),
           2 * (x * z * sq - y * sc),

@@ -2,7 +2,7 @@ suite('CSSTranslation', function() {
   test('csstranslation is a csstransformcomponent', function() {
     var validLength = new CSSSimpleLength(1, 'px');
     var translation = new CSSTranslation(validLength, validLength);
-    assert.instanceOf(translation, CSSTransformComponent,
+    assert.instanceOf(translation, typedOM.internal.CSSTransformComponent,
         'A new CSSTranslation should be an instance of CSSTransformComponent');
   });
 

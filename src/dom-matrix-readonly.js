@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, testing) {
+(function(internal, scope) {
   // This file provides a stub for DOMMatrixReadonly, which doesn't exist generally yet. It does
   // not provide full functionality as per the spec:
   // https://drafts.fxtf.org/geometry-1/#dommatrixreadonly
@@ -161,10 +161,7 @@
     assert.closeTo(matrix1.m44, matrix2.m44, EPSILON);
   }
 
-  internal.DOMMatrixReadonly = DOMMatrixReadonly;
-  if (TYPED_OM_TESTING) {
-    testing.DOMMatrixReadonly = DOMMatrixReadonly;
-    testing.matricesApproxEqual = matricesApproxEqual;
-  }
+  scope.DOMMatrixReadonly = DOMMatrixReadonly;
+  internal.testing.matricesApproxEqual = matricesApproxEqual;
 
-})(typedOM.internal, typedOMTesting);
+})(typedOM.internal, window);

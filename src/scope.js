@@ -17,9 +17,6 @@ typedOM = {};
 typedOM.internal = {};
 // Helper methods for manipulating objects.
 typedOM.internal.objects = {};
+// Methods that are used for testing only.
+typedOM.internal.testing = {};
 
-if (TYPED_OM_TESTING) {
-  var typedOMTesting = window;
-} else {
-  var typedOMTesting = null;
-}

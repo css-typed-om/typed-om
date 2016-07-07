@@ -48,7 +48,7 @@ suite('CSSTransformValue', function() {
     var expectedMatrix = new CSSMatrix(scale.asMatrix().matrix.multiply(scale.asMatrix().matrix));
     var transformMatrix = transform.asMatrix();
     assert.strictEqual(transformMatrix.cssText, expectedMatrix.cssText);
-    matricesApproxEqual(transformMatrix.matrix, expectedMatrix.matrix);
+    typedOM.internal.testing.matricesApproxEqual(transformMatrix.matrix, expectedMatrix.matrix);
   });
 
   test('CSSTransformValue constructor works with multiple 2D components',

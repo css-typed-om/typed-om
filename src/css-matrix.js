@@ -15,7 +15,7 @@
 (function(internal, scope) {
 
   function CSSMatrix(domMatrix) {
-    if (!domMatrix instanceof internal.DOMMatrixReadonly) {
+    if (!domMatrix instanceof DOMMatrixReadonly) {
       throw new TypeError('Must pass in a DOMMatrixReadonly');
     }
     this.matrix = domMatrix;

@@ -41,9 +41,9 @@
   CSSScale.prototype._computeMatrix = function() {
     var matrix;
     if (this.z == null) {
-      matrix = new CSSMatrix(new internal.DOMMatrixReadonly([this.x, 0, 0, this.y, 0, 0]));
+      matrix = new CSSMatrix(new DOMMatrixReadonly([this.x, 0, 0, this.y, 0, 0]));
     } else {
-      matrix = new CSSMatrix(new internal.DOMMatrixReadonly([this.x, 0, 0, 0, 0, this.y, 0, 0, 0, 0, this.z, 0, 0,
+      matrix = new CSSMatrix(new DOMMatrixReadonly([this.x, 0, 0, 0, 0, this.y, 0, 0, 0, 0, this.z, 0, 0,
           0, 0, 1]));
     }
     return matrix;

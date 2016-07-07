@@ -25,7 +25,7 @@
 
     this.transformComponents = [];
     for (var i = 0; i < values.length; i++) {
-      if (!(values[i] instanceof CSSTransformComponent)) {
+      if (!(values[i] instanceof internal.CSSTransformComponent)) {
         throw new TypeError('Argument at index ' + i + ' is not an instance ' +
             'of \'CSSTransformComponent\'.');
       }
@@ -47,7 +47,7 @@
 
   CSSTransformValue.prototype._computeMatrix = function() {
     if (!this.transformComponents.length) {
-      return new CSSMatrix(new internal.DOMMatrixReadonly([1, 0, 0, 1, 0, 0]));
+      return new CSSMatrix(new DOMMatrixReadonly([1, 0, 0, 1, 0, 0]));
     }
     var matrix = this.transformComponents[0].asMatrix().matrix;
     for (var i = 1; i < this.transformComponents.length; ++i) {
