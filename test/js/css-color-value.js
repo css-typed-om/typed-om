@@ -66,7 +66,7 @@ suite('CSSColorValue', function() {
     assert.strictEqual(color.a, 0.5);
   });
 
-  test('Whitespace is ignore when parsing', function() {
+  test('Whitespace is ignored when parsing', function() {
     var color = CSSColorValue.from('  rgba( 45  , 12  , 56  , 0.5  )');
     assert.instanceOf(color, CSSColorValue);
     assert.strictEqual(color.cssText, 'rgba(45,12,56,0.5)');

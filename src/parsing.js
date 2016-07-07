@@ -113,16 +113,16 @@
 
   // Regex should be anchored with /^
   function consumeToken(regex, string) {
-    var result = regex.exec(string);
-    if (result) {
-      result = regex.ignoreCase ? result[0].toLowerCase() : result[0];
-      return [result, string.substr(result.length)];
+    var match = regex.exec(string);
+    if (match) {
+      match[0] = regex.ignoreCase ? match[0].toLowerCase() : match[0];
+      return [match[0], string.substr(match[0].length)];
     }
   }
 
   function consumeNumber(string) {
     var result = consumeToken(/^[0-9]?\.?[0-9]+/, string);
-    if (result && result[0]) {
+    if (result) {
       result[0] = parseFloat(result[0]);
     }
     return result;
@@ -132,7 +132,9 @@
     string = string.replace(/^\s*/, '');
     var result = consumer(string);
     if (result) {
-      return [result[0], result[1].replace(/^\s*/, '')];
+      // Remove whitespace from the start of the remainder string too.
+      result[1] = result[1].replace(replace(/^\s*/, '');
+      return result;
     }
   }
 
@@ -169,7 +171,6 @@
     }
   }
 
-  internal.parsing = {};
   internal.parsing.isNumberValueString = isNumberValueString;
   internal.parsing.isCalc = isCalc;
   internal.parsing.parseDimension = parseDimension;

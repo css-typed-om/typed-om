@@ -20,7 +20,8 @@ suite('CSSMatrix', function() {
       value = new CSSMatrix(10, 20, -0.5, 0.5, 4, 2);
     });
     assert.isTrue(value.is2D());
-    assert.strictEqual(value.cssText, 'matrix(10, 20, -0.5, 0.5, 4, 2)');
+    assert.strictEqual(value.cssText,
+      'matrix(10, 20, -0.5, 0.5, 4, 2)');
     assert.strictEqual(value._matrix.length, 6);
     for (var i = 0; i < value._matrix.length; i++) {
       assert.strictEqual(value._matrix[i], randomValues[i]);
