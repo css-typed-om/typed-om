@@ -2,7 +2,7 @@ suite('CSSSkew', function() {
   test('CSSSkew is a CSSSkew and CSSTransformComponent', function() {
     var skew = new CSSSkew(1, 2);
     assert.instanceOf(skew, CSSSkew, 'A new CSSSkew should be an instance of CSSSkew');
-    assert.instanceOf(skew, CSSTransformComponent,
+    assert.instanceOf(skew, typedOM.internal.CSSTransformComponent,
         'A new CSSSkew should be an instance of CSSTransformComponent');
   });
 

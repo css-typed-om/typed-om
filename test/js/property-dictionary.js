@@ -1,6 +1,6 @@
 suite('PropertyDictionary', function() {
   setup(function() {
-    cssPropertyDictionary = propertyDictionary();
+    cssPropertyDictionary = typedOM.internal.propertyDictionary();
   });
 
   test('The isSupportedProperty method should return true if the input is a valid CSS property', function() {

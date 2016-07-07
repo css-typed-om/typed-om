@@ -26,8 +26,5 @@
   };
 
   internal.CSSTransformComponent = CSSTransformComponent;
-  if (TYPED_OM_TESTING) {
-    testing.CSSTransformComponent = CSSTransformComponent;
-  }
 
-})(typedOM.internal, typedOMTesting);
+})(typedOM.internal);
