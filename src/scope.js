@@ -17,9 +17,6 @@ typedOM = {};
 typedOM.internal = {};
 // Helper methods for manipulating objects.
 typedOM.internal.objects = {};
+// Helper methods for parsing.
+typedOM.internal.parsing = {};
 
-if (TYPED_OM_TESTING) {
-  var typedOMTesting = window;
-} else {
-  var typedOMTesting = null;
-}

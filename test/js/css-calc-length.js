@@ -16,7 +16,7 @@ suite('CSSCalcLength', function() {
     var calcLength;
     assert.doesNotThrow(function() {calcLength = new CSSCalcLength({px: 10})});
 
-    objects.foreach(CSSLengthValue.LengthType, function(type) {
+   typedOM.internal.objects.foreach(CSSLengthValue.LengthType, function(type) {
       if (type != CSSLengthValue.LengthType.PX) {
         assert.isNull(calcLength[type], 'Each field in an empty instantiated CSSCalcLength is null');
       }
@@ -152,13 +152,6 @@ suite('CSSCalcLength', function() {
     var result = calcLength1.subtract(calcLength2);
 
     assert.strictEqual(null, result.em);
-  });
-
-  test('_asCalcLength method returns the object that called it if it is of type CSSCalcLength', function() {
-    var calcLength = new CSSCalcLength({px: 25, em: 3.2});
-    var result = calcLength._asCalcLength();
-
-    assert.strictEqual(calcLength, result);
   });
 
   test('CSSCalcLength.equals returns true if the compared CSSCalcLengths are the same', function() {

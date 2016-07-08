@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, testing) {
+(function(internal) {
 
   function PropertyDictionary() {
     this._validProperties = {
@@ -127,8 +127,4 @@
   };
 
   internal.propertyDictionary = propertyDictionary;
-  if (TYPED_OM_TESTING) {
-    testing.propertyDictionary = propertyDictionary;
-  }
-
-})(typedOM.internal, window, typedOMTesting);
+})(typedOM.internal);
