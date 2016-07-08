@@ -22,5 +22,3 @@ typedOM.internal.parsing = {};
 // Methods that are used for testing only.
 typedOM.internal.testing = {};
 
-typedOM.internal.parsing = {};
-

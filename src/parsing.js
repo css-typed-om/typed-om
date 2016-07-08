@@ -23,9 +23,12 @@
     return numberValueRegex.test(cssText);
   }
 
-  function ignore(value) {
+  // The consumeX functions all return pairs of    
+  // [consumed, remainingString] (or undefined, if nothing was consumed).
+
+  function ignore(consumerFn) {
     return function(input) {
-      var result = value(input);
+      var result = consumerFn(input);
       if (result)
         result[0] = undefined;
       return result;
@@ -34,16 +37,16 @@
 
   // Regex should be anchored with /^
   function consumeToken(regex, string) {
-    var result = regex.exec(string);
-    if (result) {
-      result = regex.ignoreCase ? result[0].toLowerCase() : result[0];
-      return [result, string.substr(result.length)];
+    var match = regex.exec(string);
+    if (match) {
+      match[0] = regex.ignoreCase ? match[0].toLowerCase() : match[0];
+      return [match[0], string.substr(match[0].length)];
     }
   }
 
   function consumeNumber(string) {
     var result = consumeToken(new RegExp('^\\s*' + numberValueRegexStr), string);
-    if (result && result[0]) {
+    if (result) {
       result[0] = parseFloat(result[0]);
     }
     return result;
