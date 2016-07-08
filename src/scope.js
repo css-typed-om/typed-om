@@ -17,4 +17,8 @@ typedOM = {};
 typedOM.internal = {};
 // Helper methods for manipulating objects.
 typedOM.internal.objects = {};
+// Helper methods for parsing.
+typedOM.internal.parsing = {};
+// Methods that are used for testing only.
+typedOM.internal.testing = {};
 

@@ -42,18 +42,18 @@
   };
 
   CSSTransformValue.prototype.is2D = function() {
-    return this.asMatrix().is2D();
+    return this.asMatrix().is2D;
   };
 
   CSSTransformValue.prototype._computeMatrix = function() {
     if (!this.transformComponents.length) {
-      return new CSSMatrix(1, 0, 0, 1, 0, 0);
+      return new CSSMatrix(new DOMMatrixReadonly([1, 0, 0, 1, 0, 0]));
     }
-    var matrix = this.transformComponents[0].asMatrix();
+    var matrix = this.transformComponents[0].asMatrix().matrix;
     for (var i = 1; i < this.transformComponents.length; ++i) {
-      matrix = matrix.multiply(this.transformComponents[i].asMatrix());
+      matrix = matrix.multiply(this.transformComponents[i].asMatrix().matrix);
     }
-    return matrix;
+    return new CSSMatrix(matrix);
   };
 
   CSSTransformValue.prototype._generateCssString = function() {
