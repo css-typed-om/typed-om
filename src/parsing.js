@@ -53,7 +53,9 @@
     string = string.replace(/^\s*/, '');
     var result = consumer(string);
     if (result) {
-      return [result[0], result[1].replace(/^\s*/, '')];
+      // Remove whitespace from the start of the remainder string too.
+      result[1] = result[1].replace(/^\s*/, '');
+      return result;
     }
   }
 
