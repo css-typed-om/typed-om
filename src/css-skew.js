@@ -21,7 +21,7 @@
 
     var tanAx = CSSSkew._tanDegrees(cssSkew.ax);
     var tanAy = CSSSkew._tanDegrees(cssSkew.ay);
-    return new CSSMatrix(new DOMMatrixReadonly([1, tanAy, tanAx, 1, 0, 0]));
+    return new DOMMatrixReadonly([1, tanAy, tanAx, 1, 0, 0]);
   };
 
   function generateCssString(cssSkew) {
@@ -38,8 +38,8 @@
     this.ax = ax;
     this.ay = ay;
 
-    this._matrix = computeMatrix(this);
-    this.is2D = this._matrix.is2D;
+    this.matrix = computeMatrix(this);
+    this.is2D = this.matrix.is2D;
     this.cssText = generateCssString(this);
   }
   internal.inherit(CSSSkew, internal.CSSTransformComponent);
@@ -47,10 +47,6 @@
   CSSSkew._tanDegrees = function(degrees) {
     var radians = degrees * Math.PI / 180;
     return Math.tan(radians);
-  };
-
-  CSSSkew.prototype.asMatrix = function() {
-    return this._matrix;
   };
 
   scope.CSSSkew = CSSSkew;

@@ -19,7 +19,7 @@
     // -1/length in the 4th row, 3rd column.
     // See documentation https://drafts.csswg.org/css-transforms-1/.
     var value = -1 / cssPerspective.length.value;
-    return new CSSMatrix(new DOMMatrixReadonly([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, value, 0, 0, 0, 1]));
+    return new DOMMatrixReadonly([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, value, 0, 0, 0, 1]);
   };
 
   function generateCssString(cssPerspective) {
@@ -40,15 +40,11 @@
     }
 
     this.length = new CSSSimpleLength(length);
-    this._matrix = computeMatrix(this);
-    this.is2D = this._matrix.is2D;
+    this.matrix = computeMatrix(this);
+    this.is2D = this.matrix.is2D;
     this.cssText = generateCssString(this);
   }
   internal.inherit(CSSPerspective, internal.CSSTransformComponent);
-
-  CSSPerspective.prototype.asMatrix = function() {
-    return this._matrix;
-  };
 
   scope.CSSPerspective = CSSPerspective;
 

@@ -82,14 +82,10 @@
     this.y = this.is2D ? null : y;
     this.z = this.is2D ? null : z;
 
-    this._matrix = computeMatrix(this);
+    this.matrix = computeMatrix(this);
     this.cssText = generateCssString(this);
   }
   internal.inherit(CSSRotation, internal.CSSTransformComponent);
-
-  CSSRotation.prototype.asMatrix = function() {
-    return this._matrix;
-  };
 
   scope.CSSRotation = CSSRotation;
 
