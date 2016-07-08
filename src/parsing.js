@@ -136,7 +136,7 @@
     var result = consumer(string);
     if (result) {
       // Remove whitespace from the start of the remainder string too.
-      result[1] = result[1].replace(replace(/^\s*/, '');
+      result[1] = result[1].replace(/^\s*/, '');
       return result;
     }
   }

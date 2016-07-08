@@ -45,7 +45,7 @@
 
     var tanAx = CSSSkew._tanDegrees(this.ax);
     var tanAy = CSSSkew._tanDegrees(this.ay);
-    return new CSSMatrix(1, tanAy, tanAx, 1, 0, 0);
+    return new CSSMatrix(new DOMMatrixReadonly([1, tanAy, tanAx, 1, 0, 0]));
   };
 
   CSSSkew.prototype._generateCssString = function() {

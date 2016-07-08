@@ -38,6 +38,7 @@
       'src/css-skew.js',
       'src/css-translation.js',
       'src/css-transform-value.js',
+      'src/dom-matrix-readonly.js',
       'src/style-property-map-readonly.js',
       'src/style-property-map.js',
       'src/parsing.js',
@@ -63,6 +64,7 @@
       'test/js/css-translation.js',
       'test/js/css-transform-value.js',
       'test/js/computed-style-property-map.js',
+      'test/js/dom-matrix-readonly.js',
       'test/js/inline-style-property-map.js',
       'test/js/property-dictionary.js',
       'test/js/css-style-value.js'
