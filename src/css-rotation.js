@@ -55,7 +55,8 @@
 
     var matrix;
     if (this.x == null) {
-      matrix = new CSSMatrix(1 - 2 * sq, 2 * sc, -2 * sc, 1 - 2 * sq, 0, 0);
+      matrix = new CSSMatrix(new DOMMatrixReadonly([
+          1 - 2 * sq, 2 * sc, -2 * sc, 1 - 2 * sq, 0, 0]));
     } else {
       // Normalize the [x, y, z] vector
       var lengthSqrd = this.x * this.x + this.y * this.y + this.z * this.z;
@@ -64,7 +65,7 @@
       var y = this.y * scale;
       var z = this.z * scale;
 
-      matrix = new CSSMatrix(
+      matrix = new CSSMatrix(new DOMMatrixReadonly([
           1 - 2 * (y * y + z * z) * sq,
           2 * (x * y * sq + z * sc),
           2 * (x * z * sq - y * sc),
@@ -76,7 +77,7 @@
           2 * (x * z * sq + y * sc),
           2 * (y * z * sq - x * sc),
           1 - 2 * (x * x + y * y) * sq,
-          0, 0, 0, 0, 1);
+          0, 0, 0, 0, 1]));
     }
     return matrix;
   };
