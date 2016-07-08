@@ -20,7 +20,7 @@ suite('CSSTransformValue', function() {
     'the following properties: cssText contains an empty string, asMatrix ' +
     'returns the 2D identity matrix', function() {
     var transform = new CSSTransformValue();
-    assert.isTrue(transform.is2D());
+    assert.isTrue(transform.is2D);
     assert.isTrue(transform.cssText == "");
     assert.deepEqual(transform.asMatrix(), new CSSMatrix(new DOMMatrixReadonly([1, 0, 0, 1, 0, 0])));
   });
@@ -30,7 +30,7 @@ suite('CSSTransformValue', function() {
     var scale = new CSSScale(2, -1);
     var values = [scale];
     assert.doesNotThrow(function() {transform = new CSSTransformValue(values)});
-    assert.isTrue(transform.is2D());
+    assert.isTrue(transform.is2D);
     assert.strictEqual(transform.cssText, scale.cssText);
     assert.deepEqual(transform.asMatrix(), scale.asMatrix());
   });
@@ -41,7 +41,7 @@ suite('CSSTransformValue', function() {
     var scale = new CSSScale(2, -1);
     var values = [scale, scale];
     assert.doesNotThrow(function() {transform = new CSSTransformValue(values)});
-    assert.isTrue(transform.is2D());
+    assert.isTrue(transform.is2D);
     assert.strictEqual(transform.cssText,
         scale.cssText + ' ' + scale.cssText);
 
@@ -58,7 +58,7 @@ suite('CSSTransformValue', function() {
     var scale = new CSSScale(2, -1);
     var values = [matrix, scale];
     assert.doesNotThrow(function() {transform = new CSSTransformValue(values)});
-    assert.isTrue(transform.is2D());
+    assert.isTrue(transform.is2D);
     assert.strictEqual(transform.cssText,
         values[0].cssText + ' ' + values[1].cssText);
 
@@ -75,7 +75,7 @@ suite('CSSTransformValue', function() {
     var scale = new CSSScale(3, 2, 0.5);
     var values = [matrix, scale];
     assert.doesNotThrow(function() {transform = new CSSTransformValue(values)});
-    assert.isFalse(transform.is2D());
+    assert.isFalse(transform.is2D);
     assert.strictEqual(transform.cssText,
         values[0].cssText + ' ' + values[1].cssText);
 
@@ -95,7 +95,7 @@ suite('CSSTransformValue', function() {
     var scale3d = new CSSScale(3, 2, 0.5);
     var values = [matrix2d, scale3d, matrix2d, skew, matrix3d, scale2d];
     assert.doesNotThrow(function() {transform = new CSSTransformValue(values)});
-    assert.isFalse(transform.is2D());
+    assert.isFalse(transform.is2D);
     assert.strictEqual(transform.cssText,
         values.map(function(value) {return value.cssText}).join(' '));
 

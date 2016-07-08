@@ -29,6 +29,7 @@
 
     this.length = new CSSSimpleLength(length);
     this._matrix = this._computeMatrix();
+    this.is2D = this._matrix.is2D;
     this.cssText = this._generateCssString();
   }
   internal.inherit(CSSPerspective, internal.CSSTransformComponent);

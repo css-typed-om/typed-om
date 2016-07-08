@@ -33,16 +33,13 @@
     }
 
     this._matrix = this._computeMatrix();
+    this.is2D = this._matrix.is2D;
     this.cssText = this._generateCssString();
   }
   internal.inherit(CSSTransformValue, CSSStyleValue);
 
   CSSTransformValue.prototype.asMatrix = function() {
     return this._matrix;
-  };
-
-  CSSTransformValue.prototype.is2D = function() {
-    return this.asMatrix().is2D;
   };
 
   CSSTransformValue.prototype._computeMatrix = function() {

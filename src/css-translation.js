@@ -32,6 +32,7 @@
     this.z = (z instanceof CSSSimpleLength) ? new CSSSimpleLength(z) : null;
 
     this._matrix = this._computeMatrix();
+    this.is2D = this._matrix.is2D;
     this.cssText = this._generateCssString();
   }
   internal.inherit(CSSTranslation, internal.CSSTransformComponent);
@@ -56,7 +57,7 @@
 
   CSSTranslation.prototype._generateCssString = function() {
     var cssText;
-    if (this.is2D()) {
+    if (this.is2D) {
       cssText = 'translate(' + this.x.cssText + ', ' + this.y.cssText +
           ')';
     } else {

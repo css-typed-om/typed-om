@@ -30,6 +30,7 @@
     this.z = (typeof z == 'number') ? z : null;
 
     this._matrix = this._computeMatrix();
+    this.is2D = this._matrix.is2D;
     this.cssText = this._generateCssString();
   }
   internal.inherit(CSSScale, internal.CSSTransformComponent);
@@ -51,7 +52,7 @@
 
   CSSScale.prototype._generateCssString = function() {
     var cssText;
-    if (this.is2D()) {
+    if (this.is2D) {
       cssText = 'scale(' + this.x + ', ' + this.y + ')';
     } else {
       cssText = 'scale3d(' + this.x + ', ' + this.y + ', ' + this.z + ')';
