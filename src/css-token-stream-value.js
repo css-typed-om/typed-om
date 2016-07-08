@@ -27,6 +27,19 @@
         return this.values[index];
     }
 
+    CSSTokenStreamValue.prototype.getIterator = function(){
+        var nextIndex = 0;
+        var values = this.values;
+
+        return {
+           next: function(){
+               return nextIndex < values.length ?
+                   {value: values[nextIndex++], done: false} :
+                   {done: true};
+           }
+        }
+    }
+
     scope.CSSTokenStreamValue = CSSTokenStreamValue;
 
 }) (typedOM.internal, window);

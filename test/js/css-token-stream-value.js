@@ -12,8 +12,10 @@ suite('CSSTokenStreamValue', function() {
     test("All of the values of the array are correct", function() {
         assert.strictEqual(tokenStreamValues.size(), values.length,
             'A new CSSTokenStreamValue array\'s size must be the same as its constructor');
-        for (var i = 0; i < values.length; ++i) {
-            assert.strictEqual(tokenStreamValues.referenceAtIndex(i), values[i],
+
+        var it = tokenStreamValues.getIterator();
+        for (let v of values) {
+            assert.strictEqual(it.next().value, v,
                 'A new CSSTokenStreamValue array\'s values should be the same as its constructor');
         }
     });
