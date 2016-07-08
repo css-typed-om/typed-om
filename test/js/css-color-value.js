@@ -46,4 +46,60 @@ suite('CSSColorValue', function() {
 
     assert.strictEqual(color.cssText, 'rgba(50,100,100,0.2)');
   });
+
+  test('Parse simple rgb color', function() {
+    var color = CSSColorValue.from('rgb(1,2,3)');
+
+    assert.instanceOf(color, CSSColorValue);
+    assert.strictEqual(color.r, 1);
+    assert.strictEqual(color.g, 2);
+    assert.strictEqual(color.b, 3);
+  });
+
+  test('Parse simple rgba color', function() {
+    var color = CSSColorValue.from('rgba(45,12,56,0.5)');
+
+    assert.instanceOf(color, CSSColorValue);
+    assert.strictEqual(color.r, 45);
+    assert.strictEqual(color.g, 12);
+    assert.strictEqual(color.b, 56);
+    assert.strictEqual(color.a, 0.5);
+  });
+
+  test('Whitespace is ignored when parsing', function() {
+    var color = CSSColorValue.from('  rgba( 45  , 12  , 56  , 0.5  )');
+    assert.instanceOf(color, CSSColorValue);
+    assert.strictEqual(color.cssText, 'rgba(45,12,56,0.5)');
+  });
+
+  test('Parsing invalid strings result in null', function() {
+    assert.isNull(CSSColorValue.from('asdfas'));
+    // Not enough values
+    assert.isNull(CSSColorValue.from('rgb()'));
+    assert.isNull(CSSColorValue.from('rgb(1)'));
+    assert.isNull(CSSColorValue.from('rgb(1, 2)'));
+    assert.isNull(CSSColorValue.from('rgba(1, 2, 3)'));
+    // Too many values
+    assert.isNull(CSSColorValue.from('rgb(1, 2, 3, 1, 5)'));
+    assert.isNull(CSSColorValue.from('rgba(1, 2, 3, 1, 5)'));
+    // Non numbers
+    assert.isNull(CSSColorValue.from('rgb(a, 2, 1)'));
+    // Non integer values for rgb
+    assert.isNull(CSSColorValue.from('rgb(1.1, 2, 3)'));
+    assert.isNull(CSSColorValue.from('rgb(1, 2.1, 3)'));
+    assert.isNull(CSSColorValue.from('rgb(1, 2, 3.1)'));
+    // Values too large
+    assert.isNull(CSSColorValue.from('rgb(256, 1, 1)'));
+    assert.isNull(CSSColorValue.from('rgb(1, 256, 1)'));
+    assert.isNull(CSSColorValue.from('rgb(1, 1, 256)'));
+    assert.isNull(CSSColorValue.from('rgba(1, 1, 1, 1.1)'));
+    // Negative values
+    assert.isNull(CSSColorValue.from('rgb(-1, 1, 1)'));
+    assert.isNull(CSSColorValue.from('rgb(1, -1, 1)'));
+    assert.isNull(CSSColorValue.from('rgb(1, 1, -1)'));
+    assert.isNull(CSSColorValue.from('rgba(1, 1, 1, -0.1)'));
+    // Missing braces
+    assert.isNull(CSSColorValue.from('rgb1, 2, 1)'));
+    assert.isNull(CSSColorValue.from('rgb(1, 2, 1'));
+  });
 });
