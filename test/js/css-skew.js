@@ -27,7 +27,7 @@ suite('CSSSkew', function() {
     var tanAx = CSSSkew._tanDegrees(30);
     var tanAy = CSSSkew._tanDegrees(180);
 
-    var expectedMatrix = new CSSMatrix(1, tanAy, tanAx, 1, 0, 0);
+    var expectedMatrix = new CSSMatrix(new DOMMatrixReadonly([1, tanAy, tanAx, 1, 0, 0]));
     assert.strictEqual(skew.asMatrix().cssText, expectedMatrix.cssText);
     assert.deepEqual(skew.asMatrix(), expectedMatrix);
   });

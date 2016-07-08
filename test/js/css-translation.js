@@ -1,5 +1,5 @@
 suite('CSSTranslation', function() {
-  test('CSSTranslation is a CSSTransformComponent', function() {
+  test('csstranslation is a csstransformcomponent', function() {
     var validLength = new CSSSimpleLength(1, 'px');
     var translation = new CSSTranslation(validLength, validLength);
     assert.instanceOf(translation, typedOM.internal.CSSTransformComponent,
@@ -56,9 +56,8 @@ suite('CSSTranslation', function() {
     assert.strictEqual(translation.cssText,
         'translate(' + x.cssText + ', ' + y.cssText + ')');
 
-    var expectedMatrix = new CSSMatrix(1, 0, 0, 1, 3, -1);
-    assert.strictEqual(translation.asMatrix().cssText,
-        expectedMatrix.cssText);
+    var expectedMatrix = new CSSMatrix(new DOMMatrixReadonly([1, 0, 0, 1, 3, -1]));
+    assert.strictEqual(translation.asMatrix().cssText, expectedMatrix.cssText);
     assert.deepEqual(translation.asMatrix(), expectedMatrix);
   });
 
@@ -82,10 +81,8 @@ suite('CSSTranslation', function() {
         ', ' + z.cssText + ')';
     assert.strictEqual(translation.cssText, expectedCssString);
 
-    var expectedMatrix = new CSSMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 3, 0.5,
-        -4, 1);
-    assert.strictEqual(translation.asMatrix().cssText,
-        expectedMatrix.cssText);
+    var expectedMatrix = new CSSMatrix(new DOMMatrixReadonly([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 3, 0.5, -4, 1]));
+    assert.strictEqual(translation.asMatrix().cssText, expectedMatrix.cssText);
     assert.deepEqual(translation.asMatrix(), expectedMatrix);
   });
 });
