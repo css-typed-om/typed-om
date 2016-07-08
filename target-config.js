@@ -18,20 +18,12 @@
       'src/scope.js'
   ];
 
+      // These should be alphabetical order as much as possible.
   var typedOMSrc = [
+      // Utility functions.
       'src/util.js',
       'src/parsing.js',
-      'src/css-style-value.js',
-      'src/css-variable-reference-value.js',
-      'src/css-angle-value.js',
-      'src/css-number-value.js',
-      'src/css-keyword-value.js',
-      'src/css-length-value.js',
-      'src/css-length-value-parsing.js',
-      'src/css-simple-length.js',
-      'src/css-calc-length.js',
-      'src/css-position-value.js',
-      'src/css-color-value.js',
+      // CSSTransformComponent and subclasses
       'src/css-transform-component.js',
       'src/css-matrix.js',
       'src/css-perspective.js',
@@ -39,7 +31,22 @@
       'src/css-scale.js',
       'src/css-skew.js',
       'src/css-translation.js',
+      // CSSStyleValue and subclasses
+      'src/css-style-value.js',
+      'src/css-angle-value.js',
+      'src/css-color-value.js',
+      'src/css-number-value.js',
+      'src/css-keyword-value.js',
       'src/css-transform-value.js',
+      'src/css-variable-reference-value.js',
+      // CSSLengthValue and subclasses
+      'src/css-length-value.js',
+      'src/css-simple-length.js',
+      'src/css-calc-length.js',
+      'src/css-length-value-parsing.js',
+      'src/css-position-value.js', // Depends on LengthValues.
+      'src/css-position-value-parsing.js',
+      // Other stuff.
       'src/dom-matrix-readonly.js',
       'src/style-property-map-readonly.js',
       'src/style-property-map.js',
@@ -48,27 +55,27 @@
 
   var typedOMTest = [
       'test/js/css-angle-value.js',
-      'test/js/css-number-value.js',
-      'test/js/css-variable-reference-value.js',
+      'test/js/css-calc-length.js',
+      'test/js/css-color-value.js',
       'test/js/css-keyword-value.js',
       'test/js/css-length-value.js',
-      'test/js/css-simple-length.js',
-      'test/js/css-position-value.js',
-      'test/js/css-color-value.js',
-      'test/js/css-calc-length.js',
-      'test/js/css-transform-component.js',
       'test/js/css-matrix.js',
+      'test/js/css-number-value.js',
       'test/js/css-perspective.js',
+      'test/js/css-position-value.js',
       'test/js/css-rotation.js',
       'test/js/css-scale.js',
+      'test/js/css-simple-length.js',
       'test/js/css-skew.js',
+      'test/js/css-style-value.js',
+      'test/js/css-transform-component.js',
       'test/js/css-translation.js',
       'test/js/css-transform-value.js',
+      'test/js/css-variable-reference-value.js',
       'test/js/computed-style-property-map.js',
       'test/js/dom-matrix-readonly.js',
       'test/js/inline-style-property-map.js',
       'test/js/property-dictionary.js',
-      'test/js/css-style-value.js'
   ];
 
   // This object specifies the source and test files for different build targets.
