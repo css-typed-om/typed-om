@@ -5,38 +5,62 @@
             values = [];
         }
         if (!Array.isArray(values)) {
-            throw new TypeError('CSSTokenStreamValue should be an array of string');
+            throw new TypeError('CSSTokenStreamValue should be an array of string or CSSVariableReferenceValue');
         }
         for (var i = 0; i < values.length; i++) {
-            if (typeof values[i] != 'string') {
-                throw new TypeError("CSSTokenStreamValue's elements should be strings");
+            if (typeof values[i] != 'string' && !(values[i] instanceof CSSVariableReferenceValue)) {
+                throw new TypeError("CSSTokenStreamValue's elements should be string or CSSVariableReferenceValue");
             }
         }
-        this.values = values;
-        // TODO: may need to be changed like 
-        //       https://drafts.css-houdini.org/css-typed-om/#tokenstreamvalue-normalization
+        this.listOfReferences = values;
     }
 
     internal.inherit(CSSTokenStreamValue, CSSStyleValue);
 
     CSSTokenStreamValue.prototype.size = function() {
-        return this.values.length;
+        return this.listOfReferences.length;
     }
 
     CSSTokenStreamValue.prototype.referenceAtIndex = function(index) {
-        return this.values[index];
+        return this.listOfReferences[index];
     }
 
-    CSSTokenStreamValue.prototype.getIterator = function(){
+    CSSTokenStreamValue.prototype.keys = function() {
         var nextIndex = 0;
-        var values = this.values;
+        var values = this.listOfReferences;
 
         return {
-           next: function(){
+            next: function() {
+                return nextIndex < values.length ?
+                    { done: false, value: nextIndex++ } :
+                    { done: true, value: undefined };
+            }
+        }
+    }
+
+    CSSTokenStreamValue.prototype.values = function() {
+        var nextIndex = 0;
+        var values = this.listOfReferences;
+
+        return {
+           next: function() {
                return nextIndex < values.length ?
-                   {value: values[nextIndex++], done: false} :
-                   {done: true};
+                   { done: false, value: values[nextIndex++] } :
+                   { done: true, value: undefined};
            }
+        }
+    }
+
+    CSSTokenStreamValue.prototype.entries = function() {
+        var nextIndex = 0;
+        var values = this.listOfReferences;
+
+        return {
+            next: function() {
+                return nextIndex < values.length ?
+                    { done: false, value: [nextIndex, values[nextIndex++]] } :
+                    { done: true, value: undefined};
+            }
         }
     }
 
