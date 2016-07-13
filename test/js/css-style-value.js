@@ -36,4 +36,8 @@ suite('CSSStyleValue', function() {
   test('parse throws an error if a cssText representing a CSSStyleValue type unsupported by a property is entered', function() {
     assert.throws(function() {CSSStyleValue.parse('height', '10')}, TypeError, 'height has an unsupported CSSStyleValue type or Sequence value separator');
   });
+
+  test('instantiating CSSStyleValue throws', function() {
+    assert.throws(function() {new CSSStyleValue('10px')}, TypeError, 'CSSStyleValue may not be instantiated');
+  });
 });
