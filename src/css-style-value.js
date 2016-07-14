@@ -14,8 +14,8 @@
 
 (function(internal, scope) {
 
-  function CSSStyleValue(cssText) {
-    throw new TypeError('CSSStyleValue may not be instantiated');
+  function CSSStyleValue() {
+    throw new TypeError('CSSStyleValue cannot be instantiated');
   }
 
   CSSStyleValue.parse = function(property, cssText) {
