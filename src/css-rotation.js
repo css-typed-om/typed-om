@@ -77,7 +77,7 @@
     }
 
     this.is2D = (arguments.length == 1);
-    this.angle = this.is2D == 1 ? x : angle;
+    this.angle = this.is2D ? x : angle;
     this.x = this.is2D ? null : x;
     this.y = this.is2D ? null : y;
     this.z = this.is2D ? null : z;
