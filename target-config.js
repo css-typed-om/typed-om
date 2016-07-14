@@ -21,6 +21,7 @@
   var typedOMSrc = [
       'src/util.js',
       'src/css-style-value.js',
+      'src/internal-css-style-value.js',
       'src/css-variable-reference-value.js',
       'src/css-angle-value.js',
       'src/css-number-value.js',
@@ -39,7 +40,6 @@
       'src/css-translation.js',
       'src/css-transform-value.js',
       'src/dom-matrix-readonly.js',
-      'src/css-unknown-style-value.js',
       'src/style-property-map-readonly.js',
       'src/style-property-map.js',
       'src/parsing.js',
