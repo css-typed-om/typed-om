@@ -57,8 +57,34 @@
     return false;
   }
 
+
+  /*
+   * Get iterator of object which returns a { done: false, value: expression }
+   *   if it has not reached the end of the object, or otherwise it returns
+   *   { done: true, value: undefined }.
+   * @param {!Object} object: The object to iterate over.
+   * @param {String} expression: The expression that will be executed if the
+   *   iterator has not reached the end of the array. expression contains the
+   *   format that we want to get as the value.
+   */
+
+  function iterator(object, expression) {
+    if (!(this instanceof arguments.callee))
+      return new arguments.callee(object, expression);
+    var index = 0;
+
+    this.next = function next() {
+      if (index < object.length) {
+          var key = index;
+          var value = object[index++];
+          return { done: false, value: eval(expression) };
+      } else return { done: true, value: undefined };
+    };
+  }
+
   internal.objects.foreach = foreach;
   internal.objects.any = any;
+  internal.objects.iterator = iterator;
 
   internal.inherit = inherit;
 })(typedOM.internal);

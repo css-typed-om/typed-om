@@ -1,69 +1,33 @@
 (function(internal, scope) {
 
-    function CSSTokenStreamValue(values) {
-        if (values == undefined) {
-            values = [];
-        }
-        if (!Array.isArray(values)) {
-            throw new TypeError('CSSTokenStreamValue should be an array of string or CSSVariableReferenceValue');
-        }
-        for (var i = 0; i < values.length; i++) {
-            if (typeof values[i] != 'string' && !(values[i] instanceof CSSVariableReferenceValue)) {
-                throw new TypeError("CSSTokenStreamValue's elements should be string or CSSVariableReferenceValue");
-            }
-        }
-        this.listOfReferences = values;
+  function CSSTokenStreamValue(values) {
+    if (values == undefined) {
+      values = [];
     }
-
-    internal.inherit(CSSTokenStreamValue, CSSStyleValue);
-
-    CSSTokenStreamValue.prototype.size = function() {
-        return this.listOfReferences.length;
+    if (!Array.isArray(values)) {
+      throw new TypeError('CSSTokenStreamValue should be an array of string or CSSVariableReferenceValue');
     }
-
-    CSSTokenStreamValue.prototype.referenceAtIndex = function(index) {
-        return this.listOfReferences[index];
+    for (var i = 0; i < values.length; i++) {
+      if (typeof values[i] != 'string' && !(values[i] instanceof CSSVariableReferenceValue)) {
+        throw new TypeError("CSSTokenStreamValue's elements should be string or CSSVariableReferenceValue");
+      }
     }
+    this._listOfReferences = values;
+  }
+  internal.inherit(CSSTokenStreamValue, CSSStyleValue);
 
-    CSSTokenStreamValue.prototype.keys = function() {
-        var nextIndex = 0;
-        var values = this.listOfReferences;
+  CSSTokenStreamValue.prototype.keys = function() {
+    return internal.objects.iterator(this._listOfReferences, "key");
+  }
 
-        return {
-            next: function() {
-                return nextIndex < values.length ?
-                    { done: false, value: nextIndex++ } :
-                    { done: true, value: undefined };
-            }
-        }
-    }
+  CSSTokenStreamValue.prototype.values = function() {
+    return internal.objects.iterator(this._listOfReferences, "value");
+  }
 
-    CSSTokenStreamValue.prototype.values = function() {
-        var nextIndex = 0;
-        var values = this.listOfReferences;
+  CSSTokenStreamValue.prototype.entries = function() {
+    return internal.objects.iterator(this._listOfReferences, "[key, value]");
+  }
 
-        return {
-           next: function() {
-               return nextIndex < values.length ?
-                   { done: false, value: values[nextIndex++] } :
-                   { done: true, value: undefined};
-           }
-        }
-    }
-
-    CSSTokenStreamValue.prototype.entries = function() {
-        var nextIndex = 0;
-        var values = this.listOfReferences;
-
-        return {
-            next: function() {
-                return nextIndex < values.length ?
-                    { done: false, value: [nextIndex, values[nextIndex++]] } :
-                    { done: true, value: undefined};
-            }
-        }
-    }
-
-    scope.CSSTokenStreamValue = CSSTokenStreamValue;
+  scope.CSSTokenStreamValue = CSSTokenStreamValue;
 
 }) (typedOM.internal, window);

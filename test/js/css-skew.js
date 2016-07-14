@@ -22,7 +22,7 @@ suite('CSSSkew', function() {
     assert.strictEqual(skew.cssText, 'skew(30deg, 180deg)');
     assert.strictEqual(skew.ax, 30);
     assert.strictEqual(skew.ay, 180);
-    assert.isTrue(skew.is2D());
+    assert.isTrue(skew.is2D);
 
     var tanAx = CSSSkew._tanDegrees(30);
     var tanAy = CSSSkew._tanDegrees(180);

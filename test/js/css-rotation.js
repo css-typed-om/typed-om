@@ -1,8 +1,7 @@
 suite('CSSRotation', function() {
   function assertMatrixCloseTo(actualMatrix, expectedMatrix) {
     var delta = 0.000001;
-    assert.strictEqual(actualMatrix.is2D(),
-        expectedMatrix.is2D());
+    assert.strictEqual(actualMatrix.is2D, expectedMatrix.is2D);
     for (var i = 0; i < expectedMatrix._matrix.length; i++) {
       assert.closeTo(actualMatrix._matrix[i], expectedMatrix._matrix[i], delta);
     }
@@ -34,7 +33,7 @@ suite('CSSRotation', function() {
     assert.isNull(rotation.x);
     assert.isNull(rotation.y);
     assert.isNull(rotation.z);
-    assert.isTrue(rotation.is2D());
+    assert.isTrue(rotation.is2D);
 
     var sinCos = Math.sqrt(3) / 4;
     var expectedMatrix = new DOMMatrixReadonly([0.5, 2 * sinCos, -2 * sinCos, 0.5, 0, 0]);
@@ -49,7 +48,7 @@ suite('CSSRotation', function() {
     assert.strictEqual(rotation.x, 1);
     assert.strictEqual(rotation.y, 0.5);
     assert.strictEqual(rotation.z, -2);
-    assert.isFalse(rotation.is2D());
+    assert.isFalse(rotation.is2D);
 
     var expectedMatrix = new DOMMatrixReadonly([0.89154437, -0.42367629, -0.16014688, 0,
         0.44919526, 0.872405146, 0.19269891, 0, 0.05807100, -0.243736860,
@@ -74,11 +73,11 @@ suite('CSSRotation', function() {
     typedOM.internal.testing.matricesApproxEqual(rotation.asMatrix().matrix, expectedMatrix);
   });
 
-  test('CSSRotation(angle) equivalent to CSSRotation(angle, 0, 0, 1)', function() {
+  test('CSSRotation(angle) equivalent to CSSRotation(0, 0, 1, angle)', function() {
     var rotation2D = new CSSRotation(30);
     var rotation3D = new CSSRotation(0, 0, 1, 30);
-    assert.isTrue(rotation2D.is2D());
-    assert.isFalse(rotation3D.is2D());
+    assert.isTrue(rotation2D.is2D);
+    assert.isFalse(rotation3D.is2D);
     typedOM.internal.testing.matricesApproxEqual(rotation3D.asMatrix().matrix, rotation2D.asMatrix().matrix);
   });
 
@@ -86,5 +85,25 @@ suite('CSSRotation', function() {
     var rotation = new CSSRotation(1, -2, 4, 30);
     var rotationScaled = new CSSRotation(10, -20, 40, 30);
     typedOM.internal.testing.matricesApproxEqual(rotationScaled.asMatrix().matrix, rotation.asMatrix().matrix);
+  });
+
+  test('CSSRotation using CSSAngleValue is equivalent to taking a number for angle for 2D case', function() {
+    var rotationAngleValue = new CSSRotation(new CSSAngleValue(20, 'deg'));
+    var rotationNumberValue = new CSSRotation(20);
+    assert.strictEqual(rotationAngleValue.angle, rotationNumberValue.angle);
+    typedOM.internal.testing.matricesApproxEqual(rotationAngleValue.asMatrix().matrix, rotationNumberValue.asMatrix().matrix);
+  });
+
+  test('CSSRotation using CSSAngleValue is equivalent to taking a number for angle for 3D case', function() {
+    var rotationAngleValue = new CSSRotation(1, 2, 3, new CSSAngleValue(20, 'deg'));
+    var rotationNumberValue = new CSSRotation(1, 2, 3, 20);
+    assert.isFalse(rotationAngleValue.is2D);
+    assert.strictEqual(rotationAngleValue.angle, rotationNumberValue.angle);
+    typedOM.internal.testing.matricesApproxEqual(rotationAngleValue.asMatrix().matrix, rotationNumberValue.asMatrix().matrix);
+  });
+
+  test('CSSRotation using CSSAngleValue specified in units other than degrees', function() {
+    var rotation = new CSSRotation(new CSSAngleValue(5, 'rad'));
+    assert.closeTo(rotation.angle, 286.478897, 1e-6);
   });
 });
