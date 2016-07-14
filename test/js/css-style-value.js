@@ -38,6 +38,6 @@ suite('CSSStyleValue', function() {
   });
 
   test('instantiating CSSStyleValue throws', function() {
-    assert.throws(function() {new CSSStyleValue('10px')}, TypeError, 'CSSStyleValue cannot be instantiated');
+    assert.throws(function() {new CSSStyleValue('10px')}, TypeError, 'CSSStyleValue cannot be instantiated.');
   });
 });
