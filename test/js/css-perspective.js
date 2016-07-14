@@ -35,7 +35,7 @@ suite('CSSPerspective', function() {
         'perspective(' + length.cssText + ')');
     assert.strictEqual(perspective.length.value, 10);
     assert.deepEqual(perspective.length, length);
-    assert.isFalse(perspective.is2D());
+    assert.isFalse(perspective.is2D);
 
     var expectedMatrix = new CSSMatrix(new DOMMatrixReadonly([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, -0.1, 0, 0, 0, 1]));
     assert.strictEqual(perspective.asMatrix().cssText, expectedMatrix.cssText);
