@@ -14,6 +14,18 @@
 
 (function(internal, scope) {
 
+  function computeMatrix(cssPerspective) {
+    // CSSPerspective represented by the 3D identity matrix with the value
+    // -1/length in the 4th row, 3rd column.
+    // See documentation https://drafts.csswg.org/css-transforms-1/.
+    var value = -1 / cssPerspective.length.value;
+    return new CSSMatrix(new DOMMatrixReadonly([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, value, 0, 0, 0, 1]));
+  };
+
+  function generateCssString(cssPerspective) {
+    return 'perspective(' + cssPerspective.length.cssText + ')';
+  };
+
   function CSSPerspective(length) {
     if (arguments.length != 1) {
       throw new TypeError('CSSPerspective takes exactly 1 argument.');
@@ -28,25 +40,14 @@
     }
 
     this.length = new CSSSimpleLength(length);
-    this._matrix = this._computeMatrix();
-    this.cssText = this._generateCssString();
+    this._matrix = computeMatrix(this);
+    this.is2D = this._matrix.is2D;
+    this.cssText = generateCssString(this);
   }
   internal.inherit(CSSPerspective, internal.CSSTransformComponent);
 
   CSSPerspective.prototype.asMatrix = function() {
     return this._matrix;
-  };
-
-  CSSPerspective.prototype._computeMatrix = function() {
-    // CSSPerspective represented by the 3D identity matrix with the value
-    // -1/length in the 4th row, 3rd column.
-    // See documentation https://drafts.csswg.org/css-transforms-1/.
-    var value = -1 / this.length.value;
-    return new CSSMatrix(new DOMMatrixReadonly([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, value, 0, 0, 0, 1]));
-  };
-
-  CSSPerspective.prototype._generateCssString = function() {
-    return 'perspective(' + this.length.cssText + ')';
   };
 
   scope.CSSPerspective = CSSPerspective;
