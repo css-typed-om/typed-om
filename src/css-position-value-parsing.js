@@ -22,7 +22,6 @@
     if (!params || params[0].length != 2) {
       return;
     }
-    console.log(params);
     var lengths = params[0];
     return [new CSSPositionValue(lengths[0], lengths[1]), params[1]];
   }
