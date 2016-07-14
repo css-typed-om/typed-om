@@ -14,15 +14,20 @@
 
 (function(internal, scope, testing) {
 
+  scope.CSSStyleValue = function(cssText) {
+    throw new TypeError('CSSStyleValue may not be instantiated');
+  }
+
   function CSSStyleValue(cssText) {
     if (!cssText) {
-      throw new TypeError('Constructing CSSStyleValues will not be available in the native implementation');
+      throw new TypeError('CSSStyleValue must have a value');
     }
-    // CSSStyleValue constructor needs to be available for type checking, but is there a way to also warn if this is constructed?
     this.cssText = cssText;
   }
 
-  CSSStyleValue.parse = function(property, cssText) {
+  CSSStyleValue.prototype = Object.create(scope.CSSStyleValue.prototype);
+
+  scope.CSSStyleValue.parse = function(property, cssText) {
     if (typeof property != 'string') {
       throw new TypeError('Property name must be a string');
     }
@@ -74,5 +79,6 @@
     return styleValueArray;
   };
 
-  scope.CSSStyleValue = CSSStyleValue;
+  internal.CSSStyleValue = CSSStyleValue;
+
 })(typedOM.internal, window);

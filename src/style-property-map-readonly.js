@@ -36,7 +36,7 @@
     if (internal.propertyDictionary().isSupportedProperty(property)) {
       return CSSStyleValue.parse(property, propertyString);
     }
-    return [new CSSStyleValue(propertyString)];
+    return [new internal.CSSStyleValue(propertyString)];
   };
 
   StylePropertyMapReadOnly.prototype.getProperties = function() {
