@@ -24,8 +24,7 @@ suite('CSSSkew', function() {
     assert.strictEqual(skew.ay, 180);
     assert.isTrue(skew.is2D);
 
-    var expectedMatrix = new CSSMatrix(new DOMMatrixReadonly([1, 0.577350, 0, 1, 0, 0]));
-    assert.strictEqual(skew.asMatrix().cssText, expectedMatrix.cssText);
-    assert.deepEqual(skew.asMatrix(), expectedMatrix);
+    var expectedMatrix = new DOMMatrixReadonly([1, 0, 0.577350, 1, 0, 0]);
+    typedOM.internal.testing.matricesApproxEqual(skew.matrix, expectedMatrix);
   });
 });
