@@ -18,7 +18,7 @@
       'src/scope.js'
   ];
 
-      // These should be alphabetical order as much as possible.
+  // These should be alphabetical order as much as possible.
   var typedOMSrc = [
       // Utility functions.
       'src/util.js',
