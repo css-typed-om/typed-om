@@ -56,9 +56,11 @@
         parsing.ignore(parsing.consumeToken.bind(null, /^\)/)),
     ], value);
 
-    if (!params) {
+    if (!params || params[1].length) {
+      // Failure to parse, or trailing characters.
       return null;
     }
+    params = params[0];
 
     var isRGBA = params[0].endsWith('a');
     values = params[1];
