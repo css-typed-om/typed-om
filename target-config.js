@@ -39,6 +39,7 @@
       'src/css-translation.js',
       'src/css-transform-value.js',
       'src/dom-matrix-readonly.js',
+      'src/css-unknown-style-value.js',
       'src/style-property-map-readonly.js',
       'src/style-property-map.js',
       'src/parsing.js',

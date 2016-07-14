@@ -40,4 +40,11 @@ suite('CSSStyleValue', function() {
   test('instantiating CSSStyleValue throws', function() {
     assert.throws(function() {new CSSStyleValue('10px')}, TypeError, 'CSSStyleValue cannot be instantiated.');
   });
+
+  test('internal.CSSStyleValue can be constructed and appears to be a regular CSSStyleValue', function() {
+    var internalStyleValue;
+    assert.doesNotThrow(function() { internalStyleValue = new typedOM.internal.CSSStyleValue('foo'); });
+    assert.strictEqual(internalStyleValue.cssText, 'foo');
+    assert.strictEqual(internalStyleValue.constructor, CSSStyleValue);
+  });
 });

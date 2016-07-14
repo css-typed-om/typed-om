@@ -70,15 +70,6 @@
     return styleValueArray;
   };
 
-
-  internal.CSSStyleValue = function(cssText) {
-    if (!cssText) {
-      throw new TypeError('CSSStyleValue must have a value');
-    }
-    this.cssText = cssText;
-  }
-  internal.inherit(internal.CSSStyleValue, CSSStyleValue);
-
   scope.CSSStyleValue = CSSStyleValue;
 
 })(typedOM.internal, window);
