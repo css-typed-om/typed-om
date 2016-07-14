@@ -12,22 +12,13 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, scope, testing) {
+(function(internal, scope) {
 
-  scope.CSSStyleValue = function(cssText) {
+  function CSSStyleValue(cssText) {
     throw new TypeError('CSSStyleValue may not be instantiated');
   }
 
-  function CSSStyleValue(cssText) {
-    if (!cssText) {
-      throw new TypeError('CSSStyleValue must have a value');
-    }
-    this.cssText = cssText;
-  }
-
-  CSSStyleValue.prototype = Object.create(scope.CSSStyleValue.prototype);
-
-  scope.CSSStyleValue.parse = function(property, cssText) {
+  CSSStyleValue.parse = function(property, cssText) {
     if (typeof property != 'string') {
       throw new TypeError('Property name must be a string');
     }
@@ -79,6 +70,15 @@
     return styleValueArray;
   };
 
-  internal.CSSStyleValue = CSSStyleValue;
+
+  internal.CSSStyleValue = function(cssText) {
+    if (!cssText) {
+      throw new TypeError('CSSStyleValue must have a value');
+    }
+    this.cssText = cssText;
+  }
+  internal.inherit(internal.CSSStyleValue, CSSStyleValue);
+
+  scope.CSSStyleValue = CSSStyleValue;
 
 })(typedOM.internal, window);
