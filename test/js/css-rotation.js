@@ -89,7 +89,7 @@ suite('CSSRotation', function() {
     var rotationAngleValue = new CSSRotation(new CSSAngleValue(20, 'deg'));
     var rotationNumberValue = new CSSRotation(20);
     assert.strictEqual(rotationAngleValue.angle, rotationNumberValue.angle);
-    typedOM.internal.testing.matricesApproxEqual(rotationAngleValue.asMatrix().matrix, rotationNumberValue.asMatrix().matrix);
+    typedOM.internal.testing.matricesApproxEqual(rotationAngleValue.matrix.matrix, rotationNumberValue.matrix.matrix);
   });
 
   test('CSSRotation using CSSAngleValue is equivalent to taking a number for angle for 3D case', function() {
@@ -97,7 +97,7 @@ suite('CSSRotation', function() {
     var rotationNumberValue = new CSSRotation(1, 2, 3, 20);
     assert.isFalse(rotationAngleValue.is2D);
     assert.strictEqual(rotationAngleValue.angle, rotationNumberValue.angle);
-    typedOM.internal.testing.matricesApproxEqual(rotationAngleValue.asMatrix().matrix, rotationNumberValue.asMatrix().matrix);
+    typedOM.internal.testing.matricesApproxEqual(rotationAngleValue.matrix.matrix, rotationNumberValue.matrix.matrix);
   });
 
   test('CSSRotation using CSSAngleValue specified in units other than degrees', function() {
