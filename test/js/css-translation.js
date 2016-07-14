@@ -52,7 +52,7 @@ suite('CSSTranslation', function() {
     assert.deepEqual(translation.x, x);
     assert.deepEqual(translation.y, y);
 
-    assert.isTrue(translation.is2D());
+    assert.isTrue(translation.is2D);
     assert.strictEqual(translation.cssText,
         'translate(' + x.cssText + ', ' + y.cssText + ')');
 
@@ -75,7 +75,7 @@ suite('CSSTranslation', function() {
     assert.deepEqual(translation.y, y);
     assert.deepEqual(translation.z, z);
 
-    assert.isFalse(translation.is2D());
+    assert.isFalse(translation.is2D);
 
     var expectedCssString = 'translate3d(' + x.cssText + ', ' + y.cssText +
         ', ' + z.cssText + ')';
