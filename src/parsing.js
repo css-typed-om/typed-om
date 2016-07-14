@@ -80,6 +80,7 @@
     }
   }
 
+  // Consumes using a list of consumers.
   function consumeList(list, input) {
     var output = [];
     for (var i = 0; i < list.length; i++) {
@@ -90,8 +91,8 @@
         output.push(result[0]);
       input = result[1];
     }
-    if (input == '') {
-      return output;
+    if (output.length) {
+      return [output, input];
     }
   }
 

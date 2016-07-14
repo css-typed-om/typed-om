@@ -34,6 +34,7 @@
       // CSSStyleValue and subclasses
       'src/css-style-value.js',
       'src/css-angle-value.js',
+      'src/css-angle-value-parsing.js',
       'src/css-color-value.js',
       'src/css-number-value.js',
       'src/css-keyword-value.js',
