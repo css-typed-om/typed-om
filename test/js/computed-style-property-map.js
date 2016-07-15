@@ -54,19 +54,19 @@ suite('Computed StylePropertyMap', function() {
     var computedStyleMap = getComputedStyleMap(this.element);
     var valueArray = [new CSSNumberValue(4), new CSSNumberValue(5), new CSSKeywordValue('infinite')];
     inlineStyleMap.set('animation-iteration-count', valueArray);
-    var propertyStyleValue = computedStyleMap.getAll('animation-iteration-count');
+    var computedValues = computedStyleMap.getAll('animation-iteration-count');
 
-    assert.strictEqual(propertyStyleValue[0].cssText, '4');
-    assert.strictEqual(propertyStyleValue[1].cssText, '5');
-    assert.strictEqual(propertyStyleValue[2].cssText, 'infinite');
+    assert.strictEqual(computedValues[0].cssText, '4');
+    assert.strictEqual(computedValues[1].cssText, '5');
+    assert.strictEqual(computedValues[2].cssText, 'infinite');
   });
 
   test('getAll method returns an array of size 1 if only a single CSSStyleValue is set on a property', function() {
     var computedStyleMap = getComputedStyleMap(this.element);
-    var propertyStyleValue = computedStyleMap.getAll('opacity');
+    var computedValues = computedStyleMap.getAll('opacity');
 
-    assert.strictEqual(propertyStyleValue.length, 1);
-    assert.strictEqual(propertyStyleValue[0].cssText, '0.5');
+    assert.strictEqual(computedValues.length, 1);
+    assert.strictEqual(computedValues[0].cssText, '0.5');
   });
 
   test('getAll method throws a TypeError if the property is not supported', function() {
@@ -74,5 +74,14 @@ suite('Computed StylePropertyMap', function() {
 
     assert.throw(function() {computedStyleMap.getAll('lemon')}, TypeError,
       'lemon is not a supported CSS property');
+  });
+
+  test('getting an unsupported but valid property returns a base CSSStyleValue', function() {
+    this.element.style.animationDelay = '5s';
+    var computedStyleMap = getComputedStyleMap(this.element);
+
+    var result = computedStyleMap.get('animation-delay');
+    assert.instanceOf(result, CSSStyleValue);
+    assert.strictEqual(result.cssText, '5s');
   });
 });
