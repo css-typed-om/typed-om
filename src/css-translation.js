@@ -20,12 +20,12 @@
     // See documentation https://drafts.csswg.org/css-transforms-1/.
     var matrix;
     if (cssTranslation.z == null) {
-      matrix = new CSSMatrix(new DOMMatrixReadonly(
-          [1, 0, 0, 1, cssTranslation.x.value, cssTranslation.y.value]));
+      matrix = new DOMMatrixReadonly(
+          [1, 0, 0, 1, cssTranslation.x.value, cssTranslation.y.value]);
     } else {
-      matrix = new CSSMatrix(new DOMMatrixReadonly(
+      matrix = new DOMMatrixReadonly(
           [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, cssTranslation.x.value,
-          cssTranslation.y.value, cssTranslation.z.value, 1]));
+          cssTranslation.y.value, cssTranslation.z.value, 1]);
     }
     return matrix;
   };
@@ -59,15 +59,11 @@
     this.y = new CSSSimpleLength(y);
     this.z = (z instanceof CSSSimpleLength) ? new CSSSimpleLength(z) : null;
 
-    this._matrix = computeMatrix(this);
-    this.is2D = this._matrix.is2D;
+    this.matrix = computeMatrix(this);
+    this.is2D = this.matrix.is2D;
     this.cssText = generateCssString(this);
   }
   internal.inherit(CSSTranslation, internal.CSSTransformComponent);
-
-  CSSTranslation.prototype.asMatrix = function() {
-    return this._matrix;
-  };
 
   scope.CSSTranslation = CSSTranslation;
 

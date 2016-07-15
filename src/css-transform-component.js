@@ -17,10 +17,6 @@
   function CSSTransformComponent() {
   }
 
-  CSSTransformComponent.prototype.asMatrix = function() {
-    throw new TypeError('Should not be reached.');
-  };
-
   internal.CSSTransformComponent = CSSTransformComponent;
 
 })(typedOM.internal);

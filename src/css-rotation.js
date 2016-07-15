@@ -22,8 +22,8 @@
 
     var matrix;
     if (cssRotation.x == null) {
-      matrix = new CSSMatrix(new DOMMatrixReadonly([
-          1 - 2 * sq, 2 * sc, -2 * sc, 1 - 2 * sq, 0, 0]));
+      matrix = new DOMMatrixReadonly([
+          1 - 2 * sq, 2 * sc, -2 * sc, 1 - 2 * sq, 0, 0]);
     } else {
       // Normalize the [x, y, z] vector
       var lengthSqrd = cssRotation.x * cssRotation.x +
@@ -34,7 +34,7 @@
       var y = cssRotation.y * scale;
       var z = cssRotation.z * scale;
 
-      matrix = new CSSMatrix(new DOMMatrixReadonly([
+      matrix = new DOMMatrixReadonly([
           1 - 2 * (y * y + z * z) * sq,
           2 * (x * y * sq + z * sc),
           2 * (x * z * sq - y * sc),
@@ -46,7 +46,7 @@
           2 * (x * z * sq + y * sc),
           2 * (y * z * sq - x * sc),
           1 - 2 * (x * x + y * y) * sq,
-          0, 0, 0, 0, 1]));
+          0, 0, 0, 0, 1]);
     }
     return matrix;
   };
@@ -88,14 +88,10 @@
     var angleValue = this.is2D ? x : angle;
     this.angle = angleValue instanceof CSSAngleValue ? angleValue.degrees : angleValue;
 
-    this._matrix = computeMatrix(this);
+    this.matrix = computeMatrix(this);
     this.cssText = generateCssString(this);
   }
   internal.inherit(CSSRotation, internal.CSSTransformComponent);
-
-  CSSRotation.prototype.asMatrix = function() {
-    return this._matrix;
-  };
 
   scope.CSSRotation = CSSRotation;
 
