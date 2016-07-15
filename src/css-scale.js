@@ -17,10 +17,13 @@
   function computeMatrix(cssScale) {
     var matrix;
     if (cssScale.z == null) {
-      matrix = new CSSMatrix(new DOMMatrixReadonly([cssScale.x, 0, 0, cssScale.y, 0, 0]));
+      matrix = new DOMMatrixReadonly([cssScale.x, 0, 0, cssScale.y, 0, 0]);
     } else {
-      matrix = new CSSMatrix(new DOMMatrixReadonly([cssScale.x, 0, 0, 0, 0, cssScale.y, 0, 0, 0, 0, cssScale.z, 0, 0,
-          0, 0, 1]));
+      matrix = new DOMMatrixReadonly([
+          cssScale.x, 0, 0, 0,
+          0, cssScale.y, 0, 0,
+          0, 0, cssScale.z, 0,
+          0, 0, 0, 1]);
     }
     return matrix;
   };
@@ -50,15 +53,11 @@
     this.y = y;
     this.z = (typeof z == 'number') ? z : null;
 
-    this._matrix = computeMatrix(this);
-    this.is2D = this._matrix.is2D;
+    this.matrix = computeMatrix(this);
+    this.is2D = this.matrix.is2D;
     this.cssText = generateCssString(this);
   }
   internal.inherit(CSSScale, internal.CSSTransformComponent);
-
-  CSSScale.prototype.asMatrix = function() {
-    return this._matrix;
-  };
 
   scope.CSSScale = CSSScale;
 

@@ -1,4 +1,4 @@
-// Copyright 2015 Google Inc. All rights reserved.
+// Copyright 2016 Google Inc. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,11 +12,21 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, testing) {
+(function(internal) {
+  var parsing = internal.parsing;
 
-  function CSSTransformComponent() {
+  var unitRegex = /^(deg|rad|grad|turn)/i;
+
+  function consumeAngleValue(string) {
+    var params = internal.parsing.consumeList([
+        parsing.consumeNumber,
+        parsing.consumeToken.bind(null, unitRegex),
+    ], string);
+    if (!params) {
+      return null;
+    }
+    return [new CSSAngleValue(params[0][0], params[0][1]), params[1]]
   }
 
-  internal.CSSTransformComponent = CSSTransformComponent;
-
+  internal.parsing.consumeAngleValue = consumeAngleValue;
 })(typedOM.internal);

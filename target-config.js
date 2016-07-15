@@ -18,7 +18,7 @@
       'src/scope.js'
   ];
 
-      // These should be alphabetical order as much as possible.
+  // These should be alphabetical order as much as possible.
   var typedOMSrc = [
       // Utility functions.
       'src/util.js',
@@ -34,7 +34,9 @@
       // CSSStyleValue and subclasses
       'src/css-style-value.js',
       'src/css-angle-value.js',
+      'src/css-angle-value-parsing.js',
       'src/css-color-value.js',
+      'src/internal-css-style-value.js',
       'src/css-number-value.js',
       'src/css-keyword-value.js',
       'src/css-transform-value.js',

@@ -16,13 +16,13 @@
 
   function computeMatrix(cssTransform) {
     if (!cssTransform.transformComponents.length) {
-      return new CSSMatrix(new DOMMatrixReadonly([1, 0, 0, 1, 0, 0]));
+      return new DOMMatrixReadonly([1, 0, 0, 1, 0, 0]);
     }
-    var matrix = cssTransform.transformComponents[0].asMatrix().matrix;
+    var matrix = cssTransform.transformComponents[0].matrix;
     for (var i = 1; i < cssTransform.transformComponents.length; ++i) {
-      matrix = matrix.multiply(cssTransform.transformComponents[i].asMatrix().matrix);
+      matrix = matrix.multiply(cssTransform.transformComponents[i].matrix);
     }
-    return new CSSMatrix(matrix);
+    return matrix;
   };
 
   function generateCssString(cssTransform) {
@@ -50,15 +50,11 @@
       this.transformComponents.push(values[i]);
     }
 
-    this._matrix = computeMatrix(this);
-    this.is2D = this._matrix.is2D;
+    this.matrix = computeMatrix(this);
+    this.is2D = this.matrix.is2D;
     this.cssText = generateCssString(this);
   }
   internal.inherit(CSSTransformValue, CSSStyleValue);
-
-  CSSTransformValue.prototype.asMatrix = function() {
-    return this._matrix;
-  };
 
   scope.CSSTransformValue = CSSTransformValue;
 
