@@ -63,21 +63,19 @@
    *   if it has not reached the end of the object, or otherwise it returns
    *   { done: true, value: undefined }.
    * @param {!Object} object: The object to iterate over.
-   * @param {String} expression: The expression that will be executed if the
-   *   iterator has not reached the end of the array. expression contains the
-   *   format that we want to get as the value.
+   * @param {Function} callback: A function to be called by using key and value
+   *   as parameters and will return the value in a defined format
    */
-
-  function iterator(object, expression) {
+  function iterator(object, fun) {
     if (!(this instanceof arguments.callee))
-      return new arguments.callee(object, expression);
+      return new arguments.callee(object, fun);
     var index = 0;
 
     this.next = function next() {
       if (index < object.length) {
           var key = index;
           var value = object[index++];
-          return { done: false, value: eval(expression) };
+          return { done: false, value: fun(key, value) };
       } else return { done: true, value: undefined };
     };
   }

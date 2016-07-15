@@ -17,15 +17,15 @@
   internal.inherit(CSSTokenStreamValue, CSSStyleValue);
 
   CSSTokenStreamValue.prototype.keys = function() {
-    return internal.objects.iterator(this._listOfReferences, "key");
+    return internal.objects.iterator(this._listOfReferences, function(key, value) { return key; });
   }
 
   CSSTokenStreamValue.prototype.values = function() {
-    return internal.objects.iterator(this._listOfReferences, "value");
+    return internal.objects.iterator(this._listOfReferences, function(key, value) { return value; });
   }
 
   CSSTokenStreamValue.prototype.entries = function() {
-    return internal.objects.iterator(this._listOfReferences, "[key, value]");
+    return internal.objects.iterator(this._listOfReferences, function(key, value) { return [key, value]; });
   }
 
   scope.CSSTokenStreamValue = CSSTokenStreamValue;

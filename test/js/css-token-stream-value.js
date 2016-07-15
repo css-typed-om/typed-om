@@ -1,9 +1,7 @@
 suite('CSSTokenStreamValue', function() {
   test("CSSTokenStreamValue is a CSSTokenStreamValue and CSSStyleValue", function() {
-    assert.instanceOf(new CSSTokenStreamValue(), CSSTokenStreamValue,
-      'A new CSSTokenStreamValue should be an instance of CSSTokenStreamValue');
-    assert.instanceOf(new CSSTokenStreamValue(), CSSStyleValue,
-      'A new CSSTokenStreamValue should be an instance of CSSStyleValue');
+    assert.instanceOf(new CSSTokenStreamValue(), CSSTokenStreamValue);
+    assert.instanceOf(new CSSTokenStreamValue(), CSSStyleValue);
   });
 
   test('Constructor does not throw', function() {
