@@ -52,4 +52,46 @@ test('Conversions when specified as turns', function() {
   assert.strictEqual(angleValue.turns, 0.6);
 });
 
+test('Parsing valid strings results in expected CSSAngleValues', function() {
+  var values = [
+    {str: '1.1deg', value: new CSSAngleValue(1.1, 'deg')},
+    {str: '-2rad', value: new CSSAngleValue(-2, 'rad')},
+    {str: '3.0003grad', value: new CSSAngleValue(3.0003, 'grad')},
+    {str: '400turn', value: new CSSAngleValue(400, 'turn')},
+  ];
+  for (var i = 0; i < values.length; i++) {
+    var result = typedOM.internal.parsing.consumeAngleValue(values[i].str);
+    assert.isNotNull(result, 'Failed parsing ' + values[i].str);
+    assert.instanceOf(result[0], CSSAngleValue);
+    assert.strictEqual(result[0].deg, values[i].value.deg);
+  }
+});
+
+test('Parsing is case insensitive', function() {
+  var values = [
+    {str: '1.1DEG', value: new CSSAngleValue(1.1, 'deg')},
+    {str: '-2rAd', value: new CSSAngleValue(-2, 'rad')},
+    {str: '3.0003GrAd', value: new CSSAngleValue(3.0003, 'grad')},
+    {str: '400tuRN', value: new CSSAngleValue(400, 'turn')},
+  ];
+  for (var i = 0; i < values.length; i++) {
+    var result = typedOM.internal.parsing.consumeAngleValue(values[i].str);
+    assert.isNotNull(result, 'Failed parsing ' + values[i].str);
+    assert.instanceOf(result[0], CSSAngleValue);
+    assert.strictEqual(result[0].deg, values[i].value.deg);
+  }
+});
+
+test('Parsing returns null for invalid strings', function() {
+  assert.isNull(typedOM.internal.parsing.consumeAngleValue(''));
+  assert.isNull(typedOM.internal.parsing.consumeAngleValue('bananas'));
+  assert.isNull(typedOM.internal.parsing.consumeAngleValue('deg66'));
+  // No unit.
+  assert.isNull(typedOM.internal.parsing.consumeAngleValue('0'));
+  // Invalid unit.
+  assert.isNull(typedOM.internal.parsing.consumeAngleValue('60ra'));
+  // No angle.
+  assert.isNull(typedOM.internal.parsing.consumeAngleValue('rad'));
+});
+
 });
