@@ -160,4 +160,8 @@ suite('Inline StylePropertyMap', function() {
 
     assert.deepEqual(inlineStyleMap.getProperties(), ['opacity', 'height', 'border-top-color', 'border-top-width']);
   });
+
+  test('Getting an unset value does not throw', function() {
+    assert.isNull(this.element.styleMap().get('height'));
+  });
 });

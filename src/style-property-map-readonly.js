@@ -20,11 +20,11 @@
 
   StylePropertyMapReadOnly.prototype.get = function(property) {
     var parsed = this.getAll(property);
-    return parsed[0];
+    return parsed && parsed.length ? parsed[0] : null;
   };
 
   StylePropertyMapReadOnly.prototype.getAll = function(property) {
-    if (!internal.propertyDictionary().isSupportedProperty(property)) {
+    if (!(property in document.documentElement.style)) {
       throw new TypeError(property + ' is not a supported CSS property');
     }
 
@@ -33,7 +33,10 @@
       return null;
     }
 
-    return parsed = CSSStyleValue.parse(property, propertyString);
+    if (internal.propertyDictionary().isSupportedProperty(property)) {
+      return CSSStyleValue.parse(property, propertyString);
+    }
+    return [new internal.CSSStyleValue(propertyString)];
   };
 
   StylePropertyMapReadOnly.prototype.getProperties = function() {

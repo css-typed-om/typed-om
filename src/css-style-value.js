@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, scope, testing) {
+(function(internal, scope) {
 
   function CSSStyleValue() {
     throw new TypeError('CSSStyleValue cannot be instantiated.');
@@ -71,4 +71,5 @@
   };
 
   scope.CSSStyleValue = CSSStyleValue;
+
 })(typedOM.internal, window);
