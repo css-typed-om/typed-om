@@ -66,16 +66,16 @@
    * @param {Function} callback: A function to be called by using key and value
    *   as parameters and will return the value in a defined format
    */
-  function iterator(object, fun) {
+  function iterator(object, callback) {
     if (!(this instanceof arguments.callee))
-      return new arguments.callee(object, fun);
+      return new arguments.callee(object, callback);
     var index = 0;
 
     this.next = function next() {
       if (index < object.length) {
           var key = index;
           var value = object[index++];
-          return { done: false, value: fun(key, value) };
+          return { done: false, value: callback(key, value) };
       } else return { done: true, value: undefined };
     };
   }
