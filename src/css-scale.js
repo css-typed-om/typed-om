@@ -14,6 +14,30 @@
 
 (function(internal, scope) {
 
+  function computeMatrix(cssScale) {
+    var matrix;
+    if (cssScale.z == null) {
+      matrix = new DOMMatrixReadonly([cssScale.x, 0, 0, cssScale.y, 0, 0]);
+    } else {
+      matrix = new DOMMatrixReadonly([
+          cssScale.x, 0, 0, 0,
+          0, cssScale.y, 0, 0,
+          0, 0, cssScale.z, 0,
+          0, 0, 0, 1]);
+    }
+    return matrix;
+  };
+
+  function generateCssString(cssScale) {
+    var cssText;
+    if (cssScale.is2D) {
+      cssText = 'scale(' + cssScale.x + ', ' + cssScale.y + ')';
+    } else {
+      cssText = 'scale3d(' + cssScale.x + ', ' + cssScale.y + ', ' + cssScale.z + ')';
+    }
+    return cssText;
+  };
+
   function CSSScale(x, y, z) {
     if (arguments.length != 2 && arguments.length != 3) {
       throw new TypeError('CSSScale must have 2 or 3 arguments.');
@@ -29,35 +53,11 @@
     this.y = y;
     this.z = (typeof z == 'number') ? z : null;
 
-    this._matrix = this._computeMatrix();
-    this.cssText = this._generateCssString();
+    this.matrix = computeMatrix(this);
+    this.is2D = this.matrix.is2D;
+    this.cssText = generateCssString(this);
   }
   internal.inherit(CSSScale, internal.CSSTransformComponent);
-
-  CSSScale.prototype.asMatrix = function() {
-    return this._matrix;
-  };
-
-  CSSScale.prototype._computeMatrix = function() {
-    var matrix;
-    if (this.z == null) {
-      matrix = new CSSMatrix(new DOMMatrixReadonly([this.x, 0, 0, this.y, 0, 0]));
-    } else {
-      matrix = new CSSMatrix(new DOMMatrixReadonly([this.x, 0, 0, 0, 0, this.y, 0, 0, 0, 0, this.z, 0, 0,
-          0, 0, 1]));
-    }
-    return matrix;
-  };
-
-  CSSScale.prototype._generateCssString = function() {
-    var cssText;
-    if (this.is2D()) {
-      cssText = 'scale(' + this.x + ', ' + this.y + ')';
-    } else {
-      cssText = 'scale3d(' + this.x + ', ' + this.y + ', ' + this.z + ')';
-    }
-    return cssText;
-  };
 
   scope.CSSScale = CSSScale;
 

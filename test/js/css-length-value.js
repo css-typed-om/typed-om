@@ -95,22 +95,32 @@ suite('CSSLengthValue', function() {
   });
 
   test('CSSLengthValue.from throws exceptions for invalid input.', function() {
-    var values = [
-      // Invalid types.
-      null, 5,
-      // Completely invalid strings.
-      '', 'lemons',
-      // Invalid numbers
-      '-3.4e-2.6px',
-      // Invalid calc statements.
-      'calc()', 'calc(5)', 'calc(50 + 5px)', 'calc(pickles)',
-      'calc(5px + 5invalid)', 'calc(5px * 5px)',
-      'calc(5px + calc(3%))',
-      // Invalid or missing units.
-      '100', '50somethings'
-    ];
-    for (var i = 0; i < values.length; i++) {
-      assert.throws(function() { CSSLengthValue.from(values[i]); }, TypeError);
-    }
+    // Invalid types.
+    assert.throws(function() { CSSLengthValue.from(); });
+    assert.throws(function() { CSSLengthValue.from(null); });
+    assert.throws(function() { CSSLengthValue.from(5); });
+    assert.throws(function() { CSSLengthValue.from('abc', 'px'); });
+    // Completely invalid strings.
+    assert.throws(function() { CSSLengthValue.from(''); });
+    assert.throws(function() { CSSLengthValue.from('lemons'); });
+    // Invalid numbers
+    assert.throws(function() { CSSLengthValue.from('-3.4e-2.6px'); });
+    // Invalid calc statements.
+    assert.throws(function() { CSSLengthValue.from('calc()'); });
+    assert.throws(function() { CSSLengthValue.from('calc(5)'); });
+    assert.throws(function() { CSSLengthValue.from('calc(50 + 5px)'); });
+    assert.throws(function() { CSSLengthValue.from('calc(pickles)'); });
+    assert.throws(function() { CSSLengthValue.from('calc(5px + 5invalid)'); });
+    assert.throws(function() { CSSLengthValue.from('calc(5px * 5px)'); });
+    assert.throws(function() { CSSLengthValue.from('calc(5px + calc(3%))'); });
+    assert.throws(function() { CSSLengthValue.from('calc(5px + 4em'); });
+    assert.throws(function() { CSSLengthValue.from('calc(5px + 3 * (4em)'); });
+    // Invalid or missing units.
+    assert.throws(function() { CSSLengthValue.from('100'); });
+    assert.throws(function() { CSSLengthValue.from('50somethings'); });
+    // Trailing characters.
+    assert.throws(function() { CSSLengthValue.from('calc(10px) abc'); });
+    assert.throws(function() { CSSLengthValue.from('calc(10px))'); });
+    assert.throws(function() { CSSLengthValue.from('5px abc'); });
   });
 });

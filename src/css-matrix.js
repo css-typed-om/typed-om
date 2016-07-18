@@ -24,11 +24,6 @@
   }
   internal.inherit(CSSMatrix, internal.CSSTransformComponent);
 
-  // TODO(wilddamon): This method is for back compatibility. Remove it.
-  CSSMatrix.prototype.asMatrix = function() {
-    return this;
-  }
-
   function generateCssText(matrix) {
     var cssText = matrix.is2D ? 'matrix' : 'matrix3d';
     cssText += '('+ matrix._matrix.join(', ') + ')';

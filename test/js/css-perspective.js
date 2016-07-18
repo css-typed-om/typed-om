@@ -1,10 +1,8 @@
 suite('CSSPerspective', function() {
   test('CSSPerspective is a CSSPerspective and CSSTransformComponent', function() {
     var perspective = new CSSPerspective(new CSSSimpleLength(10, 'px'));
-    assert.instanceOf(perspective, CSSPerspective,
-        'A new CSSPerspective should be an instance of CSSPerspective');
-    assert.instanceOf(perspective, typedOM.internal.CSSTransformComponent,
-        'A new CSSPerspective should be an instance of CSSTransformComponent');
+    assert.instanceOf(perspective, CSSPerspective);
+    assert.instanceOf(perspective, typedOM.internal.CSSTransformComponent);
   });
 
   test('CSSPerspective constructor throws exception for invalid types',
@@ -35,10 +33,9 @@ suite('CSSPerspective', function() {
         'perspective(' + length.cssText + ')');
     assert.strictEqual(perspective.length.value, 10);
     assert.deepEqual(perspective.length, length);
-    assert.isFalse(perspective.is2D());
+    assert.isFalse(perspective.is2D);
 
-    var expectedMatrix = new CSSMatrix(new DOMMatrixReadonly([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, -0.1, 0, 0, 0, 1]));
-    assert.strictEqual(perspective.asMatrix().cssText, expectedMatrix.cssText);
-    assert.deepEqual(perspective.asMatrix(), expectedMatrix);
+    var expectedMatrix = new DOMMatrixReadonly([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, -0.1, 0, 0, 0, 1]);
+    typedOM.internal.testing.matricesApproxEqual(perspective.matrix, expectedMatrix);
   });
 });

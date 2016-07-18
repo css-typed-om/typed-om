@@ -14,6 +14,34 @@
 
 (function(internal, scope) {
 
+  function computeMatrix(cssTranslation) {
+    // CSSTranslation is represented by the identity matrix with the translation
+    // values down the last column.
+    // See documentation https://drafts.csswg.org/css-transforms-1/.
+    var matrix;
+    if (cssTranslation.z == null) {
+      matrix = new DOMMatrixReadonly(
+          [1, 0, 0, 1, cssTranslation.x.value, cssTranslation.y.value]);
+    } else {
+      matrix = new DOMMatrixReadonly(
+          [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, cssTranslation.x.value,
+          cssTranslation.y.value, cssTranslation.z.value, 1]);
+    }
+    return matrix;
+  };
+
+  function generateCssString(cssTranslation) {
+    var cssText;
+    if (cssTranslation.is2D) {
+      cssText = 'translate(' + cssTranslation.x.cssText + ', '
+          + cssTranslation.y.cssText + ')';
+    } else {
+      cssText = 'translate3d(' + cssTranslation.x.cssText + ', '
+          + cssTranslation.y.cssText + ', ' + cssTranslation.z.cssText + ')';
+    }
+    return cssText;
+  };
+
   function CSSTranslation(x, y, z) {
     if (arguments.length != 2 && arguments.length != 3) {
       throw new TypeError('CSSTranslation takes 2 or 3 arguments.');
@@ -31,40 +59,11 @@
     this.y = new CSSSimpleLength(y);
     this.z = (z instanceof CSSSimpleLength) ? new CSSSimpleLength(z) : null;
 
-    this._matrix = this._computeMatrix();
-    this.cssText = this._generateCssString();
+    this.matrix = computeMatrix(this);
+    this.is2D = this.matrix.is2D;
+    this.cssText = generateCssString(this);
   }
   internal.inherit(CSSTranslation, internal.CSSTransformComponent);
-
-  CSSTranslation.prototype.asMatrix = function() {
-    return this._matrix;
-  };
-
-  CSSTranslation.prototype._computeMatrix = function() {
-    // CSSTranslation is represented by the identity matrix with the translation
-    // values down the last column.
-    // See documentation https://drafts.csswg.org/css-transforms-1/.
-    var matrix;
-    if (this.z == null) {
-      matrix = new CSSMatrix(new DOMMatrixReadonly([1, 0, 0, 1, this.x.value, this.y.value]));
-    } else {
-      matrix = new CSSMatrix(new DOMMatrixReadonly([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, this.x.value,
-          this.y.value, this.z.value, 1]));
-    }
-    return matrix;
-  };
-
-  CSSTranslation.prototype._generateCssString = function() {
-    var cssText;
-    if (this.is2D()) {
-      cssText = 'translate(' + this.x.cssText + ', ' + this.y.cssText +
-          ')';
-    } else {
-      cssText = 'translate3d(' + this.x.cssText + ', ' + this.y.cssText +
-          ', ' + this.z.cssText + ')';
-    }
-    return cssText;
-  };
 
   scope.CSSTranslation = CSSTranslation;
 

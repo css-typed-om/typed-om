@@ -52,13 +52,12 @@ suite('CSSTranslation', function() {
     assert.deepEqual(translation.x, x);
     assert.deepEqual(translation.y, y);
 
-    assert.isTrue(translation.is2D());
+    assert.isTrue(translation.is2D);
     assert.strictEqual(translation.cssText,
         'translate(' + x.cssText + ', ' + y.cssText + ')');
 
-    var expectedMatrix = new CSSMatrix(new DOMMatrixReadonly([1, 0, 0, 1, 3, -1]));
-    assert.strictEqual(translation.asMatrix().cssText, expectedMatrix.cssText);
-    assert.deepEqual(translation.asMatrix(), expectedMatrix);
+    var expectedMatrix = new DOMMatrixReadonly([1, 0, 0, 1, 3, -1]);
+    typedOM.internal.testing.matricesApproxEqual(translation.matrix, expectedMatrix);
   });
 
   test('CSSTranslation constructor works correctly for 3 arguments', function() {
@@ -75,14 +74,13 @@ suite('CSSTranslation', function() {
     assert.deepEqual(translation.y, y);
     assert.deepEqual(translation.z, z);
 
-    assert.isFalse(translation.is2D());
+    assert.isFalse(translation.is2D);
 
     var expectedCssString = 'translate3d(' + x.cssText + ', ' + y.cssText +
         ', ' + z.cssText + ')';
     assert.strictEqual(translation.cssText, expectedCssString);
 
-    var expectedMatrix = new CSSMatrix(new DOMMatrixReadonly([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 3, 0.5, -4, 1]));
-    assert.strictEqual(translation.asMatrix().cssText, expectedMatrix.cssText);
-    assert.deepEqual(translation.asMatrix(), expectedMatrix);
+    var expectedMatrix = new DOMMatrixReadonly([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 3, 0.5, -4, 1]);
+    typedOM.internal.testing.matricesApproxEqual(translation.matrix, expectedMatrix);
   });
 });

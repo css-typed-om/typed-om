@@ -23,11 +23,10 @@ suite('CSSScale', function() {
     assert.strictEqual(scale.x, 3);
     assert.strictEqual(scale.y, -1);
     assert.isNull(scale.z);
-    assert.isTrue(scale.is2D());
+    assert.isTrue(scale.is2D);
 
-    var expectedMatrix = new CSSMatrix(new DOMMatrixReadonly([3, 0, 0, -1, 0, 0]));
-    assert.strictEqual(scale.asMatrix().cssText, expectedMatrix.cssText);
-    assert.deepEqual(scale.asMatrix(), expectedMatrix);
+    var expectedMatrix = new DOMMatrixReadonly([3, 0, 0, -1, 0, 0]);
+    typedOM.internal.testing.matricesApproxEqual(scale.matrix, expectedMatrix);
   });
 
   test('CSSScale constructor works correctly for 3 arguments', function() {
@@ -37,10 +36,9 @@ suite('CSSScale', function() {
     assert.strictEqual(scale.x, 3);
     assert.strictEqual(scale.y, 0.5);
     assert.strictEqual(scale.z, -4);
-    assert.isFalse(scale.is2D());
+    assert.isFalse(scale.is2D);
 
-    var expectedMatrix = new CSSMatrix(new DOMMatrixReadonly([3, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, -4, 0, 0, 0, 0, 1]));
-    assert.strictEqual(scale.asMatrix().cssText, expectedMatrix.cssText);
-    assert.deepEqual(scale.asMatrix(), expectedMatrix);
+    var expectedMatrix = new DOMMatrixReadonly([3, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, -4, 0, 0, 0, 0, 1]);
+    typedOM.internal.testing.matricesApproxEqual(scale.matrix, expectedMatrix);
   });
 });
