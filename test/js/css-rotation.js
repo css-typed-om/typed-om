@@ -159,5 +159,6 @@ suite('CSSRotation', function() {
     assert.isNull(consumeRotation('rotate(deg)')); // No angle.
     assert.isNull(consumeRotation('rotate3d(1,2,45deg)')); // Missing z
     assert.isNull(consumeRotation('rotatea(1,2,3,50deg)')); // Invalid keyword
+    assert.isNull(consumeRotation('rotate(45deg')); // Missing bracket
   });
 });
