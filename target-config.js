@@ -47,6 +47,8 @@
       'src/css-calc-length.js',
       'src/css-length-value-parsing.js',
       'src/css-position-value.js', // Depends on LengthValues.
+      // Depends on bot transform component subclasses and length parsing.
+      'src/css-transform-component-parsing.js',
       // Other stuff.
       'src/dom-matrix-readonly.js',
       'src/style-property-map-readonly.js',
