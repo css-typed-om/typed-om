@@ -63,21 +63,21 @@
    *   if it has not reached the end of the object, or otherwise it returns
    *   { done: true, value: undefined }.
    * @param {!Object} object: The object to iterate over.
-   * @param {Function} callback: A function to be called by using key and value
-   *   as parameters and will return the value in a defined format
+   * @param {Function} callback: Defines the value attribute for the iterator.
+   *   The function takes two arguments (key, value), and should return one of
+   *   the following: key, value, or an array containing one or more of
+   *   (key, value). Generally, key is used for the keys() method, value is
+   *   used for the values() method, and [key, value] for the entries() method.
    */
   function iterator(object, callback) {
-    if (!(this instanceof arguments.callee))
-      return new arguments.callee(object, callback);
-    var index = 0;
-
-    this.next = function next() {
-      if (index < object.length) {
-          var key = index;
-          var value = object[index++];
-          return { done: false, value: callback(key, value) };
-      } else return { done: true, value: undefined };
-    };
+    return {
+      index: 0,
+      next: function() {
+        if (this.index < object.length) {
+          return { done: false, value: callback(this.index, object[this.index++]) };
+        } else return { done: true, value: undefined };
+      }
+    }
   }
 
   internal.objects.foreach = foreach;

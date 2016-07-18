@@ -18,16 +18,16 @@
 
   CSSTokenStreamValue.prototype.keys = function() {
     return internal.objects.iterator(this._listOfReferences, function(key, value) { return key; });
-  }
+  };
 
   CSSTokenStreamValue.prototype.values = function() {
     return internal.objects.iterator(this._listOfReferences, function(key, value) { return value; });
-  }
+  };
 
   CSSTokenStreamValue.prototype.entries = function() {
     return internal.objects.iterator(this._listOfReferences, function(key, value) { return [key, value]; });
-  }
+  };
 
   scope.CSSTokenStreamValue = CSSTokenStreamValue;
 
-}) (typedOM.internal, window);
+})(typedOM.internal, window);

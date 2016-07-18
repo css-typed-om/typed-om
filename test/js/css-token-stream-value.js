@@ -4,12 +4,6 @@ suite('CSSTokenStreamValue', function() {
     assert.instanceOf(new CSSTokenStreamValue(), CSSStyleValue);
   });
 
-  test('Constructor does not throw', function() {
-    assert.doesNotThrow(function() { new CSSTokenStreamValue(); });
-    assert.doesNotThrow(function() { new CSSTokenStreamValue(["12345"]); });
-    assert.doesNotThrow(function() { new CSSTokenStreamValue([new CSSVariableReferenceValue("123")]); });
-  });
-
   test('Values not an array throws', function() {
     assert.throw(function() { new CSSTokenStreamValue(1); }, TypeError, 'CSSTokenStreamValue should be an array of string or CSSVariableReferenceValue');
     assert.throw(function() { new CSSTokenStreamValue("123"); }, TypeError, 'CSSTokenStreamValue should be an array of string or CSSVariableReferenceValue');

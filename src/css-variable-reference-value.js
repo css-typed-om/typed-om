@@ -9,4 +9,4 @@
 
     scope.CSSVariableReferenceValue = CSSVariableReferenceValue;
     
-}) (typedOM.internal, window);
+})(typedOM.internal, window);
