@@ -73,6 +73,6 @@ suite('Parsing utilities', function() {
     var consumer = typedOM.internal.parsing.consumeNumber;
     assert.deepEqual(consumeRepeated(consumer, null, '1 2 3', 2 /* opt_max */), [[1,2], '3']);
     assert.deepEqual(consumeRepeated(consumer, null, '1 2 3 a', 2), [[1,2], '3 a']);
-    assert.deepEqual(consumeRepeated(consumer, null, '  1     2    3    ', 2), [[1,2], '  3    ']);
+    assert.deepEqual(consumeRepeated(consumer, null, '  1     2    3    ', 2), [[1,2], '3    ']);
   });
 });

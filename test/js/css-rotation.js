@@ -129,8 +129,11 @@ suite('CSSRotation', function() {
       {str: 'rotate3d(1,2,3,60deg)', x: 1, y: 2, z: 3, deg: 60},
       {str: 'Rotate3D(1,2,3,60DEG)', x: 1, y: 2, z: 3, deg: 60},
       {str: 'rotatex(10deg)', x: 1, y: 0, z: 0, deg: 10},
+      {str: 'rotateX(10dEg)', x: 1, y: 0, z: 0, deg: 10},
       {str: 'rotatey(20deg)', x: 0, y: 1, z: 0, deg: 20},
+      {str: 'rotateY(20deg)', x: 0, y: 1, z: 0, deg: 20},
       {str: 'rotatez(30deg)', x: 0, y: 0, z: 1, deg: 30},
+      {str: 'rotateZ(30deg)', x: 0, y: 0, z: 1, deg: 30},
     ]
     for (var i = 0; i < values.length; i++) {
       var parsed = typedOM.internal.parsing.consumeRotation(values[i].str);
@@ -143,5 +146,18 @@ suite('CSSRotation', function() {
       assert.strictEqual(parsed[0].z, values[i].z);
       assert.approximately(parsed[0].angle, values[i].deg, 1e-6);
     }
+  });
+  
+  test('Parsing rotation with invalid string returns null', function() {
+    var consumeRotation = typedOM.internal.parsing.consumeRotation;
+    assert.isNull(consumeRotation(''));
+    assert.isNull(consumeRotation('bananas'));
+    assert.isNull(consumeRotation('rotate(45)')); // No units.
+    assert.isNull(consumeRotation('rotatex(45)'));
+    assert.isNull(consumeRotation('rotatey(45)'));
+    assert.isNull(consumeRotation('rotatez(45)'));
+    assert.isNull(consumeRotation('rotate(deg)')); // No angle.
+    assert.isNull(consumeRotation('rotate3d(1,2,45deg)')); // Missing z
+    assert.isNull(consumeRotation('rotatea(1,2,3,50deg)')); // Invalid keyword
   });
 });
