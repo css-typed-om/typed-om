@@ -73,12 +73,14 @@
       }
       list.push(result[0]);
       string = result[1];
-      result = consumeToken(separator, string);
-      if (result) {
-        string = result[1];
-      }
-      if (!result || result[1] == '' || list.length >= opt_max) {
-        return [list, string];
+      if (separator) {
+        result = consumeToken(separator, string);
+        if (result) {
+          string = result[1];
+        }
+        if (!result || result[1] == '' || list.length >= opt_max) {
+          return [list, string];
+        }
       }
     }
   }
