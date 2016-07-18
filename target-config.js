@@ -47,6 +47,7 @@
       'src/css-calc-length.js',
       'src/css-length-value-parsing.js',
       'src/css-position-value.js', // Depends on LengthValues.
+      'src/css-position-value-parsing.js',
       // Other stuff.
       'src/dom-matrix-readonly.js',
       'src/style-property-map-readonly.js',
