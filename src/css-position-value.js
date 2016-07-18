@@ -14,6 +14,10 @@
 
 (function(internal, scope) {
 
+  function generateCssString(positionValue) {
+    return positionValue.x.cssText + ' ' + positionValue.y.cssText;
+  };
+
   /**
    * CSSPositionValue(xPos, yPos)
    */
@@ -28,13 +32,9 @@
 
     this.x = new CSSLengthValue(xPos);
     this.y = new CSSLengthValue(yPos);
-    this.cssText = this._generateCssString();
+    this.cssText = generateCssString(this);
   }
   internal.inherit(CSSPositionValue, CSSStyleValue);
-
-  CSSPositionValue.prototype._generateCssString = function() {
-    return this.x.cssText + ' ' + this.y.cssText;
-  };
 
   scope.CSSPositionValue = CSSPositionValue;
 

@@ -72,11 +72,13 @@
       }
       list.push(result[0]);
       string = result[1];
-      result = consumeToken(separator, string);
-      if (!result || result[1] == '') {
-        return [list, string];
+      if (separator) {
+        result = consumeToken(separator, string);
+        if (!result || result[1] == '') {
+          return [list, string];
+        }
+        string = result[1];
       }
-      string = result[1];
     }
   }
 
