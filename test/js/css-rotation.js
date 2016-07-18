@@ -110,7 +110,9 @@ suite('CSSRotation', function() {
       {str: 'rotate(45deg)', deg: 45},
       {str: 'rotate(5rad)', deg: 286.478897},
       {str: 'rotate(215grad)', deg: 193.5},
-      {str: 'rotate(0.6turn)', deg: 216}
+      {str: 'rotate(0.6turn)', deg: 216},
+      {str: 'RoTaTe(5dEg)', deg: 5},
+      {str: 'rOtAtE(4DeG)', deg: 4},
     ];
     for (var i = 0; i < values.length; i++) {
       var parsed = typedOM.internal.parsing.consumeRotation(values[i].str);
@@ -125,6 +127,7 @@ suite('CSSRotation', function() {
   test('Parsing 3d rotation strings result in CSSRotation with correct values', function() {
     var values = [
       {str: 'rotate3d(1,2,3,60deg)', x: 1, y: 2, z: 3, deg: 60},
+      {str: 'Rotate3D(1,2,3,60DEG)', x: 1, y: 2, z: 3, deg: 60},
       {str: 'rotatex(10deg)', x: 1, y: 0, z: 0, deg: 10},
       {str: 'rotatey(20deg)', x: 0, y: 1, z: 0, deg: 20},
       {str: 'rotatez(30deg)', x: 0, y: 0, z: 1, deg: 30},
