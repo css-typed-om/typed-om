@@ -40,6 +40,7 @@
       'src/internal-css-style-value.js',
       'src/css-number-value.js',
       'src/css-keyword-value.js',
+      'src/css-token-stream-value.js',
       'src/css-transform-value.js',
       'src/css-variable-reference-value.js',
       // CSSLengthValue and subclasses
@@ -73,7 +74,7 @@
       'test/js/css-simple-length.js',
       'test/js/css-skew.js',
       'test/js/css-style-value.js',
-      'test/js/css-translation.js',
+      'test/js/css-token-stream-value.js',
       'test/js/css-transform-value.js',
       'test/js/css-translation.js',
       'test/js/css-variable-reference-value.js',
