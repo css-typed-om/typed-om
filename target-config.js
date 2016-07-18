@@ -47,6 +47,7 @@
       'src/css-calc-length.js',
       'src/css-length-value-parsing.js',
       'src/css-position-value.js', // Depends on LengthValues.
+      'src/css-position-value-parsing.js',
       // Depends on both transform component subclasses and length parsing.
       'src/css-transform-component-parsing.js',
       // Other stuff.
