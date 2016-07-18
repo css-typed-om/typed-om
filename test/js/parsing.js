@@ -39,19 +39,40 @@ suite('Parsing utilities', function() {
     assert.deepEqual(consumeNumber('12 5'), [12, ' 5']);
     assert.deepEqual(consumeNumber('4.01 abc'), [4.01, ' abc']);
     assert.deepEqual(consumeNumber('-456.8def'), [-456.8, 'def']);
-    assert.deepEqual(consumeNumber('-3.4e-2 123'), [-3.4e-2, '123']);
+    assert.deepEqual(consumeNumber('-3.4e-2 123'), [-3.4e-2, ' 123']);
   });
 
   test('consumeRepeated with separator', function() {
-    assert.deep
+    var consumeRepeated = typedOM.internal.parsing.consumeRepeated;
+    var consumer = typedOM.internal.parsing.consumeNumber;
+    assert.deepEqual(consumeRepeated(consumer, /^,/, '1,2,3'), [[1,2,3], '']);
+    assert.deepEqual(consumeRepeated(consumer, /^,/, '1,2,3,'), [[1,2,3], '']);
+    assert.deepEqual(consumeRepeated(consumer, /^,/, '1,2,3,a'), [[1,2,3], 'a']);
+    assert.deepEqual(consumeRepeated(consumer, /^,/, '  1 ,   2 ,  3    '), [[1,2,3], '']);
   });
 
-  test('consumeRepeated without separator', function() {
+  test('consumeRepeated with null (space) separator', function() {
+    var consumeRepeated = typedOM.internal.parsing.consumeRepeated;
+    var consumer = typedOM.internal.parsing.consumeNumber;
+    assert.deepEqual(consumeRepeated(consumer, null, '1 2 3'), [[1,2,3], '']);
+    assert.deepEqual(consumeRepeated(consumer, null, '1 2 3 a'), [[1,2,3], 'a']);
+    assert.deepEqual(consumeRepeated(consumer, null, '  1    2   3    '), [[1,2,3], '']);
   });
 
   test('consumeRepeated with max results', function() {
+    var consumeRepeated = typedOM.internal.parsing.consumeRepeated;
+    var consumer = typedOM.internal.parsing.consumeNumber;
+    assert.deepEqual(consumeRepeated(consumer, /^,/, '1,2,3', 2 /* opt_max */), [[1,2], '3']);
+    assert.deepEqual(consumeRepeated(consumer, /^,/, '1,2,3,', 2), [[1,2], '3,']);
+    assert.deepEqual(consumeRepeated(consumer, /^,/, '1,2,3,a', 2), [[1,2], '3,a']);
+    assert.deepEqual(consumeRepeated(consumer, /^,/, '  1 ,   2 ,  3    ', 2), [[1,2], '  3    ']);
   });
 
   test('consumeRepeated with max results and separator', function() {
+    var consumeRepeated = typedOM.internal.parsing.consumeRepeated;
+    var consumer = typedOM.internal.parsing.consumeNumber;
+    assert.deepEqual(consumeRepeated(consumer, null, '1 2 3', 2 /* opt_max */), [[1,2], '3']);
+    assert.deepEqual(consumeRepeated(consumer, null, '1 2 3 a', 2), [[1,2], '3 a']);
+    assert.deepEqual(consumeRepeated(consumer, null, '  1     2    3    ', 2), [[1,2], '  3    ']);
   });
 });
