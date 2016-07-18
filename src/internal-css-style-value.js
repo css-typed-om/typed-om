@@ -1,4 +1,4 @@
-// Copyright 2015 Google Inc. All rights reserved.
+// Copyright 2016 Google Inc. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,11 +12,17 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, testing) {
+(function(internal, scope) {
 
-  function CSSTransformComponent() {
+  // This is the internal version of CSSStyleValue so we can fake not having a
+  // constructor for CSSStyleValues.
+  var CSSStyleValue = function(cssText) {
+    if (!cssText) {
+      throw new TypeError('CSSStyleValue must have a value');
+    }
+    this.cssText = cssText;
   }
+  CSSStyleValue.prototype = Object.create(scope.CSSStyleValue.prototype);
 
-  internal.CSSTransformComponent = CSSTransformComponent;
-
-})(typedOM.internal);
+  internal.CSSStyleValue = CSSStyleValue;
+})(typedOM.internal, window);

@@ -24,19 +24,7 @@ suite('CSSSkew', function() {
     assert.strictEqual(skew.ay, 180);
     assert.isTrue(skew.is2D);
 
-    var tanAx = CSSSkew._tanDegrees(30);
-    var tanAy = CSSSkew._tanDegrees(180);
-
-    var expectedMatrix = new CSSMatrix(new DOMMatrixReadonly([1, tanAy, tanAx, 1, 0, 0]));
-    assert.strictEqual(skew.asMatrix().cssText, expectedMatrix.cssText);
-    assert.deepEqual(skew.asMatrix(), expectedMatrix);
-  });
-
-  test('CSSSkew._tanDegrees works correctly', function() {
-    var delta = 0.000001;
-    assert.closeTo(CSSSkew._tanDegrees(0), Math.tan(0), delta);
-    assert.closeTo(CSSSkew._tanDegrees(30), Math.tan(Math.PI / 6), delta);
-    assert.closeTo(CSSSkew._tanDegrees(60), Math.tan(Math.PI / 3), delta);
-    assert.closeTo(CSSSkew._tanDegrees(180), Math.tan(Math.PI), delta);
+    var expectedMatrix = new DOMMatrixReadonly([1, 0, 0.577350, 1, 0, 0]);
+    typedOM.internal.testing.matricesApproxEqual(skew.matrix, expectedMatrix);
   });
 });

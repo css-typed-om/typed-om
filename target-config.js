@@ -36,6 +36,7 @@
       'src/css-angle-value.js',
       'src/css-angle-value-parsing.js',
       'src/css-color-value.js',
+      'src/internal-css-style-value.js',
       'src/css-number-value.js',
       'src/css-keyword-value.js',
       'src/css-token-stream-value.js',
