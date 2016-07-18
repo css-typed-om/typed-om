@@ -16,7 +16,7 @@ suite('CSSTokenStreamValue', function() {
   });
 
   test('keys() must be an iterator of an array that stores the indices', function() {
-    var values = ['test', '12345', '1', 'a2', '2a'];
+    var values = ['test', '12345', new CSSVariableReferenceValue('var', new CSSTokenStreamValue(['1'])), 'a2'];
     var tokenStreamValues = new CSSTokenStreamValue(values);
     var keys = tokenStreamValues.keys();
     for (var i = 0; i < values.length; i++) {
@@ -30,7 +30,7 @@ suite('CSSTokenStreamValue', function() {
   });
 
   test('values() must be an iterator of an array that stores the values', function() {
-    var values = ['test', '12345', '1', 'a2', '2a'];
+    var values = ['test', '12345', new CSSVariableReferenceValue('var', new CSSTokenStreamValue(['1'])), 'a2'];
     var tokenStreamValues = new CSSTokenStreamValue(values);
     var streamValues = tokenStreamValues.values();
     for (var i = 0; i < values.length; i++) {
@@ -44,7 +44,7 @@ suite('CSSTokenStreamValue', function() {
   });
 
   test('entries() must be an iterator of an array that stores array of [index, value]', function() {
-    var values = ['test', '12345', '1', 'a2', '2a'];
+    var values = ['test', '12345', new CSSVariableReferenceValue('var', new CSSTokenStreamValue(['1'])), 'a2'];
     var tokenStreamValues = new CSSTokenStreamValue(values);
     var entries = tokenStreamValues.entries();
     for (var i = 0; i < values.length; i++) {
