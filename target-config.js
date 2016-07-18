@@ -80,6 +80,7 @@
       'test/js/computed-style-property-map.js',
       'test/js/dom-matrix-readonly.js',
       'test/js/inline-style-property-map.js',
+      'test/js/parsing.js',
       'test/js/property-dictionary.js',
   ];
 

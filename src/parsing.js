@@ -78,9 +78,12 @@
         if (result) {
           string = result[1];
         }
-        if (!result || result[1] == '' || list.length >= opt_max) {
+        if (!result || result[1] == '') {
           return [list, string];
         }
+      }
+      if (list.length >= opt_max) {
+        return [list, string];
       }
     }
   }
