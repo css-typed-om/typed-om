@@ -1,13 +1,5 @@
 (function(internal, scope) {
 
-  function CSSResourceValue(state) {
-    if (!isValidResourceState(state)) {
-      throw new TypeError('State of a CSSResourceValue must be one of CSSResourceState');
-    }
-    this._state = state;
-  }
-  internal.inherit(CSSResourceValue, CSSStyleValue);
-
   CSSResourceState = {
     UNLOADED: 'unloaded',
     LOADING: 'loading',
@@ -20,6 +12,14 @@
       return str == type;
     });
   };
+
+  function CSSResourceValue(state) {
+    if (!isValidResourceState(state)) {
+      throw new TypeError('State of a CSSResourceValue must be one of CSSResourceState');
+    }
+    this._state = state;
+  }
+  internal.inherit(CSSResourceValue, CSSStyleValue);
 
   scope.CSSResourceValue = CSSResourceValue;
 
