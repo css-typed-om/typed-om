@@ -130,10 +130,10 @@ suite('CSSRotation', function() {
       {str: 'Rotate3D(1,2,3,60DEG)', x: 1, y: 2, z: 3, deg: 60},
       {str: 'rotatex(10deg)', x: 1, y: 0, z: 0, deg: 10},
       {str: 'rotateX(10dEg)', x: 1, y: 0, z: 0, deg: 10},
-      {str: 'rotatey(20deg)', x: 0, y: 1, z: 0, deg: 20},
-      {str: 'rotateY(20deg)', x: 0, y: 1, z: 0, deg: 20},
-      {str: 'rotatez(30deg)', x: 0, y: 0, z: 1, deg: 30},
-      {str: 'rotateZ(30deg)', x: 0, y: 0, z: 1, deg: 30},
+      {str: 'rotatey(20Deg)', x: 0, y: 1, z: 0, deg: 20},
+      {str: 'rotateY(20deG)', x: 0, y: 1, z: 0, deg: 20},
+      {str: 'rotatez(30dEG)', x: 0, y: 0, z: 1, deg: 30},
+      {str: 'rotateZ(30DEg)', x: 0, y: 0, z: 1, deg: 30},
     ]
     for (var i = 0; i < values.length; i++) {
       var parsed = typedOM.internal.parsing.consumeRotation(values[i].str);

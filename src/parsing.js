@@ -35,6 +35,13 @@
     }
   }
 
+  function optional(consumerFn) {
+    return function(input) {
+      var result = consumerFn(input);
+      return result ? result : ['', input];
+    }
+  }
+
   // Regex should be anchored with /^
   function consumeToken(regex, string) {
     var match = regex.exec(string);
@@ -93,7 +100,7 @@
     var output = [];
     for (var i = 0; i < list.length; i++) {
       var result = consumeTrimmed(list[i], input);
-      if (!result || result[0] == '')
+      if (!result)
         return;
       if (result[0] !== undefined)
         output.push(result[0]);
@@ -127,6 +134,7 @@
   internal.parsing.NUMBER_REGEX_STR = numberValueRegexStr;
   internal.parsing.isNumberValueString = isNumberValueString;
   internal.parsing.ignore = ignore;
+  internal.parsing.optional = optional;
   internal.parsing.consumeToken = consumeToken;
   internal.parsing.consumeNumber = consumeNumber;
   internal.parsing.consumeTrimmed = consumeTrimmed;

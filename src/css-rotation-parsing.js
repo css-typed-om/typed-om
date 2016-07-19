@@ -15,74 +15,45 @@
 (function(internal) {
   var parsing = internal.parsing;
 
-  function parseRotate(string) {
-    var params = parsing.consumeAngleValue(string);
-    if (!params || params[1].length) {
-      return null;
-    }
-    return new CSSRotation(params[0]);
-  }
-
-  function parseRotate3D(string) {
-    var params = parsing.consumeRepeated(parsing.consumeNumber, /^,/, string, 3 /* opt_max */);
+  function consumeRotation(string) {
+    var params = parsing.consumeList([
+        parsing.ignore(parsing.consumeToken.bind(null, /^rotate/i)),
+        parsing.optional(parsing.consumeToken.bind(null, /^(3d|x|y|z)/i)),
+        parsing.ignore(parsing.consumeToken.bind(null, /^\(/)),
+        parsing.consumeRepeated.bind(null, parsing.consumeNumber, /^,/),
+        parsing.consumeAngleUnit,
+        parsing.ignore(parsing.consumeToken.bind(null, /^\)/))
+    ], string);
     if (!params) {
       return null;
     }
-    var xyz = params[0]; // Array of numbers
-    if (xyz.length != 3) {
-      return null;
-    }
-    params = parsing.consumeAngleValue(params[1]);
-    if (!params || params[1].length) {
-      return null;
-    }
-    return new CSSRotation(xyz[0], xyz[1], xyz[2], params[0]);
-  }
 
-  function parseRotateXYZ(xyOrZ, string) {
-    var params = parsing.consumeAngleValue(string);
-    if (!params || params[1].length) {
+    var remaining = params[1];
+    var type = params[0][0];
+    var numbers = params[0][1];
+    var unit = params[0][2];
+
+    if (type == '3d') {
+      if (numbers.length != 4) {
+        return null;
+      }
+      return [new CSSRotation(numbers[0], numbers[1], numbers[2], new CSSAngleValue(numbers[3], unit)), remaining];
+    }
+
+    if (numbers.length != 1) {
       return null;
     }
-    switch (xyOrZ) {
+
+    switch (type) {
       case 'x':
-        return new CSSRotation(1, 0, 0, params[0]);
+        return [new CSSRotation(1, 0, 0, new CSSAngleValue(numbers[0], unit)), remaining];
       case 'y':
-        return new CSSRotation(0, 1, 0, params[0]);
+        return [new CSSRotation(0, 1, 0, new CSSAngleValue(numbers[0], unit)), remaining];
       case 'z':
-        return new CSSRotation(0, 0, 1, params[0]);
-    }
-    return null;
-  }
-
-  function consumeRotation(string) {
-    var parts = string.toLowerCase().split('(', 2);
-    if (parts.length != 2) {
-      return null;
-    }
-    var keyword = parts[0];
-    parts = parts[1].split(')', 2);
-    if (parts.length != 2) {
-      return null;
-    }
-    var rotateArgs = parts[0];
-    var remaining = parts[1];
-
-    var result = null;
-    switch (keyword) {
-      case 'rotate':
-        result = parseRotate(rotateArgs);
-        break;
-      case 'rotate3d':
-        result = parseRotate3D(rotateArgs);
-        break;
-      case 'rotatex':
-      case 'rotatey':
-      case 'rotatez':
-        result = parseRotateXYZ(keyword[keyword.length - 1], rotateArgs)
+        return [new CSSRotation(0, 0, 1, new CSSAngleValue(numbers[0], unit)), remaining];
     }
 
-    return result ? [result, remaining.trim()] : null;
+    return [new CSSRotation(new CSSAngleValue(numbers[0], unit)), remaining];
   }
 
   internal.parsing.consumeRotation = consumeRotation;
