@@ -28,6 +28,7 @@
       'src/css-matrix.js',
       'src/css-perspective.js',
       'src/css-rotation.js',
+      'src/css-rotation-parsing.js',
       'src/css-scale.js',
       'src/css-skew.js',
       'src/css-translation.js',
@@ -82,6 +83,7 @@
       'test/js/computed-style-property-map.js',
       'test/js/dom-matrix-readonly.js',
       'test/js/inline-style-property-map.js',
+      'test/js/parsing.js',
       'test/js/property-dictionary.js',
   ];
 

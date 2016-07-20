@@ -35,6 +35,13 @@
     }
   }
 
+  function optional(consumerFn) {
+    return function(input) {
+      var result = consumerFn(input);
+      return result ? result : ['', input];
+    }
+  }
+
   // Regex should be anchored with /^
   function consumeToken(regex, string) {
     var match = regex.exec(string);
@@ -62,9 +69,10 @@
     }
   }
 
-  function consumeRepeated(consumer, separator, string) {
+  function consumeRepeated(consumer, separator, string, opt_max) {
     consumer = consumeTrimmed.bind(null, consumer);
     var list = [];
+    opt_max = opt_max || Number.MAX_VALUE;
     while (true) {
       var result = consumer(string);
       if (!result) {
@@ -74,10 +82,15 @@
       string = result[1];
       if (separator) {
         result = consumeToken(separator, string);
+        if (result) {
+          string = result[1];
+        }
         if (!result || result[1] == '') {
           return [list, string];
         }
-        string = result[1];
+      }
+      if (list.length >= opt_max) {
+        return [list, string];
       }
     }
   }
@@ -87,7 +100,7 @@
     var output = [];
     for (var i = 0; i < list.length; i++) {
       var result = consumeTrimmed(list[i], input);
-      if (!result || result[0] == '')
+      if (!result)
         return;
       if (result[0] !== undefined)
         output.push(result[0]);
@@ -121,6 +134,7 @@
   internal.parsing.NUMBER_REGEX_STR = numberValueRegexStr;
   internal.parsing.isNumberValueString = isNumberValueString;
   internal.parsing.ignore = ignore;
+  internal.parsing.optional = optional;
   internal.parsing.consumeToken = consumeToken;
   internal.parsing.consumeNumber = consumeNumber;
   internal.parsing.consumeTrimmed = consumeTrimmed;
