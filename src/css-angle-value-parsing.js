@@ -17,6 +17,10 @@
 
   var unitRegex = /^(deg|rad|grad|turn)/i;
 
+  function consumeAngleUnit(string) {
+    return parsing.consumeToken(unitRegex, string);
+  }
+
   function consumeAngleValue(string) {
     var params = internal.parsing.consumeList([
         parsing.consumeNumber,
@@ -28,5 +32,6 @@
     return [new CSSAngleValue(params[0][0], params[0][1]), params[1]]
   }
 
+  internal.parsing.consumeAngleUnit = consumeAngleUnit;
   internal.parsing.consumeAngleValue = consumeAngleValue;
 })(typedOM.internal);

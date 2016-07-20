@@ -29,6 +29,7 @@
       'src/css-matrix-parsing.js',
       'src/css-perspective.js',
       'src/css-rotation.js',
+      'src/css-rotation-parsing.js',
       'src/css-scale.js',
       'src/css-skew.js',
       'src/css-translation.js',
@@ -40,6 +41,7 @@
       'src/internal-css-style-value.js',
       'src/css-number-value.js',
       'src/css-keyword-value.js',
+      'src/css-resource-value.js',
       'src/css-token-stream-value.js',
       'src/css-transform-value.js',
       'src/css-variable-reference-value.js',
@@ -69,6 +71,7 @@
       'test/js/css-number-value.js',
       'test/js/css-perspective.js',
       'test/js/css-position-value.js',
+      'test/js/css-resource-value.js',
       'test/js/css-rotation.js',
       'test/js/css-scale.js',
       'test/js/css-simple-length.js',
@@ -81,6 +84,7 @@
       'test/js/computed-style-property-map.js',
       'test/js/dom-matrix-readonly.js',
       'test/js/inline-style-property-map.js',
+      'test/js/parsing.js',
       'test/js/property-dictionary.js',
   ];
 
