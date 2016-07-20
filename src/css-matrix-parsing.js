@@ -16,18 +16,18 @@
   var parsing = internal.parsing;
 
   function consumeMatrix(string) {
-    var params = parsing.consumeList([
+    var result = parsing.consumeList([
         parsing.ignore(parsing.consumeToken.bind(null, /^matrix/i)),
         parsing.optional(parsing.consumeToken.bind(null, /^3d/i)),
         parsing.ignore(parsing.consumeToken.bind(null, /^\(/)),
         parsing.consumeRepeated.bind(null, parsing.consumeNumber, /^,/),
         parsing.ignore(parsing.consumeToken.bind(null, /^\)/)),
     ], string);
-    if (!params) {
+    if (!result) {
       return null;
     }
-    var leftover = params[1];
-    params = params[0];
+    var leftover = result[1];
+    var params = result[0];
     var is3d = !!params[0];
     var numberSequence = params[1];
     if (is3d && numberSequence.length != 16) {
