@@ -26,6 +26,7 @@
       // CSSTransformComponent and subclasses
       'src/css-transform-component.js',
       'src/css-matrix.js',
+      'src/css-matrix-parsing.js',
       'src/css-perspective.js',
       'src/css-rotation.js',
       'src/css-rotation-parsing.js',
