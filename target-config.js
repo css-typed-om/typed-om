@@ -79,6 +79,7 @@
       'test/js/css-skew.js',
       'test/js/css-style-value.js',
       'test/js/css-token-stream-value.js',
+      'test/js/css-transform-component.js',
       'test/js/css-transform-value.js',
       'test/js/css-translation.js',
       'test/js/css-variable-reference-value.js',
