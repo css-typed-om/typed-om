@@ -18,9 +18,6 @@
   function consumeMatrix(string) {
   }
 
-  function consumePerspective(string) {
-  }
-
   function consumeRotation(string) {
   }
 
@@ -35,7 +32,7 @@
 
   var transformFunctions = {
     'matrix': consumeMatrix,
-    'perspective': consumePerspective,
+    'perspective': internal.parsing.consumePerspective,
     'rotate': consumeRotation,
     'scale': consumeScale,
     'skew': consumeSkew,

@@ -28,6 +28,7 @@
       'src/css-matrix.js',
       'src/css-matrix-parsing.js',
       'src/css-perspective.js',
+      'src/css-perspective-parsing.js',
       'src/css-rotation.js',
       'src/css-rotation-parsing.js',
       'src/css-scale.js',

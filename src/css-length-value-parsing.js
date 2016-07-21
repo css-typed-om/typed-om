@@ -26,7 +26,7 @@
     // lowercase) to prevent problems with types which are substrings of
     // each other (although prefixes may be problematic!)
     var matchedUnits = {};
-    string = string.replace(new RegExp(unitRegExpStr, 'g'), function(match) {
+    string = string.replace(new RegExp(unitRegExpStr, 'gi'), function(match) {
       matchedUnits[match] = null;
       return 'U' + match;
     });
@@ -97,7 +97,7 @@
     if (!consumedNumber) {
       return;
     }
-    var unitRegExp = new RegExp('^' + unitRegExpStr, 'g');
+    var unitRegExp = new RegExp('^' + unitRegExpStr, 'gi');
     var consumedUnit = internal.parsing.consumeToken(unitRegExp, consumedNumber[1]);
     if (!consumedUnit) {
       if (consumedNumber[0] == 0) {
@@ -120,7 +120,6 @@
     }
 
     // Consume until balanced closing parens
-    var unitRegExp = new RegExp('^' + unitRegExpStr, 'g');
     var result = internal.parsing.consumeParenthesised(
         parseDimension, consumedCalcToken[1]);
     if (!result) {
@@ -138,6 +137,6 @@
     return consumeSimpleLength(str);
   }
 
-
+  internal.parsing.consumeSimpleLength = consumeSimpleLength;
   internal.parsing.consumeLengthValue = consumeLengthValue;
 })(typedOM.internal);

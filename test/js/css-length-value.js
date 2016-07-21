@@ -56,6 +56,21 @@ suite('CSSLengthValue', function() {
       {str: '.7px', out: new CSSSimpleLength(0.7, 'px')},
       {str: '10e3px', out: new CSSSimpleLength(10e3, 'px')},
       {str: '-3.4e-2px', out: new CSSSimpleLength(-3.4e-2, 'px')},
+      // Case for units.
+      {str: '1PX', out: new CSSSimpleLength(1, 'px')},
+      {str: '3EM', out: new CSSSimpleLength(3, 'em')},
+      {str: '4EX', out: new CSSSimpleLength(4, 'ex')},
+      {str: '6CH', out: new CSSSimpleLength(6, 'ch')},
+      {str: '7REM', out: new CSSSimpleLength(7, 'rem')},
+      {str: '8VW', out: new CSSSimpleLength(8, 'vw')},
+      {str: '9VH', out: new CSSSimpleLength(9, 'vh')},
+      {str: '10VMIN', out: new CSSSimpleLength(10, 'vmin')},
+      {str: '11VMAX', out: new CSSSimpleLength(11, 'vmax')},
+      {str: '12CM', out: new CSSSimpleLength(12, 'cm')},
+      {str: '13MM', out: new CSSSimpleLength(13, 'mm')},
+      {str: '14IN', out: new CSSSimpleLength(14, 'in')},
+      {str: '15PC', out: new CSSSimpleLength(15, 'pc')},
+      {str: '16PT', out: new CSSSimpleLength(16, 'pt')},
     ];
 
     for (var i = 0; i < values.length; i++) {
