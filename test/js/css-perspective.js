@@ -38,4 +38,19 @@ suite('CSSPerspective', function() {
     var expectedMatrix = new DOMMatrixReadonly([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, -0.1, 0, 0, 0, 1]);
     typedOM.internal.testing.matricesApproxEqual(perspective.matrix, expectedMatrix);
   });
+
+  test('Parsing valid strings results in correct values', function() {
+    var values = [
+      {str: 'perspective(2.6px)', l: new CSSSimpleLength(2.6, 'px'), remaining: ''}, 
+      {str: 'PERSPECTIVE(2.6PX) bananas', l: new CSSSimpleLength(2.6, 'px'), remaining: 'bananas'}, 
+    ]
+    for (var i = 0; i < values.length; i++) {
+      var parsed = typedOM.internal.parsing.consumePerspective(values[i].str);
+      assert.isNotNull(parsed, values[i].str + ' should parse a CSSPerspective');
+      assert.strictEqual(parsed[1], values[i].remaining);
+      assert.instanceOf(parsed[0], CSSPerspective);
+      assert.strictEqual(parsed[0].length.value, values[i].l.value);
+      assert.strictEqual(parsed[0].length.type, values[i].l.type);
+    }
+  });
 });
