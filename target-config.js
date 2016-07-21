@@ -31,6 +31,7 @@
       'src/css-rotation.js',
       'src/css-rotation-parsing.js',
       'src/css-scale.js',
+      'src/css-scale-parsing.js',
       'src/css-skew.js',
       'src/css-translation.js',
       // CSSStyleValue and subclasses
