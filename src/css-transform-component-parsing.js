@@ -18,9 +18,6 @@
   function consumeMatrix(string) {
   }
 
-  function consumePerspective(string) {
-  }
-
   function consumeRotation(string) {
   }
 
