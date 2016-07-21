@@ -23,6 +23,17 @@
       // Utility functions.
       'src/util.js',
       'src/parsing.js',
+      // CSSTransformComponent and subclasses
+      'src/css-transform-component.js',
+      'src/css-matrix.js',
+      'src/css-matrix-parsing.js',
+      'src/css-perspective.js',
+      'src/css-perspective-parsing.js',
+      'src/css-rotation.js',
+      'src/css-rotation-parsing.js',
+      'src/css-scale.js',
+      'src/css-skew.js',
+      'src/css-translation.js',
       // CSSStyleValue and subclasses
       'src/css-style-value.js',
       'src/css-angle-value.js',
@@ -44,17 +55,6 @@
       'src/css-position-value-parsing.js',
       // Depends on both transform component subclasses and length parsing.
       'src/css-transform-component-parsing.js',
-      // CSSTransformComponent and subclasses
-      'src/css-transform-component.js',
-      'src/css-matrix.js',
-      'src/css-matrix-parsing.js',
-      'src/css-perspective.js',
-      'src/css-perspective-parsing.js',
-      'src/css-rotation.js',
-      'src/css-rotation-parsing.js',
-      'src/css-scale.js',
-      'src/css-skew.js',
-      'src/css-translation.js',
       // Other stuff.
       'src/dom-matrix-readonly.js',
       'src/style-property-map-readonly.js',
