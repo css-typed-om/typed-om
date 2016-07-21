@@ -15,38 +15,21 @@
 (function(internal) {
   var parsing = internal.parsing;
 
-  function consumeMatrix(string) {
-  }
-
-  function consumePerspective(string) {
-  }
-
-  function consumeScale(string) {
-  }
-  
-  function consumeSkew(string) {
-  }
-
-  function consumeTranslate(string) {
-  }
-
-  var transformFunctions = {
-    'matrix': consumeMatrix,
-    'perspective': consumePerspective,
-    'rotate': internal.parsing.consumeRotation,
-    'scale': consumeScale,
-    'skew': consumeSkew,
-    'translate': consumeTranslate,
-  };
-
-  function consumeTransformComponent(string) {
-    for (var fn in transformFunctions) {
-      if (string.startsWith(fn)) {
-        return transformFunctions[fn](string);
+  function consumeTransformValue(string) {
+    var components = [];
+    while (true) {
+      var result = internal.parsing.consumeTransformComponent(string);
+      if (!result) {
+        break;
       }
+      components.push(result[0]);
+      string = result[1];
+    } 
+    if (!components.length) {
+      return null;
     }
-    return null;
+    return [new CSSTransformValue(components), string];
   }
 
-  internal.parsing.consumeTransformComponent = consumeTransformComponent;
+  internal.parsing.consumeTransformValue = consumeTransformValue;
 })(typedOM.internal);

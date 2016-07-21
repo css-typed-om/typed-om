@@ -90,4 +90,29 @@ suite('CSSTransformValue', function() {
 
     typedOM.internal.testing.matricesApproxEqual(transform.matrix, expectedMatrix);
   });
+
+  test('Parsing string with single component results in CSSTransformValue with correct value', function() {
+    var result = typedOM.internal.parsing.consumeTransformValue('rotate(20deg) foo');
+    assert.isNotNull(result);
+    assert.strictEqual(result[1], 'foo');
+    var components = result[0].transformComponents;
+    assert.strictEqual(components.length, 1);
+    assert.instanceOf(components[0], CSSRotation);
+    assert.strictEqual(components[0].angle, 20);
+  });
+
+  test('Parsing string with multiple components results in CSSTransformValue with correct values', function() {
+    var expectedComponents = [new CSSRotation(20), new CSSRotation(45)];
+    var result = typedOM.internal.parsing.consumeTransformValue('rotate(20deg) rotate(45deg) foo');
+    assert.isNotNull(result);
+    assert.strictEqual(result[1], 'foo');
+    var components = result[0].transformComponents;
+    assert.strictEqual(components.length, 2);
+    for (var i = 0; i < expectedComponents.length; i++) {
+      assert.strictEqual(components[i].cssText, expectedComponents[i].cssText);
+    }
+  });
+
+  test('Parsing invalid strings results in null', function() {
+  });
 });
