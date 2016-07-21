@@ -102,8 +102,8 @@ suite('CSSTransformValue', function() {
   });
 
   test('Parsing string with multiple components results in CSSTransformValue with correct values', function() {
-    var expectedComponents = [new CSSRotation(20), new CSSRotation(45)];
-    var result = typedOM.internal.parsing.consumeTransformValue('rotate(20deg) rotate(45deg) foo');
+    var expectedComponents = [new CSSRotation(20), new CSSPerspective(new CSSSimpleLength(5, 'px'))];
+    var result = typedOM.internal.parsing.consumeTransformValue('rotate(20deg) perspective(5px) foo');
     assert.isNotNull(result);
     assert.strictEqual(result[1], 'foo');
     var components = result[0].transformComponents;
@@ -114,5 +114,9 @@ suite('CSSTransformValue', function() {
   });
 
   test('Parsing invalid strings results in null', function() {
+    var consumeTransformValue = typedOM.internal.parsing.consumeTransformValue;
+    assert.isNull(consumeTransformValue(''));
+    assert.isNull(consumeTransformValue('bananas'));
+    assert.isNull(consumeTransformValue('5px'));
   });
 });

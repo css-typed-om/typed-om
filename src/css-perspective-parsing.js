@@ -15,35 +15,27 @@
 (function(internal) {
   var parsing = internal.parsing;
 
-  function consumeMatrix(string) {
-  }
-
-  function consumeScale(string) {
-  }
-  
-  function consumeSkew(string) {
-  }
-
-  function consumeTranslate(string) {
-  }
-
-  var transformFunctions = {
-    'matrix': consumeMatrix,
-    'perspective': internal.parsing.consumePerspective,
-    'rotate': internal.parsing.consumeRotation,
-    'scale': consumeScale,
-    'skew': consumeSkew,
-    'translate': consumeTranslate,
-  };
-
-  function consumeTransformComponent(string) {
-    for (var fn in transformFunctions) {
-      if (string.startsWith(fn)) {
-        return transformFunctions[fn](string);
-      }
+  function consumePerspective(string) {
+    var params = parsing.consumeList([
+        parsing.ignore(parsing.consumeToken.bind(null, /^perspective/i)),
+        parsing.ignore(parsing.consumeToken.bind(null, /^\(/)),
+        parsing.consumeSimpleLength,
+        parsing.ignore(parsing.consumeToken.bind(null, /^\)/))
+    ], string);
+    if (!params) {
+      return null;
     }
-    return null;
+
+    var length = params[0][0];
+    var remaining = params[1];
+
+    if (length.type !== 'px') {
+      return null;
+    }
+
+    return [new CSSPerspective(length), remaining];
   }
 
-  internal.parsing.consumeTransformComponent = consumeTransformComponent;
+  internal.parsing.consumePerspective = consumePerspective;
+
 })(typedOM.internal);
