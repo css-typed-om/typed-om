@@ -53,4 +53,18 @@ suite('CSSPerspective', function() {
       assert.strictEqual(parsed[0].length.type, values[i].l.type);
     }
   });
+
+  test('Parsing invalid strings results in null', function() {
+    var consumePerspective = typedOM.internal.parsing.consumePerspective;
+    assert.isNull(consumePerspective(''));
+    assert.isNull(consumePerspective('bananas'));
+    assert.isNull(consumePerspective('perspective()'));
+    assert.isNull(consumePerspective('perspective(5)')); // Missing unit.
+    assert.isNull(consumePerspective('perspective(5ab)')); // Invalid unit.
+    // Valid length unit that is invalid for perspective.
+    assert.isNull(consumePerspective('perspective(5%)'));
+    assert.isNull(consumePerspective('perspective(5px, 6px)')); // Too many args.
+    assert.isNull(consumePerspective('perspective(5px')); // Missing bracket.
+    assert.isNull(consumePerspective('perspectiveY(5px)')); // Invalid keyword.
+  });
 });
