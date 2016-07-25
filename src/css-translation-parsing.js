@@ -68,6 +68,7 @@
         return translateXYorZ(type, coords, remaining);
     }
 
+    // Only translate(s) and translate(x, y) remain.
     if (coords.length == 1) {
       return [new CSSTranslation(coords[0], new CSSSimpleLength(0, 'px')), remaining];
     }
