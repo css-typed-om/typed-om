@@ -13,27 +13,16 @@
 // limitations under the License.
 
 (function(internal) {
-  var parsing = internal.parsing;
-
-  function consumeMatrix(string) {
-  }
-
-  function consumeScale(string) {
-  }
-  
   function consumeSkew(string) {
   }
 
-  function consumeTranslate(string) {
-  }
-
   var transformFunctions = {
-    'matrix': consumeMatrix,
+    'matrix': internal.parsing.consumeMatrix,
     'perspective': internal.parsing.consumePerspective,
     'rotate': internal.parsing.consumeRotation,
-    'scale': consumeScale,
+    'scale': internal.parsing.consumeScale,
     'skew': consumeSkew,
-    'translate': consumeTranslate,
+    'translate': internal.parsing.consumeTranslate,
   };
 
   function consumeTransformComponent(string) {

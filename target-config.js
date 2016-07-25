@@ -32,8 +32,10 @@
       'src/css-rotation.js',
       'src/css-rotation-parsing.js',
       'src/css-scale.js',
+      'src/css-scale-parsing.js',
       'src/css-skew.js',
       'src/css-translation.js',
+      'src/css-translation-parsing.js',
       // CSSStyleValue and subclasses
       'src/css-style-value.js',
       'src/css-angle-value.js',
@@ -80,6 +82,7 @@
       'test/js/css-skew.js',
       'test/js/css-style-value.js',
       'test/js/css-token-stream-value.js',
+      'test/js/css-transform-component.js',
       'test/js/css-transform-value.js',
       'test/js/css-translation.js',
       'test/js/css-variable-reference-value.js',

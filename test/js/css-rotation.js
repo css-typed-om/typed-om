@@ -107,17 +107,19 @@ suite('CSSRotation', function() {
 
   test('Parsing valid basic strings results in CSSRotation with correct values', function() {
     var values = [
-      {str: 'rotate(45deg)', deg: 45},
-      {str: 'rotate(5rad)', deg: 286.478897},
-      {str: 'rotate(215grad)', deg: 193.5},
-      {str: 'rotate(0.6turn)', deg: 216},
-      {str: 'RoTaTe(5dEg)', deg: 5},
-      {str: 'rOtAtE(4DeG)', deg: 4},
+      {str: 'rotate(45deg)', deg: 45, remaining: ''},
+      {str: 'rotate(5rad)', deg: 286.478897, remaining: ''},
+      {str: 'rotate(215grad)', deg: 193.5, remaining: ''},
+      {str: 'rotate(0.6turn)', deg: 216, remaining: ''},
+      {str: 'RoTaTe(5dEg)', deg: 5, remaining: ''},
+      {str: 'rOtAtE(4DeG)', deg: 4, remaining: ''},
+      {str: 'rotate(45deg) 123', deg: 45, remaining: '123'},
+      {str: 'rotate(45deg))))', deg: 45, remaining: ')))'},
     ];
     for (var i = 0; i < values.length; i++) {
       var parsed = typedOM.internal.parsing.consumeRotation(values[i].str);
       assert.isNotNull(parsed, values[i].str + ' should parse a CSSRotation');
-      assert.strictEqual(parsed[1], '', values[i].str + ' should not return any trailing characters after consume');
+      assert.strictEqual(parsed[1], values[i].remaining, values[i].str + ' expected ' + values[i].remaining + ' as trailing characters');
       assert.instanceOf(parsed[0], CSSRotation);
       assert.isTrue(parsed[0].is2D);
       assert.approximately(parsed[0].angle, values[i].deg, 1e-6);
@@ -126,20 +128,24 @@ suite('CSSRotation', function() {
 
   test('Parsing 3d rotation strings result in CSSRotation with correct values', function() {
     var values = [
-      {str: 'rotate3d(1,2,3,60deg)', x: 1, y: 2, z: 3, deg: 60},
-      {str: 'Rotate3D(1,2,3,60DEG)', x: 1, y: 2, z: 3, deg: 60},
-      {str: 'rotatex(10deg)', x: 1, y: 0, z: 0, deg: 10},
-      {str: 'rotateX(10dEg)', x: 1, y: 0, z: 0, deg: 10},
-      {str: 'rotatey(20Deg)', x: 0, y: 1, z: 0, deg: 20},
-      {str: 'rotateY(20deG)', x: 0, y: 1, z: 0, deg: 20},
-      {str: 'rotatez(30dEG)', x: 0, y: 0, z: 1, deg: 30},
-      {str: 'rotateZ(30DEg)', x: 0, y: 0, z: 1, deg: 30},
+      {str: 'rotate3d(1,2,3,60deg)', x: 1, y: 2, z: 3, deg: 60, remaining: ''},
+      {str: 'rotate3d(1, 2, 3, 60deg)', x: 1, y: 2, z: 3, deg: 60, remaining: ''},
+      {str: 'Rotate3D(1,2,3,60DEG)', x: 1, y: 2, z: 3, deg: 60, remaining: ''},
+      {str: 'rotate3d(1,2,3,60deg)123', x: 1, y: 2, z: 3, deg: 60, remaining: '123'},
+      {str: 'rotatex(10deg)', x: 1, y: 0, z: 0, deg: 10, remaining: ''},
+      {str: 'rotateX(10dEg)', x: 1, y: 0, z: 0, deg: 10, remaining: ''},
+      {str: 'rotatex(10deg) abc', x: 1, y: 0, z: 0, deg: 10, remaining: 'abc'},
+      {str: 'rotatey(20Deg)', x: 0, y: 1, z: 0, deg: 20, remaining: ''},
+      {str: 'rotateY(20deG)', x: 0, y: 1, z: 0, deg: 20, remaining: ''},
+      {str: 'rotatey(20DEG))))', x: 0, y: 1, z: 0, deg: 20, remaining: ')))'},
+      {str: 'rotatez(30dEG)', x: 0, y: 0, z: 1, deg: 30, remaining: ''},
+      {str: 'rotateZ(30DEg)', x: 0, y: 0, z: 1, deg: 30, remaining: ''},
+      {str: 'rotateZ(30deg)abc', x: 0, y: 0, z: 1, deg: 30, remaining: 'abc'},
     ]
     for (var i = 0; i < values.length; i++) {
       var parsed = typedOM.internal.parsing.consumeRotation(values[i].str);
       assert.isNotNull(parsed, values[i].str + ' should parse a CSSRotation');
-      assert.strictEqual(parsed[1], '', values[i].str + ' should not return any trailing characters after consume');
-      assert.instanceOf(parsed[0], CSSRotation);
+      assert.strictEqual(parsed[1], values[i].remaining, values[i].str + ' expected ' + values[i].remaining + ' as trailing characters');      assert.instanceOf(parsed[0], CSSRotation);
       assert.isFalse(parsed[0].is2D);
       assert.strictEqual(parsed[0].x, values[i].x);
       assert.strictEqual(parsed[0].y, values[i].y);
@@ -147,16 +153,17 @@ suite('CSSRotation', function() {
       assert.approximately(parsed[0].angle, values[i].deg, 1e-6);
     }
   });
-  
+
   test('Parsing rotation with invalid string returns null', function() {
     var consumeRotation = typedOM.internal.parsing.consumeRotation;
     assert.isNull(consumeRotation(''));
     assert.isNull(consumeRotation('bananas'));
-    assert.isNull(consumeRotation('rotate(45)')); // No units.
+    assert.isNull(consumeRotation('rotate(45)')); // No units
     assert.isNull(consumeRotation('rotatex(45)'));
     assert.isNull(consumeRotation('rotatey(45)'));
     assert.isNull(consumeRotation('rotatez(45)'));
-    assert.isNull(consumeRotation('rotate(deg)')); // No angle.
+    assert.isNull(consumeRotation('rotate(45px)')); // Invalid unit
+    assert.isNull(consumeRotation('rotate(deg)')); // No angle
     assert.isNull(consumeRotation('rotate3d(1,2,45deg)')); // Missing z
     assert.isNull(consumeRotation('rotatea(1,2,3,50deg)')); // Invalid keyword
     assert.isNull(consumeRotation('rotate(45deg')); // Missing bracket
