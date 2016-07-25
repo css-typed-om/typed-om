@@ -83,4 +83,95 @@ suite('CSSTranslation', function() {
     var expectedMatrix = new DOMMatrixReadonly([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 3, 0.5, -4, 1]);
     typedOM.internal.testing.matricesApproxEqual(translation.matrix, expectedMatrix);
   });
+
+  test('Parsing valid basic strings results in CSSTranslation with correct values', function() {
+    var values = [
+      {str: 'translate(10PX)', x: 10, y: 0, remaining: ''},
+      {str: 'translate(10px) YAY', x: 10, y: 0, remaining: 'YAY'},
+      {str: 'translate(-13px)', x: -13, y: 0, remaining: ''},
+      {str: 'TrAnSlAtE(14px)', x: 14, y: 0, remaining: ''},
+      {str: 'translate(11px, 12px)', x: 11, y: 12, remaining: ''},
+      {str: 'translate(11px, 12px)YAY', x: 11, y: 12, remaining: 'YAY'},
+      {str: 'translate(-13px, -14px)', x: -13, y: -14, remaining: ''},
+      {str: 'TrAnSlAtE(15px, 16px)', x: 15, y: 16, remaining: ''},
+    ];
+    for (var i = 0; i < values.length; i++) {
+      var parsed = typedOM.internal.parsing.consumeTranslation(values[i].str);
+      assert.isNotNull(parsed, values[i].str + ' should parse a CSSTranslation');
+      assert.strictEqual(parsed[1], values[i].remaining, values[i].str + ' expected ' + values[i].remaining + ' as trailing characters');
+      assert.instanceOf(parsed[0], CSSTranslation);
+      assert.isTrue(parsed[0].is2D);
+      assert.approximately(parsed[0].x.value, values[i].x, 1e-6);
+      assert.approximately(parsed[0].y.value, values[i].y, 1e-6);
+      assert.strictEqual(parsed[0].x.type, 'px');
+      assert.strictEqual(parsed[0].y.type, 'px');
+      assert.strictEqual(parsed[0].z, null);
+    }
+  });
+
+  test('Parsing valid 3d translation strings results in CSSTranslation with correct values', function() {
+    var values = [
+      {str: 'translate3D(10PX, 11px, 12PX)', x: 10, y: 11, z: 12, remaining: ''},
+      {str: 'translate3d(-13px, -14px, 15px)', x: -13, y: -14, z: 15, remaining: ''},
+      {str: 'TrAnSlAtE3d(16px, 17px, 18px)', x: 16, y: 17, z: 18, remaining: ''},
+      {str: 'translate3d(16px, 17px, 18px)123', x: 16, y: 17, z: 18, remaining: '123'},
+      {str: 'translatez(19PX)', x: 0, y: 0, z: 19, remaining: ''},
+      {str: 'translateZ(20px)', x: 0, y: 0, z: 20, remaining: ''},
+      {str: 'translateZ(20px) a1b2', x: 0, y: 0, z: 20, remaining: 'a1b2'},
+    ];
+    for (var i = 0; i < values.length; i++) {
+      var parsed = typedOM.internal.parsing.consumeTranslation(values[i].str);
+      assert.isNotNull(parsed, values[i].str + ' should parse a CSSTranslation');
+      assert.strictEqual(parsed[1], values[i].remaining, values[i].str + ' expected ' + values[i].remaining + ' as trailing characters');
+      assert.instanceOf(parsed[0], CSSTranslation);
+      assert.isFalse(parsed[0].is2D);
+      assert.approximately(parsed[0].x.value, values[i].x, 1e-6);
+      assert.approximately(parsed[0].y.value, values[i].y, 1e-6);
+      assert.approximately(parsed[0].z.value, values[i].z, 1e-6);
+      assert.strictEqual(parsed[0].x.type, 'px');
+      assert.strictEqual(parsed[0].y.type, 'px');
+      assert.strictEqual(parsed[0].z.type, 'px');
+    }
+  });
+
+  test('Parsing valid X/Y-specific translation strings results in CSSTranslation with correct values', function() {
+    var values = [
+      {str: 'translatex(19px)', x: 19, y: 0, remaining: ''},
+      {str: 'translateX(20PX)', x: 20, y: 0, remaining: ''},
+      {str: 'TranslateX(20px)bananas', x: 20, y: 0, remaining: 'bananas'},
+      {str: 'translatey(21px)', x: 0, y: 21, remaining: ''},
+      {str: 'translateY(22PX)', x: 0, y: 22, remaining: ''},
+      {str: 'Translatey(22PX) bananas', x: 0, y: 22, remaining: 'bananas'},
+    ];
+    for (var i = 0; i < values.length; i++) {
+      var parsed = typedOM.internal.parsing.consumeTranslation(values[i].str);
+      assert.isNotNull(parsed, values[i].str + ' should parse a CSSTranslation');
+      assert.strictEqual(parsed[1], values[i].remaining, values[i].str + ' expected ' + values[i].remaining + ' as trailing characters');
+      assert.instanceOf(parsed[0], CSSTranslation);
+      assert.isTrue(parsed[0].is2D);
+      assert.approximately(parsed[0].x.value, values[i].x, 1e-6);
+      assert.approximately(parsed[0].y.value, values[i].y, 1e-6);
+      assert.strictEqual(parsed[0].x.type, 'px');
+      assert.strictEqual(parsed[0].y.type, 'px');
+      assert.strictEqual(parsed[0].z, null);
+    }
+  });
+
+  test('Parsing translation with invalid string returns null', function() {
+      var consumeTranslation = typedOM.internal.parsing.consumeTranslation;
+      assert.isNull(consumeTranslation(''));
+      assert.isNull(consumeTranslation('bananas'));
+      assert.isNull(consumeTranslation('translate(45)')); // No units
+      assert.isNull(consumeTranslation('translatex(45)'));
+      assert.isNull(consumeTranslation('translatey(45)'));
+      assert.isNull(consumeTranslation('translatez(45)'));
+      assert.isNull(consumeTranslation('translate(45%)')); // Unsupported units
+      assert.isNull(consumeTranslation('translatex(45%)'));
+      assert.isNull(consumeTranslation('translatey(45%)'));
+      assert.isNull(consumeTranslation('translatez(45%)'));
+      assert.isNull(consumeTranslation('translate(px)')); // No value
+      assert.isNull(consumeTranslation('translate3d(10px, 10px)')); // Missing z
+      assert.isNull(consumeTranslation('translatee(10px, 10px, 10px)')); // Invalid keyword
+      assert.isNull(consumeTranslation('translate(10px')); // Missing bracket
+  });
 });
