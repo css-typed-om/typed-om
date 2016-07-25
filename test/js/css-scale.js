@@ -61,7 +61,7 @@ suite('CSSScale', function() {
     for (var i = 0; i < values.length; i++) {
       var parsed = typedOM.internal.parsing.consumeScale(values[i].str);
       assert.isNotNull(parsed, values[i].str + ' should parse into a CSSScale');
-      assert.strictEqual(parsed[1], values[i].remaining, values[i].str + ' should expected ' + values[i].remaining + ' as trailing characters');
+      assert.strictEqual(parsed[1], values[i].remaining, values[i].str + ' expected ' + values[i].remaining + ' as trailing characters');
       assert.strictEqual(parsed[0].x, values[i].x);
       assert.strictEqual(parsed[0].y, values[i].y);
       assert.strictEqual(parsed[0].z, values[i].z);
