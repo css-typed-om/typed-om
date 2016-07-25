@@ -86,7 +86,7 @@ suite('CSSTranslation', function() {
 
   test('Parsing valid basic strings results in CSSTranslation with correct values', function() {
     var values = [
-      {str: 'translate(10px)', x: 10, y: 0},
+      {str: 'translate(10PX)', x: 10, y: 0},
       {str: 'translate(-13px)', x: -13, y: 0},
       {str: 'TrAnSlAtE(14px)', x: 14, y: 0},
       {str: 'translate(11px, 12px)', x: 11, y: 12},
@@ -110,10 +110,10 @@ suite('CSSTranslation', function() {
 
   test('Parsing valid 3d translation strings results in CSSTranslation with correct values', function() {
     var values = [
-      {str: 'translate3D(10px, 11px, 12px)', x: 10, y: 11, z: 12},
+      {str: 'translate3D(10PX, 11px, 12PX)', x: 10, y: 11, z: 12},
       {str: 'translate3d(-13px, -14px, 15px)', x: -13, y: -14, z: 15},
       {str: 'TrAnSlAtE3d(16px, 17px, 18px)', x: 16, y: 17, z: 18},
-      {str: 'translatez(19px)', x: 0, y: 0, z: 19},
+      {str: 'translatez(19PX)', x: 0, y: 0, z: 19},
       {str: 'translateZ(20px)', x: 0, y: 0, z: 20},
     ];
     for (var i = 0; i < values.length; i++) {
@@ -135,9 +135,9 @@ suite('CSSTranslation', function() {
   test('Parsing valid X/Y-specific translation strings results in CSSTranslation with correct values', function() {
     var values = [
       {str: 'translatex(19px)', x: 19, y: 0},
-      {str: 'translateX(20px)', x: 20, y: 0},
+      {str: 'translateX(20PX)', x: 20, y: 0},
       {str: 'translatey(21px)', x: 0, y: 21},
-      {str: 'translateY(22px)', x: 0, y: 22},
+      {str: 'translateY(22PX)', x: 0, y: 22},
     ];
     for (var i = 0; i < values.length; i++) {
       var parsed = typedOM.internal.parsing.consumeTranslation(values[i].str);
