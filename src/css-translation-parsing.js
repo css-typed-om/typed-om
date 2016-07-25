@@ -15,6 +15,13 @@
 (function(internal) {
   var parsing = internal.parsing;
 
+  function translate3d(coords, remaining) {
+      if (coords.length != 3) {
+        return null;
+      }
+      return [new CSSTranslation(coords[0], coords[1], coords[2]), remaining];
+  }
+
   function translateXYorZ(type, coords, remaining) {
     if (coords.length != 1) {
       return null;
@@ -28,13 +35,6 @@
       case 'z':
         return [new CSSTranslation(zeroLength, zeroLength, coords[0]), remaining];
     }
-  }
-
-  function translate3d(coords, remaining) {
-      if (coords.length != 3) {
-        return null;
-      }
-      return [new CSSTranslation(coords[0], coords[1], coords[2]), remaining];
   }
 
   function consumeTranslation(string) {
