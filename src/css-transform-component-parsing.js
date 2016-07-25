@@ -16,16 +16,13 @@
   function consumeSkew(string) {
   }
 
-  function consumeTranslate(string) {
-  }
-
   var transformFunctions = {
     'matrix': internal.parsing.consumeMatrix,
     'perspective': internal.parsing.consumePerspective,
     'rotate': internal.parsing.consumeRotation,
     'scale': internal.parsing.consumeScale,
     'skew': consumeSkew,
-    'translate': consumeTranslate,
+    'translate': internal.parsing.consumeTranslate,
   };
 
   function consumeTransformComponent(string) {
