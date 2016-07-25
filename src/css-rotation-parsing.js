@@ -23,9 +23,6 @@
   }
 
   function rotateXYorZ(type, numbers, unit, remaining) {
-    if (numbers.length != 1) {
-      return null;
-    }
     switch (type) {
       case 'x':
         return [new CSSRotation(1, 0, 0, new CSSAngleValue(numbers[0], unit)), remaining];
@@ -54,13 +51,16 @@
     var numbers = params[0][1];
     var unit = params[0][2];
 
-    switch (type) {
-      case '3d' :
-        return rotate3d(numbers, unit, remaining);
-      case 'x':
-      case 'y':
-      case 'z':
-        return rotateXYorZ(type, numbers, unit, remaining);
+    if (type == '3d') {
+      return rotate3d(numbers, unit, remaining);
+    }
+
+    if (numbers.length != 1) {
+      return null;
+    }
+
+    if (type == 'x' || type == 'y' || type == 'z') {
+      return rotateXYorZ(type, numbers, unit, remaining);
     }
 
     return [new CSSRotation(new CSSAngleValue(numbers[0], unit)), remaining];
