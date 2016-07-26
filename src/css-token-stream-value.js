@@ -21,15 +21,27 @@
   };
 
   CSSTokenStreamValue.prototype.entries = function() {
-    return internal.objects.arrayIterator(this._listOfReferences, function(key, value) { return [key, value]; });
+    function entriesCallback(index) {
+      return [index, this._listOfReferences[index]];
+    }
+    return internal.objects.arrayIterator(
+        this._listOfReferences.length,
+        entriesCallback.bind(this));
   };
 
   CSSTokenStreamValue.prototype.keys = function() {
-    return internal.objects.arrayIterator(this._listOfReferences, function(key, value) { return key; });
+    return internal.objects.arrayIterator(
+        this._listOfReferences.length,
+        function(index) { return index; });
   };
 
   CSSTokenStreamValue.prototype.values = function() {
-    return internal.objects.arrayIterator(this._listOfReferences, function(key, value) { return value; });
+    function valuesCallback(index) {
+      return this._listOfReferences[index];
+    }
+    return internal.objects.arrayIterator(
+        this._listOfReferences.length,
+        valuesCallback.bind(this));
   };
 
   scope.CSSTokenStreamValue = CSSTokenStreamValue;

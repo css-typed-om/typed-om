@@ -77,7 +77,7 @@ suite('CSSTokenStreamValue', function() {
 
   test('Using iterator operations on values() gets correct values', function() {
     var inputValues = ['test', new CSSVariableReferenceValue('var', new CSSTokenStreamValue(['1']))];
-    var tokenStreamValue = new CSSTokenStreamValue(values);
+    var tokenStreamValue = new CSSTokenStreamValue(inputValues);
     // One by one
     var values = [];
     var iterator = tokenStreamValue.values();

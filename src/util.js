@@ -59,47 +59,19 @@
     return false;
   }
 
-
   /*
-   * Gets an iterator for array-like object.
-   *
-   * An iterator returns { done: false, value: expression } if it has not
-   *   reached the end of the array-like object, or otherwise it returns
-   *   { done: true, value: undefined }.
-   * @param {!Object} arrayLike: The array-like object to iterate over.
-   * @param {Function} callback: Defines the value attribute for the iterator.
-   *   The function takes two arguments (key, value), and should return one of
-   *   the following: key, value, or an array containing one or more of
-   *   (key, value). Generally, key is used for the keys() method, value is
-   *   used for the values() method, and [key, value] for the entries() method.
-   */
-  function arrayIterator(arrayLike, callback) {
-    var result = {
-      _index: 0,
-      next: function() {
-        if (this._index < arrayLike.length) {
-          return {
-            done: false,
-            value: callback(this._index, arrayLike[this._index++])
-          };
-        } else {
-          return { done: true, value: undefined };
-        }
-      }
-    }
-    result[Symbol.iterator] = function() { return result; };
-    return result;
-  }
-
-  /*
-   * Gets an iterator for an arbitrary object.
+   * Gets an iterator for an object.
    *
    * An iterator returns { done: false, value: expression } if it has not
    *   reached the end of the array-like object, or otherwise it returns
    *   { done: true, value: undefined }.
    * @param {!Array} keys: An array of keys to iterate over.
    * @param {Function} callback: A function that returns the value for the
-   *    iterator. The function takes a single argument: the current key.
+   *   iterator. The function takes a single argument: the current key and
+   *   should return one of the following: key, value, or an array containing
+   *   one or more of (key, value). Generally, key is used for the keys()
+   *   method, value is used for the values() method, and [key, value] for
+   *   the entries() method.
    */
   function iterator(keys, callback) {
     var result = {
@@ -117,10 +89,28 @@
     return result;
   }
 
+  /*
+   * Gets an iterator for array-like object.
+   *
+   * An iterator returns { done: false, value: expression } if it has not
+   *   reached the end of the array-like object, or otherwise it returns
+   *   { done: true, value: undefined }.
+   * @param {number} length: The length of the array object
+   * @param {Function} callback: A function that returns the value for the
+   *   iterator. The function takes a single argument: the current index, and
+   *   should return one of the following: index, value, or an array containing
+   *   one or more of (index, value). Generally, index is used for the keys()
+   *   method, value is used for the values() method, and [index, value] for
+   *   the entries() method.
+   */
+  function arrayIterator(length, callback) {
+    return iterator([...Array(length).keys()], callback);
+  }
+
   internal.objects.foreach = foreach;
   internal.objects.any = any;
-  internal.objects.arrayIterator = arrayIterator;
   internal.objects.iterator = iterator;
-
+  internal.objects.arrayIterator = arrayIterator;
   internal.inherit = inherit;
+
 })(typedOM.internal);
