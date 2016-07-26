@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal) {
+(function(internal, scope) {
 
   function computeMatrix(cssTransform) {
     if (!cssTransform.transformComponents.length) {
@@ -84,6 +84,6 @@
         valuesCallback.bind(this));
   };
 
-  window.CSSTransformValue = CSSTransformValue;
+  scope.CSSTransformValue = CSSTransformValue;
 
-})(typedOM.internal);
+})(typedOM.internal, window);
