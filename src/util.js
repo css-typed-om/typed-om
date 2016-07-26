@@ -65,6 +65,8 @@
    * An iterator returns { done: false, value: expression } if it has not
    *   reached the end of the array-like object, or otherwise it returns
    *   { done: true, value: undefined }.
+   * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
+   * for more information about iterators.
    * @param {!Array} keys: An array of keys to iterate over.
    * @param {Function} callback: A function that returns the value for the
    *   iterator. The function takes a single argument: the current key and
@@ -92,9 +94,6 @@
   /*
    * Gets an iterator for array-like object.
    *
-   * An iterator returns { done: false, value: expression } if it has not
-   *   reached the end of the array-like object, or otherwise it returns
-   *   { done: true, value: undefined }.
    * @param {number} length: The length of the array object
    * @param {Function} callback: A function that returns the value for the
    *   iterator. The function takes a single argument: the current index, and
