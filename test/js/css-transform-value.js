@@ -90,4 +90,82 @@ suite('CSSTransformValue', function() {
 
     typedOM.internal.testing.matricesApproxEqual(transform.matrix, expectedMatrix);
   });
+
+  test('Using spread operator on CSSTransformValue results in correct values', function() {
+    var inputComponents = [new CSSScale(2, 4)];
+    var expectedEntries = [[0, inputComponents[0]]];
+    var transform = new CSSTransformValue(inputComponents);
+    assert.deepEqual([...transform], expectedEntries);
+  });
+
+  test('Using iterator operations on entries() gets correct values', function() {
+    var inputComponents = [new CSSScale(2, 4)];
+    var expectedEntries = [[0, inputComponents[0]]];
+    var transform = new CSSTransformValue(inputComponents);
+
+    // One by one
+    var entries = [];
+    var iterator = transform.entries();
+    var entry = iterator.next();
+    while (!entry.done) {
+      entries.push(entry.value);
+      entry = iterator.next();
+    }
+    assert.deepEqual(entries, expectedEntries);
+    // for..of
+    var forOfEntries = [];
+    for (let value of transform.entries()) {
+      forOfEntries.push(value);
+    }
+    assert.deepEqual(forOfEntries, expectedEntries);
+    // Spread operator
+    assert.deepEqual([...transform.entries()], expectedEntries);
+  });
+
+  test('Using iterator operations on keys() gets correct values', function() {
+    var inputComponents = [new CSSScale(2, 4)];
+    var expectedKeys = [0];
+    var transform = new CSSTransformValue(inputComponents);
+
+    // One by one
+    var keys = [];
+    var iterator = transform.keys();
+    var entry = iterator.next();
+    while (!entry.done) {
+      keys.push(entry.value);
+      entry = iterator.next();
+    }
+    assert.deepEqual(keys, expectedKeys);
+    // for..of
+    var forOfKeys = [];
+    for (let value of transform.keys()) {
+      forOfKeys.push(value);
+    }
+    assert.deepEqual(forOfKeys, expectedKeys);
+    // Spread operator
+    assert.deepEqual([...transform.keys()], expectedKeys);
+  });
+
+  test('Using iterator operations on values() gets correct values', function() {
+    var inputComponents = [new CSSScale(2, 4)];
+    var transform = new CSSTransformValue(inputComponents);
+
+    // One by one
+    var values = [];
+    var iterator = transform.values();
+    var entry = iterator.next();
+    while (!entry.done) {
+      values.push(entry.value);
+      entry = iterator.next();
+    }
+    assert.deepEqual(values, inputComponents);
+    // for..of
+    var forOfValues = [];
+    for (let value of transform.values()) {
+      forOfValues.push(value);
+    }
+    assert.deepEqual(forOfValues, inputComponents);
+    // Spread operator
+    assert.deepEqual([...transform.values()], inputComponents);
+  });
 });

@@ -12,7 +12,7 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, scope) {
+(function(internal) {
 
   function computeMatrix(cssTransform) {
     if (!cssTransform.transformComponents.length) {
@@ -56,6 +56,34 @@
   }
   internal.inherit(CSSTransformValue, CSSStyleValue);
 
-  scope.CSSTransformValue = CSSTransformValue;
+  CSSTransformValue.prototype[Symbol.iterator] = function() {
+    return this.entries();
+  };
 
-})(typedOM.internal, window);
+  CSSTransformValue.prototype.entries = function() {
+    function entriesCallback(index) {
+      return [index, this.transformComponents[index]];
+    }
+    return internal.objects.arrayIterator(
+        this.transformComponents.length,
+        entriesCallback.bind(this));
+  };
+
+  CSSTransformValue.prototype.keys = function() {
+    return internal.objects.arrayIterator(
+        this.transformComponents.length,
+        function(index) { return index; });
+  };
+
+  CSSTransformValue.prototype.values = function() {
+    function valuesCallback(index) {
+      return this.transformComponents[index];
+    }
+    return internal.objects.arrayIterator(
+        this.transformComponents.length,
+        valuesCallback.bind(this));
+  };
+
+  window.CSSTransformValue = CSSTransformValue;
+
+})(typedOM.internal);
