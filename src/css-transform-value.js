@@ -41,6 +41,7 @@
           'of CSSTransformComponents or must be empty');
     }
 
+    // TODO(wilddamon): transformComponents shouldn't be public. Users should use the iterable syntax instead.
     this.transformComponents = [];
     for (var i = 0; i < values.length; i++) {
       if (!(values[i] instanceof internal.CSSTransformComponent)) {
