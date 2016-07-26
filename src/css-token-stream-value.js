@@ -16,16 +16,20 @@
   }
   internal.inherit(CSSTokenStreamValue, CSSStyleValue);
 
-  CSSTokenStreamValue.prototype.keys = function() {
-    return internal.objects.iterator(this._listOfReferences, function(key, value) { return key; });
-  };
-
-  CSSTokenStreamValue.prototype.values = function() {
-    return internal.objects.iterator(this._listOfReferences, function(key, value) { return value; });
+  CSSTokenStreamValue.prototype[Symbol.iterator] = function() {
+    return this.entries();
   };
 
   CSSTokenStreamValue.prototype.entries = function() {
-    return internal.objects.iterator(this._listOfReferences, function(key, value) { return [key, value]; });
+    return internal.objects.arrayIterator(this._listOfReferences, function(key, value) { return [key, value]; });
+  };
+
+  CSSTokenStreamValue.prototype.keys = function() {
+    return internal.objects.arrayIterator(this._listOfReferences, function(key, value) { return key; });
+  };
+
+  CSSTokenStreamValue.prototype.values = function() {
+    return internal.objects.arrayIterator(this._listOfReferences, function(key, value) { return value; });
   };
 
   scope.CSSTokenStreamValue = CSSTokenStreamValue;

@@ -1,4 +1,5 @@
 suite('CSSTokenStreamValue', function() {
+
   test("CSSTokenStreamValue is a CSSTokenStreamValue and CSSStyleValue", function() {
     assert.instanceOf(new CSSTokenStreamValue(), CSSTokenStreamValue);
     assert.instanceOf(new CSSTokenStreamValue(), CSSStyleValue);
@@ -15,47 +16,85 @@ suite('CSSTokenStreamValue', function() {
     assert.throw(function() { new CSSTokenStreamValue(["1234", "2342", 1]); }, TypeError, "CSSTokenStreamValue\'s elements should be string or CSSVariableReferenceValue");
   });
 
-  test('keys() must be an iterator of an array that stores the indices', function() {
-    var values = ['test', '12345', new CSSVariableReferenceValue('var', new CSSTokenStreamValue(['1'])), 'a2'];
-    var tokenStreamValues = new CSSTokenStreamValue(values);
-    var keys = tokenStreamValues.keys();
-    for (var i = 0; i < values.length; i++) {
-      var temp = keys.next();
-      assert.strictEqual(temp.done, false, '\'done\' should be false');
-      assert.strictEqual(temp.value, i, '\'value\' should be equal to index');
-    }
-    var temp = keys.next();
-    assert.strictEqual(temp.done, true, '\'done\' should be true at the end');
-    assert.strictEqual(temp.value, undefined, '\'value\' should be undefined at the end');
+  test('Using spread operator on CSSTokenStreamValue results in the correct values', function() {
+    var values = ['string', new CSSVariableReferenceValue('val', new CSSTokenStreamValue(['innerStr']))];
+    var tokenStream = new CSSTokenStreamValue(values);
+
+    var expected = [[0, values[0]], [1, values[1]]];
+    var result = [...tokenStream];
+    
+    assert.deepEqual(result, expected);
   });
 
-  test('values() must be an iterator of an array that stores the values', function() {
-    var values = ['test', '12345', new CSSVariableReferenceValue('var', new CSSTokenStreamValue(['1'])), 'a2'];
-    var tokenStreamValues = new CSSTokenStreamValue(values);
-    var streamValues = tokenStreamValues.values();
-    for (var i = 0; i < values.length; i++) {
-      var temp = streamValues.next();
-      assert.strictEqual(temp.done, false, '\'done\' should be false');
-      assert.strictEqual(temp.value, values[i], '\'value\' should be equal to value at the constructor' + i);
+  test('Using iterator operations on entries() gets correct values', function() {
+    var values = ['test', new CSSVariableReferenceValue('var', new CSSTokenStreamValue(['1']))];
+    var expectedEntries = [[0, values[0]], [1, values[1]]];
+
+    var tokenStreamValue = new CSSTokenStreamValue(values);
+
+    // One by one
+    var entries = [];
+    var iterator = tokenStreamValue.entries();
+    var entry = iterator.next();
+    while (!entry.done) {
+      entries.push(entry.value);
+      entry = iterator.next();
     }
-    var temp = streamValues.next();
-    assert.strictEqual(temp.done, true, '\'done\' should be true at the end');
-    assert.strictEqual(temp.value, undefined, '\'value\' should be undefined at the end');
+    assert.deepEqual(entries, expectedEntries);
+    // for..of
+    var forOfEntries = [];
+    for (let value of tokenStreamValue.entries()) {
+      forOfEntries.push(value);
+    }
+    assert.deepEqual(forOfEntries, expectedEntries);
+    // Spread operator
+    assert.deepEqual([...tokenStreamValue.entries()], expectedEntries);
   });
 
-  test('entries() must be an iterator of an array that stores array of [index, value]', function() {
-    var values = ['test', '12345', new CSSVariableReferenceValue('var', new CSSTokenStreamValue(['1'])), 'a2'];
-    var tokenStreamValues = new CSSTokenStreamValue(values);
-    var entries = tokenStreamValues.entries();
-    for (var i = 0; i < values.length; i++) {
-      var temp = entries.next();
-      assert.strictEqual(temp.done, false, '\'done\' should be false');
-      assert.strictEqual(temp.value.length, 2, '\'value\' should have length = 2');
-      assert.strictEqual(temp.value[0], i, '\'value[0]\' should be equal to index');
-      assert.strictEqual(temp.value[1], values[i], '\'value[1]\' should be equal to value');
+  test('Using iterator operations on keys() gets correct values', function() {
+    var values = ['test', new CSSVariableReferenceValue('var', new CSSTokenStreamValue(['1']))];
+    var expectedKeys = [0, 1];
+    var tokenStreamValue = new CSSTokenStreamValue(values);
+
+    // One by one
+    var keys = [];
+    var iterator = tokenStreamValue.keys();
+    var entry = iterator.next();
+    while (!entry.done) {
+      keys.push(entry.value);
+      entry = iterator.next();
     }
-    var temp = entries.next();
-    assert.strictEqual(temp.done, true, '\'done\' should be true at the end');
-    assert.strictEqual(temp.value, undefined, '\'value\' should be undefined at the end');
+    assert.deepEqual(keys, expectedKeys);
+    // for..of
+    var forOfKeys = [];
+    for (let value of tokenStreamValue.keys()) {
+      forOfKeys.push(value);
+    }
+    assert.deepEqual(forOfKeys, expectedKeys);
+    // Spread operator
+    assert.deepEqual([...tokenStreamValue.keys()], expectedKeys);
   });
+
+  test('Using iterator operations on values() gets correct values', function() {
+    var inputValues = ['test', new CSSVariableReferenceValue('var', new CSSTokenStreamValue(['1']))];
+    var tokenStreamValue = new CSSTokenStreamValue(values);
+    // One by one
+    var values = [];
+    var iterator = tokenStreamValue.values();
+    var entry = iterator.next();
+    while (!entry.done) {
+      values.push(entry.value);
+      entry = iterator.next();
+    }
+    assert.deepEqual(values, inputValues);
+    // for..of
+    var forOfValues = [];
+    for (let value of tokenStreamValue.values()) {
+      forOfValues.push(value);
+    }
+    assert.deepEqual(forOfValues, inputValues);
+    // Spread operator
+    assert.deepEqual([...tokenStreamValue.values()], inputValues);
+  });
+
 });
