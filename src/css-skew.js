@@ -36,12 +36,12 @@
   function CSSSkew(ax, ay) {
     if (arguments.length != 2) {
       throw new TypeError('CSSSkew must have 2 arguments.');
-    } else if (typeof ax != 'number' || typeof ay != 'number') {
-      throw new TypeError('CSSSkew arguments must be of type \'number\'.');
+    } else if ((typeof ax != 'number' && !(ax instanceof CSSAngleValue)) || (typeof ay != 'number' && !(ay instanceof CSSAngleValue))) {
+      throw new TypeError('CSSSkew arguments must be a number or a CSSAngleValue.');
     }
 
-    this.ax = ax;
-    this.ay = ay;
+    this.ax = (typeof ax == 'number') ? ax : ax.degrees;
+    this.ay = (typeof ay == 'number') ? ay : ay.degrees;
 
     this.matrix = computeMatrix(this);
     this.is2D = this.matrix.is2D;
