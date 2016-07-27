@@ -23,10 +23,6 @@
   }
   internal.inherit(CSSKeywordValue, CSSStyleValue);
 
-  CSSKeywordValue.from = function(value) {
-    return new CSSKeywordValue(value);
-  };
-
   scope.CSSKeywordValue = CSSKeywordValue;
 
 })(typedOM.internal, window);

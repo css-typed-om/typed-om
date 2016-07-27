@@ -19,7 +19,7 @@
       return null;
     }
 
-    return [new CSSNumberValue(consumedNumber[0], consumedNumber[1])];
+    return [new CSSNumberValue(consumedNumber[0]), consumedNumber[1]];
   }
 
   internal.parsing.consumeNumberValue = consumeNumberValue;
