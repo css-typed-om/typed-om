@@ -1,4 +1,4 @@
-// Copyright 2015 Google Inc. All rights reserved.
+// Copyright 2016 Google Inc. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,17 +12,15 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-(function(internal, scope) {
-
-  function CSSKeywordValue(value) {
-    if (!value || typeof value != 'string') {
-      throw new TypeError('Keyword value must be a non-empty string.');
+(function(internal) {
+  function consumeNumberValue(string) {
+    var consumedNumber = internal.parsing.consumeNumber(string);
+    if (!consumedNumber || Number.isNaN(consumedNumber[0]) || !Number.isFinite(consumedNumber[0])) {
+      return null;
     }
-    this.keywordValue = value;
-    this.cssText = CSS.escape(value);
+
+    return [new CSSNumberValue(consumedNumber[0]), consumedNumber[1]];
   }
-  internal.inherit(CSSKeywordValue, CSSStyleValue);
 
-  scope.CSSKeywordValue = CSSKeywordValue;
-
-})(typedOM.internal, window);
+  internal.parsing.consumeNumberValue = consumeNumberValue;
+})(typedOM.internal);

@@ -48,8 +48,11 @@ suite('CSSColorValue', function() {
   });
 
   test('Parse simple rgb color', function() {
-    var color = CSSColorValue.from('rgb(1,2,3)');
+    var result = typedOM.internal.parsing.consumeColorValue('rgb(1,2,3)');
+    assert.isNotNull(result);
+    assert.strictEqual(result[1], '');
 
+    var color = result[0];
     assert.instanceOf(color, CSSColorValue);
     assert.strictEqual(color.r, 1);
     assert.strictEqual(color.g, 2);
@@ -57,8 +60,11 @@ suite('CSSColorValue', function() {
   });
 
   test('Parse simple rgba color', function() {
-    var color = CSSColorValue.from('rgba(45,12,56,0.5)');
+    var result = typedOM.internal.parsing.consumeColorValue('rgba(45,12,56,0.5)');
+    assert.isNotNull(result);
+    assert.strictEqual(result[1], '');
 
+    var color = result[0];
     assert.instanceOf(color, CSSColorValue);
     assert.strictEqual(color.r, 45);
     assert.strictEqual(color.g, 12);
@@ -67,39 +73,44 @@ suite('CSSColorValue', function() {
   });
 
   test('Whitespace is ignored when parsing', function() {
-    var color = CSSColorValue.from('  rgba( 45  , 12  , 56  , 0.5  )');
+    var result = typedOM.internal.parsing.consumeColorValue('  rgba( 45  , 12  , 56  , 0.5  )');
+    assert.isNotNull(result);
+    assert.strictEqual(result[1], '');
+
+    var color = result[0];
     assert.instanceOf(color, CSSColorValue);
     assert.strictEqual(color.cssText, 'rgba(45,12,56,0.5)');
   });
 
   test('Parsing invalid strings result in null', function() {
-    assert.isNull(CSSColorValue.from('asdfas'));
+    var consumeColorValue = typedOM.internal.parsing.consumeColorValue;
+    assert.isNull(consumeColorValue('asdfas'));
     // Not enough values
-    assert.isNull(CSSColorValue.from('rgb()'));
-    assert.isNull(CSSColorValue.from('rgb(1)'));
-    assert.isNull(CSSColorValue.from('rgb(1, 2)'));
-    assert.isNull(CSSColorValue.from('rgba(1, 2, 3)'));
+    assert.isNull(consumeColorValue('rgb()'));
+    assert.isNull(consumeColorValue('rgb(1)'));
+    assert.isNull(consumeColorValue('rgb(1, 2)'));
+    assert.isNull(consumeColorValue('rgba(1, 2, 3)'));
     // Too many values
-    assert.isNull(CSSColorValue.from('rgb(1, 2, 3, 1, 5)'));
-    assert.isNull(CSSColorValue.from('rgba(1, 2, 3, 1, 5)'));
+    assert.isNull(consumeColorValue('rgb(1, 2, 3, 1, 5)'));
+    assert.isNull(consumeColorValue('rgba(1, 2, 3, 1, 5)'));
     // Non numbers
-    assert.isNull(CSSColorValue.from('rgb(a, 2, 1)'));
+    assert.isNull(consumeColorValue('rgb(a, 2, 1)'));
     // Non integer values for rgb
-    assert.isNull(CSSColorValue.from('rgb(1.1, 2, 3)'));
-    assert.isNull(CSSColorValue.from('rgb(1, 2.1, 3)'));
-    assert.isNull(CSSColorValue.from('rgb(1, 2, 3.1)'));
+    assert.isNull(consumeColorValue('rgb(1.1, 2, 3)'));
+    assert.isNull(consumeColorValue('rgb(1, 2.1, 3)'));
+    assert.isNull(consumeColorValue('rgb(1, 2, 3.1)'));
     // Values too large
-    assert.isNull(CSSColorValue.from('rgb(256, 1, 1)'));
-    assert.isNull(CSSColorValue.from('rgb(1, 256, 1)'));
-    assert.isNull(CSSColorValue.from('rgb(1, 1, 256)'));
-    assert.isNull(CSSColorValue.from('rgba(1, 1, 1, 1.1)'));
+    assert.isNull(consumeColorValue('rgb(256, 1, 1)'));
+    assert.isNull(consumeColorValue('rgb(1, 256, 1)'));
+    assert.isNull(consumeColorValue('rgb(1, 1, 256)'));
+    assert.isNull(consumeColorValue('rgba(1, 1, 1, 1.1)'));
     // Negative values
-    assert.isNull(CSSColorValue.from('rgb(-1, 1, 1)'));
-    assert.isNull(CSSColorValue.from('rgb(1, -1, 1)'));
-    assert.isNull(CSSColorValue.from('rgb(1, 1, -1)'));
-    assert.isNull(CSSColorValue.from('rgba(1, 1, 1, -0.1)'));
+    assert.isNull(consumeColorValue('rgb(-1, 1, 1)'));
+    assert.isNull(consumeColorValue('rgb(1, -1, 1)'));
+    assert.isNull(consumeColorValue('rgb(1, 1, -1)'));
+    assert.isNull(consumeColorValue('rgba(1, 1, 1, -0.1)'));
     // Missing braces
-    assert.isNull(CSSColorValue.from('rgb1, 2, 1)'));
-    assert.isNull(CSSColorValue.from('rgb(1, 2, 1'));
+    assert.isNull(consumeColorValue('rgb1, 2, 1)'));
+    assert.isNull(consumeColorValue('rgb(1, 2, 1'));
   });
 });

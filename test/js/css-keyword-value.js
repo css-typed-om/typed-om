@@ -38,16 +38,4 @@ suite('CSSKeywordValue', function() {
     assert.throws(function() { new CSSKeywordValue(null); });
     assert.throws(function() { new CSSKeywordValue(true); });
   });
-
-  test('from method should create a CSSKeywordValue object with a cssText equal to the input', function() {
-    assert.strictEqual(CSSKeywordValue.from('auto').cssText, 'auto');
-  });
-
-  test('from method should throw an error if its input is not a string', function() {
-    assert.throws(function() { CSSKeywordValue.from(3) }, TypeError, 'Keyword value must be a non-empty string.');
-  });
-
-  test('from method should throw an error if its input is an empty string', function() {
-    assert.throws(function() { CSSKeywordValue.from('') }, TypeError, 'Keyword value must be a non-empty string.');
-  });
 });

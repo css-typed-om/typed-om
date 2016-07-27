@@ -23,13 +23,6 @@
   }
   internal.inherit(CSSNumberValue, CSSStyleValue);
 
-  CSSNumberValue.from = function(value) {
-    if (internal.parsing.isNumberValueString(value)) {
-      return new CSSNumberValue(parseFloat(value));
-    }
-    return null;
-  };
-
   scope.CSSNumberValue = CSSNumberValue;
 
 })(typedOM.internal, window);
