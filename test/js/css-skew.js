@@ -17,8 +17,7 @@ suite('CSSSkew', function() {
     var values = [
       {skew: new CSSSkew(30, 180), cssText: 'skew(30deg, 180deg)'},
       {skew: new CSSSkew(new CSSAngleValue(30, 'deg'), new CSSAngleValue(180, 'deg')), cssText: 'skew(30deg, 180deg)'},
-      {skew: new CSSSkew(new CSSAngleValue(0.52359878, 'rad'), new CSSAngleValue(3.14159265, 'rad')),
-          cssText: 'skew(30.0000002521989deg, 179.99999979432deg)'}
+      {skew: new CSSSkew(new CSSAngleValue(0.52359878, 'rad'), new CSSAngleValue(3.14159265, 'rad')), cssText: 'skew(0.52359878rad, 3.14159265rad)'}
     ];
     var expectedMatrix = new DOMMatrixReadonly([1, 0, 0.577350, 1, 0, 0]);
     for (var i = 0; i < values.length; i++) {
@@ -28,27 +27,26 @@ suite('CSSSkew', function() {
       assert.isTrue(values[i].skew.is2D);
       typedOM.internal.testing.matricesApproxEqual(values[i].skew.matrix, expectedMatrix);
     }
-
   });
 
   test('Parsing valid strings results in CSSSkew with correct values', function() {
     var values = [
-      {str: 'skew(45deg)', x: 45, y: 0, remaining: ''}, // skew with 1 arg
-      {str: 'skew(5rad)', x: 286.478897, y: 0, remaining: ''},
-      {str: 'skew(215grad)', x: 193.5, y: 0, remaining: ''},
-      {str: 'skew(0.6turn)', x: 216, y: 0, remaining: ''},
-      {str: 'SkeW(5dEg)', x: 5, y: 0, remaining: ''},
-      {str: 'SKEW(4DeG)', x: 4, y: 0, remaining: ''},
-      {str: 'skew(45deg))))', x: 45, y: 0, remaining: ')))'},
-      {str: 'skew(60deg, -0.2turn)', x: 60, y: -72, remaining: ''}, // skew with 2 args
-      {str: 'SkEW(0.2TURN, 1Rad)', x: 72, y: 57.295780, remaining: ''},
-      {str: 'skew(20deg, 1rad) 123', x: 20, y: 57.295780, remaining: '123'},
-      {str: 'skewx(10deg)', x: 10, y: 0, remaining: ''}, // skewx
-      {str: 'SkewX(1TuRn)', x: 360, y: 0, remaining: ''},
-      {str: 'skewx(100grad) abc', x: 90, y: 0, remaining: 'abc'},
-      {str: 'skewy(0.45turn)', x: 0, y: 162, remaining: ''}, // skewy
-      {str: 'SkEwY(2.1RAD)', x: 0, y: 120.321137, remaining: ''},
-      {str: 'skewy(20DEG))))', x: 0, y: 20, remaining: ')))'},
+      {str: 'skew(45deg)', x: 45, y: 0, cssText: 'skew(45deg)', remaining: ''}, // skew with 1 arg
+      {str: 'skew(5rad)', x: 286.478897, y: 0, cssText: 'skew(5rad)', remaining: ''},
+      {str: 'skew(215grad)', x: 193.5, y: 0, cssText: 'skew(215grad)', remaining: ''},
+      {str: 'skew(0.6turn)', x: 216, y: 0, cssText: 'skew(0.6turn)', remaining: ''},
+      {str: 'SkeW(5dEg)', x: 5, y: 0, cssText: 'skew(5deg)', remaining: ''},
+      {str: 'SKEW(4DeG)', x: 4, y: 0, cssText: 'skew(4deg)', remaining: ''},
+      {str: 'skew(45deg))))', x: 45, y: 0, cssText: 'skew(45deg)', remaining: ')))'},
+      {str: 'skew(60deg, -0.2turn)', x: 60, y: -72, cssText: 'skew(60deg, -0.2turn)', remaining: ''}, // skew with 2 args
+      {str: 'SkEW(0.2TURN, 1Rad)', x: 72, y: 57.295780, cssText: 'skew(0.2turn, 1rad)', remaining: ''},
+      {str: 'skew(20deg, 1rad) 123', x: 20, y: 57.295780, cssText: 'skew(20deg, 1rad)', remaining: '123'},
+      {str: 'skewx(10deg)', x: 10, y: 0, cssText: 'skewx(10deg)', remaining: ''}, // skewx
+      {str: 'SkewX(1TuRn)', x: 360, y: 0, cssText: 'skewx(1turn)', remaining: ''},
+      {str: 'skewx(100grad) abc', x: 90, y: 0, cssText: 'skewx(100grad)', remaining: 'abc'},
+      {str: 'skewy(0.45turn)', x: 0, y: 162, cssText: 'skewy(0.45turn)', remaining: ''}, // skewy
+      {str: 'SkEwY(2.1RAD)', x: 0, y: 120.321137, cssText: 'skewy(2.1rad)', remaining: ''},
+      {str: 'skewy(20DEG))))', x: 0, y: 20, cssText: 'skewy(20deg)', remaining: ')))'},
     ];
     for (var i = 0; i < values.length; i++) {
       var parsed = typedOM.internal.parsing.consumeSkew(values[i].str);
@@ -56,6 +54,7 @@ suite('CSSSkew', function() {
       assert.strictEqual(parsed[1], values[i].remaining, values[i].str + ' expected ' + values[i].remaining + ' as trailing characters');
       assert.instanceOf(parsed[0], CSSSkew);
       assert.isTrue(parsed[0].is2D); // Skew matrices should always be 2D
+      assert.strictEqual(parsed[0].cssText, values[i].cssText);
       assert.approximately(parsed[0].ax, values[i].x, 1e-6);
       assert.approximately(parsed[0].ay, values[i].y, 1e-6);
     }

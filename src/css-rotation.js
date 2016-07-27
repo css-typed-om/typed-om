@@ -54,12 +54,12 @@
   function generateCssString(cssRotation) {
     var cssText;
     if (cssRotation.is2D) {
-      cssText = 'rotate(' + cssRotation.angle + 'deg)';
+      cssText = 'rotate(' + cssRotation._angle.cssText + ')';
     } else {
       cssText = 'rotate3d(' + cssRotation.x +
           ', ' + cssRotation.y +
           ', ' + cssRotation.z +
-          ', ' + cssRotation.angle + 'deg)';
+          ', ' + cssRotation._angle.cssText + ')';
     }
     return cssText;
   };
@@ -86,7 +86,13 @@
     this.y = this.is2D ? null : y;
     this.z = this.is2D ? null : z;
     var angleValue = this.is2D ? x : angle;
-    this.angle = angleValue instanceof CSSAngleValue ? angleValue.degrees : angleValue;
+    if (angleValue instanceof CSSAngleValue) {
+      this.angle = angleValue.degrees;
+      this._angle = angleValue;
+    } else {
+      this.angle = angleValue;
+      this._angle = new CSSAngleValue(angleValue, 'deg');
+    }
 
     this.matrix = computeMatrix(this);
     this.cssText = generateCssString(this);

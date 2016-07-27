@@ -30,7 +30,16 @@
   };
 
   function generateCssString(cssSkew) {
-    return 'skew(' + cssSkew.ax + 'deg' + ', ' + cssSkew.ay + 'deg' + ')';
+    switch (cssSkew._inputType) {
+      case '1':
+        return 'skew(' + cssSkew._ax.cssText + ')';
+      case '2':
+        return 'skew(' + cssSkew._ax.cssText + ', ' + cssSkew._ay.cssText + ')';
+      case 'x':
+        return 'skewx(' + cssSkew._ax.cssText + ')';
+      case 'y':
+        return 'skewy(' + cssSkew._ay.cssText + ')';
+    }
   };
 
   function CSSSkew(ax, ay) {
@@ -55,8 +64,19 @@
 
     this.matrix = computeMatrix(this);
     this.is2D = this.matrix.is2D;
-    this.cssText = generateCssString(this);
+    this._inputType = '2';
+
+    Object.defineProperty(this, 'cssText', {
+      get: function() {
+        if (!this._cssText) {
+          this._cssText = generateCssString(this);
+        }
+        return this._cssText;
+      },
+      set: function(newCssText) {}
+    });
   }
+
   internal.inherit(CSSSkew, internal.CSSTransformComponent);
 
   scope.CSSSkew = CSSSkew;
