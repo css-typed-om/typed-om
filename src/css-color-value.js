@@ -18,6 +18,17 @@
     return typeof value == 'number' && value % 1 === 0;
   }
 
+  function generateCssString(colorValue) {
+    var cssText = colorValue.a == 1 ? 'rgb(' : 'rgba(';
+    cssText = cssText + colorValue.r + ',' + colorValue.g + ',' + colorValue.b;
+
+    if (colorValue.a != 1) {
+      cssText  = cssText + ',' + colorValue.a;
+    }
+    cssText = cssText + ')'
+    return cssText;
+  }
+
   function CSSColorValue(r, g, b, a) {
     if (a === undefined) {
       a = 1;
@@ -42,7 +53,7 @@
     this.g = g;
     this.b = b;
     this.a = a;
-    this.cssText = this._generateCssString();
+    this.cssText = generateCssString(this);
   }
   internal.inherit(CSSColorValue, CSSStyleValue);
 
@@ -80,17 +91,6 @@
       return result;
     }
     return null;
-  };
-
-  CSSColorValue.prototype._generateCssString = function() {
-    var cssText = this.a == 1 ? 'rgb(' : 'rgba(';
-    cssText = cssText + this.r + ',' + this.g + ',' + this.b;
-
-    if (this.a != 1) {
-      cssText  = cssText + ',' + this.a;
-    }
-    cssText = cssText + ')'
-    return cssText;
   };
 
   scope.CSSColorValue = CSSColorValue;
