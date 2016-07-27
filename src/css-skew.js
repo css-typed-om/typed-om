@@ -30,7 +30,7 @@
   };
 
   function generateCssString(cssSkew) {
-    return 'skew(' + cssSkew.ax + 'deg' + ', ' + cssSkew.ay + 'deg' + ')';
+    return 'skew(' + cssSkew._ax.cssText + ', ' + cssSkew._ay.cssText + ')';
   };
 
   function CSSSkew(ax, ay) {
@@ -40,8 +40,20 @@
       throw new TypeError('CSSSkew arguments must be a number or a CSSAngleValue.');
     }
 
-    this.ax = (typeof ax == 'number') ? ax : ax.degrees;
-    this.ay = (typeof ay == 'number') ? ay : ay.degrees;
+    if (ax instanceof CSSAngleValue) {
+      this.ax = ax.degrees;
+      this._ax = ax;
+    } else {
+      this.ax = ax;
+      this._ax = new CSSAngleValue(ax, 'deg');
+    }
+    if (ay instanceof CSSAngleValue) {
+      this.ay = ay.degrees;
+      this._ay = ay;
+    } else {
+      this.ay = ay;
+      this._ay = new CSSAngleValue(ay, 'deg');
+    }
 
     this.matrix = computeMatrix(this);
     this.is2D = this.matrix.is2D;

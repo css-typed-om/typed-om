@@ -1,10 +1,4 @@
 suite('CSSSkew', function() {
-  test('CSSSkew is a CSSSkew and CSSTransformComponent', function() {
-    var skew = new CSSSkew(1, 2);
-    assert.instanceOf(skew, CSSSkew, 'A new CSSSkew should be an instance of CSSSkew');
-    assert.instanceOf(skew, typedOM.internal.CSSTransformComponent,
-        'A new CSSSkew should be an instance of CSSTransformComponent');
-  });
 
   test('CSSSkew constructor throws exception for invalid types', function() {
     assert.throws(function() {new CSSSkew()});
@@ -17,15 +11,18 @@ suite('CSSSkew', function() {
   });
 
   test('CSSSkew constructor works correctly', function() {
-    var skew;
-    assert.doesNotThrow(function() {skew = new CSSSkew(30, 180)});
-    assert.strictEqual(skew.cssText, 'skew(30deg, 180deg)');
-    assert.strictEqual(skew.ax, 30);
-    assert.strictEqual(skew.ay, 180);
-    assert.isTrue(skew.is2D);
-
+    var values = [
+    {skew: new CSSSkew(30, 180), cssTextExpected: 'skew(30deg, 180deg)'},
+    {skew: new CSSSkew(new CSSAngleValue(30, 'deg'), new CSSAngleValue(180, 'deg')), cssTextExpected: 'skew(30deg, 180deg)'},
+    {skew: new CSSSkew(new CSSAngleValue(0.52359878, 'rad'), new CSSAngleValue(3.14159265, 'rad')), cssTextExpected: 'skew(0.52359878rad, 3.14159265rad)'}];
     var expectedMatrix = new DOMMatrixReadonly([1, 0, 0.577350, 1, 0, 0]);
-    typedOM.internal.testing.matricesApproxEqual(skew.matrix, expectedMatrix);
+    for (var i = 0; i < values.length; i++) {
+      assert.strictEqual(values[i].skew.cssText, values[i].cssTextExpected);
+      assert.closeTo(values[i].skew.ax, 30, 1e-6);
+      assert.closeTo(values[i].skew.ay, 180, 1e-6);
+      assert.isTrue(values[i].skew.is2D);
+      typedOM.internal.testing.matricesApproxEqual(values[i].skew.matrix, expectedMatrix);
+    }
   });
 
   test('Parsing valid strings results in CSSSkew with correct values', function() {
