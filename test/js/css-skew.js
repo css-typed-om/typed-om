@@ -1,31 +1,34 @@
 suite('CSSSkew', function() {
-  test('CSSSkew is a CSSSkew and CSSTransformComponent', function() {
-    var skew = new CSSSkew(1, 2);
-    assert.instanceOf(skew, CSSSkew, 'A new CSSSkew should be an instance of CSSSkew');
-    assert.instanceOf(skew, typedOM.internal.CSSTransformComponent,
-        'A new CSSSkew should be an instance of CSSTransformComponent');
-  });
 
   test('CSSSkew constructor throws exception for invalid types', function() {
-    assert.throws(function() {new CSSSkew()});
-    assert.throws(function() {new CSSSkew({})});
-    assert.throws(function() {new CSSSkew({}, {})});
-    assert.throws(function() {new CSSSkew(1)});
-    assert.throws(function() {new CSSSkew('1', '2')});
-    assert.throws(function() {new CSSSkew(3, null)});
-    assert.throws(function() {new CSSSkew(1, 2, 3)});
+    argCountErr = /^CSSSkew must have 2 arguments\./;
+    assert.throws(function() {new CSSSkew()}, TypeError, argCountErr);
+    assert.throws(function() {new CSSSkew({})}, TypeError, argCountErr);
+    assert.throws(function() {new CSSSkew(1)}, TypeError, argCountErr);
+    assert.throws(function() {new CSSSkew(1, 2, 3)}, TypeError, argCountErr);
+    var argTypeErr = /^CSSSkew arguments must be all numbers or all CSSAngleValues\./;
+    assert.throws(function() {new CSSSkew({}, {})}, TypeError, argTypeErr);
+    assert.throws(function() {new CSSSkew('1', '2')}, TypeError, argTypeErr);
+    assert.throws(function() {new CSSSkew(1, new CSSAngleValue(2, 'deg'))}, TypeError, argTypeErr);
+    assert.throws(function() {new CSSSkew(3, null)}, TypeError, argTypeErr);
   });
 
   test('CSSSkew constructor works correctly', function() {
-    var skew;
-    assert.doesNotThrow(function() {skew = new CSSSkew(30, 180)});
-    assert.strictEqual(skew.cssText, 'skew(30deg, 180deg)');
-    assert.strictEqual(skew.ax, 30);
-    assert.strictEqual(skew.ay, 180);
-    assert.isTrue(skew.is2D);
-
+    var values = [
+      {skew: new CSSSkew(30, 180), cssText: 'skew(30deg, 180deg)'},
+      {skew: new CSSSkew(new CSSAngleValue(30, 'deg'), new CSSAngleValue(180, 'deg')), cssText: 'skew(30deg, 180deg)'},
+      {skew: new CSSSkew(new CSSAngleValue(0.52359878, 'rad'), new CSSAngleValue(3.14159265, 'rad')),
+          cssText: 'skew(30.0000002521989deg, 179.99999979432deg)'}
+    ];
     var expectedMatrix = new DOMMatrixReadonly([1, 0, 0.577350, 1, 0, 0]);
-    typedOM.internal.testing.matricesApproxEqual(skew.matrix, expectedMatrix);
+    for (var i = 0; i < values.length; i++) {
+      assert.strictEqual(values[i].skew.cssText, values[i].cssText);
+      assert.closeTo(values[i].skew.ax, 30, 1e-6);
+      assert.closeTo(values[i].skew.ay, 180, 1e-6);
+      assert.isTrue(values[i].skew.is2D);
+      typedOM.internal.testing.matricesApproxEqual(values[i].skew.matrix, expectedMatrix);
+    }
+
   });
 
   test('Parsing valid strings results in CSSSkew with correct values', function() {
