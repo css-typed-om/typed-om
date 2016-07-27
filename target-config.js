@@ -34,6 +34,7 @@
       'src/css-scale.js',
       'src/css-scale-parsing.js',
       'src/css-skew.js',
+      'src/css-skew-parsing.js',
       'src/css-translation.js',
       'src/css-translation-parsing.js',
       // CSSStyleValue and subclasses
