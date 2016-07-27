@@ -34,6 +34,7 @@
       'src/css-scale.js',
       'src/css-scale-parsing.js',
       'src/css-skew.js',
+      'src/css-skew-parsing.js',
       'src/css-translation.js',
       'src/css-translation-parsing.js',
       // CSSStyleValue and subclasses
@@ -49,6 +50,7 @@
       'src/css-resource-value.js',
       'src/css-token-stream-value.js',
       'src/css-transform-value.js',
+      'src/css-transform-value-parsing.js',
       'src/css-variable-reference-value.js',
       // CSSLengthValue and subclasses
       'src/css-length-value.js',
