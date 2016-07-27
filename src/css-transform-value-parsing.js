@@ -13,24 +13,23 @@
 // limitations under the License.
 
 (function(internal) {
+  var parsing = internal.parsing;
 
-  var transformFunctions = {
-    'matrix': internal.parsing.consumeMatrix,
-    'perspective': internal.parsing.consumePerspective,
-    'rotate': internal.parsing.consumeRotation,
-    'scale': internal.parsing.consumeScale,
-    'skew': internal.parsing.consumeSkew,
-    'translate': internal.parsing.consumeTranslate,
-  };
-
-  function consumeTransformComponent(string) {
-    for (var fn in transformFunctions) {
-      if (string.startsWith(fn)) {
-        return transformFunctions[fn](string);
+  function consumeTransformValue(string) {
+    var components = [];
+    while (true) {
+      var result = internal.parsing.consumeTransformComponent(string);
+      if (!result) {
+        break;
       }
+      components.push(result[0]);
+      string = result[1];
+    } 
+    if (!components.length) {
+      return null;
     }
-    return null;
+    return [new CSSTransformValue(components), string];
   }
 
-  internal.parsing.consumeTransformComponent = consumeTransformComponent;
+  internal.parsing.consumeTransformValue = consumeTransformValue;
 })(typedOM.internal);
