@@ -55,8 +55,17 @@
 
     this.matrix = computeMatrix(this);
     this.is2D = this.matrix.is2D;
-    this.cssText = generateCssString(this);
   }
+
+  Object.defineProperty(CSSSkew.prototype, 'cssText', {
+    get: function() {
+      if (!this.cssText) {
+        this.cssText = generateCssString(this);
+      }
+      return this.cssText;
+    }
+  });
+
   internal.inherit(CSSSkew, internal.CSSTransformComponent);
 
   scope.CSSSkew = CSSSkew;

@@ -15,15 +15,19 @@
 (function(internal) {
   var parsing = internal.parsing;
 
-  function skewXorY(type, angles, remaining) {
+  function skewXorY(type, angles, remaining, string) {
     if (angles.length != 1) {
       return null;
     }
     switch (type) {
       case 'x':
-        return [new CSSSkew(angles[0].degrees, 0), remaining];
+        var result = [new CSSSkew(angles[0], new CSSAngleValue(0, 'deg')), remaining];
+        result[0].cssText = 'skewx' + '(' + result[0]._ax.cssText + ')';
+        return result;
       case 'y':
-        return [new CSSSkew(0, angles[0].degrees), remaining];
+        var result = [new CSSSkew(new CSSAngleValue(0, 'deg'), angles[0]), remaining];
+        result[0].cssText = 'skewy' + '(' + result[0]._ay.cssText + ')';
+        return result;
     }
   }
 
@@ -38,19 +42,24 @@
     if (!params) {
       return null;
     }
+    string = string.toLowerCase();
 
     var remaining = params[1];
     var type = params[0][0];
     var angles = params[0][1];
 
     if (type == 'x' || type == 'y') {
-      return skewXorY(type, angles, remaining);
+      return skewXorY(type, angles, remaining, string);
     }
     if (angles.length == 1) {
-      return [new CSSSkew(angles[0], new CSSAngleValue(0, 'deg')), remaining];
+      var result = [new CSSSkew(angles[0], new CSSAngleValue(0, 'deg')), remaining];
+      result[0].cssText = 'skew' + '(' + result[0]._ax.cssText + ')';
+      return result;
     }
     if (angles.length == 2) {
-      return [new CSSSkew(angles[0], angles[1]), remaining];
+      var result = [new CSSSkew(angles[0], angles[1]), remaining];
+      result[0].cssText = 'skew' + '(' + result[0]._ax.cssText + ', ' + result[0]._ay.cssText + ')';
+      return result;
     }
     return null;
   }
