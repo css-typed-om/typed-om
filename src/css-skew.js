@@ -36,22 +36,20 @@
   function CSSSkew(ax, ay) {
     if (arguments.length != 2) {
       throw new TypeError('CSSSkew must have 2 arguments.');
-    } else if ((typeof ax != 'number' && !(ax instanceof CSSAngleValue)) || (typeof ay != 'number' && !(ay instanceof CSSAngleValue))) {
-      throw new TypeError('CSSSkew arguments must be a number or a CSSAngleValue.');
+    // Arguments must both be CSSAngleValues or both be doubles.
+    } else if (!(ay instanceof CSSAngleValue && ax instanceof CSSAngleValue) && !(typeof ay == 'number' && typeof ax == 'number')) {
+      throw new TypeError('CSSSkew arguments must be all numbers or all CSSAngleValues.');
     }
 
     if (ax instanceof CSSAngleValue) {
       this.ax = ax.degrees;
-      this._ax = ax;
-    } else {
-      this.ax = ax;
-      this._ax = new CSSAngleValue(ax, 'deg');
-    }
-    if (ay instanceof CSSAngleValue) {
       this.ay = ay.degrees;
+      this._ax = ax;
       this._ay = ay;
     } else {
+      this.ax = ax;
       this.ay = ay;
+      this._ax = new CSSAngleValue(ax, 'deg');
       this._ay = new CSSAngleValue(ay, 'deg');
     }
 

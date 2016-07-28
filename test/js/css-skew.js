@@ -1,13 +1,16 @@
 suite('CSSSkew', function() {
 
   test('CSSSkew constructor throws exception for invalid types', function() {
-    assert.throws(function() {new CSSSkew()});
-    assert.throws(function() {new CSSSkew({})});
-    assert.throws(function() {new CSSSkew({}, {})});
-    assert.throws(function() {new CSSSkew(1)});
-    assert.throws(function() {new CSSSkew('1', '2')});
-    assert.throws(function() {new CSSSkew(3, null)});
-    assert.throws(function() {new CSSSkew(1, 2, 3)});
+    argCountErr = /^CSSSkew must have 2 arguments\./;
+    assert.throws(function() {new CSSSkew()}, TypeError, argCountErr);
+    assert.throws(function() {new CSSSkew({})}, TypeError, argCountErr);
+    assert.throws(function() {new CSSSkew(1)}, TypeError, argCountErr);
+    assert.throws(function() {new CSSSkew(1, 2, 3)}, TypeError, argCountErr);
+    var argTypeErr = /^CSSSkew arguments must be all numbers or all CSSAngleValues\./;
+    assert.throws(function() {new CSSSkew({}, {})}, TypeError, argTypeErr);
+    assert.throws(function() {new CSSSkew('1', '2')}, TypeError, argTypeErr);
+    assert.throws(function() {new CSSSkew(1, new CSSAngleValue(2, 'deg'))}, TypeError, argTypeErr);
+    assert.throws(function() {new CSSSkew(3, null)}, TypeError, argTypeErr);
   });
 
   test('CSSSkew constructor works correctly', function() {
