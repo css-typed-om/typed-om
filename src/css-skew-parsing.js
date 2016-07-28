@@ -47,10 +47,10 @@
       return skewXorY(type, angles, remaining);
     }
     if (angles.length == 1) {
-      return [new CSSSkew(angles[0].degrees, 0), remaining];
+      return [new CSSSkew(angles[0], new CSSAngleValue(0, 'deg')), remaining];
     }
     if (angles.length == 2) {
-      return [new CSSSkew(angles[0].degrees, angles[1].degrees), remaining];
+      return [new CSSSkew(angles[0], angles[1]), remaining];
     }
     return null;
   }
