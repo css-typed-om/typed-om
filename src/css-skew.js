@@ -24,21 +24,21 @@
     //   1     tan(ax)  0
     // tan(ay)    1     0
 
-    var tanAx = tanDegrees(cssSkew.ax);
-    var tanAy = tanDegrees(cssSkew.ay);
+    var tanAx = tanDegrees(cssSkew.ax.degrees);
+    var tanAy = tanDegrees(cssSkew.ay.degrees);
     return new DOMMatrixReadonly([1, tanAy, tanAx, 1, 0, 0]);
   };
 
   function generateCssString(cssSkew) {
     switch (cssSkew._inputType) {
       case '1':
-        return 'skew(' + cssSkew._ax.cssText + ')';
+        return 'skew(' + cssSkew.ax.cssText + ')';
       case '2':
-        return 'skew(' + cssSkew._ax.cssText + ', ' + cssSkew._ay.cssText + ')';
+        return 'skew(' + cssSkew.ax.cssText + ', ' + cssSkew.ay.cssText + ')';
       case 'x':
-        return 'skewx(' + cssSkew._ax.cssText + ')';
+        return 'skewx(' + cssSkew.ax.cssText + ')';
       case 'y':
-        return 'skewy(' + cssSkew._ay.cssText + ')';
+        return 'skewy(' + cssSkew.ay.cssText + ')';
     }
   };
 
@@ -51,15 +51,11 @@
     }
 
     if (ax instanceof CSSAngleValue) {
-      this.ax = ax.degrees;
-      this.ay = ay.degrees;
-      this._ax = ax;
-      this._ay = ay;
-    } else {
       this.ax = ax;
       this.ay = ay;
-      this._ax = new CSSAngleValue(ax, 'deg');
-      this._ay = new CSSAngleValue(ay, 'deg');
+    } else {
+      this.ax = new CSSAngleValue(ax, 'deg');
+      this.ay = new CSSAngleValue(ay, 'deg');
     }
 
     this.matrix = computeMatrix(this);

@@ -16,7 +16,7 @@
 
   function computeMatrix(cssRotation) {
     // See documentation https://drafts.csswg.org/css-transforms-1/.
-    var halfRadians = cssRotation.angle * Math.PI / 360;
+    var halfRadians = cssRotation.angle.degrees * Math.PI / 360;
     var sc = Math.sin(halfRadians) * Math.cos(halfRadians);
     var sq = Math.sin(halfRadians) * Math.sin(halfRadians);
 
@@ -93,11 +93,9 @@
     this._inputType = this.is2D ? '2d' : '3d';
     var angleValue = this.is2D ? x : angle;
     if (angleValue instanceof CSSAngleValue) {
-      this.angle = angleValue.degrees;
-      this._angle = angleValue;
-    } else {
       this.angle = angleValue;
-      this._angle = new CSSAngleValue(angleValue, 'deg');
+    } else {
+      this.angle = new CSSAngleValue(angleValue, 'deg');
     }
 
     this.matrix = computeMatrix(this);
