@@ -15,12 +15,12 @@ suite('CSSSkew', function() {
 
   test('CSSSkew constructor works correctly', function() {
     var values = [
-    {skew: new CSSSkew(30, 180), cssTextExpected: 'skew(30deg, 180deg)'},
-    {skew: new CSSSkew(new CSSAngleValue(30, 'deg'), new CSSAngleValue(180, 'deg')), cssTextExpected: 'skew(30deg, 180deg)'},
-    {skew: new CSSSkew(new CSSAngleValue(0.52359878, 'rad'), new CSSAngleValue(3.14159265, 'rad')), cssTextExpected: 'skew(0.52359878rad, 3.14159265rad)'}];
+    {skew: new CSSSkew(30, 180), cssText: 'skew(30deg, 180deg)'},
+    {skew: new CSSSkew(new CSSAngleValue(30, 'deg'), new CSSAngleValue(180, 'deg')), cssText: 'skew(30deg, 180deg)'},
+    {skew: new CSSSkew(new CSSAngleValue(0.52359878, 'rad'), new CSSAngleValue(3.14159265, 'rad')), cssText: 'skew(0.52359878rad, 3.14159265rad)'}];
     var expectedMatrix = new DOMMatrixReadonly([1, 0, 0.577350, 1, 0, 0]);
     for (var i = 0; i < values.length; i++) {
-      assert.strictEqual(values[i].skew.cssText, values[i].cssTextExpected);
+      assert.strictEqual(values[i].skew.cssText, values[i].cssText);
       assert.closeTo(values[i].skew.ax, 30, 1e-6);
       assert.closeTo(values[i].skew.ay, 180, 1e-6);
       assert.isTrue(values[i].skew.is2D);
