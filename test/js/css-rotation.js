@@ -38,11 +38,32 @@ suite('CSSRotation', function() {
     typedOM.internal.testing.matricesApproxEqual(rotation.matrix, expectedMatrix);
   });
 
-  test('CSSRotation constructor works correctly for 4 arguments', function() {
+  test('CSSRotation using CSSAngleValue specified in units other than degrees', function() {
+    var rotation = new CSSRotation(new CSSAngleValue(5, 'rad'));
+    assert.closeTo(rotation.angle, 286.478897, 1e-6);
+  });
+
+  test('CSSRotation constructor works correctly for 4 arguments, number angle', function() {
     var rotation;
     assert.doesNotThrow(function() {rotation = new CSSRotation(1, 0.5, -2, 30)});
     assert.strictEqual(rotation.cssText, 'rotate3d(1, 0.5, -2, 30deg)');
     assert.strictEqual(rotation.angle, 30);
+    assert.strictEqual(rotation.x, 1);
+    assert.strictEqual(rotation.y, 0.5);
+    assert.strictEqual(rotation.z, -2);
+    assert.isFalse(rotation.is2D);
+
+    var expectedMatrix = new DOMMatrixReadonly([0.89154437, -0.42367629, -0.16014688, 0,
+        0.44919526, 0.872405146, 0.19269891, 0, 0.05807100, -0.243736860,
+        0.96810128, 0, 0, 0, 0, 1]);
+    typedOM.internal.testing.matricesApproxEqual(rotation.matrix, expectedMatrix);
+  });
+
+  test('CSSRotation constructor works correctly for 4 arguments, CSSAngleValue angle', function() {
+    var rotation;
+    assert.doesNotThrow(function() {rotation = new CSSRotation(1, 0.5, -2, new CSSAngleValue(0.083333333, 'turn'))});
+    assert.strictEqual(rotation.cssText, 'rotate3d(1, 0.5, -2, 0.083333333turn)');
+    assert.closeTo(rotation.angle, 30, 1e-6);
     assert.strictEqual(rotation.x, 1);
     assert.strictEqual(rotation.y, 0.5);
     assert.strictEqual(rotation.z, -2);
@@ -100,21 +121,16 @@ suite('CSSRotation', function() {
     typedOM.internal.testing.matricesApproxEqual(rotationAngleValue.matrix, rotationNumberValue.matrix);
   });
 
-  test('CSSRotation using CSSAngleValue specified in units other than degrees', function() {
-    var rotation = new CSSRotation(new CSSAngleValue(5, 'rad'));
-    assert.closeTo(rotation.angle, 286.478897, 1e-6);
-  });
-
   test('Parsing valid basic strings results in CSSRotation with correct values', function() {
     var values = [
-      {str: 'rotate(45deg)', deg: 45, remaining: ''},
-      {str: 'rotate(5rad)', deg: 286.478897, remaining: ''},
-      {str: 'rotate(215grad)', deg: 193.5, remaining: ''},
-      {str: 'rotate(0.6turn)', deg: 216, remaining: ''},
-      {str: 'RoTaTe(5dEg)', deg: 5, remaining: ''},
-      {str: 'rOtAtE(4DeG)', deg: 4, remaining: ''},
-      {str: 'rotate(45deg) 123', deg: 45, remaining: '123'},
-      {str: 'rotate(45deg))))', deg: 45, remaining: ')))'},
+      {str: 'rotate(45deg)', deg: 45, cssText: 'rotate(45deg)', remaining: ''},
+      {str: 'rotate(5rad)', deg: 286.478897, cssText: 'rotate(5rad)', remaining: ''},
+      {str: 'rotate(215grad)', deg: 193.5, cssText: 'rotate(215grad)', remaining: ''},
+      {str: 'rotate(0.6turn)', deg: 216, cssText: 'rotate(0.6turn)', remaining: ''},
+      {str: 'RoTaTe(5dEg)', deg: 5, cssText: 'rotate(5deg)', remaining: ''},
+      {str: 'rOtAtE(4DeG)', deg: 4, cssText: 'rotate(4deg)', remaining: ''},
+      {str: 'rotate(45deg) 123', deg: 45, cssText: 'rotate(45deg)', remaining: '123'},
+      {str: 'rotate(45deg))))', deg: 45, cssText: 'rotate(45deg)', remaining: ')))'},
     ];
     for (var i = 0; i < values.length; i++) {
       var parsed = typedOM.internal.parsing.consumeRotation(values[i].str);
@@ -122,25 +138,26 @@ suite('CSSRotation', function() {
       assert.strictEqual(parsed[1], values[i].remaining, values[i].str + ' expected ' + values[i].remaining + ' as trailing characters');
       assert.instanceOf(parsed[0], CSSRotation);
       assert.isTrue(parsed[0].is2D);
-      assert.approximately(parsed[0].angle, values[i].deg, 1e-6);
+      assert.closeTo(parsed[0].angle, values[i].deg, 1e-6);
+      assert.strictEqual(parsed[0].cssText, values[i].cssText);
     }
   });
 
   test('Parsing 3d rotation strings result in CSSRotation with correct values', function() {
     var values = [
-      {str: 'rotate3d(1,2,3,60deg)', x: 1, y: 2, z: 3, deg: 60, remaining: ''},
-      {str: 'rotate3d(1, 2, 3, 60deg)', x: 1, y: 2, z: 3, deg: 60, remaining: ''},
-      {str: 'Rotate3D(1,2,3,60DEG)', x: 1, y: 2, z: 3, deg: 60, remaining: ''},
-      {str: 'rotate3d(1,2,3,60deg)123', x: 1, y: 2, z: 3, deg: 60, remaining: '123'},
-      {str: 'rotatex(10deg)', x: 1, y: 0, z: 0, deg: 10, remaining: ''},
-      {str: 'rotateX(10dEg)', x: 1, y: 0, z: 0, deg: 10, remaining: ''},
-      {str: 'rotatex(10deg) abc', x: 1, y: 0, z: 0, deg: 10, remaining: 'abc'},
-      {str: 'rotatey(20Deg)', x: 0, y: 1, z: 0, deg: 20, remaining: ''},
-      {str: 'rotateY(20deG)', x: 0, y: 1, z: 0, deg: 20, remaining: ''},
-      {str: 'rotatey(20DEG))))', x: 0, y: 1, z: 0, deg: 20, remaining: ')))'},
-      {str: 'rotatez(30dEG)', x: 0, y: 0, z: 1, deg: 30, remaining: ''},
-      {str: 'rotateZ(30DEg)', x: 0, y: 0, z: 1, deg: 30, remaining: ''},
-      {str: 'rotateZ(30deg)abc', x: 0, y: 0, z: 1, deg: 30, remaining: 'abc'},
+      {str: 'rotate3d(1,2,3,60deg)', x: 1, y: 2, z: 3, deg: 60, cssText: 'rotate3d(1, 2, 3, 60deg)', remaining: ''},
+      {str: 'rotate3d(1, 2, 3, 60rad)', x: 1, y: 2, z: 3, deg: 3437.746771, cssText: 'rotate3d(1, 2, 3, 60rad)', remaining: ''},
+      {str: 'Rotate3D(1,2,3,60DEG)', x: 1, y: 2, z: 3, deg: 60, cssText: 'rotate3d(1, 2, 3, 60deg)', remaining: ''},
+      {str: 'rotate3d(1,2,3,60deg)123', x: 1, y: 2, z: 3, deg: 60, cssText: 'rotate3d(1, 2, 3, 60deg)', remaining: '123'},
+      {str: 'rotatex(10TURN)', x: 1, y: 0, z: 0, deg: 3600, cssText: 'rotatex(10turn)', remaining: ''},
+      {str: 'rotateX(10dEg)', x: 1, y: 0, z: 0, deg: 10, cssText: 'rotatex(10deg)', remaining: ''},
+      {str: 'rotatex(10deg) abc', x: 1, y: 0, z: 0, deg: 10, cssText: 'rotatex(10deg)', remaining: 'abc'},
+      {str: 'rotatey(20Deg)', x: 0, y: 1, z: 0, deg: 20, cssText: 'rotatey(20deg)', remaining: ''},
+      {str: 'rotateY(20deG)', x: 0, y: 1, z: 0, deg: 20, cssText: 'rotatey(20deg)', remaining: ''},
+      {str: 'rotatey(20Grad))))', x: 0, y: 1, z: 0, deg: 18, cssText: 'rotatey(20grad)', remaining: ')))'},
+      {str: 'rotatez(30dEG)', x: 0, y: 0, z: 1, deg: 30, cssText: 'rotatez(30deg)', remaining: ''},
+      {str: 'rotateZ(30RAD)', x: 0, y: 0, z: 1, deg: 1718.873385, cssText: 'rotatez(30rad)', remaining: ''},
+      {str: 'rotateZ(30deg)abc', x: 0, y: 0, z: 1, deg: 30, cssText: 'rotatez(30deg)', remaining: 'abc'},
     ]
     for (var i = 0; i < values.length; i++) {
       var parsed = typedOM.internal.parsing.consumeRotation(values[i].str);
@@ -150,7 +167,8 @@ suite('CSSRotation', function() {
       assert.strictEqual(parsed[0].x, values[i].x);
       assert.strictEqual(parsed[0].y, values[i].y);
       assert.strictEqual(parsed[0].z, values[i].z);
-      assert.approximately(parsed[0].angle, values[i].deg, 1e-6);
+      assert.closeTo(parsed[0].angle, values[i].deg, 1e-6);
+      assert.strictEqual(parsed[0].cssText, values[i].cssText);
     }
   });
 

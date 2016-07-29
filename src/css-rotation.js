@@ -52,16 +52,21 @@
   };
 
   function generateCssString(cssRotation) {
-    var cssText;
-    if (cssRotation.is2D) {
-      cssText = 'rotate(' + cssRotation._angle.cssText + ')';
-    } else {
-      cssText = 'rotate3d(' + cssRotation.x +
+    switch (cssRotation._inputType) {
+      case '2d':
+        return 'rotate(' + cssRotation._angle.cssText + ')';
+      case '3d':
+        return 'rotate3d(' + cssRotation.x +
           ', ' + cssRotation.y +
           ', ' + cssRotation.z +
           ', ' + cssRotation._angle.cssText + ')';
+      case 'x':
+        return 'rotatex(' + cssRotation._angle.cssText + ')';
+      case 'y':
+        return 'rotatey(' + cssRotation._angle.cssText + ')';
+      case 'z':
+        return 'rotatez(' + cssRotation._angle.cssText + ')';
     }
-    return cssText;
   };
 
 
@@ -85,6 +90,7 @@
     this.x = this.is2D ? null : x;
     this.y = this.is2D ? null : y;
     this.z = this.is2D ? null : z;
+    this._inputType = this.is2D ? '2d' : '3d';
     var angleValue = this.is2D ? x : angle;
     if (angleValue instanceof CSSAngleValue) {
       this.angle = angleValue.degrees;
@@ -95,7 +101,15 @@
     }
 
     this.matrix = computeMatrix(this);
-    this.cssText = generateCssString(this);
+    Object.defineProperty(this, 'cssText', {
+      get: function() {
+        if (!this._cssText) {
+          this._cssText = generateCssString(this);
+        }
+        return this._cssText;
+      },
+      set: function(newCssText) {}
+    });
   }
   internal.inherit(CSSRotation, internal.CSSTransformComponent);
 
