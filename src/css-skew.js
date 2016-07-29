@@ -30,23 +30,53 @@
   };
 
   function generateCssString(cssSkew) {
-    return 'skew(' + cssSkew.ax + 'deg' + ', ' + cssSkew.ay + 'deg' + ')';
+    switch (cssSkew._inputType) {
+      case '1':
+        return 'skew(' + cssSkew._ax.cssText + ')';
+      case '2':
+        return 'skew(' + cssSkew._ax.cssText + ', ' + cssSkew._ay.cssText + ')';
+      case 'x':
+        return 'skewx(' + cssSkew._ax.cssText + ')';
+      case 'y':
+        return 'skewy(' + cssSkew._ay.cssText + ')';
+    }
   };
 
   function CSSSkew(ax, ay) {
     if (arguments.length != 2) {
       throw new TypeError('CSSSkew must have 2 arguments.');
-    } else if (typeof ax != 'number' || typeof ay != 'number') {
-      throw new TypeError('CSSSkew arguments must be of type \'number\'.');
+    // Arguments must both be CSSAngleValues or both be doubles.
+    } else if (!(ay instanceof CSSAngleValue && ax instanceof CSSAngleValue) && !(typeof ay == 'number' && typeof ax == 'number')) {
+      throw new TypeError('CSSSkew arguments must be all numbers or all CSSAngleValues.');
     }
 
-    this.ax = ax;
-    this.ay = ay;
+    if (ax instanceof CSSAngleValue) {
+      this.ax = ax.degrees;
+      this.ay = ay.degrees;
+      this._ax = ax;
+      this._ay = ay;
+    } else {
+      this.ax = ax;
+      this.ay = ay;
+      this._ax = new CSSAngleValue(ax, 'deg');
+      this._ay = new CSSAngleValue(ay, 'deg');
+    }
 
     this.matrix = computeMatrix(this);
     this.is2D = this.matrix.is2D;
-    this.cssText = generateCssString(this);
+    this._inputType = '2';
+
+    Object.defineProperty(this, 'cssText', {
+      get: function() {
+        if (!this._cssText) {
+          this._cssText = generateCssString(this);
+        }
+        return this._cssText;
+      },
+      set: function(newCssText) {}
+    });
   }
+
   internal.inherit(CSSSkew, internal.CSSTransformComponent);
 
   scope.CSSSkew = CSSSkew;

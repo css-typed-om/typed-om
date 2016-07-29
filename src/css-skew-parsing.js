@@ -19,11 +19,16 @@
     if (angles.length != 1) {
       return null;
     }
+    var zeroAngle = new CSSAngleValue(0, 'deg');
     switch (type) {
       case 'x':
-        return [new CSSSkew(angles[0].degrees, 0), remaining];
+        var result = [new CSSSkew(angles[0], zeroAngle), remaining];
+        result[0]._inputType = 'x';
+        return result;
       case 'y':
-        return [new CSSSkew(0, angles[0].degrees), remaining];
+        var result = [new CSSSkew(zeroAngle, angles[0]), remaining];
+        result[0]._inputType = 'y';
+        return result;
     }
   }
 
@@ -46,11 +51,16 @@
     if (type == 'x' || type == 'y') {
       return skewXorY(type, angles, remaining);
     }
+
     if (angles.length == 1) {
-      return [new CSSSkew(angles[0].degrees, 0), remaining];
+      var result = [new CSSSkew(angles[0], new CSSAngleValue(0, 'deg')), remaining];
+      result[0]._inputType = '1';
+      return result;
     }
     if (angles.length == 2) {
-      return [new CSSSkew(angles[0].degrees, angles[1].degrees), remaining];
+      var result = [new CSSSkew(angles[0], angles[1]), remaining];
+      result[0]._inputType = '2';
+      return result;
     }
     return null;
   }
