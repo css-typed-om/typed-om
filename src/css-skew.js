@@ -57,7 +57,6 @@
     this.is2D = this.matrix.is2D;
     this.cssText = generateCssString(this);
   }
-
   internal.inherit(CSSSkew, internal.CSSTransformComponent);
 
   scope.CSSSkew = CSSSkew;
