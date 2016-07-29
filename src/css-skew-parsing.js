@@ -48,7 +48,6 @@
     var type = params[0][0];
     var angles = params[0][1];
 
-    var zeroAngle = new CSSAngleValue(0, 'deg');
     if (type == 'x' || type == 'y') {
       return skewXorY(type, angles, remaining);
     }
