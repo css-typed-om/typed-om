@@ -23,11 +23,11 @@
     switch (type) {
       case 'x':
         var result = [new CSSSkew(angles[0], zeroAngle), remaining];
-        result[0].cssText = 'skewx(' + result[0]._ax.cssText + ')';
+        result[0]._inputType = 'x';
         return result;
       case 'y':
         var result = [new CSSSkew(zeroAngle, angles[0]), remaining];
-        result[0].cssText = 'skewy(' + result[0]._ay.cssText + ')';
+        result[0]._inputType = 'y';
         return result;
     }
   }
@@ -54,12 +54,12 @@
 
     if (angles.length == 1) {
       var result = [new CSSSkew(angles[0], new CSSAngleValue(0, 'deg')), remaining];
-      result[0].cssText = 'skew(' + result[0]._ax.cssText + ')';
+      result[0]._inputType = '1';
       return result;
     }
     if (angles.length == 2) {
       var result = [new CSSSkew(angles[0], angles[1]), remaining];
-      result[0].cssText = 'skew(' + result[0]._ax.cssText + ', ' + result[0]._ay.cssText + ')';
+      result[0]._inputType = '2';
       return result;
     }
     return null;

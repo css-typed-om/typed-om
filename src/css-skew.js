@@ -30,7 +30,16 @@
   };
 
   function generateCssString(cssSkew) {
-    return 'skew(' + cssSkew._ax.cssText + ', ' + cssSkew._ay.cssText + ')';
+    switch (cssSkew._inputType) {
+      case '1':
+        return 'skew(' + cssSkew._ax.cssText + ')';
+      case '2':
+        return 'skew(' + cssSkew._ax.cssText + ', ' + cssSkew._ay.cssText + ')';
+      case 'x':
+        return 'skewx(' + cssSkew._ax.cssText + ')';
+      case 'y':
+        return 'skewy(' + cssSkew._ay.cssText + ')';
+    }
   };
 
   function CSSSkew(ax, ay) {
@@ -55,6 +64,7 @@
 
     this.matrix = computeMatrix(this);
     this.is2D = this.matrix.is2D;
+    this._inputType = '2';
 
     Object.defineProperty(this, 'cssText', {
       get: function() {
@@ -63,9 +73,7 @@
         }
         return this._cssText;
       },
-      set: function(newCssText) {
-        this._cssText = newCssText;
-      }
+      set: function(newCssText) {}
     });
   }
 
