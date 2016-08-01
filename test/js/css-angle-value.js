@@ -2,6 +2,28 @@ suite('CSSAngleValue', function() {
 
 var EPSILON = 1e-6;
 
+test('CSSAngleValue constructor works for valid arguments', function() {
+  var values = [
+    new CSSAngleValue(1.1, 'deg'),
+    new CSSAngleValue(-2, 'rad'),
+    new CSSAngleValue(3.0003, 'grad'),
+    new CSSAngleValue(400, 'turn')
+  ];
+  var expectations = [
+    {degrees: 1.1, value: 1.1, unit: 'deg', cssText: '1.1deg'},
+    {degrees: -114.591559, value: -2, unit: 'rad', cssText: '-2rad'},
+    {degrees: 2.700270, value: 3.0003, unit: 'grad', cssText: '3.0003grad'},
+    {degrees: 144000, value: 400, unit: 'turn', cssText: '400turn'}
+  ];
+  for (var i = 0; i < values.length; i++) {
+    assert.instanceOf(values[i], CSSAngleValue);
+    assert.approximately(values[i].degrees, expectations[i].degrees, EPSILON);
+    assert.strictEqual(values[i]._value, expectations[i].value);
+    assert.strictEqual(values[i]._unit, expectations[i].unit);
+    assert.strictEqual(values[i].cssText, expectations[i].cssText);
+  }
+});
+
 test('Wrong number of arguments throws', function() {
   assert.throw(function() { new CSSAngleValue(); }, TypeError, 'Must specify an angle and a unit');
   assert.throw(function() { new CSSAngleValue(5); }, TypeError, 'Must specify an angle and a unit');
@@ -54,31 +76,37 @@ test('Conversions when specified as turns', function() {
 
 test('Parsing valid strings results in expected CSSAngleValues', function() {
   var values = [
-    {str: '1.1deg', value: new CSSAngleValue(1.1, 'deg')},
-    {str: '-2rad', value: new CSSAngleValue(-2, 'rad')},
-    {str: '3.0003grad', value: new CSSAngleValue(3.0003, 'grad')},
-    {str: '400turn', value: new CSSAngleValue(400, 'turn')},
+    {str: '1.1deg', degrees: 1.1, value: 1.1, unit: 'deg', cssText: '1.1deg'},
+    {str: '-2rad', degrees: -114.591559, value: -2, unit: 'rad', cssText: '-2rad'},
+    {str: '3.0003grad', degrees: 2.700270, value: 3.0003, unit: 'grad', cssText: '3.0003grad'},
+    {str: '400turn', degrees: 144000, value: 400, unit: 'turn', cssText: '400turn'},
   ];
   for (var i = 0; i < values.length; i++) {
     var result = typedOM.internal.parsing.consumeAngleValue(values[i].str);
     assert.isNotNull(result, 'Failed parsing ' + values[i].str);
     assert.instanceOf(result[0], CSSAngleValue);
-    assert.strictEqual(result[0].deg, values[i].value.deg);
+    assert.approximately(result[0].degrees, values[i].degrees, EPSILON);
+    assert.strictEqual(result[0]._value, values[i].value);
+    assert.strictEqual(result[0]._unit, values[i].unit);
+    assert.strictEqual(result[0].cssText, values[i].cssText);
   }
 });
 
 test('Parsing is case insensitive', function() {
   var values = [
-    {str: '1.1DEG', value: new CSSAngleValue(1.1, 'deg')},
-    {str: '-2rAd', value: new CSSAngleValue(-2, 'rad')},
-    {str: '3.0003GrAd', value: new CSSAngleValue(3.0003, 'grad')},
-    {str: '400tuRN', value: new CSSAngleValue(400, 'turn')},
+    {str: '1.1DEG', degrees: 1.1, value: 1.1, unit: 'deg', cssText: '1.1deg'},
+    {str: '-2rAd', degrees: -114.591559, value: -2, unit: 'rad', cssText: '-2rad'},
+    {str: '3.0003GrAd', degrees: 2.700270, value: 3.0003, unit: 'grad', cssText: '3.0003grad'},
+    {str: '400tuRN', degrees: 144000, value: 400, unit: 'turn', cssText: '400turn'},
   ];
   for (var i = 0; i < values.length; i++) {
     var result = typedOM.internal.parsing.consumeAngleValue(values[i].str);
     assert.isNotNull(result, 'Failed parsing ' + values[i].str);
     assert.instanceOf(result[0], CSSAngleValue);
-    assert.strictEqual(result[0].deg, values[i].value.deg);
+    assert.approximately(result[0].degrees, values[i].degrees, EPSILON);
+    assert.strictEqual(result[0]._value, values[i].value);
+    assert.strictEqual(result[0]._unit, values[i].unit);
+    assert.strictEqual(result[0].cssText, values[i].cssText);
   }
 });
 
