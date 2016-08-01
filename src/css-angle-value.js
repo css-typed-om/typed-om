@@ -86,7 +86,7 @@
         break;
     }
 
-    this.cssString = this._value + this._unit;
+    this.cssText = this._value + this._unit;
   }
   internal.inherit(CSSAngleValue, CSSStyleValue);
 
