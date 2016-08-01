@@ -17,7 +17,8 @@ suite('CSSStyleValue', function() {
     assert.strictEqual(keywordValueArray[0].cssText, 'calc(10px + 3em)');
   });
 
-  test('parse successfully creates an array of CSSStyleValue objects if the cssText is a valid list of values ' +
+  // Skipping until parse is hooked up through methods other than .from
+  test.skip('parse successfully creates an array of CSSStyleValue objects if the cssText is a valid list of values ' +
     'for a property', function() {
     var keywordValueArray = CSSStyleValue.parse('animation-iteration-count', 'infinite, 4, 5, 7, 9');
 

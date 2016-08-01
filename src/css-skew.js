@@ -24,29 +24,55 @@
     //   1     tan(ax)  0
     // tan(ay)    1     0
 
-    var tanAx = tanDegrees(cssSkew.ax);
-    var tanAy = tanDegrees(cssSkew.ay);
+    var tanAx = tanDegrees(cssSkew.ax.degrees);
+    var tanAy = tanDegrees(cssSkew.ay.degrees);
     return new DOMMatrixReadonly([1, tanAy, tanAx, 1, 0, 0]);
   };
 
   function generateCssString(cssSkew) {
-    return 'skew(' + cssSkew.ax + 'deg' + ', ' + cssSkew.ay + 'deg' + ')';
+    switch (cssSkew._inputType) {
+      case '1':
+        return 'skew(' + cssSkew.ax.cssText + ')';
+      case '2':
+        return 'skew(' + cssSkew.ax.cssText + ', ' + cssSkew.ay.cssText + ')';
+      case 'x':
+        return 'skewx(' + cssSkew.ax.cssText + ')';
+      case 'y':
+        return 'skewy(' + cssSkew.ay.cssText + ')';
+    }
   };
 
   function CSSSkew(ax, ay) {
     if (arguments.length != 2) {
       throw new TypeError('CSSSkew must have 2 arguments.');
-    } else if (typeof ax != 'number' || typeof ay != 'number') {
-      throw new TypeError('CSSSkew arguments must be of type \'number\'.');
+    // Arguments must both be CSSAngleValues or both be doubles.
+    } else if (!(ay instanceof CSSAngleValue && ax instanceof CSSAngleValue) && !(typeof ay == 'number' && typeof ax == 'number')) {
+      throw new TypeError('CSSSkew arguments must be all numbers or all CSSAngleValues.');
     }
 
-    this.ax = ax;
-    this.ay = ay;
+    if (ax instanceof CSSAngleValue) {
+      this.ax = ax;
+      this.ay = ay;
+    } else {
+      this.ax = new CSSAngleValue(ax, 'deg');
+      this.ay = new CSSAngleValue(ay, 'deg');
+    }
 
     this.matrix = computeMatrix(this);
     this.is2D = this.matrix.is2D;
-    this.cssText = generateCssString(this);
+    this._inputType = '2';
+
+    Object.defineProperty(this, 'cssText', {
+      get: function() {
+        if (!this._cssText) {
+          this._cssText = generateCssString(this);
+        }
+        return this._cssText;
+      },
+      set: function(newCssText) {}
+    });
   }
+
   internal.inherit(CSSSkew, internal.CSSTransformComponent);
 
   scope.CSSSkew = CSSSkew;
