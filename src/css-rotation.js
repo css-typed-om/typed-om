@@ -54,18 +54,18 @@
   function generateCssString(cssRotation) {
     switch (cssRotation._inputType) {
       case '2d':
-        return 'rotate(' + cssRotation._angle.cssText + ')';
+        return 'rotate(' + cssRotation.angle.cssText + ')';
       case '3d':
         return 'rotate3d(' + cssRotation.x +
           ', ' + cssRotation.y +
           ', ' + cssRotation.z +
-          ', ' + cssRotation._angle.cssText + ')';
+          ', ' + cssRotation.angle.cssText + ')';
       case 'x':
-        return 'rotatex(' + cssRotation._angle.cssText + ')';
+        return 'rotatex(' + cssRotation.angle.cssText + ')';
       case 'y':
-        return 'rotatey(' + cssRotation._angle.cssText + ')';
+        return 'rotatey(' + cssRotation.angle.cssText + ')';
       case 'z':
-        return 'rotatez(' + cssRotation._angle.cssText + ')';
+        return 'rotatez(' + cssRotation.angle.cssText + ')';
     }
   };
 
