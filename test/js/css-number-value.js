@@ -21,26 +21,35 @@ suite('CSSNumberValue', function() {
     assert.strictEqual(value.value, 10);
   });
 
-  test('from method should return a CSSNumberValue object if string can be successfully parsed to a number', function() {
-    assert.strictEqual(CSSNumberValue.from('12').cssText, '12');
-    assert.strictEqual(CSSNumberValue.from('4.01').cssText, '4.01');
-    assert.strictEqual(CSSNumberValue.from('-456.8').cssText, '-456.8');
-    assert.strictEqual(CSSNumberValue.from('0.0').cssText, '0');
-    assert.strictEqual(CSSNumberValue.from('+0.0').cssText, '0');
-    assert.strictEqual(CSSNumberValue.from('-0.0').cssText, '0');
-    assert.strictEqual(CSSNumberValue.from('.60').cssText, '0.6');
-    assert.strictEqual(CSSNumberValue.from('10e3').cssText, '10000');
-    assert.strictEqual(CSSNumberValue.from('-3.4e-2').cssText, '-0.034');
+  test('Parsing valid values', function() {
+    var values = [
+      { str: '12', num: 12, remaining: '' },
+      { str: '4.01', num: 4.01, remaining: '' },
+      { str: '-456.8', num: -456.8, remaining: '' },
+      { str: '0.0', num: 0, remaining: '' },
+      { str: '+0.0', num: 0, remaining: '' },
+      { str: '-0.0', num: 0, remaining: '' },
+      { str: '.60', num: 0.6, remaining: '' },
+      { str: '10e3', num: 10000, remaining: '' },
+      { str: '-3.4e-2', num: -0.034, remaining: '' },
+      { str: '3px', num: 3, remaining: 'px' },
+      { str: '1e-.0', num: 1, remaining: 'e-.0' }, 
+    ];
+    for (var i = 0; i < values.length; i++) {
+      var result = typedOM.internal.parsing.consumeNumberValue(values[i].str);
+      assert.isNotNull(result);
+      assert.strictEqual(result[1], values[i].remaining, 'Parsing ' + values[i].str +
+          ' expected ' + values[i].remaining + ' as trailing characters');
+
+      assert.instanceOf(result[0], CSSNumberValue);
+      assert.strictEqual(result[0].value, values[i].num);
+    }
   });
 
-  test('from method should return null if string cannot be successfully parsed to a number', function() {
-    assert.strictEqual(CSSNumberValue.from('hello, world'), null);
-    assert.strictEqual(CSSNumberValue.from('calc(10px+3.2em) 3px'), null);
-    assert.strictEqual(CSSNumberValue.from('3px calc(10px+3.2em)'), null);
-    assert.strictEqual(CSSNumberValue.from('3px'), null);
-    assert.strictEqual(CSSNumberValue.from('scale(3, -1)'), null);
-    assert.strictEqual(CSSNumberValue.from('1e-.0'), null);
-    assert.strictEqual(CSSNumberValue.from('9 manyRandomLemons'), null);
-    assert.strictEqual(CSSNumberValue.from('1e4.0'), null);
+  test('Parsing returns null on failure', function() {
+    var consumeNumberValue = typedOM.internal.parsing.consumeNumberValue;
+    assert.isNull(consumeNumberValue('hello, world'));
+    assert.isNull(consumeNumberValue('calc(10px+3.2em) 3px'));
+    assert.isNull(consumeNumberValue('scale(3, -1)'));
   });
 });

@@ -98,7 +98,8 @@ suite('CSSTransformValue', function() {
     var components = result[0].transformComponents;
     assert.strictEqual(components.length, 1);
     assert.instanceOf(components[0], CSSRotation);
-    assert.strictEqual(components[0].angle, 20);
+    assert.strictEqual(components[0].angle._value, 20);
+    assert.strictEqual(components[0].angle._unit, 'deg');
   });
 
   test('Parsing string with multiple components results in CSSTransformValue with correct values', function() {

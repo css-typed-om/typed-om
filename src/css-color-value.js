@@ -14,16 +14,14 @@
 
 (function(internal, scope) {
 
-  function isInt(value) {
-    return typeof value == 'number' && value % 1 === 0;
-  }
-
   function CSSColorValue(r, g, b, a) {
     if (a === undefined) {
       a = 1;
     }
 
-    if (!(isInt(r) && isInt(g) && isInt(b))) {
+    if (!(Number.isInteger(r) &&
+          Number.isInteger(g) &&
+          Number.isInteger(b))) {
       throw new TypeError('r, g and b must be integers.');
     }
 
@@ -45,42 +43,6 @@
     this.cssText = this._generateCssString();
   }
   internal.inherit(CSSColorValue, CSSStyleValue);
-
-  CSSColorValue.from = function(value) {
-    var parsing = internal.parsing;
-
-    var params = parsing.consumeList([
-        parsing.consumeToken.bind(null, /^rgba?/i),
-        parsing.ignore(parsing.consumeToken.bind(null, /^\(/)),
-        parsing.consumeRepeated.bind(null, parsing.consumeNumber, /^,/),
-        parsing.ignore(parsing.consumeToken.bind(null, /^\)/)),
-    ], value);
-
-    if (!params || params[1].length) {
-      // Failure to parse, or trailing characters.
-      return null;
-    }
-    params = params[0];
-
-    var isRGBA = params[0].endsWith('a');
-    values = params[1];
-    for (var i = 0; i < 3; i++) {
-      if (!isInt(values[i]) || values[i] < 0 || values[i] > 255) {
-        return null;
-      }
-    }
-    if (isRGBA  && values.length == 4) {
-      if (values[3] < 0 || values[3] > 1) {
-        return null;
-      }
-      var result = new CSSColorValue(values[0], values[1], values[2], values[3]);
-      return result;
-    } else if (!isRGBA && values.length == 3) {
-      var result = new CSSColorValue(values[0], values[1], values[2]);
-      return result;
-    }
-    return null;
-  };
 
   CSSColorValue.prototype._generateCssString = function() {
     var cssText = this.a == 1 ? 'rgb(' : 'rgba(';
