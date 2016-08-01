@@ -80,22 +80,6 @@ suite('CSSRotation', function() {
     typedOM.internal.testing.matricesApproxEqual(rotation.matrix, expectedMatrix);
   });
 
-  test('CSSRotation constructor works correctly for 4 arguments, CSSAngleValue angle', function() {
-    var rotation;
-    assert.doesNotThrow(function() {rotation = new CSSRotation(1, 0.5, -2, new CSSAngleValue(0.083333333, 'turn'))});
-    assert.strictEqual(rotation.cssText, 'rotate3d(1, 0.5, -2, 0.083333333turn)');
-    assert.closeTo(rotation.angle, 30, 1e-6);
-    assert.strictEqual(rotation.x, 1);
-    assert.strictEqual(rotation.y, 0.5);
-    assert.strictEqual(rotation.z, -2);
-    assert.isFalse(rotation.is2D);
-
-    var expectedMatrix = new DOMMatrixReadonly([0.89154437, -0.42367629, -0.16014688, 0,
-        0.44919526, 0.872405146, 0.19269891, 0, 0.05807100, -0.243736860,
-        0.96810128, 0, 0, 0, 0, 1]);
-    typedOM.internal.testing.matricesApproxEqual(rotation.matrix, expectedMatrix);
-  });
-
   test('CSSRotation matrix with angle 0 is the identity', function() {
     var rotation2D = new CSSRotation(0);
     var expected2D = new DOMMatrixReadonly([1, 0, 0, 1, 0, 0]);
