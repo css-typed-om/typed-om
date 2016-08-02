@@ -53,9 +53,9 @@
       'src/property-dictionary.js',
       // Parsing
       'src/parsing/parsing.js',
-      'src/css-color-value-parsing.js',
+      'src/parsing/css-color-value-parsing.js',
       'src/parsing/css-matrix-parsing.js',
-      'src/css-number-value-parsing.js',
+      'src/parsing/css-number-value-parsing.js',
       'src/parsing/css-perspective-parsing.js',
       'src/parsing/css-rotation-parsing.js',
       'src/parsing/css-scale-parsing.js',
