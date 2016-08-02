@@ -22,7 +22,6 @@
   var typedOMSrc = [
       // Utility functions.
       'src/util.js',
-      'src/parsing.js',
       // CSSTransformComponent and subclasses
       'src/css-transform-component.js',
       'src/css-matrix.js',
@@ -36,9 +35,7 @@
       'src/internal-css-style-value.js',
       'src/css-angle-value.js',
       'src/css-color-value.js',
-      'src/css-color-value-parsing.js',
       'src/css-number-value.js',
-      'src/css-number-value-parsing.js',
       'src/css-keyword-value.js',
       'src/css-resource-value.js',
       'src/css-token-stream-value.js',
@@ -55,7 +52,10 @@
       'src/style-property-map.js',
       'src/property-dictionary.js',
       // Parsing
+      'src/parsing/parsing.js',
+      'src/parsing/css-color-value-parsing.js',
       'src/parsing/css-matrix-parsing.js',
+      'src/parsing/css-number-value-parsing.js',
       'src/parsing/css-perspective-parsing.js',
       'src/parsing/css-rotation-parsing.js',
       'src/parsing/css-scale-parsing.js',
