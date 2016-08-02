@@ -61,6 +61,7 @@
       'src/css-position-value-parsing.js',
       // Depends on both transform component subclasses and length parsing.
       'src/css-transform-component-parsing.js',
+      'src/parsing/css-style-value-parsing.js',
       // Other stuff.
       'src/dom-matrix-readonly.js',
       'src/style-property-map-readonly.js',
