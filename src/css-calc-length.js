@@ -21,7 +21,7 @@
     }
 
     var isEmpty = true;
-    internal.objects.foreach(CSSLengthValue.LengthType, function(type) {
+    internal.objects.foreach(internal.CSSLengthTypes, function(type) {
       var value = dictionary[type];
       if (value == null) {
         this[type] = null;
@@ -72,7 +72,7 @@
     var calcDictionary = {};
 
     // Iterate through all length types and multiply all non null lengths.
-    internal.objects.foreach(CSSLengthValue.LengthType, function(type) {
+    internal.objects.foreach(internal.CSSLengthTypes, function(type) {
       if (this[type] != null) {
         calcDictionary[type] = this[type] * multiplier;
       }
@@ -85,7 +85,7 @@
     var calcDictionary = {};
 
     // Iterate through all length types and divide all non null lengths.
-    internal.objects.foreach(CSSLengthValue.LengthType, function(type) {
+    internal.objects.foreach(internal.CSSLengthTypes, function(type) {
       if (this[type] != null) {
         calcDictionary[type] = this[type] / divider;
       }
@@ -102,7 +102,7 @@
     var calcDictionary = {};
 
     // Iterate through all possible length types and add their values.
-    internal.objects.foreach(CSSLengthValue.LengthType, function(type) {
+    internal.objects.foreach(internal.CSSLengthTypes, function(type) {
       if (calcLength[type] == null) {
         calcDictionary[type] = addedLength[type];
       } else if (addedLength[type] == null) {
@@ -121,7 +121,7 @@
     }
 
     var calcDictionary = {};
-    internal.objects.foreach(CSSLengthValue.LengthType, function(type) {
+    internal.objects.foreach(internal.CSSLengthTypes, function(type) {
       if (subtractedLength[type] == null) {
         calcDictionary[type] = calcLength[type];
       } else if (calcLength[type] == null) {
@@ -141,7 +141,7 @@
 
     // Iterate through all length types and check that both objects contain the
     // same values.
-    return !internal.objects.any(CSSLengthValue.LengthType, function(type) {
+    return !internal.objects.any(internal.CSSLengthTypes, function(type) {
       return this[type] != other[type];
     }, this);
   };
@@ -150,7 +150,7 @@
     var result = 'calc(';
 
     var isFirst = true;
-    internal.objects.foreach(CSSLengthValue.LengthType, function(type) {
+    internal.objects.foreach(internal.CSSLengthTypes, function(type) {
       var value = calcLength[type];
       if (value == null) {
         return;  // Exit callback.
