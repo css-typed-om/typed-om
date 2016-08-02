@@ -26,22 +26,15 @@
       // CSSTransformComponent and subclasses
       'src/css-transform-component.js',
       'src/css-matrix.js',
-      'src/css-matrix-parsing.js',
       'src/css-perspective.js',
-      'src/css-perspective-parsing.js',
       'src/css-rotation.js',
-      'src/css-rotation-parsing.js',
       'src/css-scale.js',
-      'src/css-scale-parsing.js',
       'src/css-skew.js',
-      'src/css-skew-parsing.js',
       'src/css-translation.js',
-      'src/css-translation-parsing.js',
       // CSSStyleValue and subclasses
       'src/css-style-value.js',
       'src/internal-css-style-value.js',
       'src/css-angle-value.js',
-      'src/css-angle-value-parsing.js',
       'src/css-color-value.js',
       'src/css-color-value-parsing.js',
       'src/css-number-value.js',
@@ -50,22 +43,29 @@
       'src/css-resource-value.js',
       'src/css-token-stream-value.js',
       'src/css-transform-value.js',
-      'src/css-transform-value-parsing.js',
       'src/css-variable-reference-value.js',
       // CSSLengthValue and subclasses
       'src/css-length-value.js',
       'src/css-simple-length.js',
       'src/css-calc-length.js',
-      'src/css-length-value-parsing.js',
       'src/css-position-value.js', // Depends on LengthValues.
-      'src/css-position-value-parsing.js',
-      // Depends on both transform component subclasses and length parsing.
-      'src/css-transform-component-parsing.js',
       // Other stuff.
       'src/dom-matrix-readonly.js',
       'src/style-property-map-readonly.js',
       'src/style-property-map.js',
-      'src/property-dictionary.js'
+      'src/property-dictionary.js',
+      // Parsing
+      'src/parsing/css-matrix-parsing.js',
+      'src/parsing/css-perspective-parsing.js',
+      'src/parsing/css-rotation-parsing.js',
+      'src/parsing/css-scale-parsing.js',
+      'src/parsing/css-skew-parsing.js',
+      'src/parsing/css-translation-parsing.js',
+      'src/parsing/css-angle-value-parsing.js',
+      'src/parsing/css-transform-value-parsing.js',
+      'src/parsing/css-length-value-parsing.js',
+      'src/parsing/css-position-value-parsing.js',
+      'src/parsing/css-transform-component-parsing.js',
   ];
 
   var typedOMTest = [
