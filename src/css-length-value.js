@@ -124,6 +124,17 @@
 
   internal.CSSLengthTypes = CSSLengthTypes;
   internal.isValidLengthType = isValidLengthType;
+  internal.CSSLengthValue = CSSLengthValue;
 
-  scope.CSSLengthValue = CSSLengthValue;
+  (function() {
+    // So we don't have to expose the constructor.
+    function CSSLengthValue() {
+      throw new TypeError('Can\'t instantiate CSSLengthValue');
+    }
+    CSSLengthValue.prototype = Object.create(internal.CSSLengthValue.prototype);
+
+    CSSLengthValue.from = internal.CSSLengthValue.from;
+
+    scope.CSSLengthValue = CSSLengthValue;
+  })();
 })(typedOM.internal, window);

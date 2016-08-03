@@ -163,7 +163,7 @@
         }
         value = Math.abs(value);
       }
-      result += value + CSSLengthValue.cssTextTypeRepresentation(type);
+      result += value + internal.CSSLengthValue.cssTextTypeRepresentation(type);
       isFirst = false;
     }, calcLength);
 

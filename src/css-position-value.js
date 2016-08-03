@@ -30,8 +30,8 @@
       throw new TypeError('yPos is not a CSSLengthValue object');
     }
 
-    this.x = new CSSLengthValue(xPos);
-    this.y = new CSSLengthValue(yPos);
+    this.x = new CSSLengthValue.from(xPos);
+    this.y = new CSSLengthValue.from(yPos);
     this.cssText = generateCssString(this);
   }
   internal.inherit(CSSPositionValue, CSSStyleValue);

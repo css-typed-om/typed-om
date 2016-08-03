@@ -13,17 +13,17 @@ suite('CSSLengthValue', function() {
     assert.instanceOf(calcLength, CSSStyleValue, 'A new calcLength should be an instance of CSSStyleValue');
   });
 
-  test('CSSLengthValue copy constructor returns a CSSLengthValue', function() {
+  test('Internal CSSLengthValue copy constructor returns a CSSLengthValue', function() {
     var simple = new CSSSimpleLength(3, 'px');
     var simpleCopy;
-    assert.doesNotThrow(function() {simpleCopy = new CSSLengthValue(simple)});
+    assert.doesNotThrow(function() { simpleCopy = new typedOM.internal.CSSLengthValue(simple) });
     assert.instanceOf(simpleCopy, CSSSimpleLength,
         'A new simpleLength should be an instanceOf CSSSimpleLength');
     assert.deepEqual(simpleCopy, simple);
 
     var calc = new CSSCalcLength({px: 10});
     var calcCopy;
-    assert.doesNotThrow(function() {calcCopy = new CSSLengthValue(calc)});
+    assert.doesNotThrow(function() { calcCopy = new typedOM.internal.CSSLengthValue(calc) });
     assert.instanceOf(calcCopy, CSSCalcLength,
         'A new calcLength should be an instanceOf CSSCalcLength');
     assert.deepEqual(calcCopy, calc);
