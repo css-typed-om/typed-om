@@ -70,6 +70,9 @@
     if (type !== undefined) {
       return new CSSSimpleLength(value, type);
     }
+    if (value instanceof CSSLengthValue) {
+      return new CSSLengthValue(value);
+    }
     if (typeof value == 'object') {
       return new CSSCalcLength(value);
     }
