@@ -49,7 +49,7 @@
 
     for (var i = 0; i < arguments.length; i++) {
       if (!(arguments[i] instanceof CSSSimpleLength) ||
-          arguments[i].type != CSSLengthValue.LengthType.PX) {
+          arguments[i].type != internal.CSSLengthTypes.PX) {
         throw new TypeError('Unsupported argument for CSSTranslation. Only ' +
             'CSSSimpleLength instances with type \'px\' are supported.');
       }

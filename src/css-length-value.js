@@ -14,23 +14,7 @@
 
 (function(internal, scope) {
 
-  // Constructor (CSSLengthValue)
-  function CSSLengthValue(value) {
-    if (!(value instanceof CSSLengthValue)) {
-      throw new TypeError('Value in the CSSLengthValue constructor must be a ' +
-          'CSSLengthValue.');
-    }
-
-    if (value instanceof CSSSimpleLength) {
-      return new CSSSimpleLength(value);
-    } else {
-      return new CSSCalcLength(value);
-    }
-  }
-  internal.inherit(CSSLengthValue, CSSStyleValue);
-
-  // The different possible length types.
-  CSSLengthValue.LengthType = {
+  CSSLengthTypes = {
     PX: 'px',
     PERCENT: 'percent',
     EM: 'em',
@@ -48,14 +32,29 @@
     PT: 'pt'
   };
 
-  CSSLengthValue.isValidLengthType = function(str) {
-    return internal.objects.any(CSSLengthValue.LengthType, function(type) {
+  function isValidLengthType(str) {
+    return internal.objects.any(CSSLengthTypes, function(type) {
       return str == type;
     });
   };
 
+  // Constructor (CSSLengthValue)
+  function CSSLengthValue(value) {
+    if (!(value instanceof CSSLengthValue)) {
+      throw new TypeError('Value in the CSSLengthValue constructor must be a ' +
+          'CSSLengthValue.');
+    }
+
+    if (value instanceof CSSSimpleLength) {
+      return new CSSSimpleLength(value);
+    } else {
+      return new CSSCalcLength(value);
+    }
+  }
+  internal.inherit(CSSLengthValue, CSSStyleValue);
+
   CSSLengthValue.cssTextTypeRepresentation = function(type) {
-    if (!CSSLengthValue.isValidLengthType(type)) {
+    if (!isValidLengthType(type)) {
       throw new TypeError('Invalid Length Type.');
     }
 
@@ -122,6 +121,9 @@
   CSSLengthValue.prototype.equals = function(other) {
     throw new TypeError('Should not be reached');
   };
+
+  internal.CSSLengthTypes = CSSLengthTypes;
+  internal.isValidLengthType = isValidLengthType;
 
   scope.CSSLengthValue = CSSLengthValue;
 })(typedOM.internal, window);
