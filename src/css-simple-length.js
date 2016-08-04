@@ -28,7 +28,7 @@
     if (typeof value != 'number') {
       throw new TypeError('Value of CSSSimpleLength must be a number.');
     }
-    if (!CSSLengthValue.isValidLengthType(type)) {
+    if (!internal.isValidLengthType(type)) {
       throw new TypeError('\'' + type + '\' is not a valid type for a CSSSimpleLength.');
     }
     this.type = type;
