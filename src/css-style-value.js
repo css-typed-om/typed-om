@@ -70,6 +70,20 @@
     return styleValueArray;
   };
 
+  (function() {
+    // This is the internal version of CSSStyleValue so we can fake not having a
+    // constructor for CSSStyleValues.
+    var CSSStyleValue = function(cssText) {
+      if (!cssText) {
+        throw new TypeError('CSSStyleValue must have a value');
+      }
+      this.cssText = cssText;
+    }
+    CSSStyleValue.prototype = Object.create(scope.CSSStyleValue.prototype);
+
+  internal.CSSStyleValue = CSSStyleValue;
+  })();
+
   scope.CSSStyleValue = CSSStyleValue;
 
 })(typedOM.internal, window);
