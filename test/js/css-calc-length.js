@@ -16,8 +16,8 @@ suite('CSSCalcLength', function() {
     var calcLength;
     assert.doesNotThrow(function() {calcLength = new CSSCalcLength({px: 10})});
 
-   typedOM.internal.objects.foreach(CSSLengthValue.LengthType, function(type) {
-      if (type != CSSLengthValue.LengthType.PX) {
+   typedOM.internal.objects.foreach(typedOM.internal.CSSLengthTypes, function(type) {
+      if (type != typedOM.internal.CSSLengthTypes.PX) {
         assert.isNull(calcLength[type], 'Each field in an empty instantiated CSSCalcLength is null');
       }
     });

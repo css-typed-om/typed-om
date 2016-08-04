@@ -31,7 +31,7 @@
       throw new TypeError('CSSPerspective takes exactly 1 argument.');
     }
     if (!(length instanceof CSSSimpleLength) ||
-        length.type != CSSLengthValue.LengthType.PX) {
+        length.type != internal.CSSLengthTypes.PX) {
       throw new TypeError('Unsupported CSSPerspective length. Only CSSSimpleLength ' +
           'instances with type \'px\' are supported.');
     }
