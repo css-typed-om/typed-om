@@ -17,7 +17,7 @@
   var unitRegExpStr = 'px|%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc';
 
   function isCalc(string) {
-    return /^calc/.test(string); 
+    return /^calc/i.test(string);
   }
 
   // Returns a calc dictionary.
@@ -114,7 +114,7 @@
   }
 
   function consumeCalcLength(str) {
-    var consumedCalcToken = internal.parsing.consumeToken(/^calc/, str);
+    var consumedCalcToken = internal.parsing.consumeToken(/^calc/i, str);
     if (!consumedCalcToken) {
       return;
     }

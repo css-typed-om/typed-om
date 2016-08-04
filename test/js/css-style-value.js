@@ -30,12 +30,12 @@ suite('CSSStyleValue', function() {
     assert.throws(function() {CSSStyleValue.parse('height', 5)}, TypeError, 'Must parse a string');
   });
 
-  test('parse throws an error if an unsupported property is entered', function() {
-    assert.throws(function() {CSSStyleValue.parse('lemons', '10px')}, TypeError, 'Can\'t parse an unsupported property.');
+  test('parse returns null if an unsupported property is entered', function() {
+    assert.isNull(CSSStyleValue.parse('lemons', '10px'));
   });
 
-  test('parse throws an error if a cssText representing a CSSStyleValue type unsupported by a property is entered', function() {
-    assert.throws(function() {CSSStyleValue.parse('height', '10')}, TypeError, 'height has an unsupported CSSStyleValue type or Sequence value separator');
+  test('parse returns null if a cssText representing a CSSStyleValue type unsupported by a property is entered', function() {
+    assert.isNull(CSSStyleValue.parse('height', '10'));
   });
 
   test('instantiating CSSStyleValue throws', function() {
