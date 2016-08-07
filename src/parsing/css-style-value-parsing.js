@@ -19,13 +19,6 @@
   parsers['CSSLengthValue'] = internal.parsing.consumeLengthValue;
   parsers['CSSTransformValue'] = internal.parsing.consumeTransformValue;
 
-  function maybeConsume(consumer, string) {
-    if (!consumer) {
-      return null;
-    }
-    return consumer(string);
-  }
-
   function consumeKeyword(property, string) {
     var consumed = internal.parsing.consumeToken(/^[a-z_]+[a-z0-9_-]*/i, string);
     if (!consumed) {
@@ -50,8 +43,8 @@
 
     var supportedStyleValues = internal.propertyDictionary().supportedStyleValues(property);
     for (var i = 0; i < supportedStyleValues.length; i++) {
-      var parsed = maybeConsume(parsers[supportedStyleValues[i].name], string);
-      if (parsed) {
+      var parsed, consumer = parsers[supportedStyleValues[i].name];
+      if (consumer && (parsed = consumer(string))) {
         return parsed;
       }
     }
