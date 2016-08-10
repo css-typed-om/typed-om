@@ -13,7 +13,7 @@
 // limitations under the License.
 
 var TYPED_OM_TESTING = false;
-var typedOMIncludePath = typedOMIncludePath || '/typed-om';
+var typedOMIncludePath = typedOMIncludePath || 'typed-om';
 var loadScript = function(sourceFile) {
   return new Promise(function(resolve, reject) {
     var s = document.createElement('script');
