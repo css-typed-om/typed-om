@@ -60,6 +60,7 @@
       'src/parsing/css-rotation-parsing.js',
       'src/parsing/css-scale-parsing.js',
       'src/parsing/css-skew-parsing.js',
+      'src/parsing/css-style-value-parsing.js',
       'src/parsing/css-translation-parsing.js',
       'src/parsing/css-angle-value-parsing.js',
       'src/parsing/css-transform-value-parsing.js',

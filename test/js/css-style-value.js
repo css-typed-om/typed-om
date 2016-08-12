@@ -1,20 +1,20 @@
 suite('CSSStyleValue', function() {
   test('parse successfully creates a CSSKeywordValue object if the cssText is a valid keyword for a property', function() {
-    var keywordValueArray = CSSStyleValue.parse('height', 'auto');
+    var keywordValue  = CSSStyleValue.parse('height', 'auto');
 
-    assert.strictEqual(keywordValueArray[0].cssText, 'auto');
+    assert.strictEqual(keywordValue.cssText, 'auto');
   });
 
   test('parse successfully creates a CSSLengthValue object if the cssText is a valid and the property supports lengthValues', function() {
-    var keywordValueArray = CSSStyleValue.parse('height', 'calc(10px + 3em)');
+    var value = CSSStyleValue.parse('height', 'calc(10px + 3em)');
 
-    assert.strictEqual(keywordValueArray[0].cssText, 'calc(10px + 3em)');
+    assert.strictEqual(value.cssText, 'calc(10px + 3em)');
   });
 
   test('parse should be case insensitive', function() {
-    var keywordValueArray = CSSStyleValue.parse('height', 'CaLc(10px + 3em)');
+    var value = CSSStyleValue.parse('height', 'CaLc(10px + 3em)');
 
-    assert.strictEqual(keywordValueArray[0].cssText, 'calc(10px + 3em)');
+    assert.strictEqual(value.cssText, 'calc(10px + 3em)');
   });
 
   // Skipping until parse is hooked up through methods other than .from
