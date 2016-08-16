@@ -69,7 +69,7 @@
     // If we don't end up only with a number tag after reducing, the
     // expression is invalid.
     if (typeCheck != 'D') {
-      return;
+      return null;
     }
 
     for (var unit in matchedUnits) {
@@ -77,7 +77,7 @@
       var result = eval(string.replace(new RegExp('U' + unit, 'g'), '').replace(
             new RegExp(taggedUnitRegExp, 'g'), '*0'));
       if (!isFinite(result)) {
-        return;
+        return null;
       }
       matchedUnits[unit] = result;
     }
