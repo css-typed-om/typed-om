@@ -43,8 +43,12 @@
 
     var supportedStyleValues = internal.propertyDictionary().supportedStyleValues(property);
     for (var i = 0; i < supportedStyleValues.length; i++) {
-      var parsed, consumer = parsers[supportedStyleValues[i].name];
-      if (consumer && (parsed = consumer(string))) {
+      var consumer = parsers[supportedStyleValues[i].name];
+      if (!consumer) {
+        continue;
+      }
+      var parsed = consumer(string);
+      if (parsed) {
         return parsed;
       }
     }
