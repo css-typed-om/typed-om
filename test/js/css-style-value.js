@@ -22,18 +22,107 @@ suite('CSSStyleValue', function() {
     assert.strictEqual(value.value, 0.3);
   });
 
-  test('parse works for transforms', function() {
+  test('parse works for transform(translate)', function() {
     var value = CSSStyleValue.parse('transform', 'translate(10px)');
-    console.log(value);
+    // TODO: Change cssText for CSSTranslation so that it reflects parsed string.
     assert.strictEqual(value.cssText, 'translate(10px, 0px)');
     assert.instanceOf(value.transformComponents[0], CSSTranslation);
     assert.strictEqual(value.transformComponents[0].x.value, 10);
     assert.strictEqual(value.transformComponents[0].x.type, 'px');
     assert.strictEqual(value.transformComponents[0].y.value, 0);
     assert.strictEqual(value.transformComponents[0].y.type, 'px');
-    // TODO: Renee: Really? Null?
+    // TODO: Change this to something sensible. Udate spec?
     assert.isNull(value.transformComponents[0].z);
-    // TODO: Renee: Add skewx(10rad), rotate(1rad), rotate3d(1, 1, 1, 1rad) and more.
+
+    value = CSSStyleValue.parse('transform', 'translatez(1px)');
+    assert.strictEqual(value.cssText, 'translate3d(0px, 0px, 1px)');
+    assert.instanceOf(value.transformComponents[0], CSSTranslation);
+    assert.strictEqual(value.transformComponents[0].x.value, 0);
+    assert.strictEqual(value.transformComponents[0].x.type, 'px');
+    assert.strictEqual(value.transformComponents[0].y.value, 0);
+    assert.strictEqual(value.transformComponents[0].y.type, 'px');
+    assert.strictEqual(value.transformComponents[0].z.value, 1);
+    assert.strictEqual(value.transformComponents[0].y.type, 'px');
+  });
+
+  test('parse works for transform(skew)', function() {
+    var value = CSSStyleValue.parse('transform', 'skewx(10rad)');
+    assert.strictEqual(value.cssText, 'skewx(10rad)');
+    assert.instanceOf(value.transformComponents[0], CSSSkew);
+    assert.strictEqual(value.transformComponents[0].ax.radians, 10);
+    assert.strictEqual(value.transformComponents[0].ay.degrees, 0);
+
+    value = CSSStyleValue.parse('transform', 'skew(1rad, 30deg)');
+    assert.strictEqual(value.cssText, 'skew(1rad, 30deg)');
+    assert.instanceOf(value.transformComponents[0], CSSSkew);
+    assert.strictEqual(value.transformComponents[0].ax.radians, 1);
+    assert.strictEqual(value.transformComponents[0].ay.degrees, 30);
+
+    value = CSSStyleValue.parse('transform', 'skew(0.5turn)');
+    assert.strictEqual(value.cssText, 'skew(0.5turn)');
+    assert.instanceOf(value.transformComponents[0], CSSSkew);
+    assert.strictEqual(value.transformComponents[0].ax.degrees, 180);
+    assert.strictEqual(value.transformComponents[0].ay.degrees, 0);
+  });
+
+  test('parse works for transform(rotate)', function() {
+    var value = CSSStyleValue.parse('transform', 'rotate(1rad)');
+    assert.strictEqual(value.cssText, 'rotate(1rad)');
+    assert.instanceOf(value.transformComponents[0], CSSRotation);
+    assert.strictEqual(value.transformComponents[0].angle.radians, 1);
+
+    value = CSSStyleValue.parse('transform', 'rotate3d(1, 1, 1, 15deg)');
+    assert.strictEqual(value.cssText, 'rotate3d(1, 1, 1, 15deg)');
+    assert.instanceOf(value.transformComponents[0], CSSRotation);
+    assert.strictEqual(value.transformComponents[0].x, 1);
+    assert.strictEqual(value.transformComponents[0].y, 1);
+    assert.strictEqual(value.transformComponents[0].z, 1);
+    assert.strictEqual(value.transformComponents[0].angle.degrees, 15);
+  });
+
+  test('parse works for transform(scale)', function() {
+    var value = CSSStyleValue.parse('transform', 'scale(2)');
+    // TODO: Change cssText for CSSScale so that it reflects parsed string.
+    assert.strictEqual(value.cssText, 'scale(2, 2)');
+    assert.instanceOf(value.transformComponents[0], CSSScale);
+    assert.strictEqual(value.transformComponents[0].x, 2);
+    assert.strictEqual(value.transformComponents[0].y, 2);
+    // TODO: Change this to something sensible. Udate spec?
+    assert.isNull(value.transformComponents[0].z);
+
+    value = CSSStyleValue.parse('transform', 'scaley(2)');
+    assert.strictEqual(value.cssText, 'scale(1, 2)');
+    assert.instanceOf(value.transformComponents[0], CSSScale);
+    assert.strictEqual(value.transformComponents[0].x, 1);
+    assert.strictEqual(value.transformComponents[0].y, 2);
+    assert.isNull(value.transformComponents[0].z);
+
+    value = CSSStyleValue.parse('transform', 'scalez(2)');
+    assert.strictEqual(value.cssText, 'scale3d(1, 1, 2)');
+    assert.instanceOf(value.transformComponents[0], CSSScale);
+    assert.strictEqual(value.transformComponents[0].x, 1);
+    assert.strictEqual(value.transformComponents[0].y, 1);
+    assert.strictEqual(value.transformComponents[0].z, 2);
+  });
+
+  test('parse works for transform(matrix)', function() {
+    var value = CSSStyleValue.parse('transform', 'matrix(2, 0, 2, 2, 0, 0)');
+    assert.strictEqual(value.cssText, 'matrix(2, 0, 2, 2, 0, 0)');
+    assert.instanceOf(value.transformComponents[0], CSSMatrix);
+    typedOM.internal.testing.matricesApproxEqual(value.transformComponents[0].matrix, new DOMMatrixReadonly([2, 0, 2, 2, 0, 0]));
+
+    value = CSSStyleValue.parse('transform', 'matrix3d(1, 2, 3, 4, 5, 6, 7, 8.6, 9, 10, 11, 12, 13, 14, 15, 16)');
+    assert.strictEqual(value.cssText, 'matrix3d(1, 2, 3, 4, 5, 6, 7, 8.6, 9, 10, 11, 12, 13, 14, 15, 16)');
+    assert.instanceOf(value.transformComponents[0], CSSMatrix);
+    typedOM.internal.testing.matricesApproxEqual(value.transformComponents[0].matrix, new DOMMatrixReadonly([1, 2, 3, 4, 5, 6, 7, 8.6, 9, 10, 11, 12, 13, 14, 15, 16]));
+  });
+
+  test('parse works for transform(perspective)', function() {
+    var value = CSSStyleValue.parse('transform', 'perspective(10px)');
+    assert.strictEqual(value.cssText, 'perspective(10px)');
+    assert.instanceOf(value.transformComponents[0], CSSPerspective);
+    assert.strictEqual(value.transformComponents[0].length.value, 10);
+    assert.strictEqual(value.transformComponents[0].length.type, 'px');
   });
 
   test('parse should be case insensitive', function() {
