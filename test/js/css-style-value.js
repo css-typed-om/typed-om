@@ -130,10 +130,9 @@ suite('CSSStyleValue', function() {
     assert.strictEqual(value.cssText, 'calc(10px + 3em)');
   });
 
-  //TODO: Renee: Make these check the error string.
   test('parse throws an error if either the property or the cssText is not a string', function() {
-    assert.throws(function() {CSSStyleValue.parse(4, 'auto')}, TypeError, 'Property name must be a string');
-    assert.throws(function() {CSSStyleValue.parse('height', 5)}, TypeError, 'Must parse a string');
+    assert.throws(function() {CSSStyleValue.parse(4, 'auto')}, TypeError, /^Property name must be a string/);
+    assert.throws(function() {CSSStyleValue.parse('height', 5)}, TypeError, /^Must parse a string/);
   });
 
   test('parse returns null if an unsupported property is entered', function() {
@@ -144,7 +143,6 @@ suite('CSSStyleValue', function() {
     assert.isNull(CSSStyleValue.parse('height', '10'));
   });
 
-  //TODO: Renee: Make these check the error string.
   test('instantiating CSSStyleValue throws', function() {
     assert.throws(function() {new CSSStyleValue('10px')}, TypeError, 'CSSStyleValue cannot be instantiated.');
   });
