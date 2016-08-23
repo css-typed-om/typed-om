@@ -82,7 +82,6 @@ suite('CSSStyleValue', function() {
 
   test('parse works for transform(scale)', function() {
     var value = CSSStyleValue.parse('transform', 'scale(2)');
-    // TODO: Change cssText for CSSScale so that it reflects parsed string.
     assert.strictEqual(value.cssText, 'scale(2)');
     assert.instanceOf(value.transformComponents[0], CSSScale);
     assert.strictEqual(value.transformComponents[0].x, 2);
