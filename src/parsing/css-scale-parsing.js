@@ -19,7 +19,9 @@
     if (numbers.length != 3) {
       return null;
     }
-    return [new CSSScale(numbers[0], numbers[1], numbers[2]), remaining];
+    var result = [new CSSScale(numbers[0], numbers[1], numbers[2]), remaining];
+    result[0].inputType = '3';
+    return result;
   }
 
   function scaleXYorZ(xyOrZ, numbers, remaining) {
@@ -28,11 +30,17 @@
     }
     switch (xyOrZ) {
       case 'x':
-        return [new CSSScale(numbers[0], 1), remaining];
+        var result = [new CSSScale(numbers[0], 1), remaining];
+        result[0]._inputType = 'x';
+        return result;
       case 'y':
-        return [new CSSScale(1, numbers[0]), remaining];
+        var result = [new CSSScale(1, numbers[0]), remaining];
+        result[0]._inputType = 'y';
+        return result;
       case 'z':
-        return [new CSSScale(1, 1, numbers[0]), remaining];
+        var result = [new CSSScale(1, 1, numbers[0]), remaining];
+        result[0]._inputType = 'z';
+        return result;
     }
     return null;
   }
@@ -64,10 +72,14 @@
 
     // Only scale(s) and scale(x, y) remain.
     if (numbers.length == 1) {
-      return [new CSSScale(numbers[0], numbers[0]), remaining];
+      var result = [new CSSScale(numbers[0], numbers[0]), remaining];
+      result[0]._inputType = '1';
+      return result;
     }
     if (numbers.length == 2) {
-      return [new CSSScale(numbers[0], numbers[1]), remaining];
+      var result = [new CSSScale(numbers[0], numbers[1]), remaining];
+      result[0]._inputType = '2';
+      return result;
     }
     return null;
   }

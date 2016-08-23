@@ -29,13 +29,23 @@
   };
 
   function generateCssString(cssScale) {
-    var cssText;
-    if (cssScale.is2D) {
-      cssText = 'scale(' + cssScale.x + ', ' + cssScale.y + ')';
-    } else {
-      cssText = 'scale3d(' + cssScale.x + ', ' + cssScale.y + ', ' + cssScale.z + ')';
+    switch (cssScale._inputType) {
+      case '1':
+        return 'scale(' + cssScale.x + ')';
+      case '2':
+        return 'scale(' + cssScale.x + ', ' + cssScale.y + ')';
+      case '3':
+        return 'scale3d('
+          + cssScale.x + ', '
+          + cssScale.y + ', '
+          + cssScale.z + ')';
+      case 'x':
+        return 'scalex(' + cssScale.x + ')';
+      case 'y':
+        return 'scaley(' + cssScale.y + ')';
+      case 'z':
+        return 'scalez(' + cssScale.z + ')';
     }
-    return cssText;
   };
 
   function CSSScale(x, y, z) {
@@ -51,11 +61,25 @@
 
     this.x = x;
     this.y = y;
-    this.z = (typeof z == 'number') ? z : null;
+    if (typeof z == 'number') {
+      this.z = z;
+      this._inputType = '3';
+    } else {
+      this.z = null;
+      this._inputType = '2';
+    }
 
     this.matrix = computeMatrix(this);
     this.is2D = this.matrix.is2D;
-    this.cssText = generateCssString(this);
+    Object.defineProperty(this, 'cssText', {
+      get: function() {
+        if (!this._cssText) {
+          this._cssText = generateCssString(this);
+        }
+        return this._cssText;
+      },
+      set: function(newCssText) {}
+    });
   }
   internal.inherit(CSSScale, internal.CSSTransformComponent);
 
