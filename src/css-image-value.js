@@ -6,34 +6,42 @@
     }
     this._image = image;
 
-    var imagesEventsHandler = {
-      onload: function() {
-        this.state = "loaded";
-        this.intrinsicWidth = this._image.naturalWidth;
-        this.intrinsicHeight = this._image.naturalHeight;
-        if (this.intrinsicHeight != 0)
-          this.intrinsicRatio = this.intrinsicWidth / this.intrinsicHeight;
-      },
-      onerror: function() {
-        this.state = "error";
-      },
-      onprogress: function() {
-        this.state = "loading";
-      }
-    };
+
+    function onLoad() {
+      this.state = "loaded";
+      this.intrinsicWidth = this._image.naturalWidth;
+      this.intrinsicHeight = this._image.naturalHeight;
+      if (this.intrinsicHeight != 0)
+        this.intrinsicRatio = this.intrinsicWidth / this.intrinsicHeight;
+    }
+
+    function onError() {
+      this.state = "error";
+    }
+
+    function onProgress() {
+      this.state = "loading";
+    }
 
     this.state = "unloaded";
     this.intrinsicWidth = null;
     this.intrinsicHeight = null;
     this.intrinsicRatio = null;
 
-    this._image.onload = imagesEventsHandler.onload.bind(this);
-    this._image.onprogress = imagesEventsHandler.onprogress.bind(this);
-    this._image.onerror = imagesEventsHandler.onerror.bind(this);
+    this._image.onload = onLoad.bind(this);
+    this._image.onprogress = onProgress.bind(this);
+    this._image.onerror = onError.bind(this);
   }
 
   internal.inherit(CSSImageValue, CSSResourceValue);
 
-  scope.CSSImageValue = CSSImageValue;
+  internal.CSSImageValue = CSSImageValue;
+
+  (function() {
+    function CSSImageValue() {
+      throw new TypeError('Can\'t instantiate CSSImageValue');
+    }
+    scope.CSSImageValue = CSSImageValue;
+  })();
 
 })(typedOM.internal, window);
