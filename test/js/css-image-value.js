@@ -1,4 +1,10 @@
 suite('CSSImageValue', function() {
+  test('CSSImageValue object is a CSSImageValue, CSSResourceValue, and CSSStyleValue', function() {
+    assert.instanceOf(new typedOM.internal.CSSImageValue(new Image()), typedOM.internal.CSSImageValue);
+    assert.instanceOf(new typedOM.internal.CSSImageValue(new Image()), CSSResourceValue);
+    assert.instanceOf(new typedOM.internal.CSSImageValue(new Image()), CSSStyleValue);
+  });
+
   test('CSSImageValue only accepts Image object', function() {
     assert.doesNotThrow(function() { new typedOM.internal.CSSImageValue(new Image()); });
     assert.throw(function() { new typedOM.internal.CSSImageValue(); }, TypeError, "image must be an Image object");
