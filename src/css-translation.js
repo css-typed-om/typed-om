@@ -31,15 +31,23 @@
   };
 
   function generateCssString(cssTranslation) {
-    var cssText;
-    if (cssTranslation.is2D) {
-      cssText = 'translate(' + cssTranslation.x.cssText + ', '
-          + cssTranslation.y.cssText + ')';
-    } else {
-      cssText = 'translate3d(' + cssTranslation.x.cssText + ', '
-          + cssTranslation.y.cssText + ', ' + cssTranslation.z.cssText + ')';
+    switch (cssTranslation._inputType) {
+      case '1':
+        return 'translate(' + cssTranslation.x.cssText + ')';
+      case '2':
+        return 'translate(' + cssTranslation.x.cssText + ', ' + cssTranslation.y.cssText + ')';
+      case '3':
+        return 'translate3d('
+          + cssTranslation.x.cssText + ', '
+          + cssTranslation.y.cssText + ', '
+          + cssTranslation.z.cssText + ')';
+      case 'x':
+        return 'translatex(' + cssTranslation.x.cssText + ')';
+      case 'y':
+        return 'translatey(' + cssTranslation.y.cssText + ')';
+      case 'z':
+        return 'translatez(' + cssTranslation.z.cssText + ')';
     }
-    return cssText;
   };
 
   function CSSTranslation(x, y, z) {
@@ -57,11 +65,26 @@
 
     this.x = new CSSSimpleLength(x);
     this.y = new CSSSimpleLength(y);
-    this.z = (z instanceof CSSSimpleLength) ? new CSSSimpleLength(z) : null;
+    if (z instanceof CSSSimpleLength) {
+      this.z = new CSSSimpleLength(z);
+      this._inputType = '3';
+    } else {
+      this.z = null;
+      this._inputType = '2';
+    }
 
     this.matrix = computeMatrix(this);
     this.is2D = this.matrix.is2D;
-    this.cssText = generateCssString(this);
+
+    Object.defineProperty(this, 'cssText', {
+      get: function() {
+        if (!this._cssText) {
+          this._cssText = generateCssString(this);
+        }
+        return this._cssText;
+      },
+      set: function(newCssText) {}
+    });
   }
   internal.inherit(CSSTranslation, internal.CSSTransformComponent);
 

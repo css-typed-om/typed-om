@@ -19,7 +19,9 @@
       if (coords.length != 3) {
         return null;
       }
-      return [new CSSTranslation(coords[0], coords[1], coords[2]), remaining];
+      var result = [new CSSTranslation(coords[0], coords[1], coords[2]), remaining];
+      result[0]._inputType = '3';
+      return result;
   }
 
   function translateXYorZ(type, coords, remaining) {
@@ -29,11 +31,17 @@
     var zeroLength = new CSSSimpleLength(0, 'px');
     switch (type) {
       case 'x':
-        return [new CSSTranslation(coords[0], zeroLength), remaining];
+        var result = [new CSSTranslation(coords[0], zeroLength), remaining];
+        result[0]._inputType = 'x';
+        return result;
       case 'y':
-        return [new CSSTranslation(zeroLength, coords[0]), remaining];
+        var result = [new CSSTranslation(zeroLength, coords[0]), remaining];
+        result[0]._inputType = 'y';
+        return result;
       case 'z':
-        return [new CSSTranslation(zeroLength, zeroLength, coords[0]), remaining];
+        var result = [new CSSTranslation(zeroLength, zeroLength, coords[0]), remaining];
+        result[0]._inputType = 'z';
+        return result;
     }
     return null;
   }
@@ -71,10 +79,14 @@
 
     // Only translate(x) and translate(x, y) remain.
     if (coords.length == 1) {
-      return [new CSSTranslation(coords[0], new CSSSimpleLength(0, 'px')), remaining];
+      var result = [new CSSTranslation(coords[0], new CSSSimpleLength(0, 'px')), remaining];
+      result[0]._inputType = '1';
+      return result;
     }
     if (coords.length == 2) {
-      return [new CSSTranslation(coords[0], coords[1]), remaining];
+      var result = [new CSSTranslation(coords[0], coords[1]), remaining];
+      result[0]._inputType = '2';
+      return result;
     }
     return null;
   }
