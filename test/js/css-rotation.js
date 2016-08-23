@@ -8,24 +8,28 @@ suite('CSSRotation', function() {
   }
 
   test('CSSRotation is a CSSRotation and CSSTransformComponent', function() {
-    var rotation = new CSSRotation(45);
+    var rotation = new CSSRotation(new CSSAngleValue(3, 'deg'));
     assert.instanceOf(rotation, CSSRotation);
     assert.instanceOf(rotation, typedOM.internal.CSSTransformComponent);
   });
 
   test('CSSRotation constructor throws exception for invalid types', function() {
-    assert.throws(function() {new CSSRotation()});
-    assert.throws(function() {new CSSRotation({})});
-    assert.throws(function() {new CSSRotation(1, 2)});
-    assert.throws(function() {new CSSRotation(1, 2, 3)});
-    assert.throws(function() {new CSSRotation(1, 2, 3, 4, 5)});
-    assert.throws(function() {new CSSRotation('1')});
-    assert.throws(function() {new CSSRotation(null)});
+    var argCountErr = /^CSSRotation must have 1 or 4 arguments\./;
+    assert.throws(function() {new CSSRotation()}, TypeError, argCountErr);
+    assert.throws(function() {new CSSRotation(1, 2)}, TypeError, argCountErr);
+    assert.throws(function() {new CSSRotation(1, 2, 3)}, TypeError, argCountErr);
+    assert.throws(function() {new CSSRotation(1, 2, 3, 4, 5)}, TypeError, argCountErr);
+    var argTypeErr = /^CSSRotation angle argument must be a CSSAngleValue\./;
+    assert.throws(function() {new CSSRotation({})}, TypeError, argTypeErr);
+    assert.throws(function() {new CSSRotation(1)}, TypeError, argTypeErr);
+    assert.throws(function() {new CSSRotation('1')}, TypeError, argTypeErr);
+    assert.throws(function() {new CSSRotation(null)}, TypeError, argTypeErr);
+    assert.throws(function() {new CSSRotation(1, 2, 3, 4)}, TypeError, argTypeErr);
   });
 
   test('CSSRotation constructor works correctly for 1 argument', function() {
     var rotation;
-    assert.doesNotThrow(function() {rotation = new CSSRotation(60)});
+    assert.doesNotThrow(function() {rotation = new CSSRotation(new CSSAngleValue(60, 'deg'))});
     assert.strictEqual(rotation.cssText, 'rotate(60deg)');
     assert.strictEqual(rotation.angle._value, 60);
     assert.strictEqual(rotation.angle._unit, 'deg');
@@ -46,24 +50,7 @@ suite('CSSRotation', function() {
     assert.strictEqual(rotation.angle._unit, 'rad');
   });
 
-  test('CSSRotation constructor works correctly for 4 arguments, number angle', function() {
-    var rotation;
-    assert.doesNotThrow(function() {rotation = new CSSRotation(1, 0.5, -2, 30)});
-    assert.strictEqual(rotation.cssText, 'rotate3d(1, 0.5, -2, 30deg)');
-    assert.strictEqual(rotation.angle._value, 30);
-    assert.strictEqual(rotation.angle._unit, 'deg');
-    assert.strictEqual(rotation.x, 1);
-    assert.strictEqual(rotation.y, 0.5);
-    assert.strictEqual(rotation.z, -2);
-    assert.isFalse(rotation.is2D);
-
-    var expectedMatrix = new DOMMatrixReadonly([0.89154437, -0.42367629, -0.16014688, 0,
-        0.44919526, 0.872405146, 0.19269891, 0, 0.05807100, -0.243736860,
-        0.96810128, 0, 0, 0, 0, 1]);
-    typedOM.internal.testing.matricesApproxEqual(rotation.matrix, expectedMatrix);
-  });
-
-  test('CSSRotation constructor works correctly for 4 arguments, CSSAngleValue angle', function() {
+  test('CSSRotation constructor works correctly for 4 arguments', function() {
     var rotation;
     assert.doesNotThrow(function() {rotation = new CSSRotation(1, 0.5, -2, new CSSAngleValue(0.0833333, 'turn'))});
     assert.strictEqual(rotation.cssText, 'rotate3d(1, 0.5, -2, 0.0833333turn)');
@@ -81,49 +68,34 @@ suite('CSSRotation', function() {
   });
 
   test('CSSRotation matrix with angle 0 is the identity', function() {
-    var rotation2D = new CSSRotation(0);
+    var rotation2D = new CSSRotation(new CSSAngleValue(0, 'deg'));
     var expected2D = new DOMMatrixReadonly([1, 0, 0, 1, 0, 0]);
     typedOM.internal.testing.matricesApproxEqual(rotation2D.matrix, expected2D);
 
-    var rotation3D = new CSSRotation(20, -5, 10, 0);
+    var rotation3D = new CSSRotation(20, -5, 10, new CSSAngleValue(0, 'deg'));
     var expected3D = new DOMMatrixReadonly([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]);
     typedOM.internal.testing.matricesApproxEqual(rotation3D.matrix, expected3D);
   });
 
   test('CSSRotation matrix with x, y, and z all 0 is the identity', function() {
-    var rotation = new CSSRotation(0, 0, 0, 45);
+    var rotation = new CSSRotation(0, 0, 0, new CSSAngleValue(45, 'deg'));
     var expectedMatrix = new DOMMatrixReadonly([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0,
         1]);
     typedOM.internal.testing.matricesApproxEqual(rotation.matrix, expectedMatrix);
   });
 
   test('CSSRotation(angle) equivalent to CSSRotation(0, 0, 1, angle)', function() {
-    var rotation2D = new CSSRotation(30);
-    var rotation3D = new CSSRotation(0, 0, 1, 30);
+    var rotation2D = new CSSRotation(new CSSAngleValue(30, 'deg'));
+    var rotation3D = new CSSRotation(0, 0, 1, new CSSAngleValue(30, 'deg'));
     assert.isTrue(rotation2D.is2D);
     assert.isFalse(rotation3D.is2D);
     typedOM.internal.testing.matricesApproxEqual(rotation3D.matrix, rotation2D.matrix);
   });
 
   test('CSSRotation 3D is normalizing (x, y, z)', function() {
-    var rotation = new CSSRotation(1, -2, 4, 30);
-    var rotationScaled = new CSSRotation(10, -20, 40, 30);
+    var rotation = new CSSRotation(1, -2, 4, new CSSAngleValue(30, 'deg'));
+    var rotationScaled = new CSSRotation(10, -20, 40, new CSSAngleValue(30, 'deg'));
     typedOM.internal.testing.matricesApproxEqual(rotationScaled.matrix, rotation.matrix);
-  });
-
-  test('CSSRotation using CSSAngleValue is equivalent to taking a number for angle for 2D case', function() {
-    var rotationAngleValue = new CSSRotation(new CSSAngleValue(20, 'deg'));
-    var rotationNumberValue = new CSSRotation(20);
-    assert.deepEqual(rotationAngleValue.angle, rotationNumberValue.angle);
-    typedOM.internal.testing.matricesApproxEqual(rotationAngleValue.matrix, rotationNumberValue.matrix);
-  });
-
-  test('CSSRotation using CSSAngleValue is equivalent to taking a number for angle for 3D case', function() {
-    var rotationAngleValue = new CSSRotation(1, 2, 3, new CSSAngleValue(20, 'deg'));
-    var rotationNumberValue = new CSSRotation(1, 2, 3, 20);
-    assert.isFalse(rotationAngleValue.is2D);
-    assert.deepEqual(rotationAngleValue.angle, rotationNumberValue.angle);
-    typedOM.internal.testing.matricesApproxEqual(rotationAngleValue.matrix, rotationNumberValue.matrix);
   });
 
   test('Parsing valid basic strings results in CSSRotation with correct values', function() {
