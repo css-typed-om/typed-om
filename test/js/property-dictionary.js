@@ -58,7 +58,7 @@ suite('PropertyDictionary', function() {
   test('listValueSeparator method should return the string used to separate a list of CSSStyleValue strings' +
       'for a given property', function() {
 
-    assert.strictEqual(cssPropertyDictionary.listValueSeparator('animation-iteration-count'), ', ');
+    assert.strictEqual(cssPropertyDictionary.listValueSeparator('animation-iteration-count'), ',');
   });
 
   test('listValueSeparator method should throw a TypeError if the property entered does not support list values', function() {

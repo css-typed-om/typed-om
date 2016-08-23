@@ -38,7 +38,7 @@
     };
 
     this._listSeparator = {
-      'animation-iteration-count': ', '
+      'animation-iteration-count': ','
     };
   }
 

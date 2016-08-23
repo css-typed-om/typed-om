@@ -155,7 +155,7 @@ suite('CSSStyleValue', function() {
   });
 
   // Skipping until parse is hooked up through methods other than .from
-  test.skip('parse successfully creates an array of CSSStyleValue objects if the cssText is a valid list of values ' +
+  test('parse successfully creates an array of CSSStyleValue objects if the cssText is a valid list of values ' +
     'for a property', function() {
     var keywordValueArray = CSSStyleValue.parse('animation-iteration-count', 'infinite, 4, 5, 7, 9');
     assert.deepEqual(keywordValueArray, [new CSSKeywordValue('infinite'), new CSSNumberValue(4), new CSSNumberValue(5), new CSSNumberValue(7), new CSSNumberValue(9)]);

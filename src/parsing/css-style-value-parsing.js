@@ -59,7 +59,7 @@
     var propertyDictionary = internal.propertyDictionary();
     if (propertyDictionary.isListValuedProperty(property)) {
       var separator = propertyDictionary.listValueSeparator(property);
-      return internal.parsing.consumeRepeated(consumeStyleValue.bind(null, property), separator, string);
+      return internal.parsing.consumeRepeated(consumeStyleValue.bind(null, property), new RegExp('^' + separator), string);
     } else {
       return consumeStyleValue(property, string);
     }
