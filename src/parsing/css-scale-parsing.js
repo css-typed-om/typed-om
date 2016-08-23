@@ -34,6 +34,7 @@
       case 'z':
         return [new CSSScale(1, 1, numbers[0]), remaining];
     }
+    return null;
   }
 
   function consumeScale(string) {

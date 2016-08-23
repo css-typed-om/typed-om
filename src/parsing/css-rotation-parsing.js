@@ -39,6 +39,7 @@
         result[0]._inputType = 'z';
         return result;
     }
+    return null;
   }
 
   function consumeRotation(string) {

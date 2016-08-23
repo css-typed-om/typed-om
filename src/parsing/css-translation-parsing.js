@@ -35,6 +35,7 @@
       case 'z':
         return [new CSSTranslation(zeroLength, zeroLength, coords[0]), remaining];
     }
+    return null;
   }
 
   function consumeTranslation(string) {

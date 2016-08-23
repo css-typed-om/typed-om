@@ -25,49 +25,15 @@
     if (typeof cssText != 'string') {
       throw new TypeError('Must parse a string');
     }
-    if (!internal.propertyDictionary().isSupportedProperty(property)) {
-      // TODO: How do custom properties play into this?
-      throw new TypeError('Can\'t parse an unsupported property.');
+
+    var consumed = internal.parsing.consumeStyleValueOrStyleValueList(property, cssText);
+    if (consumed && !consumed[1]) {
+      // Format is [ parsedThing, remainingString ], in this case
+      // [ styleValueOrStyleValueList, remainingString ]
+      // But there shouldn't be trailing characters.
+      return consumed[0];
     }
-
-    // Currently only supports sequences separated by ', '
-    var valueArray = cssText.toLowerCase().split(', ');
-    var styleValueArray = [];
-    var supportedStyleValues =
-        internal.propertyDictionary().getValidStyleValuesArray(property);
-
-    var styleValueObject = null;
-    var successfulParse = false;
-    for (var i = 0; i < valueArray.length; i++) {
-      var cssTextStyleValue = valueArray[i];
-      cssTextStyleValue = cssTextStyleValue.trim();
-      if (internal.propertyDictionary().isValidKeyword(property, cssTextStyleValue)) {
-        styleValueArray[i] = new CSSKeywordValue(cssTextStyleValue);
-        continue;
-      }
-
-      styleValueObject = null;
-      successfulParse = false;
-      for (var j = 0; j < supportedStyleValues.length; j++) {
-        try {
-          styleValueObject = supportedStyleValues[j].from(cssTextStyleValue);
-        } catch (e) {
-          // Ensures method does not terminate if a CSSStyleValue fom method throws an error
-          continue;
-        }
-        if (styleValueObject != null) {
-          styleValueArray[i] = styleValueObject;
-          successfulParse = true;
-          break;
-        }
-      }
-
-      if (!successfulParse) {
-        throw new TypeError(property +
-          ' has an unsupported CSSStyleValue type or Sequence value separator');
-      }
-    }
-    return styleValueArray;
+    return null;
   };
 
   scope.CSSStyleValue = CSSStyleValue;
