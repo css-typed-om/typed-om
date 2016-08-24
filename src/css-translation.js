@@ -72,7 +72,8 @@
     });
   }
 
-  // These functions (cssTranslationFromTranslate*) are for making CSSTranslations from parsed CSS Strings. These are needed for setting the cssText.
+  // These functions (cssTranslationFromTranslate*) are for making CSSTranslations from parsed CSS
+  // Strings. These are needed for setting the cssText.
   function cssTranslationFromTranslate(coords, string, remaining) {
     if (coords.length == 1) {
       var result = [new CSSTranslation(coords[0], new CSSSimpleLength(0, 'px')), remaining];
