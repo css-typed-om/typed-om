@@ -48,6 +48,7 @@
         return internal.cssTranslationFromTranslateZ(coords, string, remaining);
     }
 
+    // Only translate(s) and translate(x, y) remain.
     return internal.cssTranslationFromTranslate(coords, string, remaining);
   }
 

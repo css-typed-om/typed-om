@@ -32,7 +32,9 @@
 
   function generateCssString(cssTranslation) {
     if (cssTranslation.is2D) {
-      return 'translate(' + cssTranslation.x.cssText + ', ' + cssTranslation.y.cssText + ')';
+      return 'translate('
+        + cssTranslation.x.cssText + ', '
+        + cssTranslation.y.cssText + ')';
     } else {
       return 'translate3d('
         + cssTranslation.x.cssText + ', '
@@ -71,6 +73,7 @@
       set: function(newCssText) {}
     });
   }
+  internal.inherit(CSSTranslation, internal.CSSTransformComponent);
 
   // These functions (cssTranslationFromTranslate*) are for making CSSTranslations from parsed CSS
   // Strings. These are needed for setting the cssText.
@@ -125,7 +128,6 @@
     return result;
   }
 
-  internal.inherit(CSSTranslation, internal.CSSTransformComponent);
   internal.cssTranslationFromTranslate = cssTranslationFromTranslate;
   internal.cssTranslationFromTranslate3d = cssTranslationFromTranslate3d;
   internal.cssTranslationFromTranslateX = cssTranslationFromTranslateX;
