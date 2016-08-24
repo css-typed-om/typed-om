@@ -15,57 +15,6 @@
 (function(internal) {
   var parsing = internal.parsing;
 
-  function translationFromTranslate(coords, string, remaining) {
-    if (coords.length == 1) {
-      var result = [new CSSTranslation(coords[0], new CSSSimpleLength(0, 'px')), remaining];
-      result[0]._cssText = string;
-      return result;
-    }
-    if (coords.length == 2) {
-      var result = [new CSSTranslation(coords[0], coords[1]), remaining];
-      result[0]._cssText = string;
-      return result;
-    }
-    return null;
-  }
-
-  function translationFromTranslate3d(coords, string, remaining) {
-    if (coords.length != 3) {
-      return null;
-    }
-    var result = [new CSSTranslation(coords[0], coords[1], coords[2]), remaining];
-    result[0]._cssText = string;
-    return result;
-  }
-
-  function translationFromTranslateX(coords, string, remaining) {
-    if (coords.length != 1) {
-      return null;
-    }
-    var result = [new CSSTranslation(coords[0], new CSSSimpleLength(0, 'px')), remaining];
-    result[0]._cssText = string;
-    return result;
-  }
-
-  function translationFromTranslateY(coords, string, remaining) {
-    if (coords.length != 1) {
-      return null;
-    }
-    var result = [new CSSTranslation(new CSSSimpleLength(0, 'px'), coords[0]), remaining];
-    result[0]._cssText = string;
-    return result;
-  }
-
-  function translationFromTranslateZ(coords, string, remaining) {
-    if (coords.length != 1) {
-      return null;
-    }
-    var zeroLength = new CSSSimpleLength(0, 'px');
-    var result = [new CSSTranslation(zeroLength, zeroLength, coords[0]), remaining];
-    result[0]._cssText = string;
-    return result;
-  }
-
   function consumeTranslation(string) {
     var params = parsing.consumeList([
         parsing.ignore(parsing.consumeToken.bind(null, /^translate/i)),
@@ -90,16 +39,16 @@
 
     switch (type) {
       case '3d' :
-        return translationFromTranslate3d(coords, string, remaining);
+        return internal.cssTranslationFromTranslate3d(coords, string, remaining);
       case 'x':
-        return translationFromTranslateX(coords, string, remaining);
+        return internal.cssTranslationFromTranslateX(coords, string, remaining);
       case 'y':
-        return translationFromTranslateY(coords, string, remaining);
+        return internal.cssTranslationFromTranslateY(coords, string, remaining);
       case 'z':
-        return translationFromTranslateZ(coords, string, remaining);
+        return internal.cssTranslationFromTranslateZ(coords, string, remaining);
     }
 
-    return translationFromTranslate(coords, string, remaining);
+    return internal.cssTranslationFromTranslate(coords, string, remaining);
   }
 
   internal.parsing.consumeTranslation = consumeTranslation;

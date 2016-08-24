@@ -71,7 +71,65 @@
       set: function(newCssText) {}
     });
   }
+
+  // These functions (cssTranslationFromTranslate*) are for making CSSTranslations from parsed CSS Strings. These are needed for setting the cssText.
+  function cssTranslationFromTranslate(coords, string, remaining) {
+    if (coords.length == 1) {
+      var result = [new CSSTranslation(coords[0], new CSSSimpleLength(0, 'px')), remaining];
+      result[0]._cssText = string;
+      return result;
+    }
+    if (coords.length == 2) {
+      var result = [new CSSTranslation(coords[0], coords[1]), remaining];
+      result[0]._cssText = string;
+      return result;
+    }
+    return null;
+  }
+
+  function cssTranslationFromTranslate3d(coords, string, remaining) {
+    if (coords.length != 3) {
+      return null;
+    }
+    var result = [new CSSTranslation(coords[0], coords[1], coords[2]), remaining];
+    result[0]._cssText = string;
+    return result;
+  }
+
+  function cssTranslationFromTranslateX(coords, string, remaining) {
+    if (coords.length != 1) {
+      return null;
+    }
+    var result = [new CSSTranslation(coords[0], new CSSSimpleLength(0, 'px')), remaining];
+    result[0]._cssText = string;
+    return result;
+  }
+
+  function cssTranslationFromTranslateY(coords, string, remaining) {
+    if (coords.length != 1) {
+      return null;
+    }
+    var result = [new CSSTranslation(new CSSSimpleLength(0, 'px'), coords[0]), remaining];
+    result[0]._cssText = string;
+    return result;
+  }
+
+  function cssTranslationFromTranslateZ(coords, string, remaining) {
+    if (coords.length != 1) {
+      return null;
+    }
+    var zeroLength = new CSSSimpleLength(0, 'px');
+    var result = [new CSSTranslation(zeroLength, zeroLength, coords[0]), remaining];
+    result[0]._cssText = string;
+    return result;
+  }
+
   internal.inherit(CSSTranslation, internal.CSSTransformComponent);
+  internal.cssTranslationFromTranslate = cssTranslationFromTranslate;
+  internal.cssTranslationFromTranslate3d = cssTranslationFromTranslate3d;
+  internal.cssTranslationFromTranslateX = cssTranslationFromTranslateX;
+  internal.cssTranslationFromTranslateY = cssTranslationFromTranslateY;
+  internal.cssTranslationFromTranslateZ = cssTranslationFromTranslateZ;
 
   scope.CSSTranslation = CSSTranslation;
 
