@@ -20,7 +20,7 @@
         return null;
       }
       var result = [new CSSTranslation(coords[0], coords[1], coords[2]), remaining];
-      result[0]._inputType = '3';
+      result[0]._cssText = internal.generateTranslationCssString(result[0], internal.parsing.inputStringType._3D);
       return result;
   }
 
@@ -32,15 +32,15 @@
     switch (type) {
       case 'x':
         var result = [new CSSTranslation(coords[0], zeroLength), remaining];
-        result[0]._inputType = 'x';
+        result[0]._cssText = internal.generateTranslationCssString(result[0], internal.parsing.inputStringType._X);
         return result;
       case 'y':
         var result = [new CSSTranslation(zeroLength, coords[0]), remaining];
-        result[0]._inputType = 'y';
+        result[0]._cssText = internal.generateTranslationCssString(result[0], internal.parsing.inputStringType._Y);
         return result;
       case 'z':
         var result = [new CSSTranslation(zeroLength, zeroLength, coords[0]), remaining];
-        result[0]._inputType = 'z';
+        result[0]._cssText = internal.generateTranslationCssString(result[0], internal.parsing.inputStringType._Z);
         return result;
     }
     return null;
@@ -80,12 +80,12 @@
     // Only translate(x) and translate(x, y) remain.
     if (coords.length == 1) {
       var result = [new CSSTranslation(coords[0], new CSSSimpleLength(0, 'px')), remaining];
-      result[0]._inputType = '1';
+      result[0]._cssText = internal.generateTranslationCssString(result[0], internal.parsing.inputStringType._1D);
       return result;
     }
     if (coords.length == 2) {
       var result = [new CSSTranslation(coords[0], coords[1]), remaining];
-      result[0]._inputType = '2';
+      result[0]._cssText = internal.generateTranslationCssString(result[0], internal.parsing.inputStringType._2D);
       return result;
     }
     return null;

@@ -14,6 +14,15 @@
 
 (function(internal) {
 
+  var inputStringType = {
+    _1D: '1D',
+    _2D: '2D',
+    _3D: '3D',
+    _X: 'X',
+    _Y: 'Y',
+    _Z: 'Z',
+  };
+
   // Extra backslashes because otherwise JS interprets them incorrectly.
   var numberValueRegexStr = '[-+]?(\\d*\\.)?\\d+(e[-+]?\\d+)?';
 
@@ -146,4 +155,5 @@
   internal.parsing.consumeRepeated = consumeRepeated;
   internal.parsing.consumeList = consumeList;
   internal.parsing.consumeParenthesised = consumeParenthesised;
+  internal.parsing.inputStringType = inputStringType;
 })(typedOM.internal);

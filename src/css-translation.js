@@ -30,22 +30,24 @@
     return matrix;
   };
 
-  function generateCssString(cssTranslation) {
-    switch (cssTranslation._inputType) {
-      case '1':
+  function generateTranslationCssString(cssTranslation, inputType) {
+    switch (inputType) {
+      case internal.parsing.inputStringType._1D:
+        console.log('1D');
         return 'translate(' + cssTranslation.x.cssText + ')';
-      case '2':
+      case internal.parsing.inputStringType._2D:
+        console.log('2D');
         return 'translate(' + cssTranslation.x.cssText + ', ' + cssTranslation.y.cssText + ')';
-      case '3':
+      case internal.parsing.inputStringType._3D:
         return 'translate3d('
           + cssTranslation.x.cssText + ', '
           + cssTranslation.y.cssText + ', '
           + cssTranslation.z.cssText + ')';
-      case 'x':
+      case internal.parsing.inputStringType._X:
         return 'translatex(' + cssTranslation.x.cssText + ')';
-      case 'y':
+      case internal.parsing.inputStringType._Y:
         return 'translatey(' + cssTranslation.y.cssText + ')';
-      case 'z':
+      case internal.parsing.inputStringType._Z:
         return 'translatez(' + cssTranslation.z.cssText + ')';
     }
   };
@@ -67,10 +69,10 @@
     this.y = new CSSSimpleLength(y);
     if (z instanceof CSSSimpleLength) {
       this.z = new CSSSimpleLength(z);
-      this._inputType = '3';
+      // this._inputType = '3';
     } else {
       this.z = null;
-      this._inputType = '2';
+      // this._inputType = '2';
     }
 
     this.matrix = computeMatrix(this);
@@ -79,7 +81,8 @@
     Object.defineProperty(this, 'cssText', {
       get: function() {
         if (!this._cssText) {
-          this._cssText = generateCssString(this);
+          console.log('set cssText' + this);
+          this._cssText = this.is2D ? generateTranslationCssString(this, internal.parsing.inputStringType._2D) : generateTranslationCssString(this, internal.parsing.inputStringType._3D);
         }
         return this._cssText;
       },
@@ -87,6 +90,7 @@
     });
   }
   internal.inherit(CSSTranslation, internal.CSSTransformComponent);
+  internal.generateTranslationCssString = generateTranslationCssString;
 
   scope.CSSTranslation = CSSTranslation;
 
