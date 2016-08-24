@@ -33,20 +33,13 @@ suite('CSSTokenStreamValue', function() {
     var tokenStreamValue = new CSSTokenStreamValue(values);
 
     // One by one
-    var entries = [];
-    var iterator = tokenStreamValue.entries();
-    var entry = iterator.next();
-    while (!entry.done) {
-      entries.push(entry.value);
-      entry = iterator.next();
-    }
-    assert.deepEqual(entries, expectedEntries);
+    assert.deepEqual(
+        iteratorExpansionUsingNext(tokenStreamValue.entries()),
+        expectedEntries);
     // for..of
-    var forOfEntries = [];
-    for (let value of tokenStreamValue.entries()) {
-      forOfEntries.push(value);
-    }
-    assert.deepEqual(forOfEntries, expectedEntries);
+    assert.deepEqual(
+        iteratorExpansionUsingForOf(tokenStreamValue.entries()),
+        expectedEntries);
     // Spread operator
     assert.deepEqual([...tokenStreamValue.entries()], expectedEntries);
   });
@@ -57,20 +50,13 @@ suite('CSSTokenStreamValue', function() {
     var tokenStreamValue = new CSSTokenStreamValue(values);
 
     // One by one
-    var keys = [];
-    var iterator = tokenStreamValue.keys();
-    var entry = iterator.next();
-    while (!entry.done) {
-      keys.push(entry.value);
-      entry = iterator.next();
-    }
-    assert.deepEqual(keys, expectedKeys);
+    assert.deepEqual(
+        iteratorExpansionUsingNext(tokenStreamValue.keys()),
+        expectedKeys);
     // for..of
-    var forOfKeys = [];
-    for (let value of tokenStreamValue.keys()) {
-      forOfKeys.push(value);
-    }
-    assert.deepEqual(forOfKeys, expectedKeys);
+    assert.deepEqual(
+        iteratorExpansionUsingForOf(tokenStreamValue.keys()),
+        expectedKeys);
     // Spread operator
     assert.deepEqual([...tokenStreamValue.keys()], expectedKeys);
   });
@@ -79,20 +65,13 @@ suite('CSSTokenStreamValue', function() {
     var inputValues = ['test', new CSSVariableReferenceValue('var', new CSSTokenStreamValue(['1']))];
     var tokenStreamValue = new CSSTokenStreamValue(inputValues);
     // One by one
-    var values = [];
-    var iterator = tokenStreamValue.values();
-    var entry = iterator.next();
-    while (!entry.done) {
-      values.push(entry.value);
-      entry = iterator.next();
-    }
-    assert.deepEqual(values, inputValues);
+    assert.deepEqual(
+        iteratorExpansionUsingNext(tokenStreamValue.values()),
+        inputValues);
     // for..of
-    var forOfValues = [];
-    for (let value of tokenStreamValue.values()) {
-      forOfValues.push(value);
-    }
-    assert.deepEqual(forOfValues, inputValues);
+    assert.deepEqual(
+        iteratorExpansionUsingForOf(tokenStreamValue.values()),
+        inputValues);
     // Spread operator
     assert.deepEqual([...tokenStreamValue.values()], inputValues);
   });

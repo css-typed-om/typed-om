@@ -97,6 +97,7 @@
       'test/js/inline-style-property-map.js',
       'test/js/parsing.js',
       'test/js/property-dictionary.js',
+      'test/js/test-util.js',
   ];
 
   // This object specifies the source and test files for different build targets.

@@ -50,8 +50,7 @@ suite('Computed StylePropertyMap', function() {
     assert.deepEqual(inlineStyleMap.getProperties(), ['opacity', 'height', 'border-top-color', 'border-top-width']);
   });
 
-  // Test disabled until parsing is hooked up via methods other than .from.
-  test.skip('getAll method returns an array containing the sequence of CSSStyleValues set on a property', function() {
+  test('getAll method returns an array containing the sequence of CSSStyleValues set on a property', function() {
     var inlineStyleMap = this.element.styleMap();
     var computedStyleMap = getComputedStyleMap(this.element);
     var valueArray = [new CSSNumberValue(4), new CSSNumberValue(5), new CSSKeywordValue('infinite')];
@@ -63,8 +62,7 @@ suite('Computed StylePropertyMap', function() {
     assert.strictEqual(computedValues[2].cssText, 'infinite');
   });
 
-  // Test disabled until parsing is hooked up via methods other than .from.
-  test.skip('getAll method returns an array of size 1 if only a single CSSStyleValue is set on a property', function() {
+  test('getAll method returns an array of size 1 if only a single CSSStyleValue is set on a property', function() {
     var computedStyleMap = getComputedStyleMap(this.element);
     var computedValues = computedStyleMap.getAll('opacity');
 
