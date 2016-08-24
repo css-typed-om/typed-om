@@ -86,14 +86,14 @@ suite('CSSTranslation', function() {
 
   test('Parsing valid basic strings results in CSSTranslation with correct values', function() {
     var values = [
-      {str: 'translate(10PX)', x: 10, y: 0, cssText: 'translate(10px)', remaining: ''},
-      {str: 'translate(10px) YAY', x: 10, y: 0, cssText: 'translate(10px)', remaining: 'YAY'},
-      {str: 'translate(-13px)', x: -13, y: 0, cssText: 'translate(-13px)', remaining: ''},
-      {str: 'TrAnSlAtE(14px)', x: 14, y: 0, cssText: 'translate(14px)', remaining: ''},
-      {str: 'translate(11px, 12px)', x: 11, y: 12, cssText: 'translate(11px, 12px)', remaining: ''},
-      {str: 'translate(11px, 12px)YAY', x: 11, y: 12, cssText: 'translate(11px, 12px)', remaining: 'YAY'},
-      {str: 'translate(-13px, -14px)', x: -13, y: -14, cssText: 'translate(-13px, -14px)', remaining: ''},
-      {str: 'TrAnSlAtE(15px, 16px)', x: 15, y: 16, cssText: 'translate(15px, 16px)', remaining: ''},
+      {str: 'translate(10PX)', x: 10, y: 0, remaining: ''},
+      {str: 'translate(10px) YAY', x: 10, y: 0, remaining: 'YAY'},
+      {str: 'translate(-13px)', x: -13, y: 0, remaining: ''},
+      {str: 'TrAnSlAtE(14px)', x: 14, y: 0, remaining: ''},
+      {str: 'translate(11px, 12px)', x: 11, y: 12, remaining: ''},
+      {str: 'translate(11px, 12px)YAY', x: 11, y: 12, remaining: 'YAY'},
+      {str: 'translate(-13px, -14px)', x: -13, y: -14, remaining: ''},
+      {str: 'TrAnSlAtE(15px, 16px)', x: 15, y: 16, remaining: ''},
     ];
     for (var i = 0; i < values.length; i++) {
       var parsed = typedOM.internal.parsing.consumeTranslation(values[i].str);
@@ -106,19 +106,19 @@ suite('CSSTranslation', function() {
       assert.strictEqual(parsed[0].x.type, 'px');
       assert.strictEqual(parsed[0].y.type, 'px');
       assert.strictEqual(parsed[0].z, null);
-      assert.strictEqual(parsed[0].cssText, values[i].cssText);
+      assert.strictEqual(parsed[0].cssText, values[i].str);
     }
   });
 
   test('Parsing valid 3d translation strings results in CSSTranslation with correct values', function() {
     var values = [
-      {str: 'translate3D(10PX, 11px, 12PX)', x: 10, y: 11, z: 12, cssText: 'translate3d(10px, 11px, 12px)', remaining: ''},
-      {str: 'translate3d(-13px, -14px, 15px)', x: -13, y: -14, z: 15, cssText: 'translate3d(-13px, -14px, 15px)', remaining: ''},
-      {str: 'TrAnSlAtE3d(16px, 17px, 18px)', x: 16, y: 17, z: 18, cssText: 'translate3d(16px, 17px, 18px)', remaining: ''},
-      {str: 'translate3d(16px, 17px, 18px)123', x: 16, y: 17, z: 18, cssText: 'translate3d(16px, 17px, 18px)', remaining: '123'},
-      {str: 'translatez(19PX)', x: 0, y: 0, z: 19, cssText: 'translatez(19px)', remaining: ''},
-      {str: 'translateZ(20px)', x: 0, y: 0, z: 20, cssText: 'translatez(20px)', remaining: ''},
-      {str: 'translateZ(20px) a1b2', x: 0, y: 0, z: 20, cssText: 'translatez(20px)', remaining: 'a1b2'},
+      {str: 'translate3D(10PX, 11px, 12PX)', x: 10, y: 11, z: 12, remaining: ''},
+      {str: 'translate3d(-13px, -14px, 15px)', x: -13, y: -14, z: 15, remaining: ''},
+      {str: 'TrAnSlAtE3d(16px, 17px, 18px)', x: 16, y: 17, z: 18, remaining: ''},
+      {str: 'translate3d(16px, 17px, 18px)123', x: 16, y: 17, z: 18, remaining: '123'},
+      {str: 'translatez(19PX)', x: 0, y: 0, z: 19, remaining: ''},
+      {str: 'translateZ(20px)', x: 0, y: 0, z: 20, remaining: ''},
+      {str: 'translateZ(20px) a1b2', x: 0, y: 0, z: 20, remaining: 'a1b2'},
     ];
     for (var i = 0; i < values.length; i++) {
       var parsed = typedOM.internal.parsing.consumeTranslation(values[i].str);
@@ -132,18 +132,18 @@ suite('CSSTranslation', function() {
       assert.strictEqual(parsed[0].x.type, 'px');
       assert.strictEqual(parsed[0].y.type, 'px');
       assert.strictEqual(parsed[0].z.type, 'px');
-      assert.strictEqual(parsed[0].cssText, values[i].cssText);
+      assert.strictEqual(parsed[0].cssText, values[i].str);
     }
   });
 
   test('Parsing valid X/Y-specific translation strings results in CSSTranslation with correct values', function() {
     var values = [
-      {str: 'translatex(19px)', x: 19, y: 0, cssText: 'translatex(19px)', remaining: ''},
-      {str: 'translateX(20PX)', x: 20, y: 0, cssText: 'translatex(20px)', remaining: ''},
-      {str: 'TranslateX(20px)bananas', x: 20, y: 0, cssText: 'translatex(20px)', remaining: 'bananas'},
-      {str: 'translatey(21px)', x: 0, y: 21, cssText: 'translatey(21px)', remaining: ''},
-      {str: 'translateY(22PX)', x: 0, y: 22, cssText: 'translatey(22px)', remaining: ''},
-      {str: 'Translatey(22PX) bananas', x: 0, y: 22, cssText: 'translatey(22px)', remaining: 'bananas'},
+      {str: 'translatex(19px)', x: 19, y: 0, remaining: ''},
+      {str: 'translateX(20PX)', x: 20, y: 0, remaining: ''},
+      {str: 'TranslateX(20px)bananas', x: 20, y: 0, remaining: 'bananas'},
+      {str: 'translatey(21px)', x: 0, y: 21, remaining: ''},
+      {str: 'translateY(22PX)', x: 0, y: 22, remaining: ''},
+      {str: 'Translatey(22PX) bananas', x: 0, y: 22, remaining: 'bananas'},
     ];
     for (var i = 0; i < values.length; i++) {
       var parsed = typedOM.internal.parsing.consumeTranslation(values[i].str);
@@ -156,7 +156,7 @@ suite('CSSTranslation', function() {
       assert.strictEqual(parsed[0].x.type, 'px');
       assert.strictEqual(parsed[0].y.type, 'px');
       assert.strictEqual(parsed[0].z, null);
-      assert.strictEqual(parsed[0].cssText, values[i].cssText);
+      assert.strictEqual(parsed[0].cssText, values[i].str);
     }
   });
 

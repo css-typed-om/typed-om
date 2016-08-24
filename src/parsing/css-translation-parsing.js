@@ -15,16 +15,16 @@
 (function(internal) {
   var parsing = internal.parsing;
 
-  function translate3d(coords, remaining) {
+  function translate3d(coords, string, remaining) {
       if (coords.length != 3) {
         return null;
       }
       var result = [new CSSTranslation(coords[0], coords[1], coords[2]), remaining];
-      result[0]._cssText = internal.generateTranslationCssString(result[0], internal.parsing.inputStringType._3D);
+      result[0]._cssText = string;
       return result;
   }
 
-  function translateXYorZ(type, coords, remaining) {
+  function translateXYorZ(type, coords, string, remaining) {
     if (coords.length != 1) {
       return null;
     }
@@ -32,15 +32,15 @@
     switch (type) {
       case 'x':
         var result = [new CSSTranslation(coords[0], zeroLength), remaining];
-        result[0]._cssText = internal.generateTranslationCssString(result[0], internal.parsing.inputStringType._X);
+        result[0]._cssText = string;
         return result;
       case 'y':
         var result = [new CSSTranslation(zeroLength, coords[0]), remaining];
-        result[0]._cssText = internal.generateTranslationCssString(result[0], internal.parsing.inputStringType._Y);
+        result[0]._cssText = string;
         return result;
       case 'z':
         var result = [new CSSTranslation(zeroLength, zeroLength, coords[0]), remaining];
-        result[0]._cssText = internal.generateTranslationCssString(result[0], internal.parsing.inputStringType._Z);
+        result[0]._cssText = string;
         return result;
     }
     return null;
@@ -70,22 +70,22 @@
 
     switch (type) {
       case '3d' :
-        return translate3d(coords, remaining);
+        return translate3d(coords, string, remaining);
       case 'x':
       case 'y':
       case 'z':
-        return translateXYorZ(type, coords, remaining);
+        return translateXYorZ(type, coords, string, remaining);
     }
 
     // Only translate(x) and translate(x, y) remain.
     if (coords.length == 1) {
       var result = [new CSSTranslation(coords[0], new CSSSimpleLength(0, 'px')), remaining];
-      result[0]._cssText = internal.generateTranslationCssString(result[0], internal.parsing.inputStringType._1D);
+      result[0]._cssText = string;
       return result;
     }
     if (coords.length == 2) {
       var result = [new CSSTranslation(coords[0], coords[1]), remaining];
-      result[0]._cssText = internal.generateTranslationCssString(result[0], internal.parsing.inputStringType._2D);
+      result[0]._cssText = string;
       return result;
     }
     return null;
