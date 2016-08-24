@@ -76,11 +76,11 @@
    *   the entries() method.
    */
   function iterator(keys, callback) {
+    var index = 0;
     var result = {
-      _index: 0,
       next: function() {
-        if (this._index < keys.length) {
-          var key = keys[this._index++];
+        if (index < keys.length) {
+          var key = keys[index++];
           return { done: false, value: callback(key) };
         } else {
           return { done: true, value: undefined };
