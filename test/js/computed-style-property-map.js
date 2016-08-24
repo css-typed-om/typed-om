@@ -16,8 +16,7 @@ suite('Computed StylePropertyMap', function() {
   });
 
 
-  // Test disabled until parsing is hooked up via methods other than .from.
-  test.skip('get method returns a CSSNumberValue object if CSS property is set to a number', function() {
+  test('get method returns a CSSNumberValue object if CSS property is set to a number', function() {
     var computedStyleMap = getComputedStyleMap(this.element);
     var propertyStyleValue = computedStyleMap.get('opacity');
 

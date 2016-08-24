@@ -34,7 +34,8 @@
     }
 
     if (internal.propertyDictionary().isSupportedProperty(property)) {
-      return CSSStyleValue.parse(property, propertyString);
+      var result = CSSStyleValue.parse(property, propertyString);
+      return result instanceof Array ? result : [result];
     }
     return [new internal.CSSStyleValue(propertyString)];
   };
