@@ -74,15 +74,15 @@
     if (arguments.length != 1 && arguments.length != 4) {
       throw new TypeError('CSSRotation must have 1 or 4 arguments.');
     }
-    if (arguments.length == 1 && (typeof x != 'number' && !(x instanceof CSSAngleValue))) {
-      throw new TypeError('CSSRotation angle argument must be a number or a CSSAngleValue.');
+    if (arguments.length == 1 && !(x instanceof CSSAngleValue)) {
+      throw new TypeError('CSSRotation angle argument must be a CSSAngleValue.');
     }
     if (arguments.length == 4) {
       if (typeof x != 'number' || typeof y != 'number' || typeof z != 'number') {
         throw new TypeError('x, y and z values must be numbers.');
       }
-      if (typeof angle != 'number' && !(angle instanceof CSSAngleValue)) {
-        throw new TypeError('CSSRotation angle argument must be a number or a CSSAngleValue.');
+      if (!(angle instanceof CSSAngleValue)) {
+        throw new TypeError('CSSRotation angle argument must be a CSSAngleValue.');
       }
     }
 
@@ -91,12 +91,7 @@
     this.y = this.is2D ? null : y;
     this.z = this.is2D ? null : z;
     this._inputType = this.is2D ? '2d' : '3d';
-    var angleValue = this.is2D ? x : angle;
-    if (angleValue instanceof CSSAngleValue) {
-      this.angle = angleValue;
-    } else {
-      this.angle = new CSSAngleValue(angleValue, 'deg');
-    }
+    this.angle = this.is2D ? x : angle;
 
     this.matrix = computeMatrix(this);
     Object.defineProperty(this, 'cssText', {

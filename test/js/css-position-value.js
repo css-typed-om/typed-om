@@ -34,11 +34,11 @@ suite('CSSPositionValue', function() {
     assert.strictEqual(result[0].cssText, input);
   });
 
-  test('Invalid input to parsing returns undefined (and does not throw)', function() {
-    assert.isUndefined(typedOM.internal.parsing.parsePositionValue(''));
-    assert.isUndefined(typedOM.internal.parsing.parsePositionValue('bananas'));
-    assert.isUndefined(typedOM.internal.parsing.parsePositionValue('5px'));
-    assert.isUndefined(typedOM.internal.parsing.parsePositionValue('6px 3'));
-    assert.isUndefined(typedOM.internal.parsing.parsePositionValue('calc(3px - 3em 6px'));
+  test('Invalid input to parsing returns null (and does not throw)', function() {
+    assert.isNull(typedOM.internal.parsing.parsePositionValue(''));
+    assert.isNull(typedOM.internal.parsing.parsePositionValue('bananas'));
+    assert.isNull(typedOM.internal.parsing.parsePositionValue('5px'));
+    assert.isNull(typedOM.internal.parsing.parsePositionValue('6px 3'));
+    assert.isNull(typedOM.internal.parsing.parsePositionValue('calc(3px - 3em 6px'));
   });
 });
