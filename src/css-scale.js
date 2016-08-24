@@ -29,22 +29,15 @@
   };
 
   function generateCssString(cssScale) {
-    switch (cssScale._inputType) {
-      case '1':
-        return 'scale(' + cssScale.x + ')';
-      case '2':
-        return 'scale(' + cssScale.x + ', ' + cssScale.y + ')';
-      case '3':
-        return 'scale3d('
-          + cssScale.x + ', '
-          + cssScale.y + ', '
-          + cssScale.z + ')';
-      case 'x':
-        return 'scalex(' + cssScale.x + ')';
-      case 'y':
-        return 'scaley(' + cssScale.y + ')';
-      case 'z':
-        return 'scalez(' + cssScale.z + ')';
+    if(cssScale.is2D) {
+      return 'scale('
+        + cssScale.x + ', '
+        + cssScale.y + ')';
+    } else {
+      return 'scale3d('
+        + cssScale.x + ', '
+        + cssScale.y + ', '
+        + cssScale.z + ')';
     }
   };
 
@@ -71,6 +64,7 @@
 
     this.matrix = computeMatrix(this);
     this.is2D = this.matrix.is2D;
+
     Object.defineProperty(this, 'cssText', {
       get: function() {
         if (!this._cssText) {
@@ -82,6 +76,64 @@
     });
   }
   internal.inherit(CSSScale, internal.CSSTransformComponent);
+
+  // These functions (cssScaleFromScale*) are for making CSSScales from parsed CSS
+  // Strings. These are needed for setting the cssText.
+  function cssScaleFromScale(numbers, string, remaining) {
+    if (numbers.length == 1) {
+      var result = [new CSSScale(numbers[0], numbers[0]), remaining];
+      result[0]._cssText = string;
+      return result;
+    }
+    if (numbers.length == 2) {
+      var result = [new CSSScale(numbers[0], numbers[1]), remaining];
+      result[0]._cssText = string;
+      return result;
+    }
+    return null;
+  }
+
+  function cssScaleFromScale3d(numbers, string, remaining) {
+    if (numbers.length != 3) {
+      return null;
+    }
+    var result = [new CSSScale(numbers[0], numbers[1], numbers[2]), remaining];
+    result[0].result[0]._cssText = string;;
+    return result;
+  }
+
+  function cssScaleFromScaleX(numbers, string, remaining) {
+    if (numbers.length != 1) {
+      return null;
+    }
+    var result = [new CSSScale(numbers[0], 1), remaining];
+    result[0]._cssText = string;
+    return result;
+  }
+
+  function cssScaleFromScaleY(numbers, string, remaining) {
+    if (numbers.length != 1) {
+      return null;
+    }
+      var result = [new CSSScale(1, numbers[0]), remaining];
+      result[0]._cssText = string;
+      return result;
+  }
+
+  function cssScaleFromScaleZ(numbers, string, remaining) {
+    if (numbers.length != 1) {
+      return null;
+    }
+      var result = [new CSSScale(1, 1, numbers[0]), remaining];
+      result[0]._cssText = string;
+      return result;
+  }
+
+  internal.cssScaleFromScale = cssScaleFromScale;
+  internal.cssScaleFromScale3d = cssScaleFromScale3d;
+  internal.cssScaleFromScaleX = cssScaleFromScaleX;
+  internal.cssScaleFromScaleY = cssScaleFromScaleY;
+  internal.cssScaleFromScaleZ = cssScaleFromScaleZ;
 
   scope.CSSScale = CSSScale;
 

@@ -15,36 +15,6 @@
 (function(internal) {
   var parsing = internal.parsing;
 
-  function scale3d(numbers, remaining) {
-    if (numbers.length != 3) {
-      return null;
-    }
-    var result = [new CSSScale(numbers[0], numbers[1], numbers[2]), remaining];
-    result[0].inputType = '3';
-    return result;
-  }
-
-  function scaleXYorZ(xyOrZ, numbers, remaining) {
-    if (numbers.length != 1) {
-      return null;
-    }
-    switch (xyOrZ) {
-      case 'x':
-        var result = [new CSSScale(numbers[0], 1), remaining];
-        result[0]._inputType = 'x';
-        return result;
-      case 'y':
-        var result = [new CSSScale(1, numbers[0]), remaining];
-        result[0]._inputType = 'y';
-        return result;
-      case 'z':
-        var result = [new CSSScale(1, 1, numbers[0]), remaining];
-        result[0]._inputType = 'z';
-        return result;
-    }
-    return null;
-  }
-
   function consumeScale(string) {
     var params = parsing.consumeList([
         parsing.ignore(parsing.consumeToken.bind(null, /^scale/i)),
@@ -63,25 +33,17 @@
 
     switch (type) {
       case '3d':
-        return scale3d(numbers, remaining);
+        return internal.cssScaleFromScale3D(numbers, string, remaining);
       case 'x':
+        return internal.cssScaleFromScaleX(numbers, string, remaining);
       case 'y':
+        return internal.cssScaleFromScaleY(numbers, string, remaining);
       case 'z':
-        return scaleXYorZ(type, numbers, remaining);
+        return internal.cssScaleFromScaleZ(numbers, string, remaining);
     }
 
     // Only scale(s) and scale(x, y) remain.
-    if (numbers.length == 1) {
-      var result = [new CSSScale(numbers[0], numbers[0]), remaining];
-      result[0]._inputType = '1';
-      return result;
-    }
-    if (numbers.length == 2) {
-      var result = [new CSSScale(numbers[0], numbers[1]), remaining];
-      result[0]._inputType = '2';
-      return result;
-    }
-    return null;
+    return internal.cssScaleFromScale(numbers, string, remaining);
   }
 
   internal.parsing.consumeScale = consumeScale;
