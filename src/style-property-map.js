@@ -61,7 +61,7 @@
     }
 
     var cssAppendString = this._styleObject[property];
-    var valueSeparator = cssPropertyDictionary.getListValueSeparator(property);
+    var valueSeparator = cssPropertyDictionary.listValueSeparator(property);
     for (var i = 0; i < values.length; i++) {
       if (!cssPropertyDictionary.isValidInput(property, values[i])) {
         cssPropertyDictionary.throwInvalidInputError(property, values[i]);

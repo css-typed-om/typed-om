@@ -14,7 +14,7 @@ suite('CSSTransformValue', function() {
     assert.throws(function() {new CSSTransformValue([new CSSNumberValue(5)])});
   });
 
-  test('Empty CSSTransformValue constructor creates an object with ' + 
+  test('Empty CSSTransformValue constructor creates an object with ' +
     'empty cssText, 2D identity matrix', function() {
     var transform = new CSSTransformValue();
     assert.isTrue(transform.is2D);
@@ -74,7 +74,7 @@ suite('CSSTransformValue', function() {
     var transform;
     var matrix2d = new CSSMatrix(new DOMMatrixReadonly([1, 2, 3, 4, 5, 6]));
     var matrix3d = new CSSMatrix(new DOMMatrixReadonly([1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6]));
-    var skew = new CSSSkew(30, 60);
+    var skew = new CSSSkew(new CSSAngleValue(30, 'deg'), new CSSAngleValue(60, 'deg'));
     var scale2d = new CSSScale(2, -1);
     var scale3d = new CSSScale(3, 2, 0.5);
     var values = [matrix2d, scale3d, matrix2d, skew, matrix3d, scale2d];
@@ -103,7 +103,7 @@ suite('CSSTransformValue', function() {
   });
 
   test('Parsing string with multiple components results in CSSTransformValue with correct values', function() {
-    var expectedComponents = [new CSSRotation(20), new CSSPerspective(new CSSSimpleLength(5, 'px'))];
+    var expectedComponents = [new CSSRotation(new CSSAngleValue(20, 'deg')), new CSSPerspective(new CSSSimpleLength(5, 'px'))];
     var result = typedOM.internal.parsing.consumeTransformValue('rotate(20deg) perspective(5px) foo');
     assert.isNotNull(result);
     assert.strictEqual(result[1], 'foo');
