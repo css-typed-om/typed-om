@@ -54,13 +54,7 @@
 
     this.x = x;
     this.y = y;
-    if (typeof z == 'number') {
-      this.z = z;
-      this._inputType = '3';
-    } else {
-      this.z = null;
-      this._inputType = '2';
-    }
+    this.z = (typeof z == 'number') ? z : null;
 
     this.matrix = computeMatrix(this);
     this.is2D = this.matrix.is2D;
@@ -98,7 +92,7 @@
       return null;
     }
     var result = [new CSSScale(numbers[0], numbers[1], numbers[2]), remaining];
-    result[0].result[0]._cssText = string;;
+    result[0]._cssText = string;;
     return result;
   }
 

@@ -33,7 +33,7 @@
 
     switch (type) {
       case '3d':
-        return internal.cssScaleFromScale3D(numbers, string, remaining);
+        return internal.cssScaleFromScale3d(numbers, string, remaining);
       case 'x':
         return internal.cssScaleFromScaleX(numbers, string, remaining);
       case 'y':
