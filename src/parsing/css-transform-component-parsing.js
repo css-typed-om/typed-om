@@ -20,8 +20,9 @@
     'rotate': internal.parsing.consumeRotation,
     'scale': internal.parsing.consumeScale,
     'skew': internal.parsing.consumeSkew,
-    'translate': internal.parsing.consumeTranslate,
+    'translate': internal.parsing.consumeTranslation,
   };
+
 
   function consumeTransformComponent(string) {
     for (var fn in transformFunctions) {

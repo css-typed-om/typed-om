@@ -45,18 +45,12 @@
   function CSSSkew(ax, ay) {
     if (arguments.length != 2) {
       throw new TypeError('CSSSkew must have 2 arguments.');
-    // Arguments must both be CSSAngleValues or both be doubles.
-    } else if (!(ay instanceof CSSAngleValue && ax instanceof CSSAngleValue) && !(typeof ay == 'number' && typeof ax == 'number')) {
-      throw new TypeError('CSSSkew arguments must be all numbers or all CSSAngleValues.');
+    } else if (!(ay instanceof CSSAngleValue && ax instanceof CSSAngleValue)) {
+      throw new TypeError('CSSSkew arguments must be all CSSAngleValues.');
     }
 
-    if (ax instanceof CSSAngleValue) {
-      this.ax = ax;
-      this.ay = ay;
-    } else {
-      this.ax = new CSSAngleValue(ax, 'deg');
-      this.ay = new CSSAngleValue(ay, 'deg');
-    }
+    this.ax = ax;
+    this.ay = ay;
 
     this.matrix = computeMatrix(this);
     this.is2D = this.matrix.is2D;

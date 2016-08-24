@@ -17,7 +17,7 @@
   var unitRegExpStr = 'px|%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc';
 
   function isCalc(string) {
-    return /^calc/.test(string); 
+    return /^calc/i.test(string);
   }
 
   // Returns a calc dictionary.
@@ -69,7 +69,7 @@
     // If we don't end up only with a number tag after reducing, the
     // expression is invalid.
     if (typeCheck != 'D') {
-      return;
+      return null;
     }
 
     for (var unit in matchedUnits) {
@@ -77,7 +77,7 @@
       var result = eval(string.replace(new RegExp('U' + unit, 'g'), '').replace(
             new RegExp(taggedUnitRegExp, 'g'), '*0'));
       if (!isFinite(result)) {
-        return;
+        return null;
       }
       matchedUnits[unit] = result;
     }
@@ -95,7 +95,7 @@
   function consumeSimpleLength(str) {
     var consumedNumber = internal.parsing.consumeNumber(str);
     if (!consumedNumber) {
-      return;
+      return null;
     }
     var unitRegExp = new RegExp('^' + unitRegExpStr, 'gi');
     var consumedUnit = internal.parsing.consumeToken(unitRegExp, consumedNumber[1]);
@@ -103,7 +103,7 @@
       if (consumedNumber[0] == 0) {
         return [new CSSSimpleLength(0, 'px'), consumedNumber[1]];
       }
-      return;
+      return null;
     }
     if (consumedUnit[0] == '%') {
       // Percent is a special case - We require 'percent' instead
@@ -114,16 +114,16 @@
   }
 
   function consumeCalcLength(str) {
-    var consumedCalcToken = internal.parsing.consumeToken(/^calc/, str);
+    var consumedCalcToken = internal.parsing.consumeToken(/^calc/i, str);
     if (!consumedCalcToken) {
-      return;
+      return null;
     }
 
     // Consume until balanced closing parens
     var result = internal.parsing.consumeParenthesised(
         parseDimension, consumedCalcToken[1]);
     if (!result) {
-      return;
+      return null;
     }
 
     return [new CSSCalcLength(result[0]), result[1]];

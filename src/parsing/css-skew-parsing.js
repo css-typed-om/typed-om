@@ -30,6 +30,7 @@
         result[0]._inputType = 'y';
         return result;
     }
+    return null;
   }
 
   function consumeSkew(string) {
