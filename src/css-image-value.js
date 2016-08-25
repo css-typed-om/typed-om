@@ -13,24 +13,31 @@
     if (!(image instanceof Image)) {
       throw new TypeError("image must be an Image object");
     }
-    this._image = image;
-    this.state = "unloaded";
-    this.intrinsicWidth = null;
-    this.intrinsicHeight = null;
-    this.intrinsicRatio = null;
-    this._image.onload = function() {
+
+    function onLoad() {
       this.state = "loaded";
       this.intrinsicWidth = this._image.naturalWidth;
       this.intrinsicHeight = this._image.naturalHeight;
       if (this.intrinsicHeight != 0)
         this.intrinsicRatio = this.intrinsicWidth / this.intrinsicHeight;
     }
-    this._image.onerror = function() {
+
+    function onError() {
       this.state = "error";
     }
-    this._image.onprogess = function() {
+
+    function onProgress() {
       this.state = "loading";
     }
+
+    this._image = image;
+    this.state = "unloaded";
+    this.intrinsicWidth = null;
+    this.intrinsicHeight = null;
+    this.intrinsicRatio = null;
+    this._image.onload = onLoad.bind(this);
+    this._image.onerror = onError.bind(this);
+    this._image.onprogess = onProgress.bind(this);
   }
 
   CSSImageValue.prototype = Object.create(scope.CSSImageValue.prototype);
