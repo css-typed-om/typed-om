@@ -23,7 +23,7 @@
     return numberValueRegex.test(cssText);
   }
 
-  // The consumeX functions all return pairs of    
+  // The consumeX functions all return pairs of
   // [consumed, remainingString] (or undefined, if nothing was consumed).
 
   function ignore(consumerFn) {
@@ -49,6 +49,7 @@
       match[0] = regex.ignoreCase ? match[0].toLowerCase() : match[0];
       return [match[0], string.substr(match[0].length)];
     }
+    return null;
   }
 
   function consumeNumber(string) {
@@ -65,8 +66,8 @@
     if (result) {
       // Remove whitespace from the start of the remainder string too.
       result[1] = result[1].replace(/^\s*/, '');
-      return result;
     }
+    return result;
   }
 
   function consumeRepeated(consumer, separator, string, opt_max) {
@@ -101,7 +102,7 @@
     for (var i = 0; i < list.length; i++) {
       var result = consumeTrimmed(list[i], input);
       if (!result)
-        return;
+        return null;
       if (result[0] !== undefined)
         output.push(result[0]);
       input = result[1];
@@ -109,6 +110,7 @@
     if (output.length) {
       return [output, input];
     }
+    return null;
   }
 
   // Consumes a token or expression with balanced parentheses
@@ -128,7 +130,10 @@
       }
     }
     var parsed = parser(string.substr(0, n));
-    return parsed == undefined ? undefined : [parsed, string.substr(n)];
+    if (parsed) {
+      return [parsed, string.substr(n)];
+    }
+    return null;
   }
 
   internal.parsing.NUMBER_REGEX_STR = numberValueRegexStr;

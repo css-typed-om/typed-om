@@ -20,7 +20,7 @@
 
   // These should be alphabetical order as much as possible.
   var typedOMSrc = [
-      // Utility functions.
+      // Utility functions
       'src/util.js',
       // CSSTransformComponent and subclasses
       'src/css-transform-component.js',
@@ -46,8 +46,9 @@
       'src/css-length-value.js',
       'src/css-simple-length.js',
       'src/css-calc-length.js',
-      'src/css-position-value.js', // Depends on LengthValues.
-      // Other stuff.
+      // Depends on LengthValues
+      'src/css-position-value.js',
+      // Other stuff
       'src/dom-matrix-readonly.js',
       'src/style-property-map-readonly.js',
       'src/style-property-map.js',
@@ -67,6 +68,8 @@
       'src/parsing/css-length-value-parsing.js',
       'src/parsing/css-position-value-parsing.js',
       'src/parsing/css-transform-component-parsing.js',
+      // Depends on both transform component subclasses and length parsing
+      'src/parsing/css-style-value-parsing.js',
   ];
 
   var typedOMTest = [
