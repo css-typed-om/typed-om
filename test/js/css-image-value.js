@@ -25,8 +25,9 @@ suite('CSSImageValue', function() {
     assert.strictEqual(image.intrinsicHeight, null);
     assert.strictEqual(image.intrinsicRatio, null);
     image._image.src = "resources/1x1-green.png";
+    var oldOnload = image._image.onload;
     image._image.onload = function() {
-      image.onLoad();
+      oldOnload.bind(image)();
       assert.strictEqual(image.state, "loaded");
       assert.strictEqual(image.intrinsicWidth, 1);
       assert.strictEqual(image.intrinsicHeight, 1);

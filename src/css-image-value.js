@@ -6,22 +6,6 @@
     }
     internal.inherit(CSSImageValue, CSSResourceValue);
 
-    CSSImageValue.prototype.onLoad = function() {
-      this.state = "loaded";
-      this.intrinsicWidth = this._image.naturalWidth;
-      this.intrinsicHeight = this._image.naturalHeight;
-      if (this.intrinsicHeight != 0)
-        this.intrinsicRatio = this.intrinsicWidth / this.intrinsicHeight;
-    }
-
-    CSSImageValue.prototype.onError = function() {
-      this.state = "error";
-    }
-
-    CSSImageValue.prototype.onProgress = function() {
-      this.state = "loading";
-    }
-
     scope.CSSImageValue = CSSImageValue;
   })();
 
@@ -34,6 +18,19 @@
     this.intrinsicWidth = null;
     this.intrinsicHeight = null;
     this.intrinsicRatio = null;
+    this._image.onload = function() {
+      this.state = "loaded";
+      this.intrinsicWidth = this._image.naturalWidth;
+      this.intrinsicHeight = this._image.naturalHeight;
+      if (this.intrinsicHeight != 0)
+        this.intrinsicRatio = this.intrinsicWidth / this.intrinsicHeight;
+    }
+    this._image.onerror = function() {
+      this.state = "error";
+    }
+    this._image.onprogess = function() {
+      this.state = "loading";
+    }
   }
 
   CSSImageValue.prototype = Object.create(scope.CSSImageValue.prototype);
