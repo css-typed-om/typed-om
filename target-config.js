@@ -41,6 +41,7 @@
       'src/css-image-value.js',
       'src/css-token-stream-value.js',
       'src/css-transform-value.js',
+      'src/css-url-image-value.js',
       'src/css-variable-reference-value.js',
       // CSSLengthValue and subclasses
       'src/css-length-value.js',
@@ -93,6 +94,7 @@
       'test/js/css-transform-component.js',
       'test/js/css-transform-value.js',
       'test/js/css-translation.js',
+      'test/js/css-url-image-value.js',
       'test/js/css-variable-reference-value.js',
       'test/js/computed-style-property-map.js',
       'test/js/dom-matrix-readonly.js',
