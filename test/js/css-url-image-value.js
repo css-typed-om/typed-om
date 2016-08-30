@@ -13,9 +13,10 @@ suite('CSSURLImageValue', function() {
     assert.doesNotThrow(function() { new CSSURLImageValue(''); });
   });
 
-  test('URL, state, and intrinsic dimensions of CSSURLImageValue object are correct', function(done) {
+  test('URL, state, intrinsic dimensions, and cssText of CSSURLImageValue object are correct', function(done) {
     var urlImageValue = new CSSURLImageValue('resources/1x1-green.png');
     assert.equal(urlImageValue.url, "resources/1x1-green.png");
+    assert.equal(urlImageValue.cssText, "url(resources/1x1-green.png)");
 
     var oldOnload = urlImageValue._image.onload;
 
@@ -30,8 +31,9 @@ suite('CSSURLImageValue', function() {
   });
 
   test('Invalid image will have error state and null intrinsic dimensions', function(done) {
-    var urlImageValue = new CSSURLImageValue('http://localhost');
-    assert.equal(urlImageValue.url, 'http://localhost');
+    var urlImageValue = new CSSURLImageValue('resources/nonexisting.png');
+    assert.equal(urlImageValue.url, 'resources/nonexisting.png');
+    assert.equal(urlImageValue.cssText, "url(resources/nonexisting.png)");
 
     var oldOnerror = urlImageValue._image.onerror;
 
