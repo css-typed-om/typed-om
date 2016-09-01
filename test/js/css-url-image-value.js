@@ -1,4 +1,13 @@
 suite('CSSURLImageValue', function() {
+  setup(function() {
+    this.element = document.createElement('div');
+    document.body.appendChild(this.element);
+  });
+
+  teardown(function() {
+    document.body.removeChild(this.element);
+  });
+
   test('CSSURLImageValue is a CSSURLImageValue, CSSImageValue, CSSResourceValue, and CSSStyleValue', function() {
     assert.instanceOf(new CSSURLImageValue('resources/1x1-green.png'), CSSURLImageValue);
     assert.instanceOf(new CSSURLImageValue('resources/1x1-green.png'), CSSImageValue);
@@ -43,6 +52,25 @@ suite('CSSURLImageValue', function() {
       assert.strictEqual(urlImageValue.intrinsicWidth, null);
       assert.strictEqual(urlImageValue.intrinsicHeight, null);
       assert.strictEqual(urlImageValue.intrinsicRatio, null);
+      done();
+    };
+  });
+
+  test('Can set and get correct CSSURLImageValue from StyleMap', function(done) {
+    var inlineStyleMap = this.element.styleMap();
+    inlineStyleMap.set("background-image", new CSSURLImageValue('resources/1x1-green.png'));
+    var urlImageValue = inlineStyleMap.get("background-image");
+    assert.instanceOf(urlImageValue, CSSURLImageValue);
+    assert.equal(urlImageValue.url, "resources/1x1-green.png");
+
+    var oldOnload = urlImageValue._image.onload;
+
+    urlImageValue._image.onload = function() {
+      oldOnload();
+      assert.strictEqual(urlImageValue.state, "loaded");
+      assert.strictEqual(urlImageValue.intrinsicWidth, 1);
+      assert.strictEqual(urlImageValue.intrinsicHeight, 1);
+      assert.strictEqual(urlImageValue.intrinsicRatio, 1);
       done();
     };
   });
