@@ -1,5 +1,5 @@
 suite('CSSVariableReferenceValue', function() {
-  test("The new CSSVariableReferenceValue attributes are correct", function() {
+  test('The new CSSVariableReferenceValue attributes are correct', function() {
     var expectedVariable = 'anything';
     var expectedFallback = new CSSTokenStreamValue(["123"]);
     var referenceValue = new CSSVariableReferenceValue(expectedVariable, expectedFallback);
@@ -18,4 +18,8 @@ suite('CSSVariableReferenceValue', function() {
     assert.throw(function() { new CSSVariableReferenceValue(["1"], 1234); }, TypeError, 'Variable of CSSVariableReferenceValue must be a string');
     assert.throw(function() { new CSSVariableReferenceValue("123", 1234); }, TypeError, 'Fallback of CSSVariableReferenceValue must be a CSSTokenStreamValue');
   });
+
+  test('CSSVariableReferenceValue can have undefined fallback', function() {
+    assert.doesNotThrow(function() { new CSSVariableReferenceValue("--var", undefined); });
+  })
 });
