@@ -97,6 +97,7 @@
   internal.objects.foreach = foreach;
   internal.objects.any = any;
   internal.objects.iterator = iterator;
+  internal.objects.chain = chain;
 
   internal.inherit = inherit;
 })(typedOM.internal);
