@@ -15,10 +15,16 @@
 (function(internal) {
 
   function consumeURLImageValue(string) {
-    // need to remove 'url("' and '")'
-    var temp = string.substring(5);
-    var clean = temp.substr(0, temp.length - 2);
-    return [[new CSSURLImageValue(clean)]];
+    var result = parsing.consumeList([
+      parsing.ignore(parsing.consumeToken.bind(null, /^url\("/i)),
+      parsing.consumeToken.bind(null, /[^"]*"/),
+      parsing.ignore(parsing.consumeToken.bind(null, /^"\)/))
+    ], string);
+    if (!result) {
+      return null;
+    }
+    var leftover = result[1];
+    return [new CSSURLImageValue(result[0]), leftover];
   }
 
   internal.parsing.consumeURLImageValue = consumeURLImageValue;

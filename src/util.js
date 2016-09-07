@@ -80,6 +80,20 @@
     }
   }
 
+  /*
+   * Execute a list of functions
+   * @param {!List} functions: List of functions to call.
+   * @param {Object} opt_this: The value that will appear as 'this' within the
+   *   functions.
+   */
+  function chain(functions, opt_this) {
+    return function() {
+      for (var i = 0; i < functions.length; ++i) {
+        functions[i].call(opt_this);
+      }
+    };
+  }
+
   internal.objects.foreach = foreach;
   internal.objects.any = any;
   internal.objects.iterator = iterator;

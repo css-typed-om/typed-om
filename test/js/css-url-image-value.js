@@ -57,7 +57,7 @@ suite('CSSURLImageValue', function() {
   });
 
   test('Can set and get correct CSSURLImageValue from StyleMap', function(done) {
-    var inlineStyleMap = this.element.styleMap();
+    var inlineStyleMap = this.element.styleMap;
     inlineStyleMap.set("background-image", new CSSURLImageValue('resources/1x1-green.png'));
     var urlImageValue = inlineStyleMap.get("background-image");
     assert.instanceOf(urlImageValue, CSSURLImageValue);
