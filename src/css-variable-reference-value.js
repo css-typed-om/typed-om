@@ -7,7 +7,7 @@
     if (typeof variable != 'string') {
       throw new TypeError('Variable of CSSVariableReferenceValue must be a string');
     }
-    if (!(fallback instanceof CSSTokenStreamValue)) {
+    if ((fallback !== undefined) && !(fallback instanceof CSSTokenStreamValue)) {
       throw new TypeError('Fallback of CSSVariableReferenceValue must be a CSSTokenStreamValue');
     }
     this.variable = variable;
@@ -15,5 +15,5 @@
   }
 
   scope.CSSVariableReferenceValue = CSSVariableReferenceValue;
-    
+
 })(typedOM.internal, window);
