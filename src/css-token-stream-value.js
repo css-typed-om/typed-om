@@ -1,18 +1,7 @@
 (function(internal, scope) {
 
-  function CSSTokenStreamValue(values) {
-    if (values == undefined) {
-      values = [];
-    }
-    if (!Array.isArray(values)) {
-      throw new TypeError('CSSTokenStreamValue should be an array of string or CSSVariableReferenceValue');
-    }
-    for (var i = 0; i < values.length; i++) {
-      if (typeof values[i] != 'string' && !(values[i] instanceof CSSVariableReferenceValue)) {
-        throw new TypeError("CSSTokenStreamValue's elements should be string or CSSVariableReferenceValue");
-      }
-    }
-    this._listOfReferences = values;
+  function CSSTokenStreamValue() {
+    throw new TypeError('CSSTokenStreamValue cannot be instantiated.');
   }
   internal.inherit(CSSTokenStreamValue, CSSStyleValue);
 
@@ -29,5 +18,25 @@
   };
 
   scope.CSSTokenStreamValue = CSSTokenStreamValue;
+
+  (function() {
+    function CSSTokenStreamValue(values) {
+      if (values == undefined) {
+        values = [];
+      }
+      if (!Array.isArray(values)) {
+        throw new TypeError('CSSTokenStreamValue should be an array of string or CSSVariableReferenceValue');
+      }
+      for (var i = 0; i < values.length; i++) {
+        if (typeof values[i] != 'string' && !(values[i] instanceof CSSVariableReferenceValue)) {
+          throw new TypeError("CSSTokenStreamValue's elements should be string or CSSVariableReferenceValue");
+        }
+      }
+      this._listOfReferences = values;
+    }
+    CSSTokenStreamValue.prototype = Object.create(scope.CSSTokenStreamValue.prototype);
+
+    internal.CSSTokenStreamValue = CSSTokenStreamValue;
+  })();
 
 })(typedOM.internal, window);

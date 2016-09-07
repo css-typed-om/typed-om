@@ -132,7 +132,7 @@
   (function() {
     // So we don't have to expose the constructor.
     function CSSLengthValue() {
-      throw new TypeError('Can\'t instantiate CSSLengthValue');
+      throw new TypeError('CSSLengthValue cannot be instantiated.');
     }
     CSSLengthValue.prototype = Object.create(internal.CSSLengthValue.prototype);
 

@@ -36,6 +36,8 @@
     return null;
   };
 
+  scope.CSSStyleValue = CSSStyleValue;
+
   (function() {
     // This is the internal version of CSSStyleValue so we can fake not having a
     // constructor for CSSStyleValues.
@@ -47,9 +49,7 @@
     }
     CSSStyleValue.prototype = Object.create(scope.CSSStyleValue.prototype);
 
-  internal.CSSStyleValue = CSSStyleValue;
+    internal.CSSStyleValue = CSSStyleValue;
   })();
-
-  scope.CSSStyleValue = CSSStyleValue;
 
 })(typedOM.internal, window);

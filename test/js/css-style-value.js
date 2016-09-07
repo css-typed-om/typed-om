@@ -1,4 +1,8 @@
 suite('CSSStyleValue', function() {
+  test('Cannot instantiate base CSSStyleValue', function() {
+    assert.throws(function() { new CSSStyleValue(); });
+  });
+
   test('parse works for keywords', function() {
     var keywordValue  = CSSStyleValue.parse('height', 'auto');
     assert.strictEqual(keywordValue.cssText, 'auto');

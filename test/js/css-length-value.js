@@ -1,4 +1,8 @@
 suite('CSSLengthValue', function() {
+  test('Cannot instantiate CSSLengthValue', function() {
+    assert.throws(function() { new CSSLengthValue(); });
+  });
+
   test('from returns a CSSSimpleLength which is an instance of CSSLengthValue and CSSStyleValue', function() {
     var simpleLength = CSSLengthValue.from(9.2, 'px');
     assert.instanceOf(simpleLength, CSSSimpleLength, 'A new simpleLength should be an instance of CSSSimpleLength');
