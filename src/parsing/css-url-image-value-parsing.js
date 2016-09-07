@@ -15,16 +15,17 @@
 (function(internal) {
 
   function consumeURLImageValue(string) {
+    var parsing = internal.parsing;
+
     var result = parsing.consumeList([
       parsing.ignore(parsing.consumeToken.bind(null, /^url\("/i)),
-      parsing.consumeToken.bind(null, /[^"]*"/),
+      parsing.consumeToken.bind(null, /[^"]*/),
       parsing.ignore(parsing.consumeToken.bind(null, /^"\)/))
     ], string);
     if (!result) {
       return null;
     }
-    var leftover = result[1];
-    return [new CSSURLImageValue(result[0]), leftover];
+    return [[new CSSURLImageValue(result[0][0])], result[1]];
   }
 
   internal.parsing.consumeURLImageValue = consumeURLImageValue;
