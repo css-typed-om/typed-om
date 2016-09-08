@@ -17,6 +17,7 @@
   function PropertyDictionary() {
     this._validProperties = {
       'animation-iteration-count': [CSSNumberValue],
+      'border-image-source': [CSSURLImageValue],
       'border-top-width': [CSSLengthValue],
       'height': [CSSLengthValue],
       'opacity': [CSSNumberValue],
@@ -26,6 +27,7 @@
 
     this._validKeywords = {
       'animation-iteration-count': ['infinite'],
+      'border-image-source': ['auto'],
       'border-top-width': ['inherit'],
       'height': ['auto', 'inherit'],
       'opacity': ['initial', 'inherit'],
