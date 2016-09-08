@@ -17,8 +17,8 @@ suite('CSSUnparsedValue', function() {
 
   test('keys() must be an iterator of an array that stores the indices', function() {
     var values = ['test', '12345', new CSSVariableReferenceValue('var', new CSSUnparsedValue(['1'])), 'a2'];
-    var tokenStreamValues = new CSSUnparsedValue(values);
-    var keys = tokenStreamValues.keys();
+    var unparsedValues = new CSSUnparsedValue(values);
+    var keys = unparsedValues.keys();
     for (var i = 0; i < values.length; i++) {
       var temp = keys.next();
       assert.strictEqual(temp.done, false, '\'done\' should be false');
@@ -31,8 +31,8 @@ suite('CSSUnparsedValue', function() {
 
   test('values() must be an iterator of an array that stores the values', function() {
     var values = ['test', '12345', new CSSVariableReferenceValue('var', new CSSUnparsedValue(['1'])), 'a2'];
-    var tokenStreamValues = new CSSUnparsedValue(values);
-    var streamValues = tokenStreamValues.values();
+    var unparsedValues = new CSSUnparsedValue(values);
+    var streamValues = unparsedValues.values();
     for (var i = 0; i < values.length; i++) {
       var temp = streamValues.next();
       assert.strictEqual(temp.done, false, '\'done\' should be false');
@@ -45,8 +45,8 @@ suite('CSSUnparsedValue', function() {
 
   test('entries() must be an iterator of an array that stores array of [index, value]', function() {
     var values = ['test', '12345', new CSSVariableReferenceValue('var', new CSSUnparsedValue(['1'])), 'a2'];
-    var tokenStreamValues = new CSSUnparsedValue(values);
-    var entries = tokenStreamValues.entries();
+    var unparsedValues = new CSSUnparsedValue(values);
+    var entries = unparsedValues.entries();
     for (var i = 0; i < values.length; i++) {
       var temp = entries.next();
       assert.strictEqual(temp.done, false, '\'done\' should be false');
