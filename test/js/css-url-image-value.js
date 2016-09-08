@@ -64,10 +64,5 @@ suite('CSSURLImageValue', function() {
         done();
       }
     ]);
-
-    // urlImageValue._image.onload = function() {
-    //   oldOnload();
-
-    // };
   });
 });

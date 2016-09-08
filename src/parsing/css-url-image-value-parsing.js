@@ -25,7 +25,7 @@
     if (!result) {
       return null;
     }
-    return [[new CSSURLImageValue(result[0][0])], result[1]];
+    return [new CSSURLImageValue(result[0][0]), result[1]];
   }
 
   internal.parsing.consumeURLImageValue = consumeURLImageValue;
