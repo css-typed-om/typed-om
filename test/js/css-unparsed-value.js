@@ -1,24 +1,24 @@
-suite('CSSTokenStreamValue', function() {
-  test("CSSTokenStreamValue is a CSSTokenStreamValue and CSSStyleValue", function() {
-    assert.instanceOf(new CSSTokenStreamValue(), CSSTokenStreamValue);
-    assert.instanceOf(new CSSTokenStreamValue(), CSSStyleValue);
+suite('CSSUnparsedValue', function() {
+  test("CSSUnparsedValue is a CSSUnparsedValue and CSSStyleValue", function() {
+    assert.instanceOf(new CSSUnparsedValue(), CSSUnparsedValue);
+    assert.instanceOf(new CSSUnparsedValue(), CSSStyleValue);
   });
 
   test('Values not an array throws', function() {
-    assert.throw(function() { new CSSTokenStreamValue(1); }, TypeError, 'CSSTokenStreamValue should be an array of string or CSSVariableReferenceValue');
-    assert.throw(function() { new CSSTokenStreamValue("123"); }, TypeError, 'CSSTokenStreamValue should be an array of string or CSSVariableReferenceValue');
-    assert.throw(function() { new CSSTokenStreamValue({ h:10, w:5, d:4, t:"5" });}, TypeError, 'CSSTokenStreamValue should be an array of string or CSSVariableReferenceValue');
+    assert.throw(function() { new CSSUnparsedValue(1); }, TypeError, 'CSSUnparsedValue should be an array of string or CSSVariableReferenceValue');
+    assert.throw(function() { new CSSUnparsedValue("123"); }, TypeError, 'CSSUnparsedValue should be an array of string or CSSVariableReferenceValue');
+    assert.throw(function() { new CSSUnparsedValue({ h:10, w:5, d:4, t:"5" });}, TypeError, 'CSSUnparsedValue should be an array of string or CSSVariableReferenceValue');
   });
 
   test('Values not an array of string or CSSVariableReferenceValue throws', function() {
-    assert.throw(function() { new CSSTokenStreamValue([1]); }, TypeError, "CSSTokenStreamValue\'s elements should be string or CSSVariableReferenceValue");
-    assert.throw(function() { new CSSTokenStreamValue(["1234", "2342", 1]); }, TypeError, "CSSTokenStreamValue\'s elements should be string or CSSVariableReferenceValue");
+    assert.throw(function() { new CSSUnparsedValue([1]); }, TypeError, "CSSUnparsedValue\'s elements should be string or CSSVariableReferenceValue");
+    assert.throw(function() { new CSSUnparsedValue(["1234", "2342", 1]); }, TypeError, "CSSUnparsedValue\'s elements should be string or CSSVariableReferenceValue");
   });
 
   test('keys() must be an iterator of an array that stores the indices', function() {
-    var values = ['test', '12345', new CSSVariableReferenceValue('var', new CSSTokenStreamValue(['1'])), 'a2'];
-    var tokenStreamValues = new CSSTokenStreamValue(values);
-    var keys = tokenStreamValues.keys();
+    var values = ['test', '12345', new CSSVariableReferenceValue('var', new CSSUnparsedValue(['1'])), 'a2'];
+    var unparsedValues = new CSSUnparsedValue(values);
+    var keys = unparsedValues.keys();
     for (var i = 0; i < values.length; i++) {
       var temp = keys.next();
       assert.strictEqual(temp.done, false, '\'done\' should be false');
@@ -30,9 +30,9 @@ suite('CSSTokenStreamValue', function() {
   });
 
   test('values() must be an iterator of an array that stores the values', function() {
-    var values = ['test', '12345', new CSSVariableReferenceValue('var', new CSSTokenStreamValue(['1'])), 'a2'];
-    var tokenStreamValues = new CSSTokenStreamValue(values);
-    var streamValues = tokenStreamValues.values();
+    var values = ['test', '12345', new CSSVariableReferenceValue('var', new CSSUnparsedValue(['1'])), 'a2'];
+    var unparsedValues = new CSSUnparsedValue(values);
+    var streamValues = unparsedValues.values();
     for (var i = 0; i < values.length; i++) {
       var temp = streamValues.next();
       assert.strictEqual(temp.done, false, '\'done\' should be false');
@@ -44,9 +44,9 @@ suite('CSSTokenStreamValue', function() {
   });
 
   test('entries() must be an iterator of an array that stores array of [index, value]', function() {
-    var values = ['test', '12345', new CSSVariableReferenceValue('var', new CSSTokenStreamValue(['1'])), 'a2'];
-    var tokenStreamValues = new CSSTokenStreamValue(values);
-    var entries = tokenStreamValues.entries();
+    var values = ['test', '12345', new CSSVariableReferenceValue('var', new CSSUnparsedValue(['1'])), 'a2'];
+    var unparsedValues = new CSSUnparsedValue(values);
+    var entries = unparsedValues.entries();
     for (var i = 0; i < values.length; i++) {
       var temp = entries.next();
       assert.strictEqual(temp.done, false, '\'done\' should be false');
