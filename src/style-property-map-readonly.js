@@ -35,7 +35,7 @@
 
     if (internal.propertyDictionary().isSupportedProperty(property)) {
       var result = CSSStyleValue.parse(property, propertyString);
-      return result instanceof Array ? result : [result];
+      return Array.isArray(result) ? result : [result];
     }
     return [new internal.CSSStyleValue(propertyString)];
   };
