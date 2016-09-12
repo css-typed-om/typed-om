@@ -180,20 +180,11 @@ suite('Inline StylePropertyMap', function() {
 
   test('Using iterator operations on entries() gets correct values', function() {
     // One by one
-    var entries = [];
-    var iterator = this.element.styleMap().entries();
-    var entry = iterator.next();
-    while (!entry.done) {
-      entries.push(entry.value);
-      entry = iterator.next();
-    }
-    validateIsDefaultEntries(entries);
+    validateIsDefaultEntries(
+        iteratorExpansionUsingNext(this.element.styleMap().entries()));
     // for..of
-    var forOfEntries = [];
-    for (let value of this.element.styleMap().entries()) {
-      forOfEntries.push(value);
-    }
-    validateIsDefaultEntries(forOfEntries);
+    validateIsDefaultEntries(
+        iteratorExpansionUsingForOf(this.element.styleMap().entries()));
     // Spread operator
     validateIsDefaultEntries([...this.element.styleMap().entries()]);
   });
@@ -204,20 +195,12 @@ suite('Inline StylePropertyMap', function() {
       assert.strictEqual(arr[0], 'opacity');
     }
     // One by one
-    var keys = [];
-    var iterator = this.element.styleMap().keys();
-    var entry = iterator.next();
-    while (!entry.done) {
-      keys.push(entry.value);
-      entry = iterator.next();
-    }
-    validateKeys(keys);
+    validateKeys(
+        iteratorExpansionUsingNext(this.element.styleMap().keys()));
     // for..of
     var forOfKeys = [];
-    for (let value of this.element.styleMap().keys()) {
-      forOfKeys.push(value);
-    }
-    validateKeys(forOfKeys);
+    validateKeys(
+        iteratorExpansionUsingForOf(this.element.styleMap().keys()));
     // Spread operator
     validateKeys([...this.element.styleMap().keys()]);
   });
@@ -229,20 +212,11 @@ suite('Inline StylePropertyMap', function() {
       assert.strictEqual(arr[0].value, 0.5);
     }
     // One by one
-    var values = [];
-    var iterator = this.element.styleMap().values();
-    var entry = iterator.next();
-    while (!entry.done) {
-      values.push(entry.value);
-      entry = iterator.next();
-    }
-    validateValues(values);
+    validateValues(
+        iteratorExpansionUsingNext(this.element.styleMap().values()));
     // for..of
-    var forOfValues = [];
-    for (let value of this.element.styleMap().values()) {
-      forOfValues.push(value);
-    }
-    validateValues(forOfValues);
+    validateValues(
+        iteratorExpansionUsingForOf(this.element.styleMap().values()));
     // Spread operator
     validateValues([...this.element.styleMap().values()]);
   });

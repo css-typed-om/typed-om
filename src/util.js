@@ -76,16 +76,17 @@
    *   the entries() method.
    */
   function iterator(keys, callback) {
-    var result = {
-      _index: 0,
-      next: function() {
-        if (this._index < keys.length) {
-          var key = keys[this._index++];
-          return { done: false, value: callback(key) };
-        } else {
-          return { done: true, value: undefined };
-        }
+    var index = 0;
+    function _next() {
+      if (index < keys.length) {
+        var key = keys[index++];
+        return { done: false, value: callback(key) };
+      } else {
+        return { done: true, value: undefined };
       }
+    }
+    var result = {
+      next: _next,
     };
     result[Symbol.iterator] = function() { return result; };
     return result;
@@ -106,10 +107,25 @@
     return iterator([...Array(length).keys()], callback);
   }
 
+  /*
+   * Execute a list of functions
+   * @param {!List} functions: List of functions to call.
+   * @param {Object} opt_this: The value that will appear as 'this' within the
+   *   functions.
+   */
+  function chain(functions, opt_this) {
+    return function() {
+      for (var i = 0; i < functions.length; ++i) {
+        functions[i].call(opt_this);
+      }
+    };
+  }
+
   internal.objects.foreach = foreach;
   internal.objects.any = any;
   internal.objects.iterator = iterator;
   internal.objects.arrayIterator = arrayIterator;
   internal.inherit = inherit;
+  internal.objects.chain = chain;
 
 })(typedOM.internal);
