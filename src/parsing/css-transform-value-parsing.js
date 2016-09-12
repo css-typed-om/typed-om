@@ -24,7 +24,7 @@
       }
       components.push(result[0]);
       string = result[1];
-    } 
+    }
     if (!components.length) {
       return null;
     }

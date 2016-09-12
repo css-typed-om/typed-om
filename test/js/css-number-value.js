@@ -33,7 +33,7 @@ suite('CSSNumberValue', function() {
       { str: '10e3', num: 10000, remaining: '' },
       { str: '-3.4e-2', num: -0.034, remaining: '' },
       { str: '3px', num: 3, remaining: 'px' },
-      { str: '1e-.0', num: 1, remaining: 'e-.0' }, 
+      { str: '1e-.0', num: 1, remaining: 'e-.0' },
     ];
     for (var i = 0; i < values.length; i++) {
       var result = typedOM.internal.parsing.consumeNumberValue(values[i].str);
