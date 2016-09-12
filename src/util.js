@@ -77,15 +77,16 @@
    */
   function iterator(keys, callback) {
     var index = 0;
-    var result = {
-      next: function() {
-        if (index < keys.length) {
-          var key = keys[index++];
-          return { done: false, value: callback(key) };
-        } else {
-          return { done: true, value: undefined };
-        }
+    function _next() {
+      if (index < keys.length) {
+        var key = keys[index++];
+        return { done: false, value: callback(key) };
+      } else {
+        return { done: true, value: undefined };
       }
+    }
+    var result = {
+      next: _next,
     };
     result[Symbol.iterator] = function() { return result; };
     return result;
