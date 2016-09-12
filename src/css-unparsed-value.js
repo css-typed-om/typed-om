@@ -16,16 +16,32 @@
   }
   internal.inherit(CSSUnparsedValue, CSSStyleValue);
 
-  CSSUnparsedValue.prototype.keys = function() {
-    return internal.objects.iterator(this._listOfReferences, function(key, value) { return key; });
-  };
-
-  CSSUnparsedValue.prototype.values = function() {
-    return internal.objects.iterator(this._listOfReferences, function(key, value) { return value; });
+  CSSUnparsedValue.prototype[Symbol.iterator] = function() {
+    return this.entries();
   };
 
   CSSUnparsedValue.prototype.entries = function() {
-    return internal.objects.iterator(this._listOfReferences, function(key, value) { return [key, value]; });
+    function entriesCallback(index) {
+      return [index, this._listOfReferences[index]];
+    }
+    return internal.objects.arrayIterator(
+        this._listOfReferences.length,
+        entriesCallback.bind(this));
+  };
+
+  CSSUnparsedValue.prototype.keys = function() {
+    return internal.objects.arrayIterator(
+        this._listOfReferences.length,
+        function(index) { return index; });
+  };
+
+  CSSUnparsedValue.prototype.values = function() {
+    function valuesCallback(index) {
+      return this._listOfReferences[index];
+    }
+    return internal.objects.arrayIterator(
+        this._listOfReferences.length,
+        valuesCallback.bind(this));
   };
 
   scope.CSSUnparsedValue = CSSUnparsedValue;
