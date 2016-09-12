@@ -20,6 +20,8 @@
 
   // These should be alphabetical order as much as possible.
   var typedOMSrc = [
+      // Polyfills for missing browser features
+      'src/polyfills.js',
       // Utility functions
       'src/util.js',
       // CSSTransformComponent and subclasses
@@ -99,6 +101,7 @@
       'test/js/css-variable-reference-value.js',
       'test/js/computed-style-property-map.js',
       'test/js/dom-matrix-readonly.js',
+      'test/js/escape.js',
       'test/js/inline-style-property-map.js',
       'test/js/parsing.js',
       'test/js/property-dictionary.js',
