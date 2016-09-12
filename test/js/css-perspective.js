@@ -41,8 +41,8 @@ suite('CSSPerspective', function() {
 
   test('Parsing valid strings results in correct values', function() {
     var values = [
-      {str: 'perspective(2.6px)', l: new CSSSimpleLength(2.6, 'px'), remaining: ''}, 
-      {str: 'PERSPECTIVE(2.6PX) bananas', l: new CSSSimpleLength(2.6, 'px'), remaining: 'bananas'}, 
+      {str: 'perspective(2.6px)', l: new CSSSimpleLength(2.6, 'px'), remaining: ''},
+      {str: 'PERSPECTIVE(2.6PX) bananas', l: new CSSSimpleLength(2.6, 'px'), remaining: 'bananas'},
     ]
     for (var i = 0; i < values.length; i++) {
       var parsed = typedOM.internal.parsing.consumePerspective(values[i].str);

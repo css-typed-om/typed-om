@@ -161,7 +161,7 @@ suite('CSSCalcLength', function() {
     assert.isTrue(calcLength1.equals(calcLength2));
   });
 
-  test('equals method should return false when one CSSCalcLength has additional length types with non null values' + 
+  test('equals method should return false when one CSSCalcLength has additional length types with non null values' +
       'even if all other types are equivalent', function() {
     var calcLength1 = new CSSCalcLength({px: 25, em: 3.2, percent: 5});
     var calcLength2 = new CSSCalcLength({px: 25, em: 3.2});
