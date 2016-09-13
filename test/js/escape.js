@@ -16,9 +16,8 @@ suite('CSS.escape polyfill', function() {
   var escape = typedOM.internal.escape;
 
   test('Test invalid usage', function() {
-    assert.throws(function() {
-      CSS.escape();
-    }, TypeError);
+    assert.throws(function() { CSS.escape(); }, TypeError,
+        /^Failed to execute 'escape' on 'CSS': 1 argument required, but only 0 present\.$/);
     assert.equal('null', CSS.escape(null));
     assert.equal('\\[object\\ Object\\]', CSS.escape({}));
   });
