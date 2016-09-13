@@ -39,21 +39,24 @@ test('CSSAngleValue constructor works for valid arguments', function() {
 });
 
 test('Wrong number of arguments throws', function() {
-  assert.throw(function() { new CSSAngleValue(); }, TypeError, 'Must specify an angle and a unit');
-  assert.throw(function() { new CSSAngleValue(5); }, TypeError, 'Must specify an angle and a unit');
-  assert.throw(function() { new CSSAngleValue(5, 5, 5); }, TypeError, 'Must specify an angle and a unit');
+  var specifyErr = /^Must specify an angle and a unit$/;
+  assert.throws(function() { new CSSAngleValue(); }, TypeError, specifyErr);
+  assert.throws(function() { new CSSAngleValue(5); }, TypeError, specifyErr);
+  assert.throws(function() { new CSSAngleValue(5, 5, 5); }, TypeError, specifyErr);
 });
 
 test('Value not a number throws', function() {
-  assert.throw(function() { new CSSAngleValue('foo', 'deg'); }, TypeError, 'Value must be a number');
-  assert.throw(function() { new CSSAngleValue({}, 'deg'); }, TypeError, 'Value must be a number');
-  assert.throw(function() { new CSSAngleValue(undefined, 'deg'); }, TypeError, 'Value must be a number');
+  var numberErr = /^Value must be a number$/;
+  assert.throws(function() { new CSSAngleValue('foo', 'deg'); }, TypeError, numberErr);
+  assert.throws(function() { new CSSAngleValue({}, 'deg'); }, TypeError, numberErr);
+  assert.throws(function() { new CSSAngleValue(undefined, 'deg'); }, TypeError, numberErr);
 });
 
 test('Invalid unit throws', function() {
-  assert.throw(function() { new CSSAngleValue(5, 'asdfa'); }, TypeError, 'Invalid unit type');
-  assert.throw(function() { new CSSAngleValue(5, {}); }, TypeError, 'Invalid unit type');
-  assert.throw(function() { new CSSAngleValue(5, 5); }, TypeError, 'Invalid unit type');
+  var unitErr = /^Invalid unit type$/;
+  assert.throws(function() { new CSSAngleValue(5, 'asdfa'); }, TypeError, unitErr);
+  assert.throws(function() { new CSSAngleValue(5, {}); }, TypeError, unitErr);
+  assert.throws(function() { new CSSAngleValue(5, 5); }, TypeError, unitErr);
 });
 
 test('Conversions when specified as degrees', function() {

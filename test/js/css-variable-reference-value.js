@@ -26,11 +26,16 @@ suite('CSSVariableReferenceValue', function() {
   });
 
   test('Constructor only accepts a string and a CSSUnparsedValue', function() {
-    assert.throw(function() { new CSSVariableReferenceValue(); }, TypeError, 'CSSVariableReferenceValue constructor should get two parameters');
-    assert.throw(function() { new CSSVariableReferenceValue("123"); }, TypeError, 'CSSVariableReferenceValue constructor should get two parameters');
-    assert.throw(function() { new CSSVariableReferenceValue(1234, 1234); }, TypeError, 'Variable of CSSVariableReferenceValue must be a string');
-    assert.throw(function() { new CSSVariableReferenceValue(["1"], 1234); }, TypeError, 'Variable of CSSVariableReferenceValue must be a string');
-    assert.throw(function() { new CSSVariableReferenceValue("123", 1234); }, TypeError, 'Fallback of CSSVariableReferenceValue must be a CSSUnparsedValue');
+    var paramsErr = /^CSSVariableReferenceValue constructor should get two parameters$/;
+    assert.throws(function() { new CSSVariableReferenceValue(); }, TypeError, paramsErr);
+    assert.throws(function() { new CSSVariableReferenceValue("123"); }, TypeError, paramsErr);
+
+    var stringErr = /^Variable of CSSVariableReferenceValue must be a string$/;
+    assert.throws(function() { new CSSVariableReferenceValue(1234, 1234); }, TypeError, stringErr);
+    assert.throws(function() { new CSSVariableReferenceValue(["1"], 1234); }, TypeError, stringErr);
+
+    var fallbackErr = /^Fallback of CSSVariableReferenceValue must be a CSSUnparsedValue$/;
+    assert.throws(function() { new CSSVariableReferenceValue("123", 1234); }, TypeError, fallbackErr);
   });
 
   test('CSSVariableReferenceValue can have undefined fallback', function() {

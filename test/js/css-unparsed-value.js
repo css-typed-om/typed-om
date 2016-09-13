@@ -19,19 +19,16 @@ suite('CSSUnparsedValue', function() {
   });
 
   test('Values not an array throws', function() {
-    assert.throw(function() { new CSSUnparsedValue(1); }, TypeError,
-        'CSSUnparsedValue should be an array of string or CSSVariableReferenceValue');
-    assert.throw(function() { new CSSUnparsedValue("123"); }, TypeError,
-        'CSSUnparsedValue should be an array of string or CSSVariableReferenceValue');
-    assert.throw(function() { new CSSUnparsedValue({ h:10, w:5, d:4, t:"5" });}, TypeError,
-        'CSSUnparsedValue should be an array of string or CSSVariableReferenceValue');
+    var valueErr = /^CSSUnparsedValue should be an array of string or CSSVariableReferenceValue$/;
+    assert.throws(function() { new CSSUnparsedValue(1); }, TypeError, valueErr);
+    assert.throws(function() { new CSSUnparsedValue("123"); }, TypeError, valueErr);
+    assert.throws(function() { new CSSUnparsedValue({ h:10, w:5, d:4, t:"5" });}, TypeError, valueErr);
   });
 
   test('Values not an array of string or CSSVariableReferenceValue throws', function() {
-    assert.throw(function() { new CSSUnparsedValue([1]); }, TypeError,
-        "CSSUnparsedValue\'s elements should be string or CSSVariableReferenceValue");
-    assert.throw(function() { new CSSUnparsedValue(["1234", "2342", 1]); }, TypeError,
-        "CSSUnparsedValue\'s elements should be string or CSSVariableReferenceValue");
+    var valueErr = /^CSSUnparsedValue's elements should be string or CSSVariableReferenceValue$/;
+    assert.throws(function() { new CSSUnparsedValue([1]); }, TypeError, valueErr);
+    assert.throws(function() { new CSSUnparsedValue(["1234", "2342", 1]); }, TypeError, valueErr);
   });
 
   test('Using spread operator on CSSUnparsedValue results in the correct values', function() {

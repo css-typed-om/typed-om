@@ -77,7 +77,7 @@ suite('PropertyDictionary', function() {
 
   test('listValueSeparator method should throw a TypeError if the property entered does not support list values', function() {
 
-    assert.throw(function () {cssPropertyDictionary.listValueSeparator('height')}, TypeError);
+    assert.throws(function () {cssPropertyDictionary.listValueSeparator('height')}, TypeError, /^height does not support lists of CSSStyleValues$/);
   });
 
   test('supportedStyleValues should return an array of constructors for all CSSStyleValue types accepted by that property', function() {
@@ -88,6 +88,6 @@ suite('PropertyDictionary', function() {
 
   test('supportedStyleValues should throw a type error for unsupported properties', function() {
 
-    assert.throw(function () {cssPropertyDictionary.supportedStyleValues('lemon');}, TypeError);
+    assert.throws(function () {cssPropertyDictionary.supportedStyleValues('lemon');}, TypeError, /^lemon is not a supported CSS property$/);
   });
 });

@@ -14,7 +14,8 @@
 
 suite('CSSImageValue', function() {
   test('Can only create internal CSSImageValue object', function() {
-    assert.throw(function() { new CSSImageValue(new Image()); }, TypeError, "Can\'t instantiate CSSImageValue");
+    var instantiateErr = /^Can't instantiate CSSImageValue$/;
+    assert.throws(function() { new CSSImageValue(new Image()); }, TypeError, instantiateErr);
     assert.doesNotThrow(function() { new typedOM.internal.CSSImageValue(new Image()); });
   });
 
@@ -25,11 +26,12 @@ suite('CSSImageValue', function() {
   });
 
   test('CSSImageValue only accepts Image object', function() {
-    assert.throw(function() { new typedOM.internal.CSSImageValue(); }, TypeError, "image must be an Image object");
-    assert.throw(function() { new typedOM.internal.CSSImageValue(1); }, TypeError, "image must be an Image object");
-    assert.throw(function() { new typedOM.internal.CSSImageValue("abc"); }, TypeError, "image must be an Image object");
-    assert.throw(function() { new typedOM.internal.CSSImageValue([]); }, TypeError, "image must be an Image object");
-    assert.throw(function() { new typedOM.internal.CSSImageValue({ x: 1, y: 2 }); }, TypeError, "image must be an Image object");
+    var imageErr = /image must be an Image object/;
+    assert.throws(function() { new typedOM.internal.CSSImageValue(); }, TypeError, imageErr);
+    assert.throws(function() { new typedOM.internal.CSSImageValue(1); }, TypeError, imageErr);
+    assert.throws(function() { new typedOM.internal.CSSImageValue("abc"); }, TypeError, imageErr);
+    assert.throws(function() { new typedOM.internal.CSSImageValue([]); }, TypeError, imageErr);
+    assert.throws(function() { new typedOM.internal.CSSImageValue({ x: 1, y: 2 }); }, TypeError, imageErr);
   });
 
   test('CSSImageValue\'s state and dimensions are correct before and after loaded', function(done) {
