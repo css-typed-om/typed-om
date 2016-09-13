@@ -36,8 +36,49 @@
    * @return {string} escaped string
    */
   function escape(str) {
-    // TODO(samthor): Implement escape().
-    return '' + str;
+    if (str === undefined) {
+      throw new TypeError("Failed to execute 'escape' on 'CSS': 1 argument required, " +
+          "but only 0 present.");
+    }
+
+    str = '' + str;
+    var len = str.length;
+    var escaped = '';
+
+    // This follows the algorithm at-
+    //   https://drafts.csswg.org/cssom/#serialize-an-identifier
+
+    if (str == '-') {
+      return '\\-';  // special-case single dash
+    }
+
+    for (var i = 0; i < len; ++i) {
+      var code = str.charCodeAt(i);
+      if (code == 0) {
+        escaped += '\uFFFD';
+      } else if (code == 0x007f || (code >= 0x001 && code <= 0x001f)) {
+        // https://drafts.csswg.org/cssom/#escape-a-character-as-code-point
+        excaped += '\\' + code.toString(16) + ' ';
+      } else if (code >= 0x0080 || code == 0x002d || code == 0x005f ||
+          (code >= 0x0041 && code <= 0x005a) ||
+          (code >= 0x0061 && code <= 0x007a)) {
+        // the character itself
+        escaped += str.charAt(i);
+      } else if (code >= 0x0030 && code <= 0x0039) {
+        if (i == 0) {
+          escaped += '\\' + code.toString(16) + ' ';  // initial number as code point
+        } else if (i == 1 && str.charCodeAt(0) == 0x002d) {
+          escaped += '\\' + code.toString(16) + ' ';  // dash (0x002d) then number as code point
+        } else {
+          escaped += str.charAt(i);  // the character itself
+        }
+      } else {
+        // https://drafts.csswg.org/cssom/#escape-a-character
+        escaped += '\\' + str.charAt(i);
+      }
+    }
+
+    return escaped;
   }
 
   if (!scope.CSS) {
