@@ -22,7 +22,7 @@ suite('CSSUnparsedValue', function() {
     var valueErr = /^CSSUnparsedValue should be an array of string or CSSVariableReferenceValue$/;
     assert.throws(function() { new CSSUnparsedValue(1); }, TypeError, valueErr);
     assert.throws(function() { new CSSUnparsedValue("123"); }, TypeError, valueErr);
-    assert.throws(function() { new CSSUnparsedValue({ h:10, w:5, d:4, t:"5" });}, TypeError, valueErr);
+    assert.throws(function() { new CSSUnparsedValue({h: 10, w: 5, d: 4, t: "5"});}, TypeError, valueErr);
   });
 
   test('Values not an array of string or CSSVariableReferenceValue throws', function() {

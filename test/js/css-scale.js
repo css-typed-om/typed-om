@@ -27,7 +27,7 @@ suite('CSSScale', function() {
     assert.throws(function() {new CSSScale(1)});
     assert.throws(function() {new CSSScale('1', '2')});
     assert.throws(function() {new CSSScale(3, 4, null)});
-    assert.throws(function() {new CSSScale({x:1, y:2, z:4})});
+    assert.throws(function() {new CSSScale({x: 1, y: 2, z: 4})});
   });
 
   test('CSSScale constructor works correctly for 2 arguments', function() {
