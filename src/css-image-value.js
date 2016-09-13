@@ -14,34 +14,25 @@
 
 (function(internal, scope) {
 
-  (function() {
-    function CSSImageValue() {
-      throw new TypeError("Can\'t instantiate CSSImageValue");
-    }
-    internal.inherit(CSSImageValue, CSSResourceValue);
+  function onLoad() {
+    this.state = "loaded";
+    this.intrinsicWidth = this._image.naturalWidth;
+    this.intrinsicHeight = this._image.naturalHeight;
+    if (this.intrinsicHeight != 0)
+      this.intrinsicRatio = this.intrinsicWidth / this.intrinsicHeight;
+  }
 
-    scope.CSSImageValue = CSSImageValue;
-  })();
+  function onError() {
+    this.state = "error";
+  }
 
-  var CSSImageValue = function(image) {
+  function onProgress() {
+    this.state = "loading";
+  }
+
+  function CSSImageValue(image) {
     if (!(image instanceof Image)) {
       throw new TypeError("image must be an Image object");
-    }
-
-    function onLoad() {
-      this.state = "loaded";
-      this.intrinsicWidth = this._image.naturalWidth;
-      this.intrinsicHeight = this._image.naturalHeight;
-      if (this.intrinsicHeight != 0)
-        this.intrinsicRatio = this.intrinsicWidth / this.intrinsicHeight;
-    }
-
-    function onError() {
-      this.state = "error";
-    }
-
-    function onProgress() {
-      this.state = "loading";
     }
 
     this._image = image;
@@ -53,9 +44,17 @@
     this._image.onerror = onError.bind(this);
     this._image.onprogess = onProgress.bind(this);
   }
-
-  CSSImageValue.prototype = Object.create(scope.CSSImageValue.prototype);
+  internal.inherit(CSSImageValue, CSSResourceValue);
 
   internal.CSSImageValue = CSSImageValue;
+
+  (function() {
+    var CSSImageValue = function() {
+      throw new TypeError('CSSImageValue cannot be instantiated');
+    }
+    CSSImageValue.prototype = Object.create(internal.CSSImageValue.prototype);
+
+    scope.CSSImageValue = CSSImageValue;
+  })();
 
 })(typedOM.internal, window);

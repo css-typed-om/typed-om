@@ -14,7 +14,8 @@
 
 suite('CSSStyleValue', function() {
   test('Cannot instantiate base CSSStyleValue', function() {
-    assert.throws(function() { new CSSStyleValue(); });
+    assert.throws(function() { new CSSStyleValue(); },
+        /^CSSStyleValue cannot be instantiated/);
   });
 
   test('parse works for keywords', function() {

@@ -38,7 +38,6 @@
     });
   };
 
-  // Constructor (CSSLengthValue)
   function CSSLengthValue(value) {
     if (!(value instanceof CSSLengthValue)) {
       throw new TypeError('Value in the CSSLengthValue constructor must be a ' +
@@ -130,7 +129,6 @@
   internal.CSSLengthValue = CSSLengthValue;
 
   (function() {
-    // So we don't have to expose the constructor.
     function CSSLengthValue() {
       throw new TypeError('CSSLengthValue cannot be instantiated.');
     }
@@ -140,4 +138,5 @@
 
     scope.CSSLengthValue = CSSLengthValue;
   })();
+
 })(typedOM.internal, window);

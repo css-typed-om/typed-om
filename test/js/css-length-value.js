@@ -14,21 +14,24 @@
 
 suite('CSSLengthValue', function() {
   test('Cannot instantiate CSSLengthValue', function() {
-    assert.throws(function() { new CSSLengthValue(); });
+    assert.throws(function() { new CSSLengthValue(); },
+        /^CSSLengthValue cannot be instantiated/);
   });
 
   test('from returns a CSSSimpleLength which is an instance of CSSLengthValue and CSSStyleValue', function() {
+    var instanceErr = /^A new simpleLength should be an instance of CSSSimpleLength/;
     var simpleLength = CSSLengthValue.from(9.2, 'px');
-    assert.instanceOf(simpleLength, CSSSimpleLength, 'A new simpleLength should be an instance of CSSSimpleLength');
-    assert.instanceOf(simpleLength, CSSLengthValue, 'A new simpleLength should be an instance of CSSLengthValue');
-    assert.instanceOf(simpleLength, CSSStyleValue, 'A new simpleLength should be an instance of CSSStyleValue');
+    assert.instanceOf(simpleLength, CSSSimpleLength, instanceErr);
+    assert.instanceOf(simpleLength, CSSLengthValue, instanceErr);
+    assert.instanceOf(simpleLength, CSSStyleValue, instanceErr);
   });
 
   test('from returns a CSSCalcLength which is an instance of CSSLengthValue and CSSStyleValue', function() {
+    var instanceErr = /^A new calcLength should be an instance of CSSCalcLength/;
     var calcLength = CSSLengthValue.from({px: 10});
-    assert.instanceOf(calcLength, CSSCalcLength, 'A new calcLength should be an instance of CSSCalcLength');
-    assert.instanceOf(calcLength, CSSLengthValue, 'A new calcLength should be an instance of CSSLengthValue');
-    assert.instanceOf(calcLength, CSSStyleValue, 'A new calcLength should be an instance of CSSStyleValue');
+    assert.instanceOf(calcLength, CSSCalcLength, instanceErr);
+    assert.instanceOf(calcLength, CSSLengthValue, instanceErr);
+    assert.instanceOf(calcLength, CSSStyleValue, instanceErr);
   });
 
   test('Internal CSSLengthValue copy constructor returns a CSSLengthValue', function() {
@@ -36,14 +39,14 @@ suite('CSSLengthValue', function() {
     var simpleCopy;
     assert.doesNotThrow(function() { simpleCopy = new typedOM.internal.CSSLengthValue(simple) });
     assert.instanceOf(simpleCopy, CSSSimpleLength,
-        'A new simpleLength should be an instanceOf CSSSimpleLength');
+        /^A new simpleLength should be an instanceOf CSSSimpleLength/);
     assert.deepEqual(simpleCopy, simple);
 
     var calc = new CSSCalcLength({px: 10});
     var calcCopy;
     assert.doesNotThrow(function() { calcCopy = new typedOM.internal.CSSLengthValue(calc) });
     assert.instanceOf(calcCopy, CSSCalcLength,
-        'A new calcLength should be an instanceOf CSSCalcLength');
+        /^A new calcLength should be an instanceOf CSSCalcLength/);
     assert.deepEqual(calcCopy, calc);
   });
 

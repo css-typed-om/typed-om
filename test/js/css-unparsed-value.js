@@ -13,6 +13,11 @@
 // limitations under the License.
 
 suite('CSSUnparsedValue', function() {
+  test('Cannot instantiate CSSUnparsedValue', function() {
+    assert.throws(function() { new CSSUnparsedValue(); },
+        /^CSSUnparsedValue cannot be instantiated/);
+  });
+
   test("CSSUnparsedValue is a CSSUnparsedValue and CSSStyleValue", function() {
     assert.instanceOf(new typedOM.internal.CSSUnparsedValue(), CSSUnparsedValue);
     assert.instanceOf(new typedOM.internal.CSSUnparsedValue(), CSSStyleValue);
