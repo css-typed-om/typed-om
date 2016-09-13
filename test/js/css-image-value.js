@@ -1,6 +1,21 @@
+// Copyright 2016 Google Inc. All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+//     You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//     See the License for the specific language governing permissions and
+// limitations under the License.
+
 suite('CSSImageValue', function() {
   test('Can only create internal CSSImageValue object', function() {
-    assert.throw(function() { new CSSImageValue(new Image()); }, TypeError, "Can\'t instantiate CSSImageValue");
+    var instantiateErr = /^Can't instantiate CSSImageValue$/;
+    assert.throws(function() { new CSSImageValue(new Image()); }, TypeError, instantiateErr);
     assert.doesNotThrow(function() { new typedOM.internal.CSSImageValue(new Image()); });
   });
 
@@ -11,11 +26,12 @@ suite('CSSImageValue', function() {
   });
 
   test('CSSImageValue only accepts Image object', function() {
-    assert.throw(function() { new typedOM.internal.CSSImageValue(); }, TypeError, "image must be an Image object");
-    assert.throw(function() { new typedOM.internal.CSSImageValue(1); }, TypeError, "image must be an Image object");
-    assert.throw(function() { new typedOM.internal.CSSImageValue("abc"); }, TypeError, "image must be an Image object");
-    assert.throw(function() { new typedOM.internal.CSSImageValue([]); }, TypeError, "image must be an Image object");
-    assert.throw(function() { new typedOM.internal.CSSImageValue({ x: 1, y: 2 }); }, TypeError, "image must be an Image object");
+    var imageErr = /image must be an Image object/;
+    assert.throws(function() { new typedOM.internal.CSSImageValue(); }, TypeError, imageErr);
+    assert.throws(function() { new typedOM.internal.CSSImageValue(1); }, TypeError, imageErr);
+    assert.throws(function() { new typedOM.internal.CSSImageValue("abc"); }, TypeError, imageErr);
+    assert.throws(function() { new typedOM.internal.CSSImageValue([]); }, TypeError, imageErr);
+    assert.throws(function() { new typedOM.internal.CSSImageValue({ x: 1, y: 2 }); }, TypeError, imageErr);
   });
 
   test('CSSImageValue\'s state and dimensions are correct before and after loaded', function(done) {

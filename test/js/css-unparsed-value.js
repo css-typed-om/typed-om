@@ -1,3 +1,17 @@
+// Copyright 2016 Google Inc. All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+//     You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//     See the License for the specific language governing permissions and
+// limitations under the License.
+
 suite('CSSUnparsedValue', function() {
   test("CSSUnparsedValue is a CSSUnparsedValue and CSSStyleValue", function() {
     assert.instanceOf(new typedOM.internal.CSSUnparsedValue(), CSSUnparsedValue);
@@ -5,19 +19,16 @@ suite('CSSUnparsedValue', function() {
   });
 
   test('Values not an array throws', function() {
-    assert.throw(function() { new typedOM.internal.CSSUnparsedValue(1); }, TypeError,
-        'CSSUnparsedValue should be an array of string or CSSVariableReferenceValue');
-    assert.throw(function() { new typedOM.internal.CSSUnparsedValue("123"); }, TypeError,
-        'CSSUnparsedValue should be an array of string or CSSVariableReferenceValue');
-    assert.throw(function() { new typedOM.internal.CSSUnparsedValue({ h:10, w:5, d:4, t:"5" });}, TypeError,
-        'CSSUnparsedValue should be an array of string or CSSVariableReferenceValue');
+    var valueErr = /^CSSUnparsedValue should be an array of string or CSSVariableReferenceValue$/;
+    assert.throws(function() { new typedOM.internal.CSSUnparsedValue(1); }, TypeError, valueErr);
+    assert.throws(function() { new typedOM.internal.CSSUnparsedValue("123"); }, TypeError, valueErr);
+    assert.throws(function() { new typedOM.internal.CSSUnparsedValue({h: 10, w: 5, d: 4, t: "5"});}, TypeError, valueErr);
   });
 
   test('Values not an array of string or CSSVariableReferenceValue throws', function() {
-    assert.throw(function() { new typedOM.internal.CSSUnparsedValue([1]); }, TypeError,
-        "CSSUnparsedValue\'s elements should be string or CSSVariableReferenceValue");
-    assert.throw(function() { new typedOM.internal.CSSUnparsedValue(["1234", "2342", 1]); }, TypeError,
-        "CSSUnparsedValue\'s elements should be string or CSSVariableReferenceValue");
+    var valueErr = /^CSSUnparsedValue's elements should be string or CSSVariableReferenceValue$/;
+    assert.throws(function() { new typedOM.internal.CSSUnparsedValue([1]); }, TypeError, valueErr);
+    assert.throws(function() { new typedOM.internal.CSSUnparsedValue(["1234", "2342", 1]); }, TypeError, valueErr);
   });
 
   test('Using spread operator on CSSUnparsedValue results in the correct values', function() {

@@ -1,3 +1,17 @@
+// Copyright 2015 Google Inc. All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+//     You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//     See the License for the specific language governing permissions and
+// limitations under the License.
+
 suite('Inline StylePropertyMap', function() {
   setup(function() {
     this.element = document.createElement('div');
@@ -43,33 +57,38 @@ suite('Inline StylePropertyMap', function() {
     var inlineStyleMap = this.element.styleMap();
     var valueSequence = [new CSSSimpleLength(3, 'px'), new CSSSimpleLength(6, 'px')];
 
-    assert.throw(function() {inlineStyleMap.set('height', valueSequence)}, TypeError, 'height does not support sequences of styleValues');
+    assert.throws(function() {inlineStyleMap.set('height', valueSequence)}, TypeError,
+      /^height does not support sequences of styleValues$/);
   });
 
   test('Set should throw a TypeError if a non CSSKeywordValue CSSStyleValue unsupported by the CSS style property is set', function() {
     var inlineStyleMap = this.element.styleMap();
     var numberValue = new CSSNumberValue(42);
 
-    assert.throw(function() {inlineStyleMap.set('height', numberValue)}, TypeError);
+    assert.throws(function() {inlineStyleMap.set('height', numberValue)}, TypeError,
+      /^height does not take values of type CSSNumberValue$/);
   });
 
   test('Set should throw a TypeError if a CSSKeywordValue unsupported by the CSS style property is set ', function() {
     var inlineStyleMap = this.element.styleMap();
     var keyword = new CSSKeywordValue('lemon');
 
-    assert.throw(function() {inlineStyleMap.set('height', keyword)}, 'height does not take the keyword lemon');
+    assert.throws(function() {inlineStyleMap.set('height', keyword)},
+      /^height does not take the keyword lemon$/);
   });
 
   test('Set should throw a TypeError if a non CSSStyleValue is inputed into the function', function() {
     var inlineStyleMap = this.element.styleMap();
 
-    assert.throw(function() {inlineStyleMap.set('height', 4)}, TypeError);
+    assert.throws(function() {inlineStyleMap.set('height', 4)}, TypeError,
+      /^height does not take values of type Number$/);
   });
 
   test('Set should throw a TypeError if an unsupported property is inputed into the function', function() {
     var inlineStyleMap = this.element.styleMap();
 
-    assert.throw(function() {inlineStyleMap.set('lemons', new CSSSimpleLength(3, 'px'))}, TypeError);
+    assert.throws(function() {inlineStyleMap.set('lemons', new CSSSimpleLength(3, 'px'))}, TypeError,
+      /^Cannot set lemons because it is not a supported CSS property$/);
   });
 
   test('The delete method clears a given property', function() {
@@ -83,7 +102,8 @@ suite('Inline StylePropertyMap', function() {
   test('The delete method should throw a TypeError if an unsupported property', function() {
     var inlineStyleMap = this.element.styleMap();
 
-    assert.throw(function() {inlineStyleMap.delete('lemons')}, TypeError);
+    assert.throws(function() {inlineStyleMap.delete('lemons')}, TypeError,
+      /^Cannot delete lemons because it is not a supported CSS property$/);
   });
 
   test('The has method will return true if the valid CSS property input has been assigned a value' +
@@ -97,7 +117,8 @@ suite('Inline StylePropertyMap', function() {
   test('The has method should throw a TypeError if an unsupported property', function() {
     var inlineStyleMap = this.element.styleMap();
 
-    assert.throw(function() {inlineStyleMap.has('lemons')}, TypeError);
+    assert.throws(function() {inlineStyleMap.has('lemons')}, TypeError,
+      /^Cannot use has method for lemons because it is not a supported CSS property$/);
   });
 
   test('The append method should successfully append a supported CSSStyleValue to a property ' +
@@ -135,29 +156,29 @@ suite('Inline StylePropertyMap', function() {
     var valueSequence = [new CSSNumberValue(4), new CSSNumberValue(5), new CSSSimpleLength(3, 'px'), new CSSKeywordValue('infinite')];
     this.element.style['animation-iteration-count'] = 'infinite, 2, 5';
 
-    assert.throw(function() {inlineStyleMap.append('animation-iteration-count', valueSequence)}, TypeError,
-      'animation-iteration-count does not take values of type CSSSimpleLength');
+    assert.throws(function() {inlineStyleMap.append('animation-iteration-count', valueSequence)}, TypeError,
+      /^animation-iteration-count does not take values of type CSSSimpleLength$/);
   });
 
   test('The append method should throw a TypeError when an unsupported CSS property is entered', function() {
     var inlineStyleMap = this.element.styleMap();
 
-    assert.throw(function() {inlineStyleMap.append('lemon', new CSSNumberValue(4))}, TypeError,
-      'lemon is not a supported CSS property');
+    assert.throws(function() {inlineStyleMap.append('lemon', new CSSNumberValue(4))}, TypeError,
+      /^lemon is not a supported CSS property$/);
   });
 
   test('The append method should throw a TypeError when a CSS property that does not support list values is entered', function() {
     var inlineStyleMap = this.element.styleMap();
 
-    assert.throw(function() {inlineStyleMap.append('height', new CSSNumberValue(4))}, TypeError,
-      'height does not support sequences of styleValues');
+    assert.throws(function() {inlineStyleMap.append('height', new CSSNumberValue(4))}, TypeError,
+      /^height does not support sequences of styleValues$/);
   });
 
   test('The append method should throw a TypeError when null is entered as the value', function() {
     var inlineStyleMap = this.element.styleMap();
 
-    assert.throw(function() {inlineStyleMap.append('animation-iteration-count', null)}, TypeError,
-      'null cannot be appended to CSS properties');
+    assert.throws(function() {inlineStyleMap.append('animation-iteration-count', null)}, TypeError,
+      /^null cannot be appended to CSS properties$/);
   });
 
   test('getProperties returns an ordered list of properties that have been set on an element', function() {

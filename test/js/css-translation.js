@@ -1,3 +1,17 @@
+// Copyright 2015 Google Inc. All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+//     You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//     See the License for the specific language governing permissions and
+// limitations under the License.
+
 suite('CSSTranslation', function() {
   test('csstranslation is a csstransformcomponent', function() {
     var validLength = new CSSSimpleLength(1, 'px');
@@ -101,8 +115,8 @@ suite('CSSTranslation', function() {
       assert.strictEqual(parsed[1], values[i].remaining, values[i].str + ' expected ' + values[i].remaining + ' as trailing characters');
       assert.instanceOf(parsed[0], CSSTranslation);
       assert.isTrue(parsed[0].is2D);
-      assert.approximately(parsed[0].x.value, values[i].x, 1e-6);
-      assert.approximately(parsed[0].y.value, values[i].y, 1e-6);
+      assert.closeTo(parsed[0].x.value, values[i].x, 1e-6);
+      assert.closeTo(parsed[0].y.value, values[i].y, 1e-6);
       assert.strictEqual(parsed[0].x.type, 'px');
       assert.strictEqual(parsed[0].y.type, 'px');
       assert.strictEqual(parsed[0].z, null);
@@ -125,9 +139,9 @@ suite('CSSTranslation', function() {
       assert.strictEqual(parsed[1], values[i].remaining, values[i].str + ' expected ' + values[i].remaining + ' as trailing characters');
       assert.instanceOf(parsed[0], CSSTranslation);
       assert.isFalse(parsed[0].is2D);
-      assert.approximately(parsed[0].x.value, values[i].x, 1e-6);
-      assert.approximately(parsed[0].y.value, values[i].y, 1e-6);
-      assert.approximately(parsed[0].z.value, values[i].z, 1e-6);
+      assert.closeTo(parsed[0].x.value, values[i].x, 1e-6);
+      assert.closeTo(parsed[0].y.value, values[i].y, 1e-6);
+      assert.closeTo(parsed[0].z.value, values[i].z, 1e-6);
       assert.strictEqual(parsed[0].x.type, 'px');
       assert.strictEqual(parsed[0].y.type, 'px');
       assert.strictEqual(parsed[0].z.type, 'px');
@@ -149,8 +163,8 @@ suite('CSSTranslation', function() {
       assert.strictEqual(parsed[1], values[i].remaining, values[i].str + ' expected ' + values[i].remaining + ' as trailing characters');
       assert.instanceOf(parsed[0], CSSTranslation);
       assert.isTrue(parsed[0].is2D);
-      assert.approximately(parsed[0].x.value, values[i].x, 1e-6);
-      assert.approximately(parsed[0].y.value, values[i].y, 1e-6);
+      assert.closeTo(parsed[0].x.value, values[i].x, 1e-6);
+      assert.closeTo(parsed[0].y.value, values[i].y, 1e-6);
       assert.strictEqual(parsed[0].x.type, 'px');
       assert.strictEqual(parsed[0].y.type, 'px');
       assert.strictEqual(parsed[0].z, null);

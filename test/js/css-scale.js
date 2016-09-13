@@ -1,3 +1,17 @@
+// Copyright 2015 Google Inc. All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+//     You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//     See the License for the specific language governing permissions and
+// limitations under the License.
+
 suite('CSSScale', function() {
   test('CSSScale is a CSSScale and CSSTransformComponent', function() {
     var scale = new CSSScale(1, 2);
@@ -13,7 +27,7 @@ suite('CSSScale', function() {
     assert.throws(function() {new CSSScale(1)});
     assert.throws(function() {new CSSScale('1', '2')});
     assert.throws(function() {new CSSScale(3, 4, null)});
-    assert.throws(function() {new CSSScale({x:1, y:2, z:4})});
+    assert.throws(function() {new CSSScale({x: 1, y: 2, z: 4})});
   });
 
   test('CSSScale constructor works correctly for 2 arguments', function() {
