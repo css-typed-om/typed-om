@@ -134,4 +134,55 @@ suite('CSSTransformValue', function() {
     assert.isNull(consumeTransformValue('bananas'));
     assert.isNull(consumeTransformValue('5px'));
   });
+
+  test('Using spread operator on CSSTransformValue results in correct values', function() {
+    var inputComponents = [new CSSScale(2, 4)];
+    var expectedEntries = [[0, inputComponents[0]]];
+    var transform = new CSSTransformValue(inputComponents);
+    assert.deepEqual([...transform], expectedEntries);
+  });
+
+  test('Using iterator operations on entries() gets correct values', function() {
+    var inputComponents = [new CSSScale(2, 4)];
+    var expectedEntries = [[0, inputComponents[0]]];
+    var transform = new CSSTransformValue(inputComponents);
+
+    // One by one
+    assert.deepEqual(
+        iteratorExpansionUsingNext(transform.entries()), expectedEntries);
+    // for..of
+    assert.deepEqual(
+        iteratorExpansionUsingForOf(transform.entries()), expectedEntries);
+    // Spread operator
+    assert.deepEqual([...transform.entries()], expectedEntries);
+  });
+
+  test('Using iterator operations on keys() gets correct values', function() {
+    var inputComponents = [new CSSScale(2, 4)];
+    var expectedKeys = [0];
+    var transform = new CSSTransformValue(inputComponents);
+
+    // One by one
+    assert.deepEqual(
+        iteratorExpansionUsingNext(transform.keys()), expectedKeys);
+    // for..of
+    assert.deepEqual(
+        iteratorExpansionUsingForOf(transform.keys()), expectedKeys);
+    // Spread operator
+    assert.deepEqual([...transform.keys()], expectedKeys);
+  });
+
+  test('Using iterator operations on values() gets correct values', function() {
+    var inputComponents = [new CSSScale(2, 4)];
+    var transform = new CSSTransformValue(inputComponents);
+
+    // One by one
+    assert.deepEqual(
+        iteratorExpansionUsingNext(transform.values()), inputComponents);
+    // for..of
+    assert.deepEqual(
+        iteratorExpansionUsingForOf(transform.values()), inputComponents);
+    // Spread operator
+    assert.deepEqual([...transform.values()], inputComponents);
+  });
 });

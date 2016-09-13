@@ -57,6 +57,34 @@
   }
   internal.inherit(CSSTransformValue, CSSStyleValue);
 
+  CSSTransformValue.prototype[Symbol.iterator] = function() {
+    return this.entries();
+  };
+
+  CSSTransformValue.prototype.entries = function() {
+    function entriesCallback(index) {
+      return [index, this.transformComponents[index]];
+    }
+    return internal.objects.arrayIterator(
+        this.transformComponents.length,
+        entriesCallback.bind(this));
+  };
+
+  CSSTransformValue.prototype.keys = function() {
+    return internal.objects.arrayIterator(
+        this.transformComponents.length,
+        function(index) { return index; });
+  };
+
+  CSSTransformValue.prototype.values = function() {
+    function valuesCallback(index) {
+      return this.transformComponents[index];
+    }
+    return internal.objects.arrayIterator(
+        this.transformComponents.length,
+        valuesCallback.bind(this));
+  };
+
   scope.CSSTransformValue = CSSTransformValue;
 
 })(typedOM.internal, window);
