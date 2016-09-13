@@ -148,20 +148,11 @@ suite('CSSTransformValue', function() {
     var transform = new CSSTransformValue(inputComponents);
 
     // One by one
-    var entries = [];
-    var iterator = transform.entries();
-    var entry = iterator.next();
-    while (!entry.done) {
-      entries.push(entry.value);
-      entry = iterator.next();
-    }
-    assert.deepEqual(entries, expectedEntries);
+    assert.deepEqual(
+        iteratorExpansionUsingNext(transform.entries()), expectedEntries);
     // for..of
-    var forOfEntries = [];
-    for (let value of transform.entries()) {
-      forOfEntries.push(value);
-    }
-    assert.deepEqual(forOfEntries, expectedEntries);
+    assert.deepEqual(
+        iteratorExpansionUsingForOf(transform.entries()), expectedEntries);
     // Spread operator
     assert.deepEqual([...transform.entries()], expectedEntries);
   });
@@ -172,20 +163,11 @@ suite('CSSTransformValue', function() {
     var transform = new CSSTransformValue(inputComponents);
 
     // One by one
-    var keys = [];
-    var iterator = transform.keys();
-    var entry = iterator.next();
-    while (!entry.done) {
-      keys.push(entry.value);
-      entry = iterator.next();
-    }
-    assert.deepEqual(keys, expectedKeys);
+    assert.deepEqual(
+        iteratorExpansionUsingNext(transform.keys()), expectedKeys);
     // for..of
-    var forOfKeys = [];
-    for (let value of transform.keys()) {
-      forOfKeys.push(value);
-    }
-    assert.deepEqual(forOfKeys, expectedKeys);
+    assert.deepEqual(
+        iteratorExpansionUsingForOf(transform.keys()), expectedKeys);
     // Spread operator
     assert.deepEqual([...transform.keys()], expectedKeys);
   });
@@ -195,20 +177,11 @@ suite('CSSTransformValue', function() {
     var transform = new CSSTransformValue(inputComponents);
 
     // One by one
-    var values = [];
-    var iterator = transform.values();
-    var entry = iterator.next();
-    while (!entry.done) {
-      values.push(entry.value);
-      entry = iterator.next();
-    }
-    assert.deepEqual(values, inputComponents);
+    assert.deepEqual(
+        iteratorExpansionUsingNext(transform.values()), inputComponents);
     // for..of
-    var forOfValues = [];
-    for (let value of transform.values()) {
-      forOfValues.push(value);
-    }
-    assert.deepEqual(forOfValues, inputComponents);
+    assert.deepEqual(
+        iteratorExpansionUsingForOf(transform.values()), inputComponents);
     // Spread operator
     assert.deepEqual([...transform.values()], inputComponents);
   });
