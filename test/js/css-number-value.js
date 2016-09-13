@@ -1,3 +1,17 @@
+// Copyright 2015 Google Inc. All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+//     You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//     See the License for the specific language governing permissions and
+// limitations under the License.
+
 suite('CSSNumberValue', function() {
   test('CSSNumberValue is a CSSNumberValue and a CSSStyleValue', function() {
     var numberVal = new CSSNumberValue(3);
@@ -33,7 +47,7 @@ suite('CSSNumberValue', function() {
       { str: '10e3', num: 10000, remaining: '' },
       { str: '-3.4e-2', num: -0.034, remaining: '' },
       { str: '3px', num: 3, remaining: 'px' },
-      { str: '1e-.0', num: 1, remaining: 'e-.0' }, 
+      { str: '1e-.0', num: 1, remaining: 'e-.0' },
     ];
     for (var i = 0; i < values.length; i++) {
       var result = typedOM.internal.parsing.consumeNumberValue(values[i].str);

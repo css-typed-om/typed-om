@@ -1,3 +1,17 @@
+// Copyright 2015 Google Inc. All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+//     You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//     See the License for the specific language governing permissions and
+// limitations under the License.
+
 suite('CSSSkew', function() {
 
   test('CSSSkew constructor throws exception for invalid types', function() {
@@ -56,7 +70,7 @@ suite('CSSSkew', function() {
       {str: 'SkewX(1TuRn)', cssText: 'skewx(1turn)', xValue: 1, xUnit: 'turn', yValue: 0, yUnit: 'deg', remaining: ''},
       {str: 'skewx(100grad) abc', cssText: 'skewx(100grad)', xValue: 100, xUnit: 'grad', yValue: 0, yUnit: 'deg', remaining: 'abc'},
       // skewy
-      {str: 'skewy(0.45turn)', cssText: 'skewy(0.45turn)', xValue: 0, xUnit: 'deg', yValue:0.45 , yUnit: 'turn', remaining: ''},
+      {str: 'skewy(0.45turn)', cssText: 'skewy(0.45turn)', xValue: 0, xUnit: 'deg', yValue: 0.45, yUnit: 'turn', remaining: ''},
       {str: 'SkEwY(2.1RAD)', cssText: 'skewy(2.1rad)', xValue: 0, xUnit: 'deg', yValue: 2.1, yUnit: 'rad', remaining: ''},
       {str: 'skewy(20DEG))))', cssText: 'skewy(20deg)', xValue: 0, xUnit: 'deg', yValue: 20, yUnit: 'deg', remaining: ')))'},
     ];

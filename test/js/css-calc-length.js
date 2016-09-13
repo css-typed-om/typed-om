@@ -1,3 +1,17 @@
+// Copyright 2015 Google Inc. All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+//     You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//     See the License for the specific language governing permissions and
+// limitations under the License.
+
 suite('CSSCalcLength', function() {
   test('CSSCalcLength is a CSSCalcLength, CSSLengthValue and CSSStyleValue', function() {
     var calcLength = new CSSCalcLength({px: 10});
@@ -161,7 +175,7 @@ suite('CSSCalcLength', function() {
     assert.isTrue(calcLength1.equals(calcLength2));
   });
 
-  test('equals method should return false when one CSSCalcLength has additional length types with non null values' + 
+  test('equals method should return false when one CSSCalcLength has additional length types with non null values' +
       'even if all other types are equivalent', function() {
     var calcLength1 = new CSSCalcLength({px: 25, em: 3.2, percent: 5});
     var calcLength2 = new CSSCalcLength({px: 25, em: 3.2});
