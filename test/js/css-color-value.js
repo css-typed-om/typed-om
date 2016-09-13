@@ -15,37 +15,33 @@
 suite('CSSColorValue', function() {
   test('Constructor should throw an error if r, g and b are not integers', function() {
     assert.doesNotThrow(function() {new CSSColorValue(0, 50, 255);});
-    assert.throw(function() {new CSSColorValue(0, "lemon", 50);}, TypeError,
-      'r, g and b must be integers.');
-    assert.throw(function() {new CSSColorValue(0, 50, null);}, TypeError,
-      'r, g and b must be integers.');
-    assert.throw(function() {new CSSColorValue(50.5, 20, 50);}, TypeError,
-      'r, g and b must be integers.');
+
+    var integerErr = /^r, g and b must be integers\.$/;
+    assert.throws(function() {new CSSColorValue(0, "lemon", 50);}, TypeError, integerErr);
+    assert.throws(function() {new CSSColorValue(0, 50, null);}, TypeError, integerErr);
+    assert.throws(function() {new CSSColorValue(50.5, 20, 50);}, TypeError, integerErr);
   });
 
   test('Constructor should throw an error if r, g and b are not between 0 and 255', function() {
-    assert.throw(function() {new CSSColorValue(0, -1, 50, 0);}, TypeError,
-      'r, g and b must be integers between 0 and 255.');
-    assert.throw(function() {new CSSColorValue(0, 255, 256);}, TypeError,
-      'r, g and b must be integers between 0 and 255.');
-    assert.throw(function() {new CSSColorValue(300, 255, 256);}, TypeError,
-      'r, g and b must be integers between 0 and 255.');
+    var rangeErr = /^r, g and b must be integers between 0 and 255\.$/;
+    assert.throws(function() {new CSSColorValue(0, -1, 50, 0);}, TypeError, rangeErr);
+    assert.throws(function() {new CSSColorValue(0, 255, 256);}, TypeError, rangeErr);
+    assert.throws(function() {new CSSColorValue(300, 255, 256);}, TypeError, rangeErr);
   });
 
   test('Constructor should throw an error if a is not a number', function() {
-    assert.throw(function() {new CSSColorValue(0, 50, 50, "lemon");}, TypeError,
-      'a must be a number.');
-    assert.throw(function() {new CSSColorValue(0, 50, 50, null);}, TypeError,
-      'a must be a number.');
+    var numberErr = /^a must be a number\.$/;
+    assert.throws(function() {new CSSColorValue(0, 50, 50, "lemon");}, TypeError, numberErr);
+    assert.throws(function() {new CSSColorValue(0, 50, 50, null);}, TypeError, numberErr);
   });
 
   test('Constructor should throw an error if a is not between 0 and 1', function() {
     assert.doesNotThrow(function() {new CSSColorValue(0, 50, 255, 1);});
     assert.doesNotThrow(function() {new CSSColorValue(0, 50, 255, 0);});
-    assert.throw(function() {new CSSColorValue(0, 50, 50, -0.1);}, TypeError,
-      'a must be a number between 0 and 1.');
-    assert.throw(function() {new CSSColorValue(0, 50, 255, 1.2);}, TypeError,
-      'a must be a number between 0 and 1.');
+
+    var rangeErr = /^a must be a number between 0 and 1\.$/;
+    assert.throws(function() {new CSSColorValue(0, 50, 50, -0.1);}, TypeError, rangeErr);
+    assert.throws(function() {new CSSColorValue(0, 50, 255, 1.2);}, TypeError, rangeErr);
   });
 
   test('cssText should return rgb(<number>,<number>,<number>) if alpha ' +

@@ -21,9 +21,10 @@ suite('CSSURLImageValue', function() {
   });
 
   test('CSSURLImageValue only accepts string', function() {
-    assert.throw(function() { new CSSURLImageValue(); }, TypeError, "URL must be a string");
-    assert.throw(function() { new CSSURLImageValue([]); }, TypeError, "URL must be a string");
-    assert.throw(function() { new CSSURLImageValue(1); }, TypeError, "URL must be a string");
+    var stringErr = /^URL must be a string$/;
+    assert.throws(function() { new CSSURLImageValue(); }, TypeError, stringErr);
+    assert.throws(function() { new CSSURLImageValue([]); }, TypeError, stringErr);
+    assert.throws(function() { new CSSURLImageValue(1); }, TypeError, stringErr);
     assert.doesNotThrow(function() { new CSSURLImageValue(''); });
   });
 

@@ -22,11 +22,12 @@ suite('Computed StylePropertyMap', function() {
     document.body.removeChild(this.element);
   });
 
+  var lemonNotSupportedErr = /^lemon is not a supported CSS property$/;
+
   test('get method throws a TypeError if the property is not supported', function() {
     var computedStyleMap = getComputedStyleMap(this.element);
 
-    assert.throw(function() {computedStyleMap.get('lemon')}, TypeError,
-      'lemon is not a supported CSS property');
+    assert.throws(function() {computedStyleMap.get('lemon')}, TypeError, lemonNotSupportedErr);
   });
 
 
@@ -87,8 +88,7 @@ suite('Computed StylePropertyMap', function() {
   test('getAll method throws a TypeError if the property is not supported', function() {
     var computedStyleMap = getComputedStyleMap(this.element);
 
-    assert.throw(function() {computedStyleMap.getAll('lemon')}, TypeError,
-      'lemon is not a supported CSS property');
+    assert.throws(function() {computedStyleMap.getAll('lemon')}, TypeError, lemonNotSupportedErr);
   });
 
   test('getting an unsupported but valid property returns a base CSSStyleValue', function() {

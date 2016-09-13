@@ -70,7 +70,7 @@ suite('CSSSkew', function() {
       {str: 'SkewX(1TuRn)', cssText: 'skewx(1turn)', xValue: 1, xUnit: 'turn', yValue: 0, yUnit: 'deg', remaining: ''},
       {str: 'skewx(100grad) abc', cssText: 'skewx(100grad)', xValue: 100, xUnit: 'grad', yValue: 0, yUnit: 'deg', remaining: 'abc'},
       // skewy
-      {str: 'skewy(0.45turn)', cssText: 'skewy(0.45turn)', xValue: 0, xUnit: 'deg', yValue:0.45 , yUnit: 'turn', remaining: ''},
+      {str: 'skewy(0.45turn)', cssText: 'skewy(0.45turn)', xValue: 0, xUnit: 'deg', yValue: 0.45, yUnit: 'turn', remaining: ''},
       {str: 'SkEwY(2.1RAD)', cssText: 'skewy(2.1rad)', xValue: 0, xUnit: 'deg', yValue: 2.1, yUnit: 'rad', remaining: ''},
       {str: 'skewy(20DEG))))', cssText: 'skewy(20deg)', xValue: 0, xUnit: 'deg', yValue: 20, yUnit: 'deg', remaining: ')))'},
     ];
