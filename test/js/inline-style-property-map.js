@@ -8,6 +8,15 @@ suite('Inline StylePropertyMap', function() {
     document.body.removeChild(this.element);
   });
 
+  function validateIsDefaultEntries(arr) {
+    // Should be [['opacity', CSSNumberValue(0.5)]]
+    assert.strictEqual(arr.length, 1);
+    assert.strictEqual(arr[0].length, 2);
+    assert.strictEqual(arr[0][0], 'opacity');
+    assert.instanceOf(arr[0][1], CSSNumberValue);
+    assert.strictEqual(arr[0][1].value, 0.5);
+  }
+
   test('The Element.styleMap method returns a StylePropertyMap object for that element', function() {
     var inlineStyleMap = this.element.styleMap();
     assert.instanceOf(inlineStyleMap, typedOM.internal.StylePropertyMap);
@@ -163,5 +172,52 @@ suite('Inline StylePropertyMap', function() {
 
   test('Getting an unset value does not throw', function() {
     assert.isNull(this.element.styleMap().get('height'));
+  });
+
+  test('Using spread operator on StylePropertyMap results in correct values', function() {
+    validateIsDefaultEntries([...this.element.styleMap()]);
+  });
+
+  test('Using iterator operations on entries() gets correct values', function() {
+    // One by one
+    validateIsDefaultEntries(
+        iteratorExpansionUsingNext(this.element.styleMap().entries()));
+    // for..of
+    validateIsDefaultEntries(
+        iteratorExpansionUsingForOf(this.element.styleMap().entries()));
+    // Spread operator
+    validateIsDefaultEntries([...this.element.styleMap().entries()]);
+  });
+
+  test('Using iterator operations on keys() gets correct values', function() {
+    function validateKeys(arr) {
+      assert.strictEqual(arr.length, 1);
+      assert.strictEqual(arr[0], 'opacity');
+    }
+    // One by one
+    validateKeys(
+        iteratorExpansionUsingNext(this.element.styleMap().keys()));
+    // for..of
+    var forOfKeys = [];
+    validateKeys(
+        iteratorExpansionUsingForOf(this.element.styleMap().keys()));
+    // Spread operator
+    validateKeys([...this.element.styleMap().keys()]);
+  });
+
+  test('Using iterator operations on values() gets correct values', function() {
+    function validateValues(arr) {
+      assert.strictEqual(arr.length, 1);
+      assert.instanceOf(arr[0], CSSNumberValue);
+      assert.strictEqual(arr[0].value, 0.5);
+    }
+    // One by one
+    validateValues(
+        iteratorExpansionUsingNext(this.element.styleMap().values()));
+    // for..of
+    validateValues(
+        iteratorExpansionUsingForOf(this.element.styleMap().values()));
+    // Spread operator
+    validateValues([...this.element.styleMap().values()]);
   });
 });

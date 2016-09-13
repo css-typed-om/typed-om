@@ -18,16 +18,16 @@ suite('CSSURLImageValue', function() {
     assert.equal(urlImageValue.url, "resources/1x1-green.png");
     assert.equal(urlImageValue.cssText, "url(resources/1x1-green.png)");
 
-    var oldOnload = urlImageValue._image.onload;
-
-    urlImageValue._image.onload = function() {
-      oldOnload();
-      assert.strictEqual(urlImageValue.state, "loaded");
-      assert.strictEqual(urlImageValue.intrinsicWidth, 1);
-      assert.strictEqual(urlImageValue.intrinsicHeight, 1);
-      assert.strictEqual(urlImageValue.intrinsicRatio, 1);
-      done();
-    }
+    urlImageValue._image.onload = typedOM.internal.objects.chain([
+      urlImageValue._image.onload,
+      function() {
+        assert.strictEqual(urlImageValue.state, "loaded");
+        assert.strictEqual(urlImageValue.intrinsicWidth, 1);
+        assert.strictEqual(urlImageValue.intrinsicHeight, 1);
+        assert.strictEqual(urlImageValue.intrinsicRatio, 1);
+        done();
+      }
+    ]);
   });
 
   test('Invalid image will have error state and null intrinsic dimensions', function(done) {
@@ -35,15 +35,34 @@ suite('CSSURLImageValue', function() {
     assert.equal(urlImageValue.url, 'resources/nonexisting.png');
     assert.equal(urlImageValue.cssText, "url(resources/nonexisting.png)");
 
-    var oldOnerror = urlImageValue._image.onerror;
+    urlImageValue._image.onerror = typedOM.internal.objects.chain([
+      urlImageValue._image.onerror,
+      function() {
+        assert.strictEqual(urlImageValue.state, "error");
+        assert.strictEqual(urlImageValue.intrinsicWidth, null);
+        assert.strictEqual(urlImageValue.intrinsicHeight, null);
+        assert.strictEqual(urlImageValue.intrinsicRatio, null);
+        done();
+      }
+    ]);
+  });
 
-    urlImageValue._image.onerror = function() {
-      oldOnerror();
-      assert.strictEqual(urlImageValue.state, "error");
-      assert.strictEqual(urlImageValue.intrinsicWidth, null);
-      assert.strictEqual(urlImageValue.intrinsicHeight, null);
-      assert.strictEqual(urlImageValue.intrinsicRatio, null);
-      done();
-    };
+  test('Can set and get correct CSSURLImageValue from StyleMap', function(done) {
+    var inlineStyleMap = document.documentElement.styleMap();
+    inlineStyleMap.set("border-image-source", new CSSURLImageValue('resources/1x1-green.png'));
+    var urlImageValue = inlineStyleMap.get("border-image-source");
+    assert.instanceOf(urlImageValue, CSSURLImageValue);
+    assert.equal(urlImageValue.url, "resources/1x1-green.png");
+
+    urlImageValue._image.onload = typedOM.internal.objects.chain([
+      urlImageValue._image.onload,
+      function() {
+        assert.strictEqual(urlImageValue.state, "loaded");
+        assert.strictEqual(urlImageValue.intrinsicWidth, 1);
+        assert.strictEqual(urlImageValue.intrinsicHeight, 1);
+        assert.strictEqual(urlImageValue.intrinsicRatio, 1);
+        done();
+      }
+    ]);
   });
 });

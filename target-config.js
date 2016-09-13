@@ -39,8 +39,8 @@
       'src/css-keyword-value.js',
       'src/css-resource-value.js',
       'src/css-image-value.js',
-      'src/css-token-stream-value.js',
       'src/css-transform-value.js',
+      'src/css-unparsed-value.js',
       'src/css-url-image-value.js',
       'src/css-variable-reference-value.js',
       // CSSLengthValue and subclasses
@@ -69,6 +69,7 @@
       'src/parsing/css-length-value-parsing.js',
       'src/parsing/css-position-value-parsing.js',
       'src/parsing/css-transform-component-parsing.js',
+      'src/parsing/css-url-image-value-parsing.js',
       // Depends on both transform component subclasses and length parsing
       'src/parsing/css-style-value-parsing.js',
   ];
@@ -90,10 +91,10 @@
       'test/js/css-simple-length.js',
       'test/js/css-skew.js',
       'test/js/css-style-value.js',
-      'test/js/css-token-stream-value.js',
       'test/js/css-transform-component.js',
       'test/js/css-transform-value.js',
       'test/js/css-translation.js',
+      'test/js/css-unparsed-value.js',
       'test/js/css-url-image-value.js',
       'test/js/css-variable-reference-value.js',
       'test/js/computed-style-property-map.js',
@@ -101,6 +102,7 @@
       'test/js/inline-style-property-map.js',
       'test/js/parsing.js',
       'test/js/property-dictionary.js',
+      'test/js/test-util.js',
   ];
 
   // This object specifies the source and test files for different build targets.

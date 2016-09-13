@@ -7,8 +7,8 @@
     if (typeof variable != 'string') {
       throw new TypeError('Variable of CSSVariableReferenceValue must be a string');
     }
-    if ((fallback !== undefined) && !(fallback instanceof CSSTokenStreamValue)) {
-      throw new TypeError('Fallback of CSSVariableReferenceValue must be a CSSTokenStreamValue');
+    if ((fallback !== undefined) && !(fallback instanceof CSSUnparsedValue)) {
+      throw new TypeError('Fallback of CSSVariableReferenceValue must be a CSSUnparsedValue');
     }
     this.variable = variable;
     this.fallback = fallback;
