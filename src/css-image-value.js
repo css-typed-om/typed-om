@@ -18,8 +18,9 @@
     this.state = "loaded";
     this.intrinsicWidth = this._image.naturalWidth;
     this.intrinsicHeight = this._image.naturalHeight;
-    if (this.intrinsicHeight != 0)
+    if (this.intrinsicHeight != 0) {
       this.intrinsicRatio = this.intrinsicWidth / this.intrinsicHeight;
+    }
   }
 
   function onError() {
@@ -44,13 +45,17 @@
       }
 
       this._image = image;
-      this.state = "unloaded";
-      this.intrinsicWidth = null;
-      this.intrinsicHeight = null;
-      this.intrinsicRatio = null;
-      this._image.onload = onLoad.bind(this);
-      this._image.onerror = onError.bind(this);
-      this._image.onprogess = onProgress.bind(this);
+      //if (image.complete) {
+      //  onLoad.call(this);
+      //} else {
+        this.state = "unloaded";
+        this.intrinsicWidth = null;
+        this.intrinsicHeight = null;
+        this.intrinsicRatio = null;
+        this._image.onload = onLoad.bind(this);
+        this._image.onerror = onError.bind(this);
+        this._image.onprogess = onProgress.bind(this);
+      //}
     }
     CSSImageValue.prototype = Object.create(scope.CSSImageValue.prototype);
 
