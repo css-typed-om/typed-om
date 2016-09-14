@@ -16,7 +16,7 @@
 
   function generateCssString(simpleLength) {
     var cssText = simpleLength.value +
-        internal.CSSLengthValue.cssTextTypeRepresentation(simpleLength.type);
+        internal.lengthTypeToString(simpleLength.type);
     return cssText;
   }
 

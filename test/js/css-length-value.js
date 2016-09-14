@@ -34,22 +34,6 @@ suite('CSSLengthValue', function() {
     assert.instanceOf(calcLength, CSSStyleValue, instanceErr);
   });
 
-  test('Internal CSSLengthValue copy constructor returns a CSSLengthValue', function() {
-    var simple = new CSSSimpleLength(3, 'px');
-    var simpleCopy;
-    assert.doesNotThrow(function() { simpleCopy = new typedOM.internal.CSSLengthValue(simple) });
-    assert.instanceOf(simpleCopy, CSSSimpleLength,
-        /^A new simpleLength should be an instanceOf CSSSimpleLength/);
-    assert.deepEqual(simpleCopy, simple);
-
-    var calc = new CSSCalcLength({px: 10});
-    var calcCopy;
-    assert.doesNotThrow(function() { calcCopy = new typedOM.internal.CSSLengthValue(calc) });
-    assert.instanceOf(calcCopy, CSSCalcLength,
-        /^A new calcLength should be an instanceOf CSSCalcLength/);
-    assert.deepEqual(calcCopy, calc);
-  });
-
   test('CSSLengthValue.from returns expected CSSSimpleLengths for simple strings', function() {
     var values = [
       {str: '0', out: new CSSSimpleLength(0, 'px')},
