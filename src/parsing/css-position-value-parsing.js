@@ -14,7 +14,7 @@
 
 (function(internal) {
 
-  function parsePositionValue(str) {
+  function consumePositionValue(str) {
     var params = internal.parsing.consumeRepeated(
         internal.parsing.consumeLengthValue,
         null, // separator not required due to use of consumeTrimmed.
@@ -23,8 +23,9 @@
       return null;
     }
     var lengths = params[0];
-    return [new CSSPositionValue(lengths[0], lengths[1]), params[1]];
+    var remaining = params[1];
+    return [new CSSPositionValue(lengths[0], lengths[1]), remaining];
   }
 
-  internal.parsing.parsePositionValue = parsePositionValue;
+  internal.parsing.consumePositionValue = consumePositionValue;
 })(typedOM.internal);

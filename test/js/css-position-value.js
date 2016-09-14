@@ -29,30 +29,30 @@ suite('CSSPositionValue', function() {
 
   test('Parsing works for simple values', function() {
     var input = '5px 3px';
-    var result = typedOM.internal.parsing.parsePositionValue(input);
+    var result = typedOM.internal.parsing.consumePositionValue(input);
     assert.strictEqual(result[0].constructor, CSSPositionValue);
     assert.strictEqual(result[0].cssText, input);
   });
 
   test('Parsing works when using calc values', function() {
     var input = 'calc(-2% + 6em) calc(3vmin - 9pc)';
-    var result = typedOM.internal.parsing.parsePositionValue(input);
+    var result = typedOM.internal.parsing.consumePositionValue(input);
     assert.strictEqual(result[0].constructor, CSSPositionValue);
     assert.strictEqual(result[0].cssText, input);
   });
 
   test('Parsing works when using mixed value types', function() {
     var input = '99.2px calc(3vmin - 9pc)';
-    var result = typedOM.internal.parsing.parsePositionValue(input);
+    var result = typedOM.internal.parsing.consumePositionValue(input);
     assert.strictEqual(result[0].constructor, CSSPositionValue);
     assert.strictEqual(result[0].cssText, input);
   });
 
   test('Invalid input to parsing returns null (and does not throw)', function() {
-    assert.isNull(typedOM.internal.parsing.parsePositionValue(''));
-    assert.isNull(typedOM.internal.parsing.parsePositionValue('bananas'));
-    assert.isNull(typedOM.internal.parsing.parsePositionValue('5px'));
-    assert.isNull(typedOM.internal.parsing.parsePositionValue('6px 3'));
-    assert.isNull(typedOM.internal.parsing.parsePositionValue('calc(3px - 3em 6px'));
+    assert.isNull(typedOM.internal.parsing.consumePositionValue(''));
+    assert.isNull(typedOM.internal.parsing.consumePositionValue('bananas'));
+    assert.isNull(typedOM.internal.parsing.consumePositionValue('5px'));
+    assert.isNull(typedOM.internal.parsing.consumePositionValue('6px 3'));
+    assert.isNull(typedOM.internal.parsing.consumePositionValue('calc(3px - 3em 6px'));
   });
 });
