@@ -13,10 +13,9 @@
 // limitations under the License.
 
 suite('CSSImageValue', function() {
-  test('Can only create internal CSSImageValue object', function() {
-    var instantiateErr = /^Can't instantiate CSSImageValue$/;
+  test('Cannot instantiate base CSSImageValue', function() {
+    var instantiateErr = /^CSSImageValue cannot be instantiated$/;
     assert.throws(function() { new CSSImageValue(new Image()); }, TypeError, instantiateErr);
-    assert.doesNotThrow(function() { new typedOM.internal.CSSImageValue(new Image()); });
   });
 
   test('CSSImageValue object is a CSSImageValue, CSSResourceValue, and CSSStyleValue', function() {
