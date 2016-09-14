@@ -38,32 +38,10 @@
     });
   };
 
-  function CSSLengthValue(value) {
-    if (!(value instanceof CSSLengthValue)) {
-      throw new TypeError('Value in the CSSLengthValue constructor must be a ' +
-          'CSSLengthValue.');
-    }
-
-    if (value instanceof CSSSimpleLength) {
-      return new CSSSimpleLength(value);
-    } else {
-      return new CSSCalcLength(value);
-    }
+  function CSSLengthValue() {
+    throw new TypeError('CSSLengthValue cannot be instantiated.');
   }
   internal.inherit(CSSLengthValue, CSSStyleValue);
-
-  CSSLengthValue.cssTextTypeRepresentation = function(type) {
-    if (!isValidLengthType(type)) {
-      throw new TypeError('Invalid Length Type.');
-    }
-
-    switch (type) {
-      case 'percent':
-        return '%';
-      default:
-        return type;
-    }
-  };
 
   CSSLengthValue.from = function(value, type) {
     if (type !== undefined) {
@@ -126,17 +104,37 @@
 
   internal.CSSLengthTypes = CSSLengthTypes;
   internal.isValidLengthType = isValidLengthType;
-  internal.CSSLengthValue = CSSLengthValue;
+  scope.CSSLengthValue = CSSLengthValue;
 
   (function() {
-    function CSSLengthValue() {
-      throw new TypeError('CSSLengthValue cannot be instantiated.');
+    function CSSLengthValue(value) {
+      if (!(value instanceof scope.CSSLengthValue)) {
+        throw new TypeError('Value in the CSSLengthValue constructor must be a ' +
+            'CSSLengthValue.');
+      }
+
+      if (value instanceof CSSSimpleLength) {
+        return new CSSSimpleLength(value);
+      } else {
+        return new CSSCalcLength(value);
+      }
     }
-    CSSLengthValue.prototype = Object.create(internal.CSSLengthValue.prototype);
+    CSSLengthValue.prototype = Object.create(scope.CSSLengthValue.prototype);
 
-    CSSLengthValue.from = internal.CSSLengthValue.from;
+    CSSLengthValue.cssTextTypeRepresentation = function(type) {
+      if (!isValidLengthType(type)) {
+        throw new TypeError('Invalid Length Type.');
+      }
 
-    scope.CSSLengthValue = CSSLengthValue;
+      switch (type) {
+        case 'percent':
+          return '%';
+        default:
+          return type;
+      }
+    };
+
+    internal.CSSLengthValue = CSSLengthValue;
   })();
 
 })(typedOM.internal, window);

@@ -18,6 +18,10 @@ suite('CSSStyleValue', function() {
         /^CSSStyleValue cannot be instantiated/);
   });
 
+  test('Internal CSSStyleValue is an instanceof CSSStyleValue', function() {
+    assert.instanceOf(new typedOM.internal.CSSStyleValue('cssText'), CSSStyleValue);
+  });
+
   test('parse works for keywords', function() {
     var keywordValue  = CSSStyleValue.parse('height', 'auto');
     assert.strictEqual(keywordValue.cssText, 'auto');

@@ -30,31 +30,31 @@
     this.state = "loading";
   }
 
-  function CSSImageValue(image) {
-    if (!(image instanceof Image)) {
-      throw new TypeError("image must be an Image object");
-    }
-
-    this._image = image;
-    this.state = "unloaded";
-    this.intrinsicWidth = null;
-    this.intrinsicHeight = null;
-    this.intrinsicRatio = null;
-    this._image.onload = onLoad.bind(this);
-    this._image.onerror = onError.bind(this);
-    this._image.onprogess = onProgress.bind(this);
+  var CSSImageValue = function() {
+    throw new TypeError('CSSImageValue cannot be instantiated');
   }
   internal.inherit(CSSImageValue, CSSResourceValue);
 
-  internal.CSSImageValue = CSSImageValue;
+  scope.CSSImageValue = CSSImageValue;
 
   (function() {
-    var CSSImageValue = function() {
-      throw new TypeError('CSSImageValue cannot be instantiated');
-    }
-    CSSImageValue.prototype = Object.create(internal.CSSImageValue.prototype);
+    function CSSImageValue(image) {
+      if (!(image instanceof Image)) {
+        throw new TypeError("image must be an Image object");
+      }
 
-    scope.CSSImageValue = CSSImageValue;
+      this._image = image;
+      this.state = "unloaded";
+      this.intrinsicWidth = null;
+      this.intrinsicHeight = null;
+      this.intrinsicRatio = null;
+      this._image.onload = onLoad.bind(this);
+      this._image.onerror = onError.bind(this);
+      this._image.onprogess = onProgress.bind(this);
+    }
+    CSSImageValue.prototype = Object.create(scope.CSSImageValue.prototype);
+
+    internal.CSSImageValue = CSSImageValue;
   })();
 
 })(typedOM.internal, window);
