@@ -33,20 +33,6 @@ suite('CSSImageValue', function() {
     assert.throws(function() { new typedOM.internal.CSSImageValue({ x: 1, y: 2 }); }, TypeError, imageErr);
   });
 
-  /*
-  test('Can accept an already loaded image', function(done) {
-    var image = new Image();
-    //image.src = "resources/1x1-green.png";
-    image.onload = function() {
-      var cssImageValue = new typedOM.internal.CSSImageValue(image);
-      assert.strictEqual(image.state, "loaded");
-      assert.strictEqual(image.intrinsicWidth, 1);
-      assert.strictEqual(image.intrinsicHeight, 1);
-      assert.strictEqual(image.intrinsicRatio, 1);
-      done();
-    };
-  });*/
-
   test('State and dimensions are correct before and after loading', function(done) {
     var image = new typedOM.internal.CSSImageValue(new Image());
     assert.strictEqual(image.state, "unloaded");
@@ -58,7 +44,7 @@ suite('CSSImageValue', function() {
     image._image.onload = function() {
       oldOnload();
       assert.strictEqual(image.state, "loaded");
-      assert.strictEqual(image.intrinsicWidth, 2);
+      assert.strictEqual(image.intrinsicWidth, 1);
       assert.strictEqual(image.intrinsicHeight, 1);
       assert.strictEqual(image.intrinsicRatio, 1);
       done();
