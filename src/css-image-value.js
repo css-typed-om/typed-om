@@ -45,17 +45,13 @@
       }
 
       this._image = image;
-      //if (image.complete) {
-      //  onLoad.call(this);
-      //} else {
-        this.state = "unloaded";
-        this.intrinsicWidth = null;
-        this.intrinsicHeight = null;
-        this.intrinsicRatio = null;
-        this._image.onload = onLoad.bind(this);
-        this._image.onerror = onError.bind(this);
-        this._image.onprogess = onProgress.bind(this);
-      //}
+      this.state = "unloaded";
+      this.intrinsicWidth = null;
+      this.intrinsicHeight = null;
+      this.intrinsicRatio = null;
+      this._image.onload = onLoad.bind(this);
+      this._image.onerror = onError.bind(this);
+      this._image.onprogess = onProgress.bind(this);
     }
     CSSImageValue.prototype = Object.create(scope.CSSImageValue.prototype);
 
