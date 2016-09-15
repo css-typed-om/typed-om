@@ -40,18 +40,20 @@
 
   (function() {
     function CSSImageValue(image) {
-      if (!(image instanceof Image)) {
-        throw new TypeError("image must be an Image object");
+      if (!(image instanceof Image) && typeof image != 'string') {
+        throw new TypeError("image must be an Image object or string URL");
       }
+      var src = image instanceof Image ? image.src : image;
 
-      this._image = image;
       this.state = "unloaded";
       this.intrinsicWidth = null;
       this.intrinsicHeight = null;
       this.intrinsicRatio = null;
+      this._image = new Image();
       this._image.onload = onLoad.bind(this);
-      this._image.onerror = onError.bind(this);
+      this._image.onerror = onError.bind(this);  // nb. loading blank src calls onerror
       this._image.onprogess = onProgress.bind(this);
+      this._image.src = src;  // load last, to force callbacks
     }
     CSSImageValue.prototype = Object.create(scope.CSSImageValue.prototype);
 
