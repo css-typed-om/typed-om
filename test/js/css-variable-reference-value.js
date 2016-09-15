@@ -15,7 +15,7 @@
 suite('CSSVariableReferenceValue', function() {
   test('The new CSSVariableReferenceValue attributes are correct', function() {
     var expectedVariable = 'anything';
-    var expectedFallback = new CSSUnparsedValue(["123"]);
+    var expectedFallback = new typedOM.internal.CSSUnparsedValue(["123"]);
     var referenceValue = new CSSVariableReferenceValue(expectedVariable, expectedFallback);
     assert.instanceOf(referenceValue, CSSVariableReferenceValue,
       'A new CSSVariableReferenceValue should be an instance of CSSVariableReferenceValue');

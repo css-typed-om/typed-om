@@ -14,10 +14,11 @@
 
 suite('CSSURLImageValue', function() {
   test('CSSURLImageValue is a CSSURLImageValue, CSSImageValue, CSSResourceValue, and CSSStyleValue', function() {
-    assert.instanceOf(new CSSURLImageValue('resources/1x1-green.png'), CSSURLImageValue);
-    assert.instanceOf(new CSSURLImageValue('resources/1x1-green.png'), CSSImageValue);
-    assert.instanceOf(new CSSURLImageValue('resources/1x1-green.png'), CSSResourceValue);
-    assert.instanceOf(new CSSURLImageValue('resources/1x1-green.png'), CSSStyleValue);
+    var imageValue = new CSSURLImageValue('resources/1x1-green.png');
+    assert.instanceOf(imageValue, CSSURLImageValue);
+    assert.instanceOf(imageValue, CSSImageValue);
+    assert.instanceOf(imageValue, CSSResourceValue);
+    assert.instanceOf(imageValue, CSSStyleValue);
   });
 
   test('CSSURLImageValue only accepts string', function() {
