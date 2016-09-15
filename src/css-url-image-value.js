@@ -19,12 +19,12 @@
       throw new TypeError("URL must be a string");
     }
     internal.CSSImageValue.call(this, new Image());
+
     this._image.src = url;
     this.url = url;
     this.cssText = 'url(' + this.url + ')';
   }
-
-  internal.inherit(CSSURLImageValue, internal.CSSImageValue);
+  internal.inherit(CSSURLImageValue, CSSImageValue);
 
   scope.CSSURLImageValue = CSSURLImageValue;
 
