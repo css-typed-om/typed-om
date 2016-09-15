@@ -24,30 +24,28 @@ suite('CSSImageValue', function() {
     assert.instanceOf(new typedOM.internal.CSSImageValue(new Image()), CSSStyleValue);
   });
 
-  test('CSSImageValue only accepts Image objects', function() {
-    var imageErr = /image must be an Image object/;
+  test('CSSImageValue only accepts Image object or string URL', function() {
+    var imageErr = /^image must be an Image object or string URL$/;
     assert.throws(function() { new typedOM.internal.CSSImageValue(); }, TypeError, imageErr);
     assert.throws(function() { new typedOM.internal.CSSImageValue(1); }, TypeError, imageErr);
-    assert.throws(function() { new typedOM.internal.CSSImageValue("abc"); }, TypeError, imageErr);
     assert.throws(function() { new typedOM.internal.CSSImageValue([]); }, TypeError, imageErr);
     assert.throws(function() { new typedOM.internal.CSSImageValue({ x: 1, y: 2 }); }, TypeError, imageErr);
   });
 
-  test('State and dimensions are correct before and after loading', function(done) {
-    var image = new typedOM.internal.CSSImageValue(new Image());
-    assert.strictEqual(image.state, "unloaded");
-    assert.strictEqual(image.intrinsicWidth, null);
-    assert.strictEqual(image.intrinsicHeight, null);
-    assert.strictEqual(image.intrinsicRatio, null);
-    image._image.src = "resources/1x1-green.png";
-    var oldOnload = image._image.onload;
-    image._image.onload = function() {
-      oldOnload();
-      assert.strictEqual(image.state, "loaded");
-      assert.strictEqual(image.intrinsicWidth, 1);
-      assert.strictEqual(image.intrinsicHeight, 1);
-      assert.strictEqual(image.intrinsicRatio, 1);
+
+  test('CSSImageValue\'s state and dimensions are correct before and after loaded', function(done) {
+    var iv = new typedOM.internal.CSSImageValue('resources/1x1-green.png');
+    assert.strictEqual(iv.state, "unloaded");
+    assert.strictEqual(iv.intrinsicWidth, null);
+    assert.strictEqual(iv.intrinsicHeight, null);
+    assert.strictEqual(iv.intrinsicRatio, null);
+
+    iv._image.addEventListener('load', function() {
+      assert.strictEqual(iv.state, "loaded");
+      assert.strictEqual(iv.intrinsicWidth, 1);
+      assert.strictEqual(iv.intrinsicHeight, 1);
+      assert.strictEqual(iv.intrinsicRatio, 1);
       done();
-    };
+    });
   });
 });
