@@ -53,8 +53,7 @@
     function CSSUnparsedValue(values) {
       if (values == undefined) {
         values = [];
-      }
-      if (!Array.isArray(values)) {
+      } else if (!Array.isArray(values)) {
         throw new TypeError('CSSUnparsedValue should be an array of string or CSSVariableReferenceValue');
       }
       for (var i = 0; i < values.length; i++) {

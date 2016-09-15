@@ -24,7 +24,7 @@ suite('CSSImageValue', function() {
     assert.instanceOf(new typedOM.internal.CSSImageValue(new Image()), CSSStyleValue);
   });
 
-  test('CSSImageValue only accepts Image object', function() {
+  test('CSSImageValue only accepts Image objects', function() {
     var imageErr = /image must be an Image object/;
     assert.throws(function() { new typedOM.internal.CSSImageValue(); }, TypeError, imageErr);
     assert.throws(function() { new typedOM.internal.CSSImageValue(1); }, TypeError, imageErr);
@@ -33,7 +33,7 @@ suite('CSSImageValue', function() {
     assert.throws(function() { new typedOM.internal.CSSImageValue({ x: 1, y: 2 }); }, TypeError, imageErr);
   });
 
-  test('CSSImageValue\'s state and dimensions are correct before and after loaded', function(done) {
+  test('State and dimensions are correct before and after loading', function(done) {
     var image = new typedOM.internal.CSSImageValue(new Image());
     assert.strictEqual(image.state, "unloaded");
     assert.strictEqual(image.intrinsicWidth, null);

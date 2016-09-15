@@ -18,8 +18,9 @@
     this.state = "loaded";
     this.intrinsicWidth = this._image.naturalWidth;
     this.intrinsicHeight = this._image.naturalHeight;
-    if (this.intrinsicHeight != 0)
+    if (this.intrinsicHeight != 0) {
       this.intrinsicRatio = this.intrinsicWidth / this.intrinsicHeight;
+    }
   }
 
   function onError() {
