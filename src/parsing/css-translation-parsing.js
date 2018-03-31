@@ -15,29 +15,6 @@
 (function(internal) {
   var parsing = internal.parsing;
 
-  function translate3d(coords, remaining) {
-      if (coords.length != 3) {
-        return null;
-      }
-      return [new CSSTranslation(coords[0], coords[1], coords[2]), remaining];
-  }
-
-  function translateXYorZ(type, coords, remaining) {
-    if (coords.length != 1) {
-      return null;
-    }
-    var zeroLength = new CSSSimpleLength(0, 'px');
-    switch (type) {
-      case 'x':
-        return [new CSSTranslation(coords[0], zeroLength), remaining];
-      case 'y':
-        return [new CSSTranslation(zeroLength, coords[0]), remaining];
-      case 'z':
-        return [new CSSTranslation(zeroLength, zeroLength, coords[0]), remaining];
-    }
-    return null;
-  }
-
   function consumeTranslation(string) {
     var params = parsing.consumeList([
         parsing.ignore(parsing.consumeToken.bind(null, /^translate/i)),
@@ -62,21 +39,17 @@
 
     switch (type) {
       case '3d' :
-        return translate3d(coords, remaining);
+        return internal.cssTranslationFromTranslate3d(coords, string, remaining);
       case 'x':
+        return internal.cssTranslationFromTranslateX(coords, string, remaining);
       case 'y':
+        return internal.cssTranslationFromTranslateY(coords, string, remaining);
       case 'z':
-        return translateXYorZ(type, coords, remaining);
+        return internal.cssTranslationFromTranslateZ(coords, string, remaining);
     }
 
-    // Only translate(x) and translate(x, y) remain.
-    if (coords.length == 1) {
-      return [new CSSTranslation(coords[0], new CSSSimpleLength(0, 'px')), remaining];
-    }
-    if (coords.length == 2) {
-      return [new CSSTranslation(coords[0], coords[1]), remaining];
-    }
-    return null;
+    // Only translate(s) and translate(x, y) remain.
+    return internal.cssTranslationFromTranslate(coords, string, remaining);
   }
 
   internal.parsing.consumeTranslation = consumeTranslation;

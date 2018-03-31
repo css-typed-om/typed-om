@@ -37,9 +37,8 @@ suite('CSSStyleValue', function() {
   });
 
   test('parse works for transform(translate)', function() {
-    var value = CSSStyleValue.parse('transform', 'translate(10px)');
-    // TODO: Change cssText for CSSTranslation so that it reflects parsed string.
-    assert.strictEqual(value.cssText, 'translate(10px, 0px)');
+    var value = CSSStyleValue.parse('transform', 'translate(10PX)');
+    assert.strictEqual(value.cssText, 'translate(10PX)');
     assert.instanceOf(value.transformComponents[0], CSSTranslation);
     assert.strictEqual(value.transformComponents[0].x.value, 10);
     assert.strictEqual(value.transformComponents[0].x.type, 'px');
@@ -48,8 +47,8 @@ suite('CSSStyleValue', function() {
     // TODO: Change this to something sensible. Udate spec?
     assert.isNull(value.transformComponents[0].z);
 
-    value = CSSStyleValue.parse('transform', 'translatez(1px)');
-    assert.strictEqual(value.cssText, 'translate3d(0px, 0px, 1px)');
+    value = CSSStyleValue.parse('transform', 'translateZ(1px)');
+    assert.strictEqual(value.cssText, 'translateZ(1px)');
     assert.instanceOf(value.transformComponents[0], CSSTranslation);
     assert.strictEqual(value.transformComponents[0].x.value, 0);
     assert.strictEqual(value.transformComponents[0].x.type, 'px');

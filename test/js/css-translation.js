@@ -120,6 +120,7 @@ suite('CSSTranslation', function() {
       assert.strictEqual(parsed[0].x.type, 'px');
       assert.strictEqual(parsed[0].y.type, 'px');
       assert.strictEqual(parsed[0].z, null);
+      assert.strictEqual(parsed[0].cssText, values[i].str);
     }
   });
 
@@ -145,6 +146,7 @@ suite('CSSTranslation', function() {
       assert.strictEqual(parsed[0].x.type, 'px');
       assert.strictEqual(parsed[0].y.type, 'px');
       assert.strictEqual(parsed[0].z.type, 'px');
+      assert.strictEqual(parsed[0].cssText, values[i].str);
     }
   });
 
@@ -168,6 +170,7 @@ suite('CSSTranslation', function() {
       assert.strictEqual(parsed[0].x.type, 'px');
       assert.strictEqual(parsed[0].y.type, 'px');
       assert.strictEqual(parsed[0].z, null);
+      assert.strictEqual(parsed[0].cssText, values[i].str);
     }
   });
 
