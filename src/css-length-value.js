@@ -38,22 +38,7 @@
     });
   };
 
-  // Constructor (CSSLengthValue)
-  function CSSLengthValue(value) {
-    if (!(value instanceof CSSLengthValue)) {
-      throw new TypeError('Value in the CSSLengthValue constructor must be a ' +
-          'CSSLengthValue.');
-    }
-
-    if (value instanceof CSSSimpleLength) {
-      return new CSSSimpleLength(value);
-    } else {
-      return new CSSCalcLength(value);
-    }
-  }
-  internal.inherit(CSSLengthValue, CSSStyleValue);
-
-  CSSLengthValue.cssTextTypeRepresentation = function(type) {
+  function lengthTypeToString(type) {
     if (!isValidLengthType(type)) {
       throw new TypeError('Invalid Length Type.');
     }
@@ -66,11 +51,19 @@
     }
   };
 
+  function CSSLengthValue() {
+    throw new TypeError('CSSLengthValue cannot be instantiated.');
+  }
+  internal.inherit(CSSLengthValue, CSSStyleValue);
+
   CSSLengthValue.from = function(value, type) {
     if (type !== undefined) {
       return new CSSSimpleLength(value, type);
     }
-    if (typeof value == 'object') {
+    if (value instanceof CSSSimpleLength) {
+      return new CSSSimpleLength(value.value, value.type);
+    }
+    if (typeof value == 'object' || value instanceof CSSCalcLength) {
       return new CSSCalcLength(value);
     }
     if (typeof value != 'string') {
@@ -124,6 +117,8 @@
 
   internal.CSSLengthTypes = CSSLengthTypes;
   internal.isValidLengthType = isValidLengthType;
+  internal.lengthTypeToString = lengthTypeToString;
 
   scope.CSSLengthValue = CSSLengthValue;
+
 })(typedOM.internal, window);
