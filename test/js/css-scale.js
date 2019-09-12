@@ -79,6 +79,7 @@ suite('CSSScale', function() {
       assert.strictEqual(parsed[0].x, values[i].x);
       assert.strictEqual(parsed[0].y, values[i].y);
       assert.strictEqual(parsed[0].z, values[i].z);
+      assert.strictEqual(parsed[0].cssText, values[i].str);
     }
   });
 

@@ -15,28 +15,6 @@
 (function(internal) {
   var parsing = internal.parsing;
 
-  function scale3d(numbers, remaining) {
-    if (numbers.length != 3) {
-      return null;
-    }
-    return [new CSSScale(numbers[0], numbers[1], numbers[2]), remaining];
-  }
-
-  function scaleXYorZ(xyOrZ, numbers, remaining) {
-    if (numbers.length != 1) {
-      return null;
-    }
-    switch (xyOrZ) {
-      case 'x':
-        return [new CSSScale(numbers[0], 1), remaining];
-      case 'y':
-        return [new CSSScale(1, numbers[0]), remaining];
-      case 'z':
-        return [new CSSScale(1, 1, numbers[0]), remaining];
-    }
-    return null;
-  }
-
   function consumeScale(string) {
     var params = parsing.consumeList([
         parsing.ignore(parsing.consumeToken.bind(null, /^scale/i)),
@@ -55,21 +33,17 @@
 
     switch (type) {
       case '3d':
-        return scale3d(numbers, remaining);
+        return internal.cssScaleFromScale3d(numbers, string, remaining);
       case 'x':
+        return internal.cssScaleFromScaleX(numbers, string, remaining);
       case 'y':
+        return internal.cssScaleFromScaleY(numbers, string, remaining);
       case 'z':
-        return scaleXYorZ(type, numbers, remaining);
+        return internal.cssScaleFromScaleZ(numbers, string, remaining);
     }
 
     // Only scale(s) and scale(x, y) remain.
-    if (numbers.length == 1) {
-      return [new CSSScale(numbers[0], numbers[0]), remaining];
-    }
-    if (numbers.length == 2) {
-      return [new CSSScale(numbers[0], numbers[1]), remaining];
-    }
-    return null;
+    return internal.cssScaleFromScale(numbers, string, remaining);
   }
 
   internal.parsing.consumeScale = consumeScale;
