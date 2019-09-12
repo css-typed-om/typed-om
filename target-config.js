@@ -34,7 +34,6 @@
       'src/css-translation.js',
       // CSSStyleValue and subclasses
       'src/css-style-value.js',
-      'src/internal-css-style-value.js',
       'src/css-angle-value.js',
       'src/css-color-value.js',
       'src/css-number-value.js',
